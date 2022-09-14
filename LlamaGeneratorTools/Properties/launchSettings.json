@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LlamaGeneratorTools (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LlamaGeneratorTools (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
