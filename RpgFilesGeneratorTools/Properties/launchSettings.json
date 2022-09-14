@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RpgFilesGeneratorTools (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "RpgFilesGeneratorTools (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
