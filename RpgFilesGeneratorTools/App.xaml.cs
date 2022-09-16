@@ -20,7 +20,7 @@ public partial class App
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        var test = Services.GetService<TestService>();
+        var test = Services.GetService<MainViewModel>();
 
         _mainWindow = new MainWindow(test);
         _mainWindow.Activate();
@@ -33,6 +33,7 @@ public partial class App
         var services = new ServiceCollection();
 
         services.AddSingleton<TestService>();
+        services.AddTransient<MainViewModel>();
 
         return services.BuildServiceProvider();
     }
