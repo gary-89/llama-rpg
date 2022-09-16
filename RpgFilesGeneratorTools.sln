@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgFilesGeneratorTools", "LlamaGeneratorTools\RpgFilesGeneratorTools.csproj", "{7E8D1514-C324-4232-913F-BC4A2C3A44F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpgFilesGeneratorTools", "RpgFilesGeneratorTools\RpgFilesGeneratorTools.csproj", "{7E8D1514-C324-4232-913F-BC4A2C3A44F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

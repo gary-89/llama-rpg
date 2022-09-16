@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "LlamaGeneratorTools (Package)": {
+    "RpgFilesGeneratorTools (Package)": {
       "commandName": "MsixPackage"
     },
-    "LlamaGeneratorTools (Unpackaged)": {
+    "RpgFilesGeneratorTools (Unpackaged)": {
       "commandName": "Project"
     }
   }
