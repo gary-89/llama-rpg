@@ -6,23 +6,22 @@ namespace RpgFilesGeneratorTools;
 
 public partial class App
 {
-    private Window _mainWindow;
+    private Window? _mainWindow;
 
     public App()
     {
-        Services = ConfigureServices();
         InitializeComponent();
     }
 
-    public static FrameworkElement MainRoot { get; private set; }
+    public static FrameworkElement? MainRoot { get; private set; }
 
-    public IServiceProvider Services { get; }
+    public static IServiceProvider Services => ConfigureServices();
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        var test = Services.GetService<MainViewModel>();
+        var mainViewModel = Services.GetRequiredService<MainViewModel>();
 
-        _mainWindow = new MainWindow(test);
+        _mainWindow = new MainWindow(mainViewModel);
         _mainWindow.Activate();
 
         MainRoot = _mainWindow.Content as FrameworkElement;
@@ -32,7 +31,7 @@ public partial class App
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<TestService>();
+        services.AddSingleton<RandomNumberProvider>();
         services.AddTransient<MainViewModel>();
 
         return services.BuildServiceProvider();

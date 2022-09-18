@@ -10,7 +10,9 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate x:Key="NavigationViewItemTemplate" x:DataType="local:ApplicationPage">
-            <NavigationViewItem Content="{x:Bind}" />
+            <NavigationViewItem ToolTipService.ToolTip="{x:Bind}">
+                <TextBlock Text="{x:Bind}" TextTrimming="CharacterEllipsis" />
+            </NavigationViewItem>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -37,6 +39,7 @@
         <NavigationView
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
+            IsPaneToggleButtonVisible="False"
             MenuItemTemplate="{StaticResource NavigationViewItemTemplate}"
             MenuItemsSource="{x:Bind ViewModel.Pages}"
             SelectedItem="{x:Bind ViewModel.SelectedPage, Mode=TwoWay}">
@@ -118,9 +121,5 @@
                 Grid.Column="2"
                 Content="Simulate" />
         </Grid>-->
-
-        <StackPanel Grid.Row="2">
-            <TextBlock Text="{x:Bind ViewModel.RandomNumber}" />
-        </StackPanel>
     </Grid>
 </UserControl>

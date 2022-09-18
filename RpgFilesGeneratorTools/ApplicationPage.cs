@@ -2,6 +2,8 @@
 
 public enum ApplicationPage
 {
-    Home,
-    Apps
+    Affixes,
+    Monsters,
+    Items,
+    Maps,
 };

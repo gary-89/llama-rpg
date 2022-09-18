@@ -2,33 +2,38 @@
 using RpgFilesGeneratorTools.Pages;
 using System;
 
-namespace RpgFilesGeneratorTools.Converters
+namespace RpgFilesGeneratorTools.Converters;
+
+internal sealed class MenuItemToPageConverter
 {
-    internal sealed class MenuItemToPageConverter
+    public static Page Convert(object? value)
     {
-        public static Page Convert(object? value)
+        if (value is null)
         {
-            if (value is null)
-            {
-                return new HomePage();
-            }
-
-            if (value is not ApplicationPage page)
-            {
-                throw new InvalidCastException();
-            }
-
-            switch (page)
-            {
-                case ApplicationPage.Home:
-                default:
-                    return new HomePage();
-
-                case ApplicationPage.Apps:
-                    return new AppPage();
-            }
+            return new AffixesPage();
         }
 
-        public static ApplicationPage ConvertBack(object value) => (ApplicationPage)value;
+        if (value is not ApplicationPage page)
+        {
+            throw new InvalidCastException();
+        }
+
+        switch (page)
+        {
+            case ApplicationPage.Affixes:
+            default:
+                return new AffixesPage();
+
+            case ApplicationPage.Monsters:
+                return new MonstersPage();
+
+            case ApplicationPage.Items:
+                return new ItemsPage();
+
+            case ApplicationPage.Maps:
+                return new MapsPage();
+        }
     }
+
+    public static ApplicationPage ConvertBack(object value) => (ApplicationPage)value;
 }

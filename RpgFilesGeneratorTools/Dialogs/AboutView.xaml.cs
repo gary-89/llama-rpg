@@ -1,10 +1,9 @@
-﻿namespace RpgFilesGeneratorTools
+﻿namespace RpgFilesGeneratorTools;
+
+internal sealed partial class AboutView
 {
-    internal sealed partial class AboutView
+    public AboutView()
     {
-        public AboutView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

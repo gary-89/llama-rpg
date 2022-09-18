@@ -6,46 +6,44 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace RpgFilesGeneratorTools
+namespace RpgFilesGeneratorTools;
+
+internal sealed class MainViewModel : ObservableObject
 {
-    internal sealed class MainViewModel : ObservableObject
+    private object? _selectedPage;
+
+    public MainViewModel()
     {
-        private readonly TestService _testService;
+        AboutCommand = new RelayCommand(ShowAboutDialog);
+    }
 
-        private object? _selectedPage;
+    public ICommand AboutCommand { get; }
 
-        public MainViewModel(TestService testService)
+    public IReadOnlyList<ApplicationPage> Pages { get; } = Enum.GetValues<ApplicationPage>();
+
+    public object? SelectedPage
+    {
+        get => _selectedPage;
+        set => SetProperty(ref _selectedPage, value);
+    }
+
+    private static async void ShowAboutDialog()
+    {
+        if (App.MainRoot is null)
         {
-            _testService = testService;
-
-            AboutCommand = new RelayCommand(ShowAboutDialog);
+            return;
         }
 
-        public int RandomNumber => _testService.Test();
-
-        public ICommand AboutCommand { get; }
-
-        public IReadOnlyList<ApplicationPage> Pages { get; } = Enum.GetValues<ApplicationPage>();
-
-        public object? SelectedPage
+        var dialog = new ContentDialog
         {
-            get => _selectedPage;
-            set => SetProperty(ref _selectedPage, value);
-        }
+            XamlRoot = App.MainRoot.XamlRoot,
+            Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
+            Title = "About",
+            CloseButtonText = "Cancel",
+            DefaultButton = ContentDialogButton.Close,
+            Content = new AboutView()
+        };
 
-        private static async void ShowAboutDialog()
-        {
-            var dialog = new ContentDialog
-            {
-                XamlRoot = App.MainRoot.XamlRoot,
-                Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style,
-                Title = "About",
-                CloseButtonText = "Cancel",
-                DefaultButton = ContentDialogButton.Close,
-                Content = new AboutView()
-            };
-
-            await dialog.ShowAsync();
-        }
+        await dialog.ShowAsync();
     }
 }

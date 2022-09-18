@@ -16,8 +16,10 @@
   <ItemGroup>
     <None Remove="AboutView.xaml" />
     <None Remove="MainView.xaml" />
-    <None Remove="Pages\AppPage.xaml" />
-    <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\AffixesPage.xaml" />
+    <None Remove="Pages\ItemsPage.xaml" />
+    <None Remove="Pages\MapsPage.xaml" />
+    <None Remove="Pages\MonstersPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,12 +50,22 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Pages\MapsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\ItemsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\AppPage.xaml">
+    <Page Update="Pages\MonstersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -63,7 +75,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\HomePage.xaml">
+    <Page Update="Pages\AffixesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
