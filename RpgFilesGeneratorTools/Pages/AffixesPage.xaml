@@ -5,18 +5,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:RpgFilesGeneratorTools.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:RpgFilesGeneratorTools.Models"
     xmlns:toolkit="using:RpgFilesGeneratorTools.Toolkit"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     d:DataContext="{d:DesignInstance viewModels:AffixesPageViewModel}"
     toolkit:ViewModelLocator.AutoHookedUpViewModel="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="AffixListItemTemplate" x:DataType="models:Affix">
+            <StackPanel>
+                <TextBlock Text="{x:Bind Name}" TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    FontSize="12"
+                    Foreground="Gray"
+                    Text="{x:Bind Weapon}" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0">
@@ -24,10 +36,58 @@
             <Run Text="{x:Bind ViewModel.Number}" />
         </TextBlock>
 
-        <AutoSuggestBox
-            Grid.Row="1"
-            PlaceholderText="Search affix..."
-            QueryIcon="Find"
-            Text="{x:Bind ViewModel.Filter, Mode=TwoWay}" />
+        <Grid Grid.Row="1" Margin="7,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <AutoSuggestBox
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                PlaceholderText="Search affix..."
+                QueryIcon="Find"
+                Text="{x:Bind ViewModel.Filter, Mode=TwoWay}" />
+
+            <CommandBar
+                Grid.Column="1"
+                Background="Transparent"
+                DefaultLabelPosition="Right"
+                IsOpen="False">
+                <AppBarButton Icon="Add" Label="Add" />
+                <AppBarButton Icon="Edit" Label="Edit" />
+                <AppBarButton Icon="Copy" Label="Clone" />
+                <AppBarButton Icon="Delete" Label="Delete" />
+            </CommandBar>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListView
+                Grid.Column="0"
+                Width="200"
+                ItemTemplate="{StaticResource AffixListItemTemplate}"
+                ItemsSource="{x:Bind ViewModel.AffixesSource}"
+                SelectedItem="{x:Bind ViewModel.SelectedAffix, Mode=TwoWay}"
+                SelectionMode="Single" />
+
+            <TextBlock Grid.Column="1">
+                <Run Text="Selected affix: " />
+                <Run Text="{x:Bind ViewModel.SelectedAffix.Name, FallbackValue='', Mode=OneWay}" />
+                <LineBreak />
+                <Run Text="Async state:" />
+                <Run Text="{x:Bind ViewModel.Initialization.Status, FallbackValue='', Mode=OneWay}" />
+                <LineBreak />
+                <Run Text="Async IsCompletedSuccessfully:" />
+                <Run Text="{x:Bind ViewModel.Initialization.IsSuccessfullyCompleted, FallbackValue='', Mode=OneWay}" />
+                <LineBreak />
+                <Run Text="Async IsFaulted:" />
+                <Run Text="{x:Bind ViewModel.Initialization.IsFaulted, FallbackValue='', Mode=OneWay}" />
+            </TextBlock>
+        </Grid>
     </Grid>
 </Page>
