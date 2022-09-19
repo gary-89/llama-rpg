@@ -33,7 +33,7 @@
 
         <TextBlock Grid.Row="0">
             <Run Text="Affixes page" />
-            <Run Text="{x:Bind ViewModel.Number}" />
+            <Run Text="{x:Bind ViewModel.AffixesSource.Count}" />
         </TextBlock>
 
         <Grid Grid.Row="1" Margin="7,0,0,0">

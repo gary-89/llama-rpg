@@ -24,34 +24,45 @@ public static class ViewModelLocator
 
     private static void AutoHookedUpViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is not FrameworkElement frameworkElement)
+        try
         {
-            return;
+            if (d is not FrameworkElement frameworkElement)
+            {
+                return;
+            }
+
+            var viewType = d.GetType();
+
+            var fullName = viewType.FullName;
+
+            if (fullName is null)
+            {
+                return;
+            }
+
+            const string viewModelSuffix = "ViewModel";
+            const string pagesNamespace = ".Pages.";
+            const string viewModelsNamespace = ".ViewModels.";
+
+            var viewModelTypeName = fullName.Replace(pagesNamespace, viewModelsNamespace) + viewModelSuffix;
+            var viewModelType = Type.GetType(viewModelTypeName);
+
+            if (viewModelType is null)
+            {
+                return;
+            }
+
+            if (App.Services is null)
+            {
+                throw new InvalidCastException();
+            }
+
+            var viewModel = ActivatorUtilities.CreateInstance(App.Services, viewModelType);
+            frameworkElement.DataContext = viewModel;
         }
-
-        var viewType = d.GetType();
-
-        var fullName = viewType.FullName;
-
-        if (fullName is null)
+        catch (Exception exception)
         {
-            return;
+            var error = exception.Message;
         }
-
-        const string viewModelSuffix = "ViewModel";
-        const string pagesNamespace = ".Pages.";
-        const string viewModelsNamespace = ".ViewModels.";
-
-        var viewModelTypeName = fullName.Replace(pagesNamespace, viewModelsNamespace) + viewModelSuffix;
-        var viewModelType = Type.GetType(viewModelTypeName);
-
-        if (viewModelType is null)
-        {
-            return;
-        }
-
-        var serviceProvider = App.Services;
-        var viewModel = ActivatorUtilities.CreateInstance(serviceProvider, viewModelType);
-        frameworkElement.DataContext = viewModel;
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using RpgFilesGeneratorTools.Services;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
+using Serilog;
 using System;
 
 namespace RpgFilesGeneratorTools;
@@ -10,15 +13,21 @@ public partial class App
 
     public App()
     {
+        Services = ConfigureServices();
         InitializeComponent();
     }
 
     public static FrameworkElement? MainRoot { get; private set; }
 
-    public static IServiceProvider Services => ConfigureServices();
+    public static IServiceProvider? Services { get; private set; }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
+        if (Services is null)
+        {
+            throw new InvalidOperationException();
+        }
+
         var mainViewModel = Services.GetRequiredService<MainViewModel>();
 
         _mainWindow = new MainWindow(mainViewModel);
@@ -31,8 +40,9 @@ public partial class App
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<RandomNumberProvider>();
+        services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddTransient<MainViewModel>();
+        services.AddSerilog();
 
         return services.BuildServiceProvider();
     }

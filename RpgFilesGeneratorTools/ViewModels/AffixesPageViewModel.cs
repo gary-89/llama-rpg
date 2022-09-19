@@ -1,28 +1,32 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Toolkit.Async;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
 internal class AffixesPageViewModel : ObservableObject
 {
-    private readonly RandomNumberProvider _randomNumberProvider;
+    private readonly IAffixProvider _affixProvider;
+    private readonly ILogger<AffixesPageViewModel> _logger;
 
     private string? _filter;
     private Affix? _selectedAffix;
 
-    public AffixesPageViewModel(RandomNumberProvider randomNumberProvider)
+    public AffixesPageViewModel(IAffixProvider affixProvider, ILogger<AffixesPageViewModel> logger)
     {
-        _randomNumberProvider = randomNumberProvider;
+        _affixProvider = affixProvider;
+        _logger = logger;
+
         Initialization = new NotifyTaskCompletion<int>(InitializeAsync());
     }
 
     public NotifyTaskCompletion<int> Initialization { get; }
-
-    public int Number => _randomNumberProvider.GetRandomNumber();
 
     public ObservableCollection<Affix> AffixesSource { get; } = new();
 
@@ -42,19 +46,15 @@ internal class AffixesPageViewModel : ObservableObject
     {
         try
         {
-            await Task.Delay(2000);
-            AffixesSource.Add(new Affix("Fire resistance", 0, 15, 20, "Gloves"));
-            await Task.Delay(2000);
-            AffixesSource.Add(new Affix("Cold resistance", 10, 15, 20, "Boots"));
-            await Task.Delay(2000);
-            AffixesSource.Add(new Affix("Lighting resistance", 0, 20, 20, "Boots"));
+            var affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None);
 
-            return 1;
+            AffixesSource.AddEach(affixes);
         }
         catch (Exception exception)
         {
-            var error = exception.Message;
-            return 0;
+            _logger.LogError(exception, "Failed to initialize affixes view model");
         }
+
+        return 0;
     }
 }
