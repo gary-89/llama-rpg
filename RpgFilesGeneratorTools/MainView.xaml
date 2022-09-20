@@ -6,12 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:RpgFilesGeneratorTools"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance local:MainViewModel}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance local:MainViewModel}">
     <UserControl.Resources>
-        <DataTemplate x:Key="NavigationViewItemTemplate" x:DataType="local:ApplicationPage">
+        <DataTemplate
+            x:Key="NavigationViewItemTemplate"
+            x:DataType="local:ApplicationPage">
             <NavigationViewItem ToolTipService.ToolTip="{x:Bind}">
-                <TextBlock Text="{x:Bind}" TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    Text="{x:Bind}"
+                    TextTrimming="CharacterEllipsis" />
             </NavigationViewItem>
         </DataTemplate>
     </UserControl.Resources>
@@ -32,7 +36,9 @@
             </MenuBarItem>
 
             <MenuBarItem Title="Help">
-                <MenuFlyoutItem Command="{x:Bind ViewModel.AboutCommand}" Text="About" />
+                <MenuFlyoutItem
+                    Text="About"
+                    Command="{x:Bind ViewModel.AboutCommand}" />
             </MenuBarItem>
         </MenuBar>
 
@@ -40,6 +46,7 @@
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
             MenuItemTemplate="{StaticResource NavigationViewItemTemplate}"
             MenuItemsSource="{x:Bind ViewModel.Pages}"
             SelectedItem="{x:Bind ViewModel.SelectedPage, Mode=TwoWay}">

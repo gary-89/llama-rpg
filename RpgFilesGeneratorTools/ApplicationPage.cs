@@ -2,8 +2,8 @@
 
 public enum ApplicationPage
 {
+    Items,
     Affixes,
     Monsters,
-    Items,
     Maps,
 };

@@ -41,6 +41,7 @@ public partial class App
         var services = new ServiceCollection();
 
         services.AddSingleton<IAffixProvider, AffixProvider>();
+        services.AddSingleton<IItemProvider, ItemProvider>();
         services.AddTransient<MainViewModel>();
         services.AddSerilog();
 

@@ -1,0 +1,49 @@
+﻿<UserControl
+    x:Class="RpgFilesGeneratorTools.Pages.ItemDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:RpgFilesGeneratorTools.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:RpgFilesGeneratorTools.Models"
+    xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:ItemsPageViewModel}">
+    <Grid>
+        <TextBlock>
+            <Run Text="Selected item: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Name, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Type: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}" />
+            <Run Text="-" />
+            <Run Text="{x:Bind ViewModel.SelectedItem.SubType, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Speed: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Speed, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Damage: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.MinDamage, FallbackValue='', Mode=OneWay}" />
+            <Run Text="-" />
+            <Run Text="{x:Bind ViewModel.SelectedItem.MaxDamage, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Strength required: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.RequiredStrength, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Dexterity required: " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.RequiredDexterity, FallbackValue='', Mode=OneWay}" />
+            <LineBreak />
+            <Run Text="Status(es): " />
+            <LineBreak />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Status, FallbackValue='', Mode=OneWay}" />
+            <Run Text=": " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay}" />
+            <Run Text="%" />
+            <LineBreak />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Status2, FallbackValue='', Mode=OneWay}" />
+            <Run Text=": " />
+            <Run Text="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay}" />
+            <Run Text="%" />
+        </TextBlock>
+    </Grid>
+</UserControl>

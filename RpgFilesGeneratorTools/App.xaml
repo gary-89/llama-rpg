@@ -50,8 +50,9 @@
                 </ResourceDictionary>-->
             </ResourceDictionary.MergedDictionaries>
 
-            <!--  Other app resources here  -->
+            <!-- Other app resources here -->
             <converters:MenuItemToPageConverter x:Key="MenuItemToPageConverter" />
+            <converters:ObjectEqualityToVisibilityConverter x:Key="ObjectEqualityToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

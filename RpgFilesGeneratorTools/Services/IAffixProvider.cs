@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RpgFilesGeneratorTools;
+namespace RpgFilesGeneratorTools.Services;
 
 internal interface IAffixProvider
 {
