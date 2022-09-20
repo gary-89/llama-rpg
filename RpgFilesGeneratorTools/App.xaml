@@ -53,6 +53,10 @@
             <!-- Other app resources here -->
             <converters:MenuItemToPageConverter x:Key="MenuItemToPageConverter" />
             <converters:ObjectEqualityToVisibilityConverter x:Key="ObjectEqualityToVisibilityConverter" />
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:BooleanToVisibilityConverter
+                x:Key="InvertedBooleanToVisibilityConverter"
+                IsInverted="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

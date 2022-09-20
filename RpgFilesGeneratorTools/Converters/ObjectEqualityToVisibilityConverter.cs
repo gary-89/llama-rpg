@@ -6,12 +6,17 @@ namespace RpgFilesGeneratorTools.Converters;
 
 internal sealed class ObjectEqualityToVisibilityConverter : IValueConverter
 {
-    public Visibility FalseValue { get; set; } = Visibility.Visible;
+    public Visibility FalseValue => Visibility.Visible;
 
-    public Visibility TrueValue { get; set; } = Visibility.Collapsed;
+    public Visibility TrueValue => Visibility.Collapsed;
 
     public object Convert(object value, Type targetType, object parameter, string language)
     {
+        if (value is int valueInt && int.TryParse(parameter.ToString(), out var parameterInt))
+        {
+            return Equals(valueInt, parameterInt) ? TrueValue : FalseValue;
+        }
+
         return Equals(value, parameter) ? TrueValue : FalseValue;
     }
 

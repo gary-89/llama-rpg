@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;
@@ -10,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
@@ -21,6 +23,8 @@ internal class ItemsPageViewModel : ObservableObject
     private Item? _selectedItem;
     private string? _filterText;
     private IReadOnlyList<Item> _items = new List<Item>();
+    private Item? _editingItem;
+    private bool _isEditing;
 
     public ItemsPageViewModel(IItemProvider itemProvider, ILogger<ItemsPageViewModel> logger)
     {
@@ -28,9 +32,14 @@ internal class ItemsPageViewModel : ObservableObject
         _logger = logger;
 
         TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
+        EditCommand = new RelayCommand(() => IsEditing = true);
+        SaveCommand = new RelayCommand(() => IsEditing = false);
     }
 
     public NotifyTaskCompletion<bool> TaskInitialize { get; }
+
+    public ICommand EditCommand { get; }
+    public ICommand SaveCommand { get; }
 
     public string? FilterText
     {
@@ -49,7 +58,25 @@ internal class ItemsPageViewModel : ObservableObject
     public Item? SelectedItem
     {
         get => _selectedItem;
-        set => SetProperty(ref _selectedItem, value);
+        set
+        {
+            if (SetProperty(ref _selectedItem, value))
+            {
+                EditingItem = value;
+            }
+        }
+    }
+
+    public Item? EditingItem
+    {
+        get => _editingItem;
+        set => SetProperty(ref _editingItem, value);
+    }
+
+    public bool IsEditing
+    {
+        get => _isEditing;
+        set => SetProperty(ref _isEditing, value);
     }
 
     private async Task<bool> LoadItemsAsync()

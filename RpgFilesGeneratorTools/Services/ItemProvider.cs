@@ -55,12 +55,29 @@ internal class ItemProvider : IItemProvider
     {
         var infos = line.Split(CsvSeparator);
 
+        //name,0
+        //Type,1
+        //SubType,2
+        //Status,3
+        //StatusChance,4
+        //Status2,5
+        //StatusChance2,6
+        //reqstr,7
+        //reqdex,8
+        //reqint,9
+        //Sockets,10
+        //speed,11
+        //mindam,12
+        //maxdam,13
+        //mindef,
+        //maxdef,minblock,maxblock,Total min block,Total max block,Total min dmg/def,Total max dmg/def,Socketed,level (null for now)
+
         int.TryParse(infos[4].Replace("%", ""), out var statusChancePercentage);
         int.TryParse(infos[6].Replace("%", ""), out var status2ChancePercentage);
         int.TryParse(infos[7], out var requiredStrength);
         int.TryParse(infos[8], out var requiredDexterity);
-        int.TryParse(infos[9], out var minDamage);
-        int.TryParse(infos[10], out var maxDamage);
+        int.TryParse(infos[12], out var minDamage);
+        int.TryParse(infos[13], out var maxDamage);
         int.TryParse(infos[11], out var speed);
 
         var item = new Item(
