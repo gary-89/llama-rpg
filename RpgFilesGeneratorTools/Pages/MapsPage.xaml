@@ -7,6 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
-
-    <TextBlock Text="Maps" />
+    <StackPanel Margin="10">
+        <TextBlock
+            Text="Maps"
+            Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock
+            Text="TODO"
+            Margin="0,10,0,0" />
+    </StackPanel>
 </Page>

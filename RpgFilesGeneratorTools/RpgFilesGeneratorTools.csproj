@@ -22,11 +22,13 @@
   <ItemGroup>
     <None Remove="AboutView.xaml" />
     <None Remove="MainView.xaml" />
+    <None Remove="Pages\AffixDetails.xaml" />
     <None Remove="Pages\AffixesPage.xaml" />
     <None Remove="Pages\ItemDetails.xaml" />
     <None Remove="Pages\ItemsPage.xaml" />
     <None Remove="Pages\MapsPage.xaml" />
     <None Remove="Pages\MonstersPage.xaml" />
+    <None Remove="Styles\TextBlockStyle.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +69,12 @@
     <None Update="Assets\Files\Items.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\AffixDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\TextBlockStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\ItemDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

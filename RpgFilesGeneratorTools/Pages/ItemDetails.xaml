@@ -7,20 +7,6 @@
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:ItemsPageViewModel}">
-    <UserControl.Resources>
-        <Style
-            x:Key="LabelStyle"
-            TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Gray" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="MinWidth" Value="150" />
-        </Style>
-    </UserControl.Resources>
-
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -148,13 +134,13 @@
                 Grid.Column="1"
                 Grid.Row="6"
                 Margin="10,10,0,0">
-                <TextBlock>
+                <TextBlock Visibility="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay, Converter={StaticResource ObjectEqualityToVisibilityConverter}, ConverterParameter='0'}">
                     <Run Text="{x:Bind ViewModel.SelectedItem.Status, FallbackValue='', Mode=OneWay}" />
                     <Run Text=": " />
                     <Run Text="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay}" />
                     <Run Text="%" />
                 </TextBlock>
-                <TextBlock>
+                <TextBlock Visibility="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay, Converter={StaticResource ObjectEqualityToVisibilityConverter}, ConverterParameter='0'}">
                     <Run Text="{x:Bind ViewModel.SelectedItem.Status2, FallbackValue='', Mode=OneWay}" />
                     <Run Text=": " />
                     <Run Text="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay}" />
@@ -181,7 +167,7 @@
                 Content="Close"
                 Command="{x:Bind ViewModel.ResetSelectionCommand}"
                 Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,0,0,0"/>
+                Margin="10,0,0,0" />
 
             <Button
                 Grid.Column="1"

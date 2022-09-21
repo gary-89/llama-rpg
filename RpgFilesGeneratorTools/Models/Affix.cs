@@ -3,8 +3,14 @@ using System.Linq;
 
 namespace RpgFilesGeneratorTools.Models;
 
+internal sealed record AffixDetails(string Name, List<AffixItemType> Affixes);
+
 internal sealed class Affix
 {
+    private readonly Dictionary<string, List<AffixItemType>> _affixesByItemType = new();
+
+    private string? _types;
+
     public Affix(string name)
     {
         Name = name;
@@ -16,7 +22,29 @@ internal sealed class Affix
 
     public string GetTypes()
     {
-        return string.Join(", ", ItemTypes.Select(x => x.Type).Distinct());
+        return _types ??= string.Join(", ", ItemTypes.Select(x => x.Type).Distinct());
+    }
+
+    public IEnumerable<AffixDetails> GetTypesEnumerable() => ItemTypes.GroupBy(x => x.Type).Select(x => new AffixDetails(x.Key, x.ToList()));
+
+    public IReadOnlyDictionary<string, List<AffixItemType>> GetByItemType()
+    {
+        if (_affixesByItemType.Keys.Count != 0)
+        {
+            return _affixesByItemType;
+        }
+
+        foreach (var affixItemType in ItemTypes)
+        {
+            if (!_affixesByItemType.ContainsKey(affixItemType.Type))
+            {
+                _affixesByItemType.Add(affixItemType.Type, new List<AffixItemType>());
+            }
+
+            _affixesByItemType[affixItemType.Type].Add(affixItemType);
+        }
+
+        return _affixesByItemType;
     }
 }
 

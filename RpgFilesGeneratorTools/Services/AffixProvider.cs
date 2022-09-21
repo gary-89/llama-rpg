@@ -3,7 +3,6 @@ using RpgFilesGeneratorTools.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -65,11 +64,6 @@ internal sealed class AffixProvider : IAffixProvider
                 var lastAffix = _affixes[index];
                 lastAffix.ItemTypes.Add(CreateAffixItemType(itemType, tier, infos));
             }
-
-            //await foreach (var item in FetchAsync(cancellationToken))
-            //{
-            //    _affixes.Add(item);
-            //}
         }
         catch (Exception exception)
         {
@@ -78,7 +72,7 @@ internal sealed class AffixProvider : IAffixProvider
         }
     }
 
-    private AffixItemType CreateAffixItemType(string itemType, int tier, string[] infos)
+    private static AffixItemType CreateAffixItemType(string itemType, int tier, IReadOnlyList<string> infos)
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);
@@ -92,18 +86,8 @@ internal sealed class AffixProvider : IAffixProvider
             isElite == 1,
             itemLevel,
             frequency,
-            modifier1: infos[13],
+            modifier1: infos[10],
             modifier1Min: infos[11],
             modifier1Max: infos[12]);
-    }
-
-    private static async IAsyncEnumerable<Affix> FetchAsync([EnumeratorCancellation] CancellationToken cancellationToken)
-    {
-        await Task.Delay(2000, cancellationToken).ConfigureAwait(false);
-        yield return new Affix("Fire resistance");
-        await Task.Delay(2000, cancellationToken).ConfigureAwait(false);
-        yield return new Affix("Cold resistance");
-        await Task.Delay(2000, cancellationToken).ConfigureAwait(false);
-        yield return new Affix("Lighting resistance");
     }
 }

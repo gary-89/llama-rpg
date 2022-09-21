@@ -45,7 +45,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.ColumnSpan="2">
-                <TextBlock Text="Items" />
+                <TextBlock
+                    Text="Items"
+                    Style="{StaticResource TitleTextBlockStyle}" />
 
                 <AutoSuggestBox
                     Text="{x:Bind ViewModel.FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -60,8 +62,8 @@
                 Grid.Row="1"
                 ItemTemplate="{StaticResource ItemListItemTemplate}"
                 ItemsSource="{x:Bind ViewModel.ItemsSource}"
-                SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
                 SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
                 SelectionMode="Single"
                 Width="200"
                 Margin="0,10,0,0" />

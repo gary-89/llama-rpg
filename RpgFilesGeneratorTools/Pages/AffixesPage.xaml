@@ -37,9 +37,9 @@
 
         <TextBlock
             Grid.Row="0"
-            Margin="10,10,0,0">
-            <Run Text="Affixes" />
-        </TextBlock>
+            Text="Affixes"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Margin="10,10,0,0" />
 
         <Grid
             Grid.Row="1"
@@ -76,7 +76,9 @@
             </CommandBar>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid
+            Grid.Row="2"
+            Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -90,19 +92,17 @@
                 SelectionMode="Single"
                 Width="200" />
 
-            <TextBlock Grid.Column="1">
-                <Run Text="Selected affix: " />
-                <Run Text="{x:Bind ViewModel.SelectedAffix.Name, FallbackValue='', Mode=OneWay}" />
-                <LineBreak />
-                <Run Text="Async state:" />
-                <Run Text="{x:Bind ViewModel.TaskInitialize.Status, FallbackValue='', Mode=OneWay}" />
-                <LineBreak />
-                <Run Text="Async IsCompletedSuccessfully:" />
-                <Run Text="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, FallbackValue='', Mode=OneWay}" />
-                <LineBreak />
-                <Run Text="Async IsFaulted:" />
-                <Run Text="{x:Bind ViewModel.TaskInitialize.IsFaulted, FallbackValue='', Mode=OneWay}" />
-            </TextBlock>
+            <local:AffixDetails
+                Grid.Column="1"
+                Visibility="{x:Bind ViewModel.SelectedAffix, Mode=OneWay, Converter={StaticResource ObjectEqualityToVisibilityConverter}}"
+                Margin="10,10,0,0" />
+
+            <ProgressRing
+                Grid.Column="1"
+                IsActive="True"
+                Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0" />
         </Grid>
     </Grid>
 </Page>

@@ -39,6 +39,7 @@ public partial class App
         var mainViewModel = Services.GetRequiredService<MainViewModel>();
 
         _mainWindow = new MainWindow(mainViewModel);
+        _mainWindow.Title = "Llama RPG editor";
         _mainWindow.Activate();
 
         MainRoot = _mainWindow.Content as FrameworkElement;
