@@ -8,15 +8,17 @@ using System.Threading.Tasks;
 
 namespace RpgFilesGeneratorTools.Services;
 
-internal class ItemProvider : IItemProvider
+internal sealed class ItemProvider : IItemProvider
 {
     private const char CsvSeparator = ',';
 
+    private readonly AppConfig _appConfig;
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<Item> _items = new();
 
-    public ItemProvider(ILogger<ItemProvider> logger)
+    public ItemProvider(AppConfig appConfig, ILogger<ItemProvider> logger)
     {
+        _appConfig = appConfig;
         _logger = logger;
     }
 
@@ -32,11 +34,9 @@ internal class ItemProvider : IItemProvider
 
     private async Task LoadItemsAsync(CancellationToken cancellationToken)
     {
-
         try
         {
-            var appPath = AppContext.BaseDirectory;
-            var itemsFilePath = Path.Combine(appPath, "Assets", "Files", "Items.csv");
+            var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
             var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken);
 
             foreach (var line in lines[1..])

@@ -5,7 +5,9 @@ using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,16 +15,15 @@ namespace RpgFilesGeneratorTools.ViewModels;
 
 internal class AffixesPageViewModel : ObservableObject
 {
-    private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
     private readonly ILogger<AffixesPageViewModel> _logger;
+    private IReadOnlyList<Affix> _cachedAffixes = Array.Empty<Affix>();
 
     private string? _filterText;
     private Affix? _selectedAffix;
 
-    public AffixesPageViewModel(IItemProvider itemProvider, IAffixProvider affixProvider, ILogger<AffixesPageViewModel> logger)
+    public AffixesPageViewModel(IAffixProvider affixProvider, ILogger<AffixesPageViewModel> logger)
     {
-        _itemProvider = itemProvider;
         _affixProvider = affixProvider;
         _logger = logger;
 
@@ -36,7 +37,23 @@ internal class AffixesPageViewModel : ObservableObject
     public string? FilterText
     {
         get => _filterText;
-        set => SetProperty(ref _filterText, value);
+        set
+        {
+            if (SetProperty(ref _filterText, value))
+            {
+                RefreshList();
+            }
+        }
+    }
+
+    private void RefreshList()
+    {
+        AffixesSource.Clear();
+
+        AffixesSource.AddEach(
+            string.IsNullOrWhiteSpace(FilterText)
+                ? _cachedAffixes
+                : _cachedAffixes.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 
     public Affix? SelectedAffix
@@ -49,11 +66,9 @@ internal class AffixesPageViewModel : ObservableObject
     {
         try
         {
-            var items = await _itemProvider.GetItemsAsync(CancellationToken.None);
+            _cachedAffixes = await _affixProvider.GetAffixesAsync(CancellationToken.None);
 
-            var affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None);
-
-            AffixesSource.AddEach(affixes);
+            AffixesSource.AddEach(_cachedAffixes);
         }
         catch (Exception exception)
         {

@@ -21,7 +21,7 @@
                     Text="{x:Bind Name}"
                     TextTrimming="CharacterEllipsis" />
                 <TextBlock
-                    Text="{x:Bind Weapon}"
+                    Text="{x:Bind GetTypes()}"
                     FontSize="12"
                     Foreground="Gray" />
             </StackPanel>

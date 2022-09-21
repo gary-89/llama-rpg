@@ -12,4 +12,19 @@ internal record Item(
     int RequiredDexterity,
     int MinDamage,
     int MaxDamage,
-    int Speed);
+    int Speed)
+{
+    public static Item Empty() => new Item(
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        0,
+        string.Empty,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0);
+}

@@ -1,6 +1,6 @@
 ﻿namespace RpgFilesGeneratorTools.Configuration;
 
-internal class SerilogSettings
+internal sealed class SerilogSettings
 {
     public string FilePath { get; set; } = null!;
 }

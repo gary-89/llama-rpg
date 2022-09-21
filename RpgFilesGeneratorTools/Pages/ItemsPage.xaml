@@ -61,6 +61,7 @@
                 ItemTemplate="{StaticResource ItemListItemTemplate}"
                 ItemsSource="{x:Bind ViewModel.ItemsSource}"
                 SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
+                SelectedIndex="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}"
                 SelectionMode="Single"
                 Width="200"
                 Margin="0,10,0,0" />
@@ -68,7 +69,7 @@
             <local:ItemDetails
                 Grid.Column="1"
                 Grid.Row="1"
-                Visibility="{x:Bind ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource ObjectEqualityToVisibilityConverter}, ConverterParameter={x:Null}}"
+                Visibility="{x:Bind ViewModel.DisplayDetails, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Margin="10,10,0,0" />
         </Grid>
     </Border>

@@ -25,6 +25,8 @@ internal class ItemsPageViewModel : ObservableObject
     private IReadOnlyList<Item> _items = new List<Item>();
     private Item? _editingItem;
     private bool _isEditing;
+    private bool _displayDetails;
+    private int _selectedIndex;
 
     public ItemsPageViewModel(IItemProvider itemProvider, ILogger<ItemsPageViewModel> logger)
     {
@@ -32,14 +34,22 @@ internal class ItemsPageViewModel : ObservableObject
         _logger = logger;
 
         TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
+
+        ResetSelectionCommand = new RelayCommand(() =>
+        {
+            SelectedIndex = -1;
+        });
         EditCommand = new RelayCommand(() => IsEditing = true);
         SaveCommand = new RelayCommand(() => IsEditing = false);
+        CancelCommand = new RelayCommand(() => IsEditing = false);
     }
 
     public NotifyTaskCompletion<bool> TaskInitialize { get; }
 
+    public ICommand ResetSelectionCommand { get; }
     public ICommand EditCommand { get; }
     public ICommand SaveCommand { get; }
+    public ICommand CancelCommand { get; }
 
     public string? FilterText
     {
@@ -55,14 +65,27 @@ internal class ItemsPageViewModel : ObservableObject
 
     public ObservableCollection<Item> ItemsSource { get; } = new();
 
+    public bool DisplayDetails
+    {
+        get => _displayDetails;
+        set => SetProperty(ref _displayDetails, value);
+    }
+
+    public int SelectedIndex
+    {
+        get => _selectedIndex;
+        set => SetProperty(ref _selectedIndex, value);
+    }
+
     public Item? SelectedItem
     {
         get => _selectedItem;
         set
         {
-            if (SetProperty(ref _selectedItem, value))
+            if (value is not null && SetProperty(ref _selectedItem, value))
             {
                 EditingItem = value;
+                DisplayDetails = true;
             }
         }
     }
@@ -99,10 +122,11 @@ internal class ItemsPageViewModel : ObservableObject
     {
         ItemsSource.Clear();
 
-        ItemsSource.AddEach(string.IsNullOrWhiteSpace(FilterText)
-            ? _items
-            : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                x.Type.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                x.SubType.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
+        ItemsSource.AddEach(
+            string.IsNullOrWhiteSpace(FilterText)
+                ? _items
+                : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                                    x.Type.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                                    x.SubType.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 }

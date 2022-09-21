@@ -20,6 +20,10 @@ internal static class ServiceCollectionExtensions
 
         var logFilePath = Path.Combine(logFolderPath, "app.log");
 
+#if DEBUG
+        logFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "app.log");
+#endif
+
         var logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.RollingFile(logFilePath, flushToDiskInterval: flushInterval, fileSizeLimitBytes: fileSizeLimitBytes)
