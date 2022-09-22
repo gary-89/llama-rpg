@@ -21,7 +21,7 @@
                     Text="{x:Bind Name}"
                     TextTrimming="CharacterEllipsis" />
                 <TextBlock
-                    Text="{x:Bind GetTypes()}"
+                    Text="{x:Bind GetItemTypes()}"
                     FontSize="12"
                     Foreground="Gray" />
             </StackPanel>
@@ -96,13 +96,13 @@
                 Grid.Column="1"
                 Visibility="{x:Bind ViewModel.SelectedAffix, Mode=OneWay, Converter={StaticResource ObjectEqualityToVisibilityConverter}}"
                 Margin="10,10,0,0" />
-
-            <ProgressRing
-                Grid.Column="1"
-                IsActive="True"
-                Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                HorizontalAlignment="Center"
-                Margin="0,20,0,0" />
         </Grid>
+
+        <ProgressRing
+            Grid.Row="2"
+            IsActive="True"
+            Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+            HorizontalAlignment="Center"
+            Margin="0,20,0,0" />
     </Grid>
 </Page>

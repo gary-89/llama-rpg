@@ -46,16 +46,6 @@ internal class AffixesPageViewModel : ObservableObject
         }
     }
 
-    private void RefreshList()
-    {
-        AffixesSource.Clear();
-
-        AffixesSource.AddEach(
-            string.IsNullOrWhiteSpace(FilterText)
-                ? _cachedAffixes
-                : _cachedAffixes.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
-    }
-
     public Affix? SelectedAffix
     {
         get => _selectedAffix;
@@ -76,5 +66,15 @@ internal class AffixesPageViewModel : ObservableObject
         }
 
         return 0;
+    }
+
+    private void RefreshList()
+    {
+        AffixesSource.Clear();
+
+        AffixesSource.AddEach(
+            string.IsNullOrWhiteSpace(FilterText)
+                ? _cachedAffixes
+                : _cachedAffixes.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 }

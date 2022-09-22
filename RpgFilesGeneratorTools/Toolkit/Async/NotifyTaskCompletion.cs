@@ -24,15 +24,15 @@ internal sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
 
     public TaskStatus? Status => CompletionTask.Status;
 
-    public bool? IsCompleted => CompletionTask.IsCompleted;
+    public bool IsCompleted => CompletionTask.IsCompleted;
 
-    public bool? IsNotCompleted => !CompletionTask.IsCompleted;
+    public bool IsNotCompleted => !CompletionTask.IsCompleted;
 
-    public bool? IsSuccessfullyCompleted => CompletionTask.Status == TaskStatus.RanToCompletion;
+    public bool IsSuccessfullyCompleted => CompletionTask.Status == TaskStatus.RanToCompletion;
 
-    public bool? IsCanceled => CompletionTask.IsCanceled;
+    public bool IsCanceled => CompletionTask.IsCanceled;
 
-    public bool? IsFaulted => CompletionTask.IsFaulted;
+    public bool IsFaulted => CompletionTask.IsFaulted;
 
     public AggregateException? Exception => CompletionTask.Exception;
 

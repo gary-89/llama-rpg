@@ -6,4 +6,5 @@ public enum ApplicationPage
     Affixes,
     Monsters,
     Maps,
+    Randomizer,
 };

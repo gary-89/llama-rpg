@@ -11,13 +11,14 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
-    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-    <WindowsPackageType>MSIX</WindowsPackageType>
+    <!--<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <WindowsPackageType>MSIX</WindowsPackageType>-->
     <ApplicationIcon>Llama-icon.ico</ApplicationIcon>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\Files\Affixes.csv" />
-    <Content Remove="Assets\Files\Items.csv" />
+    <Content Remove="Assets\Datasets\Affixes.csv" />
+    <Content Remove="Assets\Datasets\Items.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,7 @@
     <None Remove="Pages\ItemsPage.xaml" />
     <None Remove="Pages\MapsPage.xaml" />
     <None Remove="Pages\MonstersPage.xaml" />
+    <None Remove="Pages\RandomizerPage.xaml" />
     <None Remove="Styles\TextBlockStyle.xaml" />
   </ItemGroup>
 
@@ -65,10 +67,10 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Files\Affixes.csv">
+    <None Update="Assets\Datasets\Affixes.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Files\Items.csv">
+    <None Update="Assets\Datasets\Items.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Page Update="Pages\AffixDetails.xaml">
@@ -120,4 +122,10 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
+  <ItemGroup>
+    <CustomAdditionalCompileInputs Remove="Pages\RandomizerPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Remove="Pages\RandomizerPage.xaml" />
+  </ItemGroup>
 </Project>

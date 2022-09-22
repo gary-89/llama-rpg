@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <DataTemplate
             x:Key="AffixByTypeDetailsTemplate"
-            x:DataType="models:AffixItemType">
+            x:DataType="models:AffixRule">
             <Grid Margin="0,10,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -106,9 +106,9 @@
 
         <DataTemplate
             x:Key="AffixTypeItemTemplate"
-            x:DataType="models:AffixDetails">
+            x:DataType="models:ItemTypeAffixes">
             <StackPanel Margin="10,10,0,0">
-                <TextBlock Text="{x:Bind Name}" />
+                <TextBlock Text="{x:Bind ItemType}" />
                 <ItemsControl
                     ItemTemplate="{StaticResource AffixByTypeDetailsTemplate}"
                     ItemsSource="{x:Bind Affixes}">
@@ -152,7 +152,7 @@
             VerticalScrollBarVisibility="Auto">
             <ItemsControl
                 ItemTemplate="{StaticResource AffixTypeItemTemplate}"
-                ItemsSource="{x:Bind ViewModel.SelectedAffix.GetTypesEnumerable(), FallbackValue='', Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.SelectedAffix.GetPerItemTypeAffixes(), FallbackValue='', Mode=OneWay}"
                 Margin="10,0,0,0" />
         </ScrollViewer>
     </Grid>

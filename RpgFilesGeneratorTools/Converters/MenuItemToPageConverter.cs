@@ -5,11 +5,11 @@ namespace RpgFilesGeneratorTools.Converters;
 
 internal sealed class MenuItemToPageConverter
 {
-    public static Page Convert(object? value)
+    public static Page? Convert(object? value)
     {
         if (value is not ApplicationPage page)
         {
-            return new ItemsPage();
+            return default;
         }
 
         return page switch
@@ -18,6 +18,7 @@ internal sealed class MenuItemToPageConverter
             ApplicationPage.Affixes => new AffixesPage(),
             ApplicationPage.Monsters => new MonstersPage(),
             ApplicationPage.Maps => new MapsPage(),
+            ApplicationPage.Randomizer => new RandomizerPage(),
             _ => new ItemsPage()
         };
     }

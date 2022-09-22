@@ -1,17 +1,17 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.Services;
-using RpgFilesGeneratorTools.Toolkit.Async;
-using RpgFilesGeneratorTools.Toolkit.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
+using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Services;
+using RpgFilesGeneratorTools.Toolkit.Async;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
@@ -39,6 +39,7 @@ internal class ItemsPageViewModel : ObservableObject
         {
             SelectedIndex = -1;
         });
+
         EditCommand = new RelayCommand(() => IsEditing = true);
         SaveCommand = new RelayCommand(() => IsEditing = false);
         CancelCommand = new RelayCommand(() => IsEditing = false);

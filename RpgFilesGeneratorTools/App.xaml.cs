@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
-using Serilog;
-using System;
 using UnhandledExceptionEventArgs = Microsoft.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace RpgFilesGeneratorTools;
@@ -38,8 +37,10 @@ public partial class App
 
         var mainViewModel = Services.GetRequiredService<MainViewModel>();
 
-        _mainWindow = new MainWindow(mainViewModel);
-        _mainWindow.Title = "Llama RPG editor";
+        _mainWindow = new MainWindow(mainViewModel)
+        {
+            Title = "Llama RPG editor",
+        };
         _mainWindow.Activate();
 
         MainRoot = _mainWindow.Content as FrameworkElement;

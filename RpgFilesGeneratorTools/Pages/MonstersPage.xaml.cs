@@ -1,8 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿namespace RpgFilesGeneratorTools.Pages;
 
-namespace RpgFilesGeneratorTools.Pages;
-
-internal sealed partial class MonstersPage : Page
+internal sealed partial class MonstersPage
 {
     public MonstersPage()
     {

@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RpgFilesGeneratorTools.Models;
 
 namespace RpgFilesGeneratorTools.Services;
 
@@ -13,8 +13,8 @@ internal sealed class AffixProvider : IAffixProvider
     private const char CsvSeparator = ',';
 
     private readonly AppConfig _appConfig;
-    private readonly ILogger<AffixProvider> _logger;
     private readonly List<Affix> _affixes = new();
+    private readonly ILogger<AffixProvider> _logger;
 
     public AffixProvider(AppConfig appConfig, ILogger<AffixProvider> logger)
     {
@@ -62,7 +62,7 @@ internal sealed class AffixProvider : IAffixProvider
                 }
 
                 var lastAffix = _affixes[index];
-                lastAffix.ItemTypes.Add(CreateAffixItemType(itemType, tier, infos));
+                lastAffix.Rules.Add(CreateAffixRule(itemType, tier, infos));
             }
         }
         catch (Exception exception)
@@ -72,22 +72,22 @@ internal sealed class AffixProvider : IAffixProvider
         }
     }
 
-    private static AffixItemType CreateAffixItemType(string itemType, int tier, IReadOnlyList<string> infos)
+    private static AffixRule CreateAffixRule(string itemType, int tier, IReadOnlyList<string> infos)
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);
         int.TryParse(infos[5], out var itemLevel);
         int.TryParse(infos[7], out var frequency);
 
-        return new AffixItemType(
-            itemType,
+        return new AffixRule(
+            itemType.Replace("offhands", "shield"),
             tier,
             isRare == 1,
             isElite == 1,
             itemLevel,
             frequency,
-            modifier1: infos[10],
-            modifier1Min: infos[11],
-            modifier1Max: infos[12]);
+            Modifier1: infos[10],
+            Modifier1Min: infos[11],
+            Modifier1Max: infos[12]);
     }
 }
