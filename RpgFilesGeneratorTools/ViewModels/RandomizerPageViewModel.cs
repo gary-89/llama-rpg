@@ -29,16 +29,17 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         _affixProvider = affixProvider;
         _itemProvider = itemProvider;
         _random = new Random();
+        _randomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
+
+        ResetCommand = new RelayCommand(() => GeneratedItems.Clear());
 
         TaskCompletion = new NotifyTaskCompletion<int>(InitializeAsync());
-
-        _randomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
-        ResetCommand = new RelayCommand(() => GeneratedItems.Clear());
     }
 
     public NotifyTaskCompletion<int> TaskCompletion { get; }
 
     public ICommand RandomizeCommand => _randomizeCommand;
+
     public ICommand ResetCommand { get; }
 
     public ObservableCollection<RandomizedItem> GeneratedItems { get; } = new();
