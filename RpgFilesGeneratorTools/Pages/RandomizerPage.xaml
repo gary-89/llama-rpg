@@ -15,11 +15,15 @@
         <DataTemplate
             x:Key="GeneratedItemTemplate"
             x:DataType="models:RandomizedItem">
-            <StackPanel Margin="10,10,0,0">
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="10,5,0,0">
                 <TextBlock
                     Text="{x:Bind WeaponType}"
                     FontSize="14"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}" />
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    TextTrimming="CharacterEllipsis"
+                    Width="150" />
                 <TextBlock
                     Text="{x:Bind Affix}"
                     Foreground="Gray" />
@@ -31,7 +35,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -39,39 +45,186 @@
             Text="Randomizer"
             Style="{StaticResource TitleTextBlockStyle}" />
 
-        <StackPanel Grid.Row="1">
-            <TextBlock>
-                <Run Text="Character level:" />
-                <Run Text="{x:Bind LevelSlider.Value}" />
-            </TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <Slider
-                x:Name="LevelSlider"
-                Maximum="100"
-                Minimum="1"
-                Width="200"
-                HorizontalAlignment="Left"
-                Value="1" />
+            <Expander
+                Grid.Column="0"
+                Header="Settings"
+                IsExpanded="True"
+                Margin="0,10,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock>
+                            <Run Text="Character level:" />
+                            <Run Text="{x:Bind LevelSlider.Value, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <Slider
+                            x:Name="LevelSlider"
+                            Maximum="100"
+                            Minimum="1"
+                            Value="1" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="10,0,0,0">
+                        <TextBlock>
+                            <Run Text="Rate item drop:" />
+                            <Run Text="1 /" />
+                            <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <Slider
+                            x:Name="RareItemDropRateSlider"
+                            Maximum="100"
+                            Minimum="1"
+                            Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="2"
+                        Margin="10,0,0,0">
+                        <TextBlock>
+                            <Run Text="Unique item drop:" />
+                            <Run Text="1 /" />
+                            <Run Text="{x:Bind UniqueItemDropRateSlider.Value, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <Slider
+                            x:Name="UniqueItemDropRateSlider"
+                            Maximum="100"
+                            Minimum="1"
+                            Value="{x:Bind ViewModel.Settings.UniqueItemDropRate, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="3"
+                        Margin="10,0,0,0">
+                        <TextBlock>
+                            <Run Text="Items to generate:" />
+                            <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <Slider
+                            x:Name="NumberOfItemsToGenerateSlider"
+                            Maximum="10000"
+                            Minimum="1"
+                            Margin="10,0,0,0"
+                            Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}" />
+                    </StackPanel>
+                </Grid>
+            </Expander>
 
             <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Right">
-                <Button
-                    Content="Randomize item"
-                    Command="{x:Bind ViewModel.RandomizeCommand}" />
-                <Button
-                    Content="Reset"
-                    Command="{x:Bind ViewModel.ResetCommand}"
-                    Margin="10,0,0,0" />
+                Grid.Column="1"
+                Margin="0,10,0,0">
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+                    <Button
+                        Content="Randomize"
+                        Command="{x:Bind ViewModel.RandomizeCommand}" />
+
+                    <Button
+                        Content="Export"
+                        Command="{x:Bind ViewModel.ExportCommand}"
+                        Margin="10,0,0,0" />
+
+                    <Button
+                        Content="Clear"
+                        Command="{x:Bind ViewModel.ClearCommand}"
+                        Margin="10,0,0,0" />
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Grid>
+
+        <Expander
+            Grid.Row="2"
+            Header="Statistics"
+            IsExpanded="True"
+            Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock>
+                    <Run Text="Rare items dropped:" />
+                    <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
+                    <Run Text="/" />
+                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                    <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
+                </TextBlock>
+
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="20,0,0,0">
+                    <Run Text="Unique items dropped:" />
+                    <Run Text="{x:Bind ViewModel.Stats.UniqueGeneratedItemsCount, Mode=OneWay}" />
+                    <Run Text="/" />
+                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                    <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.UniqueGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
+                </TextBlock>
+            </Grid>
+        </Expander>
 
         <ScrollViewer
-            Grid.Row="2"
-            VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                ItemTemplate="{StaticResource GeneratedItemTemplate}"
-                ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
+            Grid.Row="3"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
+            Margin="0,10,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Margin="10,5,0,0">
+                    <TextBlock
+                        Text="Weapon type"
+                        FontSize="14"
+                        Width="150" />
+                    <TextBlock
+                        Text="Affix"
+                        Foreground="Gray" />
+                </StackPanel>
+
+                <ItemsRepeater
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource GeneratedItemTemplate}"
+                    ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
+            </Grid>
         </ScrollViewer>
+
+        <InfoBar
+            Title="Export"
+            Grid.Row="3"
+            IsClosable="True"
+            IsOpen="{x:Bind ViewModel.InfoBar.IsOpen, Mode=OneWay}"
+            Message="{x:Bind ViewModel.InfoBar.Message, Mode=OneWay}"
+            Severity="Success"
+            Margin="0,10,0,0">
+            <InfoBar.ActionButton>
+                <Button
+                    Content="Open file"
+                    Command="{x:Bind ViewModel.InfoBar.OpenLastGeneratedFileCommand}" />
+            </InfoBar.ActionButton>
+        </InfoBar>
     </Grid>
 </Page>

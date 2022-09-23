@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace RpgFilesGeneratorTools.Toolkit.Extensions;
 
@@ -11,22 +11,18 @@ internal static class ServiceCollectionExtensions
     {
         var flushInterval = new TimeSpan(0, 0, 1);
         var logFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LlamaRpgTools");
-        const long fileSizeLimitBytes = (long)1024 * 1024 * 1024 * 10;
+        const long FileSizeLimitBytes = (long)1024 * 1024 * 1024 * 10;
 
         if (!Directory.Exists(logFolderPath))
         {
             Directory.CreateDirectory(logFolderPath);
         }
 
-        var logFilePath = Path.Combine(logFolderPath, "app.log");
-
-#if DEBUG
-        logFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "app.log");
-#endif
+        var logFilePath = Path.Combine(logFolderPath, "logs.txt");
 
         var logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .WriteTo.RollingFile(logFilePath, flushToDiskInterval: flushInterval, fileSizeLimitBytes: fileSizeLimitBytes)
+            .WriteTo.RollingFile(logFilePath, flushToDiskInterval: flushInterval, fileSizeLimitBytes: FileSizeLimitBytes)
             .CreateLogger();
 
         services.AddLogging(x => x.AddSerilog(logger: logger, dispose: true));

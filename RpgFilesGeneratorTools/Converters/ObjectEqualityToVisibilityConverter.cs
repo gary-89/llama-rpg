@@ -1,23 +1,25 @@
-﻿using Microsoft.UI.Xaml;
+﻿using System;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
-using System;
 
 namespace RpgFilesGeneratorTools.Converters;
 
 internal sealed class ObjectEqualityToVisibilityConverter : IValueConverter
 {
-    public Visibility FalseValue => Visibility.Visible;
+    public Visibility FalseValue { get; set; } = Visibility.Visible;
 
-    public Visibility TrueValue => Visibility.Collapsed;
+    public Visibility TrueValue { get; set; } = Visibility.Collapsed;
 
-    public object Convert(object value, Type targetType, object parameter, string language)
+    public object Convert(object? value, Type? targetType, object? parameter, string? language)
     {
-        if (value is int valueInt && int.TryParse(parameter.ToString(), out var parameterInt))
+        return value switch
         {
-            return Equals(valueInt, parameterInt) ? TrueValue : FalseValue;
-        }
-
-        return Equals(value, parameter) ? TrueValue : FalseValue;
+            int valueInt when int.TryParse(parameter?.ToString(), out var parameterInt) => Equals(valueInt,
+                parameterInt)
+                ? TrueValue
+                : FalseValue,
+            _ => Equals(value, parameter) ? TrueValue : FalseValue
+        };
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)

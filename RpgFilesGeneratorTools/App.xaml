@@ -11,7 +11,15 @@
             </ResourceDictionary.MergedDictionaries>
 
             <converters:MenuItemToPageConverter x:Key="MenuItemToPageConverter" />
-            <converters:ObjectEqualityToVisibilityConverter x:Key="ObjectEqualityToVisibilityConverter" />
+            <converters:DoubleToStringFormatConverter x:Key="DoubleToStringFormatConverter" />
+            <converters:ObjectEqualityToVisibilityConverter
+                x:Key="ObjectEqualityToVisibilityConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
+            <converters:ObjectEqualityToVisibilityConverter
+                x:Key="ObjectEqualityToInvisibilityConverter"
+                FalseValue="Visible"
+                TrueValue="Collapsed" />
             <converters:RarityTypeToForegroundBrushConverter x:Key="RarityTypeToForegroundBrushConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:BooleanToVisibilityConverter

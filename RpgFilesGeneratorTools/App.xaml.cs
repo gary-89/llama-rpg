@@ -35,12 +35,15 @@ public partial class App
 
         _logger = Services.GetRequiredService<ILogger<App>>();
 
+        _logger.LogInformation("App launched");
+
         var mainViewModel = Services.GetRequiredService<MainViewModel>();
 
         _mainWindow = new MainWindow(mainViewModel)
         {
             Title = "Llama RPG editor",
         };
+
         _mainWindow.Activate();
 
         MainRoot = _mainWindow.Content as FrameworkElement;
