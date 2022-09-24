@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
@@ -28,8 +30,8 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private IReadOnlyList<Item> _items = Array.Empty<Item>();
     private IReadOnlyList<Affix> _affixes = Array.Empty<Affix>();
-    private bool _isExporting;
     private string? _fileToExportPath;
+    private bool _exportEnabled;
 
     public RandomizerPageViewModel(IAffixProvider affixProvider, IItemProvider itemProvider, ILogger<RandomizerPageViewModel> logger)
     {
@@ -65,12 +67,12 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     public InfoBar InfoBar { get; }
 
-    public bool IsExporting
+    public bool ExportEnabled
     {
-        get => _isExporting;
+        get => _exportEnabled;
         set
         {
-            if (SetProperty(ref _isExporting, value))
+            if (SetProperty(ref _exportEnabled, value))
             {
                 _exportCommand.NotifyCanExecuteChanged();
             }
@@ -90,7 +92,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         GeneratedItems.Clear();
         Stats.TotalGeneratedItemsCount = 0;
         Stats.RareGeneratedItemsCount = 0;
-        Stats.UniqueGeneratedItemsCount = 0;
+        Stats.EliteGeneratedItemsCount = 0;
         _exportCommand.NotifyCanExecuteChanged();
     }
 
@@ -101,8 +103,6 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private Task GenerateRandomizedItemsAsync(CancellationToken cancellationToken)
     {
-        var exportEnabled = false;
-
         for (var i = 0; i < Settings.NumberOfItemsToGenerate; i++)
         {
             if (!TryGenerateRandomizedItem(out var item))
@@ -111,27 +111,32 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             }
 
             GeneratedItems.Add(item);
-            Stats.TotalGeneratedItemsCount++;
 
-            if (!exportEnabled)
-            {
-                exportEnabled = true;
-                _exportCommand.NotifyCanExecuteChanged();
-            }
-
-            switch (item.ItemRarityType)
-            {
-                case ItemRarityType.Rare:
-                    Stats.RareGeneratedItemsCount++;
-                    break;
-
-                case ItemRarityType.Unique:
-                    Stats.UniqueGeneratedItemsCount++;
-                    break;
-            }
+            RefreshStatsOnAddingItem(item.ItemRarityType);
         }
 
         return Task.CompletedTask;
+    }
+
+    private void RefreshStatsOnAddingItem(ItemRarityType rarity)
+    {
+        Stats.TotalGeneratedItemsCount++;
+
+        switch (rarity)
+        {
+            case ItemRarityType.Rare:
+                Stats.RareGeneratedItemsCount++;
+                break;
+
+            case ItemRarityType.Elite:
+                Stats.EliteGeneratedItemsCount++;
+                break;
+        }
+
+        if (!ExportEnabled)
+        {
+            ExportEnabled = true;
+        }
     }
 
     private bool TryGenerateRandomizedItem([NotNullWhen(true)] out RandomizedItem? result)
@@ -169,27 +174,26 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private ItemRarityType GenerateRarity()
     {
-        var uniqueRarity = _random.Next(0, Settings.UniqueItemDropRate * Settings.RareItemDropRate);
+        var rarity = _random.Next(0, Settings.EliteItemDropRate * Settings.RareItemDropRate);
 
-        return uniqueRarity % Settings.UniqueItemDropRate == 0
-            ? ItemRarityType.Unique
-            : uniqueRarity % Settings.RareItemDropRate == 0
+        return rarity % Settings.EliteItemDropRate == 0
+            ? ItemRarityType.Elite
+            : rarity % Settings.RareItemDropRate == 0
                 ? ItemRarityType.Rare
                 : ItemRarityType.Normal;
     }
 
-    private bool CanExportItems()
-    {
-        return GeneratedItems.Count > 0 && !IsExporting;
-    }
+    private bool CanExportItems() => ExportEnabled;
 
     private async Task ExportGeneratedItems(CancellationToken cancellationToken)
     {
         try
         {
+            ExportEnabled = false;
+
             var tempFolderPath = Path.GetTempPath();
 
-            _fileToExportPath = Path.Combine(tempFolderPath, Path.GetRandomFileName()) + ".txt";
+            _fileToExportPath = $"{Path.Combine(tempFolderPath, DateTime.Now.ToString("yyyyMMdd HHmmss"))}.txt";
 
             _logger.LogInformation("Exporting items to {Path}.", _fileToExportPath);
 
@@ -201,29 +205,24 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
                 foreach (var item in GeneratedItems)
                 {
-                    var line = $"{item.WeaponType},{item.Affix},{item.ItemRarityType}" + Environment.NewLine;
-                    var bytes = System.Text.Encoding.UTF8.GetBytes(line);
+                    var line = $"{item.WeaponType},{item.Affix},{item.ItemRarityType}," + Environment.NewLine;
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(line).AsMemory();
                     fileStream.Seek(offset, SeekOrigin.Begin);
-                    await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(true);
-                    offset += bytes.Length;
+                    await fileStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(true);
+                    offset += buffer.Length;
                 }
             }
 
-            InfoBar.Message = $"Items successfully exported. File location: {_fileToExportPath}";
-            InfoBar.IsOpen = true;
-
-            await CloseInfoBarAsync(CancellationToken.None).ConfigureAwait(true);
+            await InfoBar.ShowAsync("File created", $"Items successfully exported to: {_fileToExportPath}", true).ConfigureAwait(true);
         }
         catch (Exception e)
         {
             _logger.LogError(e, "Exporting items failed: {Message}", e.Message);
         }
-    }
-
-    private async Task CloseInfoBarAsync(CancellationToken cancellationToken)
-    {
-        await Task.Delay(10_000, cancellationToken).ConfigureAwait(true);
-        InfoBar.IsOpen = false;
+        finally
+        {
+            ExportEnabled = true;
+        }
     }
 
     private void OpenLastGeneratedFile()
@@ -233,6 +232,29 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             return;
         }
 
-        // TODO: Open file.
+        RunSafely(CopyFilePathToClipboard);
+
+        async Task CopyFilePathToClipboard()
+        {
+            var packet = new DataPackage();
+
+            packet.SetText(_fileToExportPath);
+
+            Clipboard.SetContent(packet);
+
+            await InfoBar.ShowAsync("File location copied to clipboard", _fileToExportPath, false).ConfigureAwait(true);
+        }
+    }
+
+    private void RunSafely(Func<Task> action, [CallerMemberName] string callerMember = "")
+    {
+        try
+        {
+            action.Invoke();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "{CallerMember} failed: {Message}", callerMember, e.Message);
+        }
     }
 }

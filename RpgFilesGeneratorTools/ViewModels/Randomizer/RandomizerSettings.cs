@@ -5,7 +5,7 @@ namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 internal sealed class RandomizerSettings : ObservableObject
 {
     private int _rareItemDropRate = 10;
-    private int _uniqueItemDropRate = 50;
+    private int _eliteItemDropRate = 50;
     private int _numberOfItemsToGenerate = 100;
 
     public int RareItemDropRate
@@ -14,10 +14,10 @@ internal sealed class RandomizerSettings : ObservableObject
         set => SetProperty(ref _rareItemDropRate, value);
     }
 
-    public int UniqueItemDropRate
+    public int EliteItemDropRate
     {
-        get => _uniqueItemDropRate;
-        set => SetProperty(ref _uniqueItemDropRate, value);
+        get => _eliteItemDropRate;
+        set => SetProperty(ref _eliteItemDropRate, value);
     }
 
     public int NumberOfItemsToGenerate

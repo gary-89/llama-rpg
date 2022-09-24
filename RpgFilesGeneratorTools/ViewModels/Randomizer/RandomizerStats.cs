@@ -4,10 +4,10 @@ namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 internal sealed class RandomizerStats : ObservableObject
 {
-    private double _uniqueGeneratedItemsCount;
+    private double _eliteGeneratedItemsCount;
     private double _rareGeneratedItemsCount;
     private double _rareGeneratedItemPercentage;
-    private double _uniqueGeneratedItemPercentage;
+    private double _eliteGeneratedItemPercentage;
 
     public double TotalGeneratedItemsCount { get; set; }
 
@@ -23,14 +23,14 @@ internal sealed class RandomizerStats : ObservableObject
         }
     }
 
-    public double UniqueGeneratedItemsCount
+    public double EliteGeneratedItemsCount
     {
-        get => _uniqueGeneratedItemsCount;
+        get => _eliteGeneratedItemsCount;
         set
         {
-            if (SetProperty(ref _uniqueGeneratedItemsCount, value))
+            if (SetProperty(ref _eliteGeneratedItemsCount, value))
             {
-                UniqueGeneratedItemPercentage = value / TotalGeneratedItemsCount;
+                EliteGeneratedItemPercentage = value / TotalGeneratedItemsCount;
             }
         }
     }
@@ -41,9 +41,9 @@ internal sealed class RandomizerStats : ObservableObject
         set => SetProperty(ref _rareGeneratedItemPercentage, value);
     }
 
-    public double UniqueGeneratedItemPercentage
+    public double EliteGeneratedItemPercentage
     {
-        get => _uniqueGeneratedItemPercentage;
-        set => SetProperty(ref _uniqueGeneratedItemPercentage, value);
+        get => _eliteGeneratedItemPercentage;
+        set => SetProperty(ref _eliteGeneratedItemPercentage, value);
     }
 }
