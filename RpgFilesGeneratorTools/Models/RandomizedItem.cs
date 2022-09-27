@@ -1,3 +1,3 @@
 ﻿namespace RpgFilesGeneratorTools.Models;
 
-internal record RandomizedItem(string WeaponType, string Affix, ItemRarityType ItemRarityType);
+internal sealed record RandomizedItem(string WeaponType, string Affix, ItemRarityType ItemRarityType);

@@ -6,6 +6,9 @@ internal sealed partial class MainWindow
     {
         MainViewModel = mainViewModel;
         InitializeComponent();
+
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(AppTitleBar);
     }
 
     public MainViewModel MainViewModel { get; }

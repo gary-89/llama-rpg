@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RpgFilesGeneratorTools.Models;
 
 namespace RpgFilesGeneratorTools.Services;
 
@@ -57,7 +57,7 @@ internal sealed class ItemProvider : IItemProvider
 
         //name,0
         //Type,1
-        //SubType,2
+        //Subtype,2
         //Status,3
         //StatusChance,4
         //Status2,5
@@ -81,18 +81,18 @@ internal sealed class ItemProvider : IItemProvider
         int.TryParse(infos[11], out var speed);
 
         var item = new Item(
-            Name: infos[0],
-            Type: infos[1],
-            SubType: infos[2],
-            Status: infos[3],
-            StatusChance: statusChancePercentage,
-            Status2: infos[5],
-            Status2Chance: status2ChancePercentage,
-            RequiredStrength: requiredStrength,
-            RequiredDexterity: requiredDexterity,
-            MinDamage: minDamage,
-            MaxDamage: maxDamage,
-            Speed: speed);
+            name: infos[0],
+            type: infos[1],
+            subtype: infos[2],
+            status: infos[3],
+            statusChance: statusChancePercentage,
+            status2: infos[5],
+            status2Chance: status2ChancePercentage,
+            requiredStrength: requiredStrength,
+            requiredDexterity: requiredDexterity,
+            minDamage: minDamage,
+            maxDamage: maxDamage,
+            speed: speed);
 
         _items.Add(item);
     }

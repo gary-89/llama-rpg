@@ -8,5 +8,35 @@
     xmlns:local="using:RpgFilesGeneratorTools"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <local:MainView DataContext="{x:Bind MainViewModel}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image
+                Source="Assets/Square44x44Logo.targetsize-32.png"
+                Width="20"
+                Height="20"
+                Margin="5,0,0,0" />
+
+            <TextBlock
+                Grid.Column="1"
+                Text="Llama RPG tools"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                TextWrapping="NoWrap"
+                VerticalAlignment="Center"
+                Margin="5,0,0,0" />
+        </Grid>
+
+        <local:MainView
+            Grid.Row="1"
+            DataContext="{x:Bind MainViewModel}" />
+    </Grid>
 </Window>

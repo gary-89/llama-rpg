@@ -26,23 +26,18 @@ internal class ItemsPageViewModel : ObservableObject
     private Item? _editingItem;
     private bool _isEditing;
     private bool _displayDetails;
-    private int _selectedIndex;
 
     public ItemsPageViewModel(IItemProvider itemProvider, ILogger<ItemsPageViewModel> logger)
     {
         _itemProvider = itemProvider;
         _logger = logger;
 
-        TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
-
-        ResetSelectionCommand = new RelayCommand(() =>
-        {
-            SelectedIndex = -1;
-        });
-
+        ResetSelectionCommand = new RelayCommand(() => DisplayDetails = false);
         EditCommand = new RelayCommand(() => IsEditing = true);
-        SaveCommand = new RelayCommand(() => IsEditing = false);
         CancelCommand = new RelayCommand(() => IsEditing = false);
+        SaveCommand = new RelayCommand(SaveItem);
+
+        TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
     }
 
     public NotifyTaskCompletion<bool> TaskInitialize { get; }
@@ -69,13 +64,7 @@ internal class ItemsPageViewModel : ObservableObject
     public bool DisplayDetails
     {
         get => _displayDetails;
-        set => SetProperty(ref _displayDetails, value);
-    }
-
-    public int SelectedIndex
-    {
-        get => _selectedIndex;
-        set => SetProperty(ref _selectedIndex, value);
+        private set => SetProperty(ref _displayDetails, value);
     }
 
     public Item? SelectedItem
@@ -83,31 +72,63 @@ internal class ItemsPageViewModel : ObservableObject
         get => _selectedItem;
         set
         {
-            if (value is not null && SetProperty(ref _selectedItem, value))
+            if (value is null)
             {
-                EditingItem = value;
-                DisplayDetails = true;
+                DisplayDetails = false;
+                return;
             }
+
+            if (SetProperty(ref _selectedItem, value))
+            {
+                EditingItem = value.Clone();
+            }
+
+            DisplayDetails = true;
         }
     }
 
     public Item? EditingItem
     {
         get => _editingItem;
-        set => SetProperty(ref _editingItem, value);
+        private set => SetProperty(ref _editingItem, value);
     }
 
     public bool IsEditing
     {
         get => _isEditing;
-        set => SetProperty(ref _isEditing, value);
+        private set => SetProperty(ref _isEditing, value);
+    }
+
+    private void SaveItem()
+    {
+        if (EditingItem is null)
+        {
+            IsEditing = false;
+            return;
+        }
+
+        var editedItem = ItemsSource.FirstOrDefault(x => x.Name == EditingItem?.Name);
+
+        if (editedItem is null)
+        {
+            IsEditing = false;
+            return;
+        }
+
+        editedItem.Speed = EditingItem.Speed;
+        editedItem.RequiredDexterity = EditingItem.RequiredDexterity;
+        editedItem.RequiredStrength = EditingItem.RequiredStrength;
+
+        OnPropertyChanged(nameof(SelectedItem));
+
+        IsEditing = false;
     }
 
     private async Task<bool> LoadItemsAsync()
     {
         try
         {
-            _items = await _itemProvider.GetItemsAsync(CancellationToken.None);
+            _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
             ItemsSource.AddEach(_items);
         }
@@ -128,6 +149,6 @@ internal class ItemsPageViewModel : ObservableObject
                 ? _items
                 : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
                                     x.Type.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                    x.SubType.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
+                                    x.Subtype.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 }

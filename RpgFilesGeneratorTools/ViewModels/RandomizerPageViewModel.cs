@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,6 @@ using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
-using Windows.ApplicationModel.DataTransfer;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
@@ -193,7 +193,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
             var tempFolderPath = Path.GetTempPath();
 
-            _fileToExportPath = $"{Path.Combine(tempFolderPath, DateTime.Now.ToString("yyyyMMdd HHmmss"))}.txt";
+            _fileToExportPath = $"{Path.Combine(tempFolderPath, "Export " + DateTime.Now.ToString("yyyyMMdd HHmmss"))}.txt";
 
             _logger.LogInformation("Exporting items to {Path}.", _fileToExportPath);
 
@@ -232,17 +232,17 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             return;
         }
 
-        RunSafely(CopyFilePathToClipboard);
+        RunSafely(OpenFile);
 
-        async Task CopyFilePathToClipboard()
+        Task OpenFile()
         {
-            var packet = new DataPackage();
-
-            packet.SetText(_fileToExportPath);
-
-            Clipboard.SetContent(packet);
-
-            await InfoBar.ShowAsync("File location copied to clipboard", _fileToExportPath, false).ConfigureAwait(true);
+            var pi = new ProcessStartInfo(_fileToExportPath)
+            {
+                UseShellExecute = true,
+                FileName = _fileToExportPath,
+            };
+            Process.Start(pi);
+            return Task.CompletedTask;
         }
     }
 

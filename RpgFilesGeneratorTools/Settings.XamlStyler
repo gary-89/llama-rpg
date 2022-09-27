@@ -1,9 +1,9 @@
 {
     "AttributesTolerance": 1,
     "KeepFirstAttributeOnSameLine": false,
-    "MaxAttributeCharatersPerLine": 0,
+    "MaxAttributeCharactersPerLine": 0,
     "MaxAttributesPerLine": 1,
-    "NewlineExemptionElements": "RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter",
+    "NewlineExemptionElements": "RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransform, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter",
     "SeparateByGroups": false,
     "AttributeIndentation": 0,
     "AttributeIndentationStyle": 1,
@@ -19,11 +19,12 @@
         "Grid.*, DockPanel.*, Canvas.*, Panel.*",
         "Title, Text, Content, Command, Path",
         "*:*, *",
+        "SmallChange,LargeChange",
         "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
         "HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment",
         "RecognizesAccessKey, SnapsToDevicePixels",
         "Padding, Margin",
-        "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
+        "PageSource, PageIndex, Offset, Color, TargetName, Property, StartPoint, EndPoint",
         "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
         "Storyboard.*, BeginTime, From, To, Duration",
         "FocusManager.*",
@@ -44,5 +45,5 @@
     "ThicknessSeparator": 2,
     "ThicknessAttributes": "Margin, Padding, BorderThickness, ThumbnailClipMargin",
     "FormatOnSave": true,
-    "CommentPadding": 1,
+    "CommentPadding": 1
 }
