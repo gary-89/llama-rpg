@@ -5,18 +5,18 @@
     <Style
         x:Key="TitleTextBlockStyle"
         TargetType="TextBlock">
-        <Setter Property="FontSize" Value="24" />
+        <Setter Value="24" Property="FontSize" />
     </Style>
 
     <Style
         x:Key="LabelStyle"
         TargetType="TextBlock">
-        <Setter Property="Foreground" Value="Gray" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Value="Gray" Property="Foreground" />
+        <Setter Value="Right" Property="HorizontalAlignment" />
+        <Setter Value="Center" Property="VerticalAlignment" />
     </Style>
 
     <Style TargetType="TextBox">
-        <Setter Property="MinWidth" Value="150" />
+        <Setter Value="150" Property="MinWidth" />
     </Style>
 </ResourceDictionary>

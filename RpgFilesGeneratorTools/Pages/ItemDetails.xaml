@@ -82,13 +82,8 @@
             <NumberBox
                 Grid.Column="1"
                 Grid.Row="2"
-                Maximum="100"
-                Minimum="0"
-                SpinButtonPlacementMode="Inline"
                 Value="{x:Bind ViewModel.EditingItem.Speed, Mode=TwoWay, FallbackValue=''}"
                 Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                SmallChange="1"
-                LargeChange="10"
                 HorizontalAlignment="Left"
                 Margin="10,10,0,0" />
 
@@ -109,13 +104,8 @@
             <NumberBox
                 Grid.Column="1"
                 Grid.Row="3"
-                Maximum="100"
-                Minimum="0"
-                SpinButtonPlacementMode="Inline"
                 Value="{x:Bind ViewModel.EditingItem.RequiredStrength, Mode=TwoWay, FallbackValue=''}"
                 Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                SmallChange="1"
-                LargeChange="10"
                 HorizontalAlignment="Left"
                 Margin="10,10,0,0" />
 
@@ -136,13 +126,8 @@
             <NumberBox
                 Grid.Column="1"
                 Grid.Row="4"
-                Maximum="100"
-                Minimum="0"
-                SpinButtonPlacementMode="Inline"
                 Value="{x:Bind ViewModel.EditingItem.RequiredDexterity, Mode=TwoWay, FallbackValue=''}"
                 Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                SmallChange="1"
-                LargeChange="10"
                 HorizontalAlignment="Left"
                 Margin="10,10,0,0" />
 
@@ -169,13 +154,7 @@
                 Orientation="Horizontal"
                 Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Margin="10,10,0,0">
-                <NumberBox
-                    Maximum="100"
-                    Minimum="0"
-                    SpinButtonPlacementMode="Inline"
-                    Value="{x:Bind ViewModel.EditingItem.MinDamage, FallbackValue='', Mode=TwoWay}"
-                    SmallChange="1"
-                    LargeChange="10" />
+                <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDamage, FallbackValue='', Mode=TwoWay}" />
 
                 <TextBlock
                     Text="to"
@@ -183,12 +162,7 @@
                     Margin="10,0,0,0" />
 
                 <NumberBox
-                    Maximum="100"
-                    Minimum="0"
-                    SpinButtonPlacementMode="Inline"
                     Value="{x:Bind ViewModel.EditingItem.MaxDamage, FallbackValue='', Mode=TwoWay}"
-                    SmallChange="1"
-                    LargeChange="10"
                     Margin="10,0,0,0" />
             </StackPanel>
 

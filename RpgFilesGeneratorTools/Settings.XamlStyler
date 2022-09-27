@@ -18,6 +18,7 @@
         "TargetType, BasedOn",
         "Grid.*, DockPanel.*, Canvas.*, Panel.*",
         "Title, Text, Content, Command, Path",
+        "Property, Value",
         "*:*, *",
         "SmallChange,LargeChange",
         "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",

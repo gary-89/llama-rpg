@@ -79,10 +79,14 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
+    public IEnumerable<ItemTypeFrequency> ItemsTypeFrequencies => _items.Select(x => x.Type).Distinct().Select(type => new ItemTypeFrequency(type, 1));
+
     private async Task<int> InitializeAsync()
     {
         _affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None).ConfigureAwait(true);
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
+
+        OnPropertyChanged(nameof(ItemsTypeFrequencies));
         _randomizeCommand.NotifyCanExecuteChanged();
         return 0;
     }
@@ -257,4 +261,16 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             _logger.LogError(e, "{CallerMember} failed: {Message}", callerMember, e.Message);
         }
     }
+}
+
+internal sealed class ItemTypeFrequency
+{
+    public ItemTypeFrequency(string name, int frequency)
+    {
+        Name = name;
+        Frequency = frequency;
+    }
+
+    public string Name { get; set; }
+    public int Frequency { get; set; }
 }
