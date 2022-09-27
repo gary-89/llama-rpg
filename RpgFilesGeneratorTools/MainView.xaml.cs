@@ -1,9 +1,8 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using System;
+﻿using System;
 
 namespace RpgFilesGeneratorTools;
 
-internal sealed partial class MainView : UserControl
+internal sealed partial class MainView
 {
     public MainView()
     {

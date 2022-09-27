@@ -26,15 +26,16 @@ internal class ItemsPageViewModel : ObservableObject
     private Item? _editingItem;
     private bool _isEditing;
     private bool _displayDetails;
+    private int _selectedIndex = -1;
 
     public ItemsPageViewModel(IItemProvider itemProvider, ILogger<ItemsPageViewModel> logger)
     {
         _itemProvider = itemProvider;
         _logger = logger;
 
-        ResetSelectionCommand = new RelayCommand(() => DisplayDetails = false);
         EditCommand = new RelayCommand(() => IsEditing = true);
         CancelCommand = new RelayCommand(() => IsEditing = false);
+        ClearSelectionCommand = new RelayCommand(ClearSelection);
         SaveCommand = new RelayCommand(SaveItem);
 
         TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
@@ -42,7 +43,7 @@ internal class ItemsPageViewModel : ObservableObject
 
     public NotifyTaskCompletion<bool> TaskInitialize { get; }
 
-    public ICommand ResetSelectionCommand { get; }
+    public ICommand ClearSelectionCommand { get; }
     public ICommand EditCommand { get; }
     public ICommand SaveCommand { get; }
     public ICommand CancelCommand { get; }
@@ -65,6 +66,12 @@ internal class ItemsPageViewModel : ObservableObject
     {
         get => _displayDetails;
         private set => SetProperty(ref _displayDetails, value);
+    }
+
+    public int SelectedIndex
+    {
+        get => _selectedIndex;
+        set => SetProperty(ref _selectedIndex, value);
     }
 
     public Item? SelectedItem
@@ -99,6 +106,12 @@ internal class ItemsPageViewModel : ObservableObject
         private set => SetProperty(ref _isEditing, value);
     }
 
+    private void ClearSelection()
+    {
+        DisplayDetails = false;
+        SelectedIndex = -1;
+    }
+
     private void SaveItem()
     {
         if (EditingItem is null)
@@ -118,6 +131,8 @@ internal class ItemsPageViewModel : ObservableObject
         editedItem.Speed = EditingItem.Speed;
         editedItem.RequiredDexterity = EditingItem.RequiredDexterity;
         editedItem.RequiredStrength = EditingItem.RequiredStrength;
+        editedItem.MinDamage = EditingItem.MinDamage;
+        editedItem.MaxDamage = EditingItem.MaxDamage;
 
         OnPropertyChanged(nameof(SelectedItem));
 
