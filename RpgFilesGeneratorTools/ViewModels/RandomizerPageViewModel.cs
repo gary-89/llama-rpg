@@ -109,10 +109,25 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private async Task GenerateRandomizedItemsAsync(CancellationToken cancellationToken)
     {
-        await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
+        await RunSafely(InternalGenerateRandomizedItemsAsync).ConfigureAwait(true);
+
+        async Task InternalGenerateRandomizedItemsAsync()
         {
-            GeneratedItems.Add(item);
-            RefreshStatsOnAddingItem(item);
+            var stopwatch = Stopwatch.StartNew();
+
+            _logger.LogInformation("Generating {NumberOfItems} randomized items...", Settings.NumberOfItemsToGenerate);
+
+            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
+            {
+                GeneratedItems.Add(item);
+                RefreshStatsOnAddingItem(item);
+            }
+
+            Stats.RefreshItemCountPerTypes();
+
+            stopwatch.Stop();
+
+            _logger.LogInformation("Done in {ElapsedTimeInMillisecond} ms", stopwatch.ElapsedMilliseconds);
         }
     }
 
@@ -148,7 +163,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
                 foreach (var item in GeneratedItems)
                 {
-                    var line = $"{item.WeaponType},{item.Affix},{item.ItemRarityType}," + Environment.NewLine;
+                    var line = $"{item.ItemName},{item.Affix},{item.ItemRarityType}," + Environment.NewLine;
                     var buffer = System.Text.Encoding.UTF8.GetBytes(line).AsMemory();
                     fileStream.Seek(offset, SeekOrigin.Begin);
                     await fileStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(true);
@@ -189,11 +204,11 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
-    private void RunSafely(Func<Task> action, [CallerMemberName] string callerMember = "")
+    private async Task RunSafely(Func<Task> action, [CallerMemberName] string callerMember = "")
     {
         try
         {
-            action.Invoke();
+            await action.Invoke().ConfigureAwait(true);
         }
         catch (Exception e)
         {

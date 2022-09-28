@@ -4,14 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:RpgFilesGeneratorTools.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:RpgFilesGeneratorTools"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:RpgFilesGeneratorTools.Models"
+    xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance local:MainViewModel}">
+    d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <UserControl.Resources>
         <DataTemplate
             x:Key="NavigationViewItemTemplate"
-            x:DataType="local:ApplicationPage">
+            x:DataType="models:ApplicationPage">
             <NavigationViewItem ToolTipService.ToolTip="{x:Bind}">
                 <TextBlock
                     Text="{x:Bind}"

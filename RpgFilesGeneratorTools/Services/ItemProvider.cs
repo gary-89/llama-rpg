@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -16,6 +17,7 @@ internal sealed class ItemProvider : IItemProvider
     private readonly AppConfig _appConfig;
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<Item> _items = new();
+
     private List<string>? _itemTypes;
 
     public ItemProvider(AppConfig appConfig, ILogger<ItemProvider> logger)
@@ -49,8 +51,12 @@ internal sealed class ItemProvider : IItemProvider
 
     private async Task LoadItemsAsync(CancellationToken cancellationToken)
     {
+        var stopwatch = Stopwatch.StartNew();
+
         try
         {
+            _logger.LogInformation("Loading items...");
+
             var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
             var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 
@@ -63,6 +69,10 @@ internal sealed class ItemProvider : IItemProvider
         {
             _logger.LogError(exception, "Failed to load items");
             throw;
+        }
+        finally
+        {
+            _logger.LogInformation("{NumberOfItems} items loaded in {ElapsedTimeInMillisecond} ms", _items.Count, stopwatch.ElapsedMilliseconds);
         }
     }
 

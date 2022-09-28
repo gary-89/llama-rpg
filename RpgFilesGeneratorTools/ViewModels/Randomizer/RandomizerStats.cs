@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using RpgFilesGeneratorTools.Models;
 
@@ -6,6 +7,8 @@ namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 internal sealed class RandomizerStats : ObservableObject
 {
+    private readonly Dictionary<string, int> _generatedItemsCountPerItemType = new();
+
     private double _eliteGeneratedItemsCount;
     private double _rareGeneratedItemsCount;
     private double _rareGeneratedItemPercentage;
@@ -49,16 +52,16 @@ internal sealed class RandomizerStats : ObservableObject
         set => SetProperty(ref _eliteGeneratedItemPercentage, value);
     }
 
-    public Dictionary<string, int> GeneratedItemsCountPerItemType { get; } = new();
+    public IReadOnlyList<ItemCountPerType> ItemCountPerTypes => _generatedItemsCountPerItemType.Select(x => new ItemCountPerType(x.Key, x.Value)).ToList();
 
     public void UpdateOnAddingItem(RandomizedItem item)
     {
-        if (!GeneratedItemsCountPerItemType.ContainsKey(item.WeaponType))
+        if (!_generatedItemsCountPerItemType.ContainsKey(item.ItemType))
         {
-            GeneratedItemsCountPerItemType.Add(item.WeaponType, 0);
+            _generatedItemsCountPerItemType.Add(item.ItemType, 0);
         }
 
-        GeneratedItemsCountPerItemType[item.WeaponType]++;
+        _generatedItemsCountPerItemType[item.ItemType]++;
 
         TotalGeneratedItemsCount++;
 
@@ -71,6 +74,16 @@ internal sealed class RandomizerStats : ObservableObject
             case ItemRarityType.Elite:
                 EliteGeneratedItemsCount++;
                 break;
+
+            case ItemRarityType.Normal:
+            default:
+                /* ignore */
+                break;
         }
+    }
+
+    public void RefreshItemCountPerTypes()
+    {
+        OnPropertyChanged(nameof(ItemCountPerTypes));
     }
 }

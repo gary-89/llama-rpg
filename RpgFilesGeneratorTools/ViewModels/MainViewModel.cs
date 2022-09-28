@@ -5,8 +5,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using RpgFilesGeneratorTools.Models;
 
-namespace RpgFilesGeneratorTools;
+namespace RpgFilesGeneratorTools.ViewModels;
 
 internal sealed class MainViewModel : ObservableObject
 {

@@ -9,11 +9,6 @@ using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;
 
-internal interface IItemRandomizerProvider
-{
-    public IAsyncEnumerable<RandomizedItem> GenerateRandomizedItemsAsync(RandomizerSettings settings, CancellationToken cancellationToken);
-}
-
 internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 {
     private readonly IItemProvider _itemProvider;
@@ -26,7 +21,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         _affixProvider = affixProvider;
     }
 
-    public async IAsyncEnumerable<RandomizedItem> GenerateRandomizedItemsAsync(RandomizerSettings settings, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<RandomizedItem> GenerateRandomizedItemsAsync(
+        RandomizerSettings settings,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var items = await _itemProvider.GetItemsAsync(cancellationToken).ConfigureAwait(false);
         var affixes = await _affixProvider.GetAffixesAsync(cancellationToken).ConfigureAwait(false);
@@ -44,7 +41,11 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         }
     }
 
-    private bool TryGenerateRandomizedItem(IEnumerable<Item> items, IReadOnlyList<Affix> affixes, RandomizerSettings settings, [NotNullWhen(true)] out RandomizedItem? result)
+    private bool TryGenerateRandomizedItem(
+        IEnumerable<Item> items,
+        IReadOnlyList<Affix> affixes,
+        RandomizerSettings settings,
+        [NotNullWhen(true)] out RandomizedItem? result)
     {
         var index = _random.Next(1, 40);
         var affix = affixes[index];
@@ -71,6 +72,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         result = new RandomizedItem(
             item.Name,
+            item.Type,
             $"{affix.Name}: {mod}",
             rarity);
 

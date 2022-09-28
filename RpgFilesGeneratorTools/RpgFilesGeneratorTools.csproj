@@ -93,7 +93,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainView.xaml">
+    <Page Update="Pages\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

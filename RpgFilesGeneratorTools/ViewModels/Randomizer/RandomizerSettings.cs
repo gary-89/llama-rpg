@@ -6,7 +6,7 @@ internal sealed class RandomizerSettings : ObservableObject
 {
     private int _rareItemDropRate = 10;
     private int _eliteItemDropRate = 50;
-    private int _numberOfItemsToGenerate = 100;
+    private int _numberOfItemsToGenerate = 1000;
 
     public int RareItemDropRate
     {

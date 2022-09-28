@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Pages;
 
 namespace RpgFilesGeneratorTools.Converters;

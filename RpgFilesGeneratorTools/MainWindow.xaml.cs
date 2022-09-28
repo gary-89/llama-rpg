@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.UI.Xaml;
+using RpgFilesGeneratorTools.ViewModels;
 
 namespace RpgFilesGeneratorTools;
 

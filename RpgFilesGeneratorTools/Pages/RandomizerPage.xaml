@@ -19,11 +19,17 @@
                 Orientation="Horizontal"
                 Margin="0,5,0,0">
                 <TextBlock
-                    Text="{x:Bind WeaponType}"
+                    Text="{x:Bind ItemName}"
                     FontSize="14"
                     Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="150" />
+                <TextBlock
+                    Text="{x:Bind ItemType}"
+                    FontSize="14"
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    TextTrimming="CharacterEllipsis"
+                    Width="100" />
                 <TextBlock
                     Text="{x:Bind Affix}"
                     Foreground="Gray" />
@@ -47,11 +53,20 @@
                     Margin="10,0,0,0" />
             </StackPanel>
         </DataTemplate>
+
+        <DataTemplate
+            x:Key="ItemCountPerTypeItemTemplate"
+            x:DataType="models:ItemCountPerType">
+            <TextBlock>
+                <Run Text="{x:Bind ItemType}" />
+                <Run Text=":" />
+                <Run Text="{x:Bind Count}" />
+            </TextBlock>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -72,7 +87,7 @@
             <Expander
                 Grid.Column="0"
                 Header="Settings"
-                IsExpanded="True"
+                IsExpanded="False"
                 Margin="0,10,0,0">
                 <StackPanel>
                     <Grid>
@@ -185,64 +200,77 @@
             </StackPanel>
         </Grid>
 
-        <Expander
-            Grid.Row="2"
-            Header="Statistics"
-            IsExpanded="True"
-            Margin="0,10,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock>
-                    <Run Text="Rare items dropped:" />
-                    <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
-                    <Run Text="/" />
-                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
-                    <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                </TextBlock>
-
-                <TextBlock
-                    Grid.Column="1"
-                    Margin="20,0,0,0">
-                    <Run Text="Elite items dropped:" />
-                    <Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemsCount, Mode=OneWay}" />
-                    <Run Text="/" />
-                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
-                    <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                </TextBlock>
-            </Grid>
-        </Expander>
-
         <ScrollViewer
-            Grid.Row="3"
+            Grid.Row="2"
             VerticalScrollBarVisibility="Auto"
             Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
             Margin="0,10,0,0">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <StackPanel
-                    Orientation="Horizontal"
-                    Margin="10,5,0,0">
-                    <TextBlock
-                        Text="Weapon type"
-                        FontSize="14"
-                        Width="150" />
-                    <TextBlock
-                        Text="Affix"
-                        Foreground="Gray" />
-                </StackPanel>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <ItemsRepeater
-                    Grid.Row="1"
-                    ItemTemplate="{StaticResource GeneratedItemTemplate}"
-                    ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0,5,0,0">
+                        <TextBlock
+                            Text="Weapon name"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Width="150" />
+                        <TextBlock
+                            Text="Weapon type"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Width="100" />
+                        <TextBlock
+                            Text="Affix"
+                            FontWeight="SemiBold"
+                            Foreground="Gray" />
+                    </StackPanel>
+
+                    <ItemsRepeater
+                        Grid.Row="1"
+                        ItemTemplate="{StaticResource GeneratedItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
+                </Grid>
+
+                <Expander
+                    Grid.Column="1"
+                    Header="Statistics"
+                    IsExpanded="True"
+                    VerticalAlignment="Top"
+                    Margin="0,10,0,0">
+                    <StackPanel>
+                        <TextBlock>
+                            <Run Text="Items dropped:" />
+                            <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <TextBlock>
+                            <Run Text="Rare items dropped:" />
+                            <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
+                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
+                        </TextBlock>
+
+                        <TextBlock>
+                            <Run Text="Elite items dropped:" />
+                            <Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemsCount, Mode=OneWay}" />
+                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
+                        </TextBlock>
+
+                        <ItemsRepeater
+                            ItemTemplate="{StaticResource ItemCountPerTypeItemTemplate}"
+                            ItemsSource="{x:Bind ViewModel.Stats.ItemCountPerTypes, Mode=OneWay}" />
+                    </StackPanel>
+                </Expander>
             </Grid>
         </ScrollViewer>
 
