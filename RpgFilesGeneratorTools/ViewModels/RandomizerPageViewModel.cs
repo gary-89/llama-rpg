@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.ViewModels;
@@ -79,14 +80,16 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
-    public IEnumerable<ItemTypeFrequency> ItemsTypeFrequencies => _items.Select(x => x.Type).Distinct().Select(type => new ItemTypeFrequency(type, 1));
+    public ObservableCollection<ItemTypeFrequencyDrop> ItemsTypeFrequencies { get; } = new();
 
     private async Task<int> InitializeAsync()
     {
         _affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None).ConfigureAwait(true);
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
-        OnPropertyChanged(nameof(ItemsTypeFrequencies));
+        var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
+        ItemsTypeFrequencies.AddEach(itemTypes.Select(x => new ItemTypeFrequencyDrop(x, 1)));
+
         _randomizeCommand.NotifyCanExecuteChanged();
         return 0;
     }
@@ -261,16 +264,4 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             _logger.LogError(e, "{CallerMember} failed: {Message}", callerMember, e.Message);
         }
     }
-}
-
-internal sealed class ItemTypeFrequency
-{
-    public ItemTypeFrequency(string name, int frequency)
-    {
-        Name = name;
-        Frequency = frequency;
-    }
-
-    public string Name { get; set; }
-    public int Frequency { get; set; }
 }

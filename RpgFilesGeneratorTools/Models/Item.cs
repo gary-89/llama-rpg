@@ -12,37 +12,43 @@ internal sealed class Item
         int status2Chance,
         int requiredStrength,
         int requiredDexterity,
+        int requiredIntelligence,
         int minDamage,
         int maxDamage,
-        int speed)
+        int minDefense,
+        int maxDefense,
+        int minBlock,
+        int maxBlock,
+        string totalMinBlock,
+        string totalMaxBlock,
+        string totalMin,
+        string totalMax,
+        int speed,
+        int sockets)
     {
-        this.Name = name;
-        this.Type = type;
-        this.Subtype = subtype;
-        this.Status = status;
-        this.StatusChance = statusChance;
-        this.Status2 = status2;
-        this.Status2Chance = status2Chance;
-        this.RequiredStrength = requiredStrength;
-        this.RequiredDexterity = requiredDexterity;
-        this.MinDamage = minDamage;
-        this.MaxDamage = maxDamage;
-        this.Speed = speed;
+        Name = name;
+        Type = type;
+        Subtype = subtype;
+        Status = status;
+        StatusChance = statusChance;
+        Status2 = status2;
+        Status2Chance = status2Chance;
+        RequiredStrength = requiredStrength;
+        RequiredDexterity = requiredDexterity;
+        RequiredIntelligence = requiredIntelligence;
+        MinDamage = minDamage;
+        MaxDamage = maxDamage;
+        MinDefense = minDefense;
+        MaxDefense = maxDefense;
+        MinBlock = minBlock;
+        MaxBlock = maxBlock;
+        TotalMinBlock = totalMinBlock;
+        TotalMaxBlock = totalMaxBlock;
+        TotalMin = totalMin;
+        TotalMax = totalMax;
+        Speed = speed;
+        Sockets = sockets;
     }
-
-    public static Item Empty() => new(
-        string.Empty,
-        string.Empty,
-        string.Empty,
-        string.Empty,
-        0,
-        string.Empty,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0);
 
     public string Name { get; set; }
     public string Type { get; set; }
@@ -53,12 +59,44 @@ internal sealed class Item
     public int Status2Chance { get; set; }
     public int RequiredStrength { get; set; }
     public int RequiredDexterity { get; set; }
+    public int RequiredIntelligence { get; set; }
     public int MinDamage { get; set; }
     public int MaxDamage { get; set; }
+    public int MinDefense { get; set; }
+    public int MaxDefense { get; set; }
+    public int MinBlock { get; set; }
+    public int MaxBlock { get; set; }
+    public string TotalMinBlock { get; set; }
+    public string TotalMaxBlock { get; set; }
+    public string TotalMin { get; set; }
+    public string TotalMax { get; set; }
     public int Speed { get; set; }
+    public int Sockets { get; set; }
 
     public Item Clone()
     {
-        return new Item(Name, Type, Subtype, Status, StatusChance, Status2, Status2Chance, RequiredStrength, RequiredDexterity, MinDamage, MaxDamage, Speed);
+        return new Item(
+            Name,
+            Type,
+            Subtype,
+            Status,
+            StatusChance,
+            Status2,
+            Status2Chance,
+            RequiredStrength,
+            RequiredDexterity,
+            RequiredIntelligence,
+            MinDamage,
+            MaxDamage,
+            MinDefense,
+            MaxDefense,
+            MinBlock,
+            MaxBlock,
+            TotalMinBlock,
+            TotalMaxBlock,
+            TotalMin,
+            TotalMax,
+            Speed,
+            Sockets);
     }
 }

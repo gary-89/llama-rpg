@@ -131,8 +131,13 @@ internal class ItemsPageViewModel : ObservableObject
         editedItem.Speed = EditingItem.Speed;
         editedItem.RequiredDexterity = EditingItem.RequiredDexterity;
         editedItem.RequiredStrength = EditingItem.RequiredStrength;
+        editedItem.RequiredIntelligence = EditingItem.RequiredIntelligence;
         editedItem.MinDamage = EditingItem.MinDamage;
         editedItem.MaxDamage = EditingItem.MaxDamage;
+        editedItem.MinBlock = EditingItem.MinBlock;
+        editedItem.MaxBlock = EditingItem.MaxBlock;
+        editedItem.MinDefense = EditingItem.MinDefense;
+        editedItem.MaxDefense = EditingItem.MaxDefense;
 
         OnPropertyChanged(nameof(SelectedItem));
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ internal sealed class ItemProvider : IItemProvider
     private readonly AppConfig _appConfig;
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<Item> _items = new();
+    private List<string>? _itemTypes;
 
     public ItemProvider(AppConfig appConfig, ILogger<ItemProvider> logger)
     {
@@ -22,14 +24,27 @@ internal sealed class ItemProvider : IItemProvider
         _logger = logger;
     }
 
-    public async Task<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken)
+    public async ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken)
     {
         if (_items.Count == 0)
         {
-            await LoadItemsAsync(cancellationToken);
+            await LoadItemsAsync(cancellationToken).ConfigureAwait(false);
         }
 
         return _items;
+    }
+
+    public async ValueTask<IReadOnlyList<string>> GetItemTypesAsync(CancellationToken cancellationToken)
+    {
+        if (_itemTypes is not null)
+        {
+            return _itemTypes;
+        }
+
+        var items = await GetItemsAsync(cancellationToken).ConfigureAwait(false);
+        _itemTypes = items.Select(x => x.Type).Distinct().ToList();
+
+        return _itemTypes;
     }
 
     private async Task LoadItemsAsync(CancellationToken cancellationToken)
@@ -37,7 +52,7 @@ internal sealed class ItemProvider : IItemProvider
         try
         {
             var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
-            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken);
+            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 
             foreach (var line in lines[1..])
             {
@@ -55,30 +70,19 @@ internal sealed class ItemProvider : IItemProvider
     {
         var infos = line.Split(CsvSeparator);
 
-        //name,0
-        //Type,1
-        //Subtype,2
-        //Status,3
-        //StatusChance,4
-        //Status2,5
-        //StatusChance2,6
-        //reqstr,7
-        //reqdex,8
-        //reqint,9
-        //Sockets,10
-        //speed,11
-        //mindam,12
-        //maxdam,13
-        //mindef,
-        //maxdef,minblock,maxblock,Total min block,Total max block,Total min dmg/def,Total max dmg/def,Socketed,level (null for now)
-
         int.TryParse(infos[4].Replace("%", ""), out var statusChancePercentage);
         int.TryParse(infos[6].Replace("%", ""), out var status2ChancePercentage);
-        int.TryParse(infos[7], out var requiredStrength);
-        int.TryParse(infos[8], out var requiredDexterity);
+        int.TryParse(infos[7].Replace("plvl *", ""), out var requiredStrength);
+        int.TryParse(infos[8].Replace("plvl *", ""), out var requiredDexterity);
+        int.TryParse(infos[9].Replace("plvl *", ""), out var requiredIntelligence);
+        int.TryParse(infos[10], out var sockets);
+        int.TryParse(infos[11], out var speed);
         int.TryParse(infos[12], out var minDamage);
         int.TryParse(infos[13], out var maxDamage);
-        int.TryParse(infos[11], out var speed);
+        int.TryParse(infos[14], out var minDefense);
+        int.TryParse(infos[15], out var maxDefense);
+        int.TryParse(infos[16], out var minBlock);
+        int.TryParse(infos[17], out var maxBlock);
 
         var item = new Item(
             name: infos[0],
@@ -90,8 +94,18 @@ internal sealed class ItemProvider : IItemProvider
             status2Chance: status2ChancePercentage,
             requiredStrength: requiredStrength,
             requiredDexterity: requiredDexterity,
+            requiredIntelligence: requiredIntelligence,
             minDamage: minDamage,
             maxDamage: maxDamage,
+            minDefense: minDefense,
+            maxDefense: maxDefense,
+            minBlock: minBlock,
+            maxBlock: maxBlock,
+            totalMinBlock: infos[18],
+            totalMaxBlock: infos[19],
+            totalMin: infos[20],
+            totalMax: infos[21],
+            sockets: sockets,
             speed: speed);
 
         _items.Add(item);

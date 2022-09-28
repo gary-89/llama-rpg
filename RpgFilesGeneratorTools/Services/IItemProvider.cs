@@ -1,11 +1,13 @@
-﻿using RpgFilesGeneratorTools.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using RpgFilesGeneratorTools.Models;
 
 namespace RpgFilesGeneratorTools.Services;
 
 internal interface IItemProvider
 {
-    Task<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken);
+    ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken);
+
+    ValueTask<IReadOnlyList<string>> GetItemTypesAsync(CancellationToken cancellationToken);
 }

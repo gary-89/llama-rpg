@@ -7,303 +7,410 @@
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:ItemsPageViewModel}">
-    <StackPanel>
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Visible"
+        VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.ColumnSpan="2"
-                Text="{x:Bind ViewModel.SelectedItem.Name, FallbackValue='', Mode=OneWay}"
-                FontSize="16"
-                Margin="0,0,0,10" />
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="1"
-                Text="Type:"
-                Style="{StaticResource LabelStyle}"
-                Margin="0,10,0,0" />
-
-            <StackPanel
-                Grid.Column="1"
-                Grid.Row="1"
-                Orientation="Horizontal"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,10,0,0">
-                <TextBlock Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}" />
-                <TextBlock Text=" (" />
-                <TextBlock Text="{x:Bind ViewModel.SelectedItem.Subtype, FallbackValue='', Mode=OneWay}" />
-                <TextBlock Text=")" />
-            </StackPanel>
-
-            <StackPanel
-                Grid.Column="1"
-                Grid.Row="1"
-                Orientation="Horizontal"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Margin="10,10,0,0">
-                <TextBox
-                    Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}"
-                    PlaceholderText="Type..."
-                    VerticalAlignment="Center" />
-                <TextBox
-                    Text="{x:Bind ViewModel.SelectedItem.Subtype, FallbackValue='', Mode=OneWay}"
-                    PlaceholderText="Subtype..."
-                    Margin="10,0,0,0" />
-            </StackPanel>
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="2"
-                Text="Speed:"
-                Style="{StaticResource LabelStyle}"
-                Margin="0,10,0,0" />
-
-            <TextBlock
-                Grid.Column="1"
-                Grid.Row="2"
-                Text="{x:Bind ViewModel.SelectedItem.Speed, FallbackValue='', Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,10,0,0" />
-
-            <NumberBox
-                Grid.Column="1"
-                Grid.Row="2"
-                Value="{x:Bind ViewModel.EditingItem.Speed, Mode=TwoWay, FallbackValue=''}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                HorizontalAlignment="Left"
-                Margin="10,10,0,0" />
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="3"
-                Text="Required strength:"
-                Style="{StaticResource LabelStyle}"
-                Margin="0,10,0,0" />
-
-            <TextBlock
-                Grid.Column="1"
-                Grid.Row="3"
-                Text="{x:Bind ViewModel.SelectedItem.RequiredStrength, FallbackValue='', Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,10,0,0" />
-
-            <NumberBox
-                Grid.Column="1"
-                Grid.Row="3"
-                Value="{x:Bind ViewModel.EditingItem.RequiredStrength, Mode=TwoWay, FallbackValue=''}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                HorizontalAlignment="Left"
-                Margin="10,10,0,0" />
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="4"
-                Text="Required dexterity:"
-                Style="{StaticResource LabelStyle}"
-                Margin="0,10,0,0" />
-
-            <TextBlock
-                Grid.Column="1"
-                Grid.Row="4"
-                Text="{x:Bind ViewModel.SelectedItem.RequiredDexterity, FallbackValue='', Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,10,0,0" />
-
-            <NumberBox
-                Grid.Column="1"
-                Grid.Row="4"
-                Value="{x:Bind ViewModel.EditingItem.RequiredDexterity, Mode=TwoWay, FallbackValue=''}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                HorizontalAlignment="Left"
-                Margin="10,10,0,0" />
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="5"
-                Text="Damage:"
-                Style="{StaticResource LabelStyle}"
-                Margin="0,10,0,0" />
-
-            <TextBlock
-                Grid.Column="1"
-                Grid.Row="5"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,10,0,0">
-                <Run Text="{x:Bind ViewModel.SelectedItem.MinDamage, FallbackValue='', Mode=OneWay}" />
-                <Run Text="to" />
-                <Run Text="{x:Bind ViewModel.SelectedItem.MaxDamage, FallbackValue='', Mode=OneWay}" />
-            </TextBlock>
-
-            <StackPanel
-                Grid.Column="1"
-                Grid.Row="5"
-                Orientation="Horizontal"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Margin="10,10,0,0">
-                <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDamage, FallbackValue='', Mode=TwoWay}" />
-
-                <TextBlock
-                    Text="to"
-                    VerticalAlignment="Center"
-                    Margin="10,0,0,0" />
-
-                <NumberBox
-                    Value="{x:Bind ViewModel.EditingItem.MaxDamage, FallbackValue='', Mode=TwoWay}"
-                    Margin="10,0,0,0" />
-            </StackPanel>
-
-            <TextBlock
-                Grid.Column="0"
-                Grid.Row="6"
-                Text="Status(es):"
-                Style="{StaticResource LabelStyle}"
-                VerticalAlignment="Top"
-                Margin="0,10,0,0" />
-
-            <Grid
-                Grid.Column="1"
-                Grid.Row="6"
-                Margin="10,10,0,0">
+            <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
+                    Grid.ColumnSpan="2"
+                    Text="{x:Bind ViewModel.SelectedItem.Name, FallbackValue='', Mode=OneWay}"
+                    FontSize="16"
+                    Margin="0,0,0,10" />
+
+                <TextBlock
                     Grid.Column="0"
-                    Grid.Row="0"
-                    VerticalAlignment="Center">
-                    <Run Text="{x:Bind ViewModel.SelectedItem.Status, FallbackValue='', Mode=OneWay}" />
-                </TextBlock>
+                    Grid.Row="1"
+                    Text="Type:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <TextBlock Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}" />
+                    <TextBlock Text=" (" />
+                    <TextBlock Text="{x:Bind ViewModel.SelectedItem.Subtype, FallbackValue='', Mode=OneWay}" />
+                    <TextBlock Text=")" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <TextBox
+                        Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}"
+                        PlaceholderText="Type..."
+                        VerticalAlignment="Center" />
+                    <TextBox
+                        Text="{x:Bind ViewModel.SelectedItem.Subtype, FallbackValue='', Mode=OneWay}"
+                        PlaceholderText="Subtype..."
+                        Margin="10,0,0,0" />
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="Speed:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
 
                 <TextBlock
                     Grid.Column="1"
-                    Grid.Row="0"
-                    VerticalAlignment="Center">
-                    <Run Text=" : " />
-                    <Run Text="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay}" />
-                    <Run Text="%" />
+                    Grid.Row="2"
+                    Text="{x:Bind ViewModel.SelectedItem.Speed, FallbackValue='', Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
+
+                <NumberBox
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Value="{x:Bind ViewModel.EditingItem.Speed, Mode=TwoWay, FallbackValue=''}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="10,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Text="Required strength (plvl * ):"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Text="{x:Bind ViewModel.SelectedItem.RequiredStrength, FallbackValue='', Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
+
+                <NumberBox
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Value="{x:Bind ViewModel.EditingItem.RequiredStrength, Mode=TwoWay, FallbackValue=''}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="10,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Text="Required dexterity (plvl * ):"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Text="{x:Bind ViewModel.SelectedItem.RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
+
+                <NumberBox
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Value="{x:Bind ViewModel.EditingItem.RequiredDexterity, Mode=TwoWay, FallbackValue=''}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="10,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Text="Required intelligence (plvl * ):"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Text="{x:Bind ViewModel.SelectedItem.RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
+
+                <NumberBox
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Value="{x:Bind ViewModel.EditingItem.RequiredIntelligence, Mode=TwoWay, FallbackValue=''}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    HorizontalAlignment="Left"
+                    Margin="10,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Text="Damage:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="6"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MinDamage, FallbackValue='', Mode=OneWay}" />
+                    <Run Text="to" />
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxDamage, FallbackValue='', Mode=OneWay}" />
                 </TextBlock>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="6"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDamage, FallbackValue='', Mode=TwoWay}" />
+
+                    <TextBlock
+                        Text="to"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0" />
+
+                    <NumberBox
+                        Value="{x:Bind ViewModel.EditingItem.MaxDamage, FallbackValue='', Mode=TwoWay}"
+                        Margin="10,0,0,0" />
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="7"
+                    Text="Defense:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MinDefense, FallbackValue='', Mode=OneWay}" />
+                    <Run Text="to" />
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxDefense, FallbackValue='', Mode=OneWay}" />
+                </TextBlock>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDefense, FallbackValue='', Mode=TwoWay}" />
+
+                    <TextBlock
+                        Text="to"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0" />
+
+                    <NumberBox
+                        Value="{x:Bind ViewModel.EditingItem.MaxDefense, FallbackValue='', Mode=TwoWay}"
+                        Margin="10,0,0,0" />
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="8"
+                    Text="Block:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,10,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MinBlock, FallbackValue='', Mode=OneWay}" />
+                    <Run Text="to" />
+                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxBlock, FallbackValue='', Mode=OneWay}" />
+                </TextBlock>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0">
+                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinBlock, FallbackValue='', Mode=TwoWay}" />
+
+                    <TextBlock
+                        Text="to"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0" />
+
+                    <NumberBox
+                        Value="{x:Bind ViewModel.EditingItem.MaxBlock, FallbackValue='', Mode=TwoWay}"
+                        Margin="10,0,0,0" />
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="9"
+                    Text="Status(es):"
+                    Style="{StaticResource LabelStyle}"
+                    VerticalAlignment="Top"
+                    Margin="0,10,0,0" />
+
+                <Grid
+                    Grid.Column="1"
+                    Grid.Row="9"
+                    Margin="10,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        VerticalAlignment="Center">
+                        <Run Text="{x:Bind ViewModel.SelectedItem.Status, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        VerticalAlignment="Center">
+                        <Run Text=" : " />
+                        <Run Text="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="%" />
+                    </TextBlock>
+
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Margin="10,0,0,0">
+                        <SymbolIcon Symbol="Delete" />
+                    </Button>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        VerticalAlignment="Center">
+                        <Run Text="{x:Bind ViewModel.SelectedItem.Status2, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        VerticalAlignment="Center">
+                        <Run Text=" : " />
+                        <Run Text="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="%" />
+                    </TextBlock>
+
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Margin="10,10,0,0">
+                        <SymbolIcon Symbol="Delete" />
+                    </Button>
+
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Margin="10,10,0,0">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Grid
+                Grid.Column="1"
+                VerticalAlignment="Top"
+                Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="1"
+                    Command="{x:Bind ViewModel.EditCommand}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Edit" />
+                        <TextBlock
+                            Text="Edit"
+                            Margin="10,0,0,0" />
+                    </StackPanel>
+                </Button>
 
                 <Button
                     Grid.Column="2"
-                    Grid.Row="0"
+                    Command="{x:Bind ViewModel.ClearSelectionCommand}"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Back" />
+                        <TextBlock
+                            Text="Close"
+                            Margin="10,0,0,0" />
+                    </StackPanel>
+                </Button>
+
+                <Button
+                    Grid.Column="1"
+                    Command="{x:Bind ViewModel.SaveCommand}"
                     Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Margin="10,0,0,0">
-                    <SymbolIcon Symbol="Delete" />
-                </Button>
-
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    VerticalAlignment="Center">
-                    <Run Text="{x:Bind ViewModel.SelectedItem.Status2, FallbackValue='', Mode=OneWay}" />
-                </TextBlock>
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    VerticalAlignment="Center">
-                    <Run Text=" : " />
-                    <Run Text="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay}" />
-                    <Run Text="%" />
-                </TextBlock>
-
-                <Button
-                    Grid.Column="2"
-                    Grid.Row="1"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <SymbolIcon Symbol="Delete" />
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Save" />
+                        <TextBlock
+                            Text="Save"
+                            Margin="10,0,0,0" />
+                    </StackPanel>
                 </Button>
 
                 <Button
                     Grid.Column="2"
-                    Grid.Row="2"
+                    Command="{x:Bind ViewModel.CancelCommand}"
                     Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <SymbolIcon Symbol="Add" />
+                    Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Cancel" />
+                        <TextBlock
+                            Text="Cancel"
+                            Margin="10,0,0,0" />
+                    </StackPanel>
                 </Button>
             </Grid>
         </Grid>
-
-        <Grid Margin="0,10,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Button
-                Grid.Column="1"
-                Command="{x:Bind ViewModel.EditCommand}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Edit" />
-                    <TextBlock
-                        Text="Edit"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-            </Button>
-
-            <Button
-                Grid.Column="2"
-                Command="{x:Bind ViewModel.ClearSelectionCommand}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                Margin="10,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Back" />
-                    <TextBlock
-                        Text="Close"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-            </Button>
-
-            <Button
-                Grid.Column="1"
-                Command="{x:Bind ViewModel.SaveCommand}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Margin="10,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Save" />
-                    <TextBlock
-                        Text="Save"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-            </Button>
-
-            <Button
-                Grid.Column="2"
-                Command="{x:Bind ViewModel.CancelCommand}"
-                Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Margin="10,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Cancel" />
-                    <TextBlock
-                        Text="Cancel"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-            </Button>
-        </Grid>
-    </StackPanel>
+    </ScrollViewer>
 </UserControl>
