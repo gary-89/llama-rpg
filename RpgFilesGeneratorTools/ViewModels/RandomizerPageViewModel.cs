@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,25 +21,25 @@ namespace RpgFilesGeneratorTools.ViewModels;
 
 internal sealed class RandomizerPageViewModel : ObservableObject
 {
+    private readonly IItemRandomizerProvider _itemRandomizer;
     private readonly IAffixProvider _affixProvider;
     private readonly IItemProvider _itemProvider;
     private readonly ILogger<RandomizerPageViewModel> _logger;
     private readonly AsyncRelayCommand _randomizeCommand;
     private readonly AsyncRelayCommand _exportCommand;
-    private readonly Random _random;
 
     private IReadOnlyList<Item> _items = Array.Empty<Item>();
     private IReadOnlyList<Affix> _affixes = Array.Empty<Affix>();
     private string? _fileToExportPath;
     private bool _exportEnabled;
 
-    public RandomizerPageViewModel(IAffixProvider affixProvider, IItemProvider itemProvider, ILogger<RandomizerPageViewModel> logger)
+    public RandomizerPageViewModel(IItemRandomizerProvider itemRandomizer, IAffixProvider affixProvider, IItemProvider itemProvider, ILogger<RandomizerPageViewModel> logger)
     {
+        _itemRandomizer = itemRandomizer;
         _affixProvider = affixProvider;
         _itemProvider = itemProvider;
         _logger = logger;
 
-        _random = new Random();
         _randomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
 
         ClearCommand = new RelayCommand(ClearItemsAndStats);
@@ -108,86 +107,23 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         return _affixes.Count > 0 && _items.Count > 0;
     }
 
-    private Task GenerateRandomizedItemsAsync(CancellationToken cancellationToken)
+    private async Task GenerateRandomizedItemsAsync(CancellationToken cancellationToken)
     {
-        for (var i = 0; i < Settings.NumberOfItemsToGenerate; i++)
+        await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
         {
-            if (!TryGenerateRandomizedItem(out var item))
-            {
-                continue;
-            }
-
             GeneratedItems.Add(item);
-
-            RefreshStatsOnAddingItem(item.ItemRarityType);
+            RefreshStatsOnAddingItem(item);
         }
-
-        return Task.CompletedTask;
     }
 
-    private void RefreshStatsOnAddingItem(ItemRarityType rarity)
+    private void RefreshStatsOnAddingItem(RandomizedItem item)
     {
-        Stats.TotalGeneratedItemsCount++;
-
-        switch (rarity)
-        {
-            case ItemRarityType.Rare:
-                Stats.RareGeneratedItemsCount++;
-                break;
-
-            case ItemRarityType.Elite:
-                Stats.EliteGeneratedItemsCount++;
-                break;
-        }
+        Stats.UpdateOnAddingItem(item);
 
         if (!ExportEnabled)
         {
             ExportEnabled = true;
         }
-    }
-
-    private bool TryGenerateRandomizedItem([NotNullWhen(true)] out RandomizedItem? result)
-    {
-        var index = _random.Next(1, 40);
-        var affix = _affixes[index];
-        var tier = _random.Next(1, 6);
-        var affixInfo = affix.Rules.FirstOrDefault(x => x.Tier == tier);
-        var items = _items.Where(x => affixInfo?.ItemType.Contains(x.Type, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
-        var item = items.Count > 0 ? items[_random.Next(0, items.Count - 1)] : null;
-
-        if (affixInfo is null || item is null)
-        {
-            result = default;
-            return false;
-        }
-
-        var mod = affixInfo.Modifier1Min;
-
-        if (int.TryParse(affixInfo.Modifier1Min, out var modMin) &&
-            int.TryParse(affixInfo.Modifier1Min, out var modMax))
-        {
-            mod = $"{_random.Next(modMin, modMax)}";
-        }
-
-        var rarity = GenerateRarity();
-
-        result = new RandomizedItem(
-            item.Name,
-            $"{affix.Name}: {mod}",
-            rarity);
-
-        return true;
-    }
-
-    private ItemRarityType GenerateRarity()
-    {
-        var rarity = _random.Next(0, Settings.EliteItemDropRate * Settings.RareItemDropRate);
-
-        return rarity % Settings.EliteItemDropRate == 0
-            ? ItemRarityType.Elite
-            : rarity % Settings.RareItemDropRate == 0
-                ? ItemRarityType.Rare
-                : ItemRarityType.Normal;
     }
 
     private bool CanExportItems() => ExportEnabled;

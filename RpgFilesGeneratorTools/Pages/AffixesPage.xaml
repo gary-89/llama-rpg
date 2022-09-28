@@ -92,7 +92,7 @@
                 SelectionMode="Single"
                 Width="200" />
 
-            <local:AffixDetails
+            <local:AffixDetailsView
                 Grid.Column="1"
                 Visibility="{x:Bind ViewModel.SelectedAffix, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}}"
                 Margin="10,10,0,0" />

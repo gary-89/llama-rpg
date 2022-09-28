@@ -2,9 +2,9 @@
 
 namespace RpgFilesGeneratorTools.Pages;
 
-internal sealed partial class ItemDetails
+internal sealed partial class ItemDetailsView
 {
-    public ItemDetails()
+    public ItemDetailsView()
     {
         InitializeComponent();
     }

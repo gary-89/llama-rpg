@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
+using RpgFilesGeneratorTools.Models;
 
 namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
@@ -45,5 +47,30 @@ internal sealed class RandomizerStats : ObservableObject
     {
         get => _eliteGeneratedItemPercentage;
         set => SetProperty(ref _eliteGeneratedItemPercentage, value);
+    }
+
+    public Dictionary<string, int> GeneratedItemsCountPerItemType { get; } = new();
+
+    public void UpdateOnAddingItem(RandomizedItem item)
+    {
+        if (!GeneratedItemsCountPerItemType.ContainsKey(item.WeaponType))
+        {
+            GeneratedItemsCountPerItemType.Add(item.WeaponType, 0);
+        }
+
+        GeneratedItemsCountPerItemType[item.WeaponType]++;
+
+        TotalGeneratedItemsCount++;
+
+        switch (item.ItemRarityType)
+        {
+            case ItemRarityType.Rare:
+                RareGeneratedItemsCount++;
+                break;
+
+            case ItemRarityType.Elite:
+                EliteGeneratedItemsCount++;
+                break;
+        }
     }
 }

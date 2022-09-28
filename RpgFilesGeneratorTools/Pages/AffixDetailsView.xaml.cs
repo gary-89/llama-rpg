@@ -2,9 +2,9 @@
 
 namespace RpgFilesGeneratorTools.Pages;
 
-internal sealed partial class AffixDetails
+internal sealed partial class AffixDetailsView
 {
-    public AffixDetails()
+    public AffixDetailsView()
     {
         InitializeComponent();
     }

@@ -56,6 +56,7 @@ public partial class App
         services.AddSingleton<AppConfig>();
         services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddSingleton<IItemProvider, ItemProvider>();
+        services.AddSingleton<IItemRandomizerProvider, ItemRandomizerProvider>();
         services.AddTransient<MainViewModel>();
         services.AddSerilog();
 
