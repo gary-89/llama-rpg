@@ -40,7 +40,7 @@
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="1"
-                    Text="Frequency:"
+                    Text="Weight:"
                     Style="{StaticResource LabelStyle}"
                     Margin="0,5,0,0" />
 

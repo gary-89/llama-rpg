@@ -6,11 +6,11 @@ namespace RpgFilesGeneratorTools.Converters;
 
 internal sealed class MenuItemToPageConverter
 {
-    public static Page? Convert(object? value)
+    public static Page Convert(object? value)
     {
         if (value is not ApplicationPage page)
         {
-            return default;
+            return new ItemsPage();
         }
 
         return page switch

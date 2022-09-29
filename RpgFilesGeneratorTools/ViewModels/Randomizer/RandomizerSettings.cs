@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
@@ -25,4 +26,6 @@ internal sealed class RandomizerSettings : ObservableObject
         get => _numberOfItemsToGenerate;
         set => SetProperty(ref _numberOfItemsToGenerate, value);
     }
+
+    public ObservableCollection<ItemTypeWeightDrop> ItemTypeWeights { get; } = new();
 }

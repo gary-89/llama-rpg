@@ -79,15 +79,13 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
-    public ObservableCollection<ItemTypeFrequencyDrop> ItemsTypeFrequencies { get; } = new();
-
     private async Task<int> InitializeAsync()
     {
         _affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None).ConfigureAwait(true);
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
         var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
-        ItemsTypeFrequencies.AddEach(itemTypes.Select(x => new ItemTypeFrequencyDrop(x, 1)));
+        Settings.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, 1)));
 
         _randomizeCommand.NotifyCanExecuteChanged();
         return 0;
@@ -96,9 +94,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private void ClearItemsAndStats()
     {
         GeneratedItems.Clear();
-        Stats.TotalGeneratedItemsCount = 0;
-        Stats.RareGeneratedItemsCount = 0;
-        Stats.EliteGeneratedItemsCount = 0;
+        Stats.Clear();
         _exportCommand.NotifyCanExecuteChanged();
     }
 
@@ -190,7 +186,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             return;
         }
 
-        RunSafely(OpenFile);
+        RunSafely(OpenFile).GetAwaiter().GetResult();
 
         Task OpenFile()
         {

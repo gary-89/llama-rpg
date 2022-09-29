@@ -86,4 +86,13 @@ internal sealed class RandomizerStats : ObservableObject
     {
         OnPropertyChanged(nameof(ItemCountPerTypes));
     }
+
+    public void Clear()
+    {
+        TotalGeneratedItemsCount = 0;
+        RareGeneratedItemsCount = 0;
+        EliteGeneratedItemsCount = 0;
+        _generatedItemsCountPerItemType.Clear();
+        RefreshItemCountPerTypes();
+    }
 }
