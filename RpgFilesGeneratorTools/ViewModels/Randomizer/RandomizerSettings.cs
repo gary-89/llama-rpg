@@ -8,6 +8,13 @@ internal sealed class RandomizerSettings : ObservableObject
     private int _rareItemDropRate = 10;
     private int _eliteItemDropRate = 50;
     private int _numberOfItemsToGenerate = 1000;
+    private int _characterLevel = 1;
+
+    public int CharacterLevel
+    {
+        get => _characterLevel;
+        set => SetProperty(ref _characterLevel, value);
+    }
 
     public int RareItemDropRate
     {

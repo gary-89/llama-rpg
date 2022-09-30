@@ -106,10 +106,10 @@
 
                             <Slider
                                 x:Name="LevelSlider"
-                                Value="1"
-                                Maximum="100"
+                                Value="{x:Bind ViewModel.Settings.CharacterLevel, Mode=TwoWay}"
+                                Maximum="99"
                                 Minimum="1"
-                                Width="200" />
+                                Width="150" />
                         </StackPanel>
 
                         <StackPanel
@@ -126,7 +126,7 @@
                                 Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
                                 Maximum="100"
                                 Minimum="1"
-                                Width="200" />
+                                Width="150" />
                         </StackPanel>
 
                         <StackPanel
@@ -143,7 +143,7 @@
                                 Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
                                 Maximum="100"
                                 Minimum="1"
-                                Width="200" />
+                                Width="150" />
                         </StackPanel>
 
                         <StackPanel
@@ -159,8 +159,8 @@
                                 Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
                                 Maximum="10000"
                                 Minimum="1"
-                                StepFrequency="10"
-                                Width="200"
+                                StepFrequency="100"
+                                Width="150"
                                 Margin="10,0,0,0" />
                         </StackPanel>
                     </Grid>

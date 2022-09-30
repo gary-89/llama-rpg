@@ -12,6 +12,7 @@ using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
+using static System.String;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 
@@ -37,8 +38,32 @@ internal class ItemsPageViewModel : ObservableObject
         CancelCommand = new RelayCommand(() => IsEditing = false);
         ClearSelectionCommand = new RelayCommand(ClearSelection);
         SaveCommand = new RelayCommand(SaveItem);
+        DeleteItemStatusCommand = new RelayCommand<object>(DeleteItemStatus);
 
         TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
+    }
+
+    private void DeleteItemStatus(object? statusIndex)
+    {
+        if (EditingItem is null || !int.TryParse(statusIndex?.ToString(), out var index))
+        {
+            return;
+        }
+
+        switch (index)
+        {
+            case 0:
+                EditingItem.Status = Empty;
+                EditingItem.StatusChance = default;
+                OnPropertyChanged(nameof(EditingItem));
+                break;
+
+            case 1:
+                EditingItem.Status2 = Empty;
+                EditingItem.Status2Chance = default;
+                OnPropertyChanged(nameof(EditingItem));
+                break;
+        }
     }
 
     public NotifyTaskCompletion<bool> TaskInitialize { get; }
@@ -47,6 +72,7 @@ internal class ItemsPageViewModel : ObservableObject
     public ICommand EditCommand { get; }
     public ICommand SaveCommand { get; }
     public ICommand CancelCommand { get; }
+    public ICommand DeleteItemStatusCommand { get; }
 
     public string? FilterText
     {
@@ -61,6 +87,8 @@ internal class ItemsPageViewModel : ObservableObject
     }
 
     public ObservableCollection<Item> ItemsSource { get; } = new();
+
+    public IReadOnlyList<string> ItemTypes { get; private set; } = new List<string>();
 
     public bool DisplayDetails
     {
@@ -93,6 +121,8 @@ internal class ItemsPageViewModel : ObservableObject
             DisplayDetails = true;
         }
     }
+
+    public ObservableCollection<string> ItemStatusesSource { get; } = new();
 
     public Item? EditingItem
     {
@@ -128,6 +158,8 @@ internal class ItemsPageViewModel : ObservableObject
             return;
         }
 
+        editedItem.Type = EditingItem.Type;
+        editedItem.Subtype = EditingItem.Subtype;
         editedItem.Speed = EditingItem.Speed;
         editedItem.RequiredDexterity = EditingItem.RequiredDexterity;
         editedItem.RequiredStrength = EditingItem.RequiredStrength;
@@ -138,6 +170,10 @@ internal class ItemsPageViewModel : ObservableObject
         editedItem.MaxBlock = EditingItem.MaxBlock;
         editedItem.MinDefense = EditingItem.MinDefense;
         editedItem.MaxDefense = EditingItem.MaxDefense;
+        editedItem.Status = EditingItem.Status;
+        editedItem.StatusChance = EditingItem.StatusChance;
+        editedItem.Status2 = EditingItem.Status2;
+        editedItem.Status2Chance = EditingItem.Status2Chance;
 
         OnPropertyChanged(nameof(SelectedItem));
 
@@ -149,8 +185,27 @@ internal class ItemsPageViewModel : ObservableObject
         try
         {
             _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
-
             ItemsSource.AddEach(_items);
+
+            ItemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
+            OnPropertyChanged(nameof(ItemTypes));
+
+            var statuses = new HashSet<string>();
+
+            foreach (var item in _items)
+            {
+                if (!IsNullOrEmpty(item.Status))
+                {
+                    statuses.Add(item.Status);
+                }
+
+                if (!IsNullOrEmpty(item.Status2))
+                {
+                    statuses.Add(item.Status2);
+                }
+            }
+
+            ItemStatusesSource.AddEach(statuses);
         }
         catch (Exception exception)
         {
@@ -165,7 +220,7 @@ internal class ItemsPageViewModel : ObservableObject
         ItemsSource.Clear();
 
         ItemsSource.AddEach(
-            string.IsNullOrWhiteSpace(FilterText)
+            IsNullOrWhiteSpace(FilterText)
                 ? _items
                 : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
                                     x.Type.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
