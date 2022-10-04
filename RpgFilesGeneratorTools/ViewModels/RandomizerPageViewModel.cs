@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -43,7 +44,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         _randomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
 
         ClearCommand = new RelayCommand(ClearItemsAndStats);
-        _exportCommand = new AsyncRelayCommand(ExportGeneratedItems, CanExportItems);
+        _exportCommand = new AsyncRelayCommand(ExportGeneratedItemsAsync, CanExportItems);
         var openLastGeneratedFileCommand = new RelayCommand(OpenLastGeneratedFile);
 
         InfoBar = new InfoBar(openLastGeneratedFileCommand);
@@ -139,7 +140,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private bool CanExportItems() => ExportEnabled;
 
-    private async Task ExportGeneratedItems(CancellationToken cancellationToken)
+    private async Task ExportGeneratedItemsAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -151,21 +152,9 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
             _logger.LogInformation("Exporting items to {Path}.", _fileToExportPath);
 
-            var offset = 0;
+            var lines = GeneratedItems.Select(x => string.Join(',', x.ItemType, x.Affix, x.ItemRarityType.ToString()));
 
-            await using (var fileStream = File.Open(_fileToExportPath, FileMode.OpenOrCreate))
-            {
-                fileStream.Seek(0, SeekOrigin.End);
-
-                foreach (var item in GeneratedItems)
-                {
-                    var line = $"{item.ItemName},{item.Affix},{item.ItemRarityType}," + Environment.NewLine;
-                    var buffer = System.Text.Encoding.UTF8.GetBytes(line).AsMemory();
-                    fileStream.Seek(offset, SeekOrigin.Begin);
-                    await fileStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(true);
-                    offset += buffer.Length;
-                }
-            }
+            await File.WriteAllLinesAsync(_fileToExportPath, lines, Encoding.UTF8, cancellationToken).ConfigureAwait(true);
 
             await InfoBar.ShowAsync("File created", $"Items successfully exported to: {_fileToExportPath}", true).ConfigureAwait(true);
         }
