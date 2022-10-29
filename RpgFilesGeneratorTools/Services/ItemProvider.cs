@@ -95,12 +95,12 @@ internal sealed class ItemProvider : IItemProvider
         int.TryParse(infos[17], out var maxBlock);
 
         var item = new Item(
-            name: infos[0],
-            type: infos[1],
-            subtype: infos[2],
-            status: infos[3],
+            name: infos[0].Trim(),
+            type: infos[1].Trim(),
+            subtype: infos[2].Trim(),
+            status: infos[3].Trim(),
             statusChance: statusChancePercentage,
-            status2: infos[5],
+            status2: infos[5].Trim(),
             status2Chance: status2ChancePercentage,
             requiredStrength: requiredStrength,
             requiredDexterity: requiredDexterity,

@@ -16,7 +16,6 @@
     <ApplicationIcon>Llama-icon.ico</ApplicationIcon>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
-  
   <ItemGroup>
     <Content Remove="Assets\Datasets\Affixes.csv" />
     <Content Remove="Assets\Datasets\Items.csv" />

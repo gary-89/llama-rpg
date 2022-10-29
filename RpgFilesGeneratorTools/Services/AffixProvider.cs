@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -55,14 +56,25 @@ internal sealed class AffixProvider : IAffixProvider
                 }
 
                 var itemType = infos[19];
+                var itemType2 = infos[20];
+                var itemType3 = infos[21];
+                var itemType4 = infos[22];
+                var itemType5 = infos[23];
+                var itemType6 = infos[24];
+                var itemType7 = infos[25];
+                var itemType8 = infos[26];
 
                 if (string.IsNullOrWhiteSpace(infos[1]) || string.IsNullOrWhiteSpace(itemType) || !int.TryParse(infos[1], out var tier))
                 {
                     continue;
                 }
 
+                var itemTypes =
+                    new[] { itemType, itemType2, itemType3, itemType4, itemType5, itemType6, itemType7, itemType8 }
+                        .Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
+
                 var lastAffix = _affixes[index];
-                lastAffix.Rules.Add(CreateAffixRule(itemType, tier, infos));
+                lastAffix.Rules.Add(CreateAffixRule(itemTypes, tier, infos));
             }
         }
         catch (Exception exception)
@@ -72,7 +84,7 @@ internal sealed class AffixProvider : IAffixProvider
         }
     }
 
-    private static AffixRule CreateAffixRule(string itemType, int tier, IReadOnlyList<string> infos)
+    private static AffixRule CreateAffixRule(IReadOnlyList<string> itemTypes, int tier, IReadOnlyList<string> infos)
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);
@@ -80,7 +92,7 @@ internal sealed class AffixProvider : IAffixProvider
         int.TryParse(infos[7], out var frequency);
 
         return new AffixRule(
-            itemType.Replace("offhands", "shield"),
+            itemTypes,
             tier,
             isRare == 1,
             isElite == 1,

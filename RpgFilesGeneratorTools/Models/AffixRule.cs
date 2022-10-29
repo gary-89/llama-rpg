@@ -1,7 +1,9 @@
-﻿namespace RpgFilesGeneratorTools.Models;
+﻿using System.Collections.Generic;
+
+namespace RpgFilesGeneratorTools.Models;
 
 internal sealed record AffixRule(
-    string ItemType,
+    IReadOnlyList<string> ItemTypes,
     int Tier,
     bool IsRare,
     bool IsElite,

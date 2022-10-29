@@ -71,7 +71,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var item = possibleItems.ElementAt(_random.Next(possibleItems.Count));
 
-            var matchingAffixes = affixes.Where(x => x.Rules.Any(r => r.ItemType.Contains(itemType, StringComparison.OrdinalIgnoreCase))).ToList();
+            var matchingAffixes = affixes.Where(x => x.Rules.Any(r => r.ItemTypes.Contains(itemType))).ToList();
 
             var affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
 
@@ -109,7 +109,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         var affix = affixes[index];
         var tier = _random.Next(1, 6);
         var affixInfo = affix.Rules.FirstOrDefault(x => x.Tier == tier);
-        var items2 = items.Where(x => affixInfo?.ItemType.Contains(x.Type, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
+        var items2 = items.Where(x => affixInfo?.ItemTypes.Contains(x.Type) ?? false).ToList();
         var item = items2.Count > 0 ? items2[_random.Next(0, items2.Count - 1)] : null;
 
         if (affixInfo is null || item is null)

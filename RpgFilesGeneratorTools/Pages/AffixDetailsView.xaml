@@ -16,6 +16,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -31,6 +32,7 @@
                     Text="Tier:"
                     Style="{StaticResource LabelStyle}"
                     Margin="0,5,0,0" />
+
                 <TextBlock
                     Grid.Column="1"
                     Grid.Row="0"
