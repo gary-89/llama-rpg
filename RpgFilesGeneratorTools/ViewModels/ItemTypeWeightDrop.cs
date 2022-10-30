@@ -1,13 +1,15 @@
-﻿namespace RpgFilesGeneratorTools.ViewModels;
+﻿using RpgFilesGeneratorTools.Models;
+
+namespace RpgFilesGeneratorTools.ViewModels;
 
 internal sealed class ItemTypeWeightDrop
 {
-    public ItemTypeWeightDrop(string itemType, int weight)
+    public ItemTypeWeightDrop(ItemType itemType, int weight)
     {
         ItemType = itemType;
         Weight = weight;
     }
 
-    public string ItemType { get; }
+    public ItemType ItemType { get; }
     public int Weight { get; set; }
 }

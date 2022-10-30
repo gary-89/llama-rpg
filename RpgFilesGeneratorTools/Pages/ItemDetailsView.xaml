@@ -70,9 +70,10 @@
                         Header=""
                         ItemsSource="{x:Bind ViewModel.ItemTypes}"
                         SelectedItem="{x:Bind ViewModel.EditingItem.Type, FallbackValue='', Mode=TwoWay}" />
-                    <TextBox
-                        Text="{x:Bind ViewModel.EditingItem.Subtype, FallbackValue='', Mode=TwoWay}"
-                        PlaceholderText="Subtype..."
+                    <ComboBox
+                        Header=""
+                        ItemsSource="{x:Bind ViewModel.ItemSubtypes}"
+                        SelectedItem="{x:Bind ViewModel.EditingItem.Subtype, FallbackValue='', Mode=TwoWay}"
                         Margin="10,0,0,0" />
                 </StackPanel>
 

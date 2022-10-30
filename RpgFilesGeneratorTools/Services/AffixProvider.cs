@@ -55,23 +55,29 @@ internal sealed class AffixProvider : IAffixProvider
                     continue;
                 }
 
-                var itemType = infos[19];
-                var itemType2 = infos[20];
-                var itemType3 = infos[21];
-                var itemType4 = infos[22];
-                var itemType5 = infos[23];
-                var itemType6 = infos[24];
-                var itemType7 = infos[25];
-                var itemType8 = infos[26];
+                // TODO: improve the string manipulation
+                var itemTypeString = infos[19].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString2 = infos[20].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString3 = infos[21].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString4 = infos[22].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString5 = infos[23].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString6 = infos[24].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString7 = infos[25].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
+                var itemTypeString8 = infos[26].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
 
-                if (string.IsNullOrWhiteSpace(infos[1]) || string.IsNullOrWhiteSpace(itemType) || !int.TryParse(infos[1], out var tier))
+                if (string.IsNullOrWhiteSpace(infos[1]) || !Enum.TryParse<ItemType>(itemTypeString, true, out _) || !int.TryParse(infos[1], out var tier))
                 {
                     continue;
                 }
 
                 var itemTypes =
-                    new[] { itemType, itemType2, itemType3, itemType4, itemType5, itemType6, itemType7, itemType8 }
-                        .Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
+                    new[] { itemTypeString, itemTypeString2, itemTypeString3, itemTypeString4, itemTypeString5, itemTypeString6, itemTypeString7, itemTypeString8 }
+                        .Where(t => !string.IsNullOrWhiteSpace(t) && Enum.TryParse<ItemType>(itemTypeString, true, out _))
+                        .Select(x =>
+                        {
+                            Enum.TryParse<ItemType>(x, true, out var itemType);
+                            return itemType;
+                        }).ToList();
 
                 var lastAffix = _affixes[index];
                 lastAffix.Rules.Add(CreateAffixRule(itemTypes, tier, infos));
@@ -84,7 +90,7 @@ internal sealed class AffixProvider : IAffixProvider
         }
     }
 
-    private static AffixRule CreateAffixRule(IReadOnlyList<string> itemTypes, int tier, IReadOnlyList<string> infos)
+    private static AffixRule CreateAffixRule(IReadOnlyList<ItemType> itemTypes, int tier, IReadOnlyList<string> infos)
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);

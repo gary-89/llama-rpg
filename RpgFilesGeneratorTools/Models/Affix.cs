@@ -24,7 +24,7 @@ internal sealed class Affix
 
     public IEnumerable<ItemTypeAffixes> GetPerItemTypeAffixes()
     {
-        var rulesByItemType = new Dictionary<string, List<AffixRule>>();
+        var rulesByItemType = new Dictionary<ItemType, List<AffixRule>>();
 
         // TODO: try to use LINQ statements
         foreach (var rule in Rules)

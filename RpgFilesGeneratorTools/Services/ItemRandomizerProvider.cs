@@ -59,7 +59,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
     }
 
     private bool TryGenerateRandomizedItemFromItemType(
-        string itemType,
+        ItemType itemType,
         IEnumerable<Item> items,
         IEnumerable<Affix> affixes,
         RandomizerSettings settings,
@@ -67,7 +67,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
     {
         try
         {
-            var possibleItems = items.Where(x => x.Type.Equals(itemType, StringComparison.OrdinalIgnoreCase)).ToList();
+            var possibleItems = items.Where(x => x.Type == itemType).ToList();
 
             var item = possibleItems.ElementAt(_random.Next(possibleItems.Count));
 
@@ -148,5 +148,5 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                 : ItemRarityType.Normal;
     }
 
-    private sealed record ItemTypeCumulativeWeight(string ItemType, int CumulativeWeight);
+    private sealed record ItemTypeCumulativeWeight(ItemType ItemType, int CumulativeWeight);
 }

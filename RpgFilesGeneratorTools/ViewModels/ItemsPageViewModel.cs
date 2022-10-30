@@ -88,7 +88,9 @@ internal class ItemsPageViewModel : ObservableObject
 
     public ObservableCollection<Item> ItemsSource { get; } = new();
 
-    public IReadOnlyList<string> ItemTypes { get; private set; } = new List<string>();
+    public IReadOnlyList<ItemType> ItemTypes { get; } = Enum.GetValues<ItemType>();
+
+    public IReadOnlyList<ItemSubtype> ItemSubtypes { get; } = Enum.GetValues<ItemSubtype>();
 
     public bool DisplayDetails
     {
@@ -187,9 +189,6 @@ internal class ItemsPageViewModel : ObservableObject
             _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
             ItemsSource.AddEach(_items);
 
-            ItemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
-            OnPropertyChanged(nameof(ItemTypes));
-
             var statuses = new HashSet<string>();
 
             foreach (var item in _items)
@@ -223,7 +222,7 @@ internal class ItemsPageViewModel : ObservableObject
             IsNullOrWhiteSpace(FilterText)
                 ? _items
                 : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                    x.Type.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                    x.Subtype.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
+                                    x.Type.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
+                                    x.Subtype.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 }

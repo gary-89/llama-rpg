@@ -7,7 +7,7 @@ namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 internal sealed class RandomizerStats : ObservableObject
 {
-    private readonly Dictionary<string, int> _generatedItemsCountPerItemType = new();
+    private readonly Dictionary<ItemType, int> _generatedItemsCountPerItemType = new();
 
     private double _eliteGeneratedItemsCount;
     private double _rareGeneratedItemsCount;

@@ -3,7 +3,7 @@
 namespace RpgFilesGeneratorTools.Models;
 
 internal sealed record AffixRule(
-    IReadOnlyList<string> ItemTypes,
+    IReadOnlyList<ItemType> ItemTypes,
     int Tier,
     bool IsRare,
     bool IsElite,

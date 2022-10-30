@@ -4,8 +4,8 @@ internal sealed class Item
 {
     public Item(
         string name,
-        string type,
-        string subtype,
+        ItemType type,
+        ItemSubtype subtype,
         string status,
         int statusChance,
         string status2,
@@ -51,8 +51,8 @@ internal sealed class Item
     }
 
     public string Name { get; set; }
-    public string Type { get; set; }
-    public string Subtype { get; set; }
+    public ItemType Type { get; set; }
+    public ItemSubtype Subtype { get; set; }
     public string Status { get; set; }
     public int StatusChance { get; set; }
     public string Status2 { get; set; }

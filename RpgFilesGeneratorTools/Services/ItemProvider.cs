@@ -18,7 +18,7 @@ internal sealed class ItemProvider : IItemProvider
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<Item> _items = new();
 
-    private List<string>? _itemTypes;
+    private List<ItemType>? _itemTypes;
 
     public ItemProvider(AppConfig appConfig, ILogger<ItemProvider> logger)
     {
@@ -36,11 +36,11 @@ internal sealed class ItemProvider : IItemProvider
         return _items;
     }
 
-    public async ValueTask<IReadOnlyList<string>> GetItemTypesAsync(CancellationToken cancellationToken)
+    public async ValueTask<IReadOnlyList<ItemType>> GetItemTypesAsync(CancellationToken cancellationToken)
     {
         if (_itemTypes is not null)
         {
-            return _itemTypes;
+            return _itemTypes.AsReadOnly();
         }
 
         var items = await GetItemsAsync(cancellationToken).ConfigureAwait(false);
@@ -94,10 +94,16 @@ internal sealed class ItemProvider : IItemProvider
         int.TryParse(infos[16], out var minBlock);
         int.TryParse(infos[17], out var maxBlock);
 
+        if (!Enum.TryParse<ItemType>(infos[1].Trim(), true, out var type) ||
+            !Enum.TryParse<ItemSubtype>(infos[2].Trim(), true, out var subtype))
+        {
+            return;
+        }
+
         var item = new Item(
             name: infos[0].Trim(),
-            type: infos[1].Trim(),
-            subtype: infos[2].Trim(),
+            type: type,
+            subtype: subtype,
             status: infos[3].Trim(),
             statusChance: statusChancePercentage,
             status2: infos[5].Trim(),

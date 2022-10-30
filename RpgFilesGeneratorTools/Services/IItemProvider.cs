@@ -9,5 +9,5 @@ internal interface IItemProvider
 {
     ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken);
 
-    ValueTask<IReadOnlyList<string>> GetItemTypesAsync(CancellationToken cancellationToken);
+    ValueTask<IReadOnlyList<ItemType>> GetItemTypesAsync(CancellationToken cancellationToken);
 }
