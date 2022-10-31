@@ -67,7 +67,7 @@ internal sealed class RandomizerStats : ObservableObject
 
         switch (item.ItemRarityType)
         {
-            case ItemRarityType.Rare:
+            case ItemRarityType.Magic:
                 RareGeneratedItemsCount++;
                 break;
 

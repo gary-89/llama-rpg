@@ -12,8 +12,8 @@ internal sealed class RarityTypeToForegroundBrushConverter : IValueConverter
     private static readonly SolidColorBrush s_defaultBrush = Application.Current.Resources["DefaultTextForegroundThemeBrush"] as SolidColorBrush
                                                              ?? throw new InvalidOperationException("Default text block brush cannot be found");
 
-    private static readonly SolidColorBrush s_eliteItemColorBrush = new(Color.FromArgb(255, 255, 215, 0));
-    private static readonly SolidColorBrush s_rareItemColorBrush = new(Color.FromArgb(255, 20, 93, 160));
+    private static readonly SolidColorBrush s_eliteItemColorBrush = new(Color.FromArgb(255, 199, 179, 119));
+    private static readonly SolidColorBrush s_magicItemColorBrush = new(Color.FromArgb(255, 105, 105, 255));
 
     public object Convert(object value, Type targetType, object parameter, string language)
     {
@@ -24,7 +24,7 @@ internal sealed class RarityTypeToForegroundBrushConverter : IValueConverter
 
         return type switch
         {
-            ItemRarityType.Rare => s_rareItemColorBrush,
+            ItemRarityType.Magic => s_magicItemColorBrush,
             ItemRarityType.Elite => s_eliteItemColorBrush,
             _ => s_defaultBrush
         };

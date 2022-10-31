@@ -1,3 +1,10 @@
-﻿namespace RpgFilesGeneratorTools.Models;
+﻿using System.Collections.Generic;
 
-internal sealed record RandomizedItem(string ItemName, ItemType ItemType, string Affix, ItemRarityType ItemRarityType);
+namespace RpgFilesGeneratorTools.Models;
+
+internal sealed record RandomizedItem(
+    string ItemName,
+    ItemType ItemType,
+    ItemSubtype ItemSubtype,
+    IReadOnlyList<string> Affixes,
+    ItemRarityType ItemRarityType);

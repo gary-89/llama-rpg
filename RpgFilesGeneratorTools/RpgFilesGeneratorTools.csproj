@@ -32,6 +32,7 @@
     <None Remove="Pages\MapsPage.xaml" />
     <None Remove="Pages\MonstersPage.xaml" />
     <None Remove="Pages\RandomizerPage.xaml" />
+    <None Remove="Styles\Colors.xaml" />
     <None Remove="Styles\TextBlockStyle.xaml" />
   </ItemGroup>
 
@@ -73,6 +74,9 @@
     <None Update="Assets\Datasets\Items.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\AffixDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

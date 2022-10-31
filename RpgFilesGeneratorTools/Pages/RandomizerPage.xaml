@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:RpgFilesGeneratorTools.Models"
+    xmlns:system="using:System"
     xmlns:toolkit="using:RpgFilesGeneratorTools.Toolkit"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     toolkit:ViewModelLocator.AutoHookedUpViewModel="True"
@@ -12,6 +13,19 @@
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
     <Page.Resources>
+        <StackLayout
+            x:Name="VerticalStackLayout"
+            Orientation="Vertical"
+            Spacing="8" />
+
+        <DataTemplate
+            x:Key="HorizontalBarTemplate"
+            x:DataType="system:String">
+            <TextBlock
+                Text="{x:Bind}"
+                Foreground="{StaticResource MagicItemColorBrush}" />
+        </DataTemplate>
+
         <DataTemplate
             x:Key="GeneratedItemTemplate"
             x:DataType="models:RandomizedItem">
@@ -24,15 +38,25 @@
                     Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="150" />
+
                 <TextBlock
                     Text="{x:Bind ItemType}"
                     FontSize="14"
                     Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="100" />
+
                 <TextBlock
-                    Text="{x:Bind Affix}"
-                    Foreground="Gray" />
+                    Text="{x:Bind ItemSubtype}"
+                    FontSize="14"
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    TextTrimming="CharacterEllipsis"
+                    Width="100" />
+
+                <ItemsRepeater
+                    ItemTemplate="{StaticResource HorizontalBarTemplate}"
+                    ItemsSource="{x:Bind Affixes}"
+                    Layout="{StaticResource VerticalStackLayout}" />
             </StackPanel>
         </DataTemplate>
 
@@ -116,7 +140,7 @@
                             Grid.Column="1"
                             Margin="10,0,0,0">
                             <TextBlock>
-                                <Run Text="Rate item drop:" />
+                                <Run Text="Magic item drop:" />
                                 <Run Text="1 /" />
                                 <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
                             </TextBlock>
@@ -221,17 +245,25 @@
                         Orientation="Horizontal"
                         Margin="0,5,0,0">
                         <TextBlock
-                            Text="Weapon name"
+                            Text="Item"
                             FontSize="14"
                             FontWeight="SemiBold"
                             Width="150" />
+
                         <TextBlock
-                            Text="Weapon type"
+                            Text="Item type"
                             FontSize="14"
                             FontWeight="SemiBold"
                             Width="100" />
+
                         <TextBlock
-                            Text="Affix"
+                            Text="Item subtype"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Width="100" />
+
+                        <TextBlock
+                            Text="Affixes"
                             FontWeight="SemiBold"
                             Foreground="Gray" />
                     </StackPanel>
@@ -255,7 +287,7 @@
                         </TextBlock>
 
                         <TextBlock>
-                            <Run Text="Rare items dropped:" />
+                            <Run Text="Magic items dropped:" />
                             <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
                             <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
                         </TextBlock>

@@ -152,7 +152,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
             _logger.LogInformation("Exporting items to {Path}.", _fileToExportPath);
 
-            var lines = GeneratedItems.Select(x => string.Join(',', x.ItemType, x.Affix, x.ItemRarityType.ToString()));
+            var lines = GeneratedItems.Select(x => string.Join(',', x.ItemType, x.Affixes, x.ItemRarityType.ToString()));
 
             await File.WriteAllLinesAsync(_fileToExportPath, lines, Encoding.UTF8, cancellationToken).ConfigureAwait(true);
 
