@@ -59,6 +59,7 @@ public partial class App
         services.AddSingleton<IItemProvider, ItemProvider>();
         services.AddSingleton<IItemRandomizerProvider, ItemRandomizerProvider>();
         services.AddTransient<MainViewModel>();
+        services.AddSingleton<ItemValidator>();
         services.AddSerilog();
 
         return services.BuildServiceProvider();

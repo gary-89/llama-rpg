@@ -15,15 +15,57 @@ internal sealed class ItemProvider : IItemProvider
     private const char CsvSeparator = ',';
 
     private readonly AppConfig _appConfig;
+    private readonly ItemValidator _itemValidator;
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<Item> _items = new();
 
     private List<ItemType>? _itemTypes;
 
-    public ItemProvider(AppConfig appConfig, ILogger<ItemProvider> logger)
+    public ItemProvider(AppConfig appConfig, ItemValidator itemValidator, ILogger<ItemProvider> logger)
     {
         _appConfig = appConfig;
+        _itemValidator = itemValidator;
         _logger = logger;
+    }
+
+
+    public async Task<bool> AddItemAsync(Item item, CancellationToken cancellationToken)
+    {
+        if (!await _itemValidator.ValidateAsync(item).ConfigureAwait(false))
+        {
+            return false;
+        }
+
+        _items.Add(item);
+
+        return true;
+    }
+
+    public Task<bool> EditItemAsync(Item item, CancellationToken cancellationToken)
+    {
+        var index = _items.IndexOf(item);
+
+        if (index == -1)
+        {
+            return Task.FromResult(false);
+        }
+        _items.RemoveAt(index);
+        _items.Insert(index, item);
+        return Task.FromResult(true);
+    }
+
+    public Task<bool> DeleteItemAsync(Item item, CancellationToken cancellationToken)
+    {
+        var index = _items.IndexOf(item);
+
+        if (index == -1)
+        {
+            return Task.FromResult(false);
+        }
+
+        _items.RemoveAt(index);
+
+        return Task.FromResult(true);
     }
 
     public async ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken)
@@ -101,6 +143,7 @@ internal sealed class ItemProvider : IItemProvider
         }
 
         var item = new Item(
+            Guid.NewGuid(),
             name: infos[0].Trim(),
             type: type,
             subtype: subtype,
@@ -126,4 +169,6 @@ internal sealed class ItemProvider : IItemProvider
 
         _items.Add(item);
     }
+
+
 }

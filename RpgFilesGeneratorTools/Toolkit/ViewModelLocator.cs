@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using System;
 
 namespace RpgFilesGeneratorTools.Toolkit;
 
@@ -40,11 +40,11 @@ public static class ViewModelLocator
                 return;
             }
 
-            const string viewModelSuffix = "ViewModel";
-            const string pagesNamespace = ".Pages.";
-            const string viewModelsNamespace = ".ViewModels.";
+            const string ViewModelSuffix = "ViewModel";
+            const string PagesNamespace = ".Pages.";
+            const string ViewModelsNamespace = ".ViewModels.";
 
-            var viewModelTypeName = fullName.Replace(pagesNamespace, viewModelsNamespace) + viewModelSuffix;
+            var viewModelTypeName = fullName.Replace(PagesNamespace, ViewModelsNamespace) + ViewModelSuffix;
             var viewModelType = Type.GetType(viewModelTypeName);
 
             if (viewModelType is null)

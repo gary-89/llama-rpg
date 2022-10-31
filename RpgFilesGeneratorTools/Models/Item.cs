@@ -1,14 +1,17 @@
-﻿namespace RpgFilesGeneratorTools.Models;
+﻿using System;
 
-internal sealed class Item
+namespace RpgFilesGeneratorTools.Models;
+
+internal sealed class Item : IEquatable<Item>
 {
     public Item(
+        Guid id,
         string name,
         ItemType type,
         ItemSubtype subtype,
-        string status,
+        string? status,
         int statusChance,
-        string status2,
+        string? status2,
         int status2Chance,
         int requiredStrength,
         int requiredDexterity,
@@ -19,13 +22,14 @@ internal sealed class Item
         int maxDefense,
         int minBlock,
         int maxBlock,
-        string totalMinBlock,
-        string totalMaxBlock,
-        string totalMin,
-        string totalMax,
+        string? totalMinBlock,
+        string? totalMaxBlock,
+        string? totalMin,
+        string? totalMax,
         int speed,
         int sockets)
     {
+        Id = id;
         Name = name;
         Type = type;
         Subtype = subtype;
@@ -50,12 +54,42 @@ internal sealed class Item
         Sockets = sockets;
     }
 
+    public Item(ItemViewModel item)
+        : this(
+            item.Id,
+            item.Name,
+            item.Type,
+            item.Subtype,
+            item.Status,
+            item.StatusChance,
+            item.Status2,
+            item.Status2Chance,
+            item.RequiredStrength,
+            item.RequiredDexterity,
+            item.RequiredIntelligence,
+            item.MinDamage,
+            item.MaxDamage,
+            item.MinDefense,
+            item.MaxDefense,
+            item.MinBlock,
+            item.MaxBlock,
+            item.TotalMinBlock,
+            item.TotalMaxBlock,
+            item.TotalMin,
+            item.TotalMax,
+            item.Speed,
+            item.Sockets
+        )
+    {
+    }
+
+    public Guid Id { get; }
     public string Name { get; set; }
     public ItemType Type { get; set; }
     public ItemSubtype Subtype { get; set; }
-    public string Status { get; set; }
+    public string? Status { get; set; }
     public int StatusChance { get; set; }
-    public string Status2 { get; set; }
+    public string? Status2 { get; set; }
     public int Status2Chance { get; set; }
     public int RequiredStrength { get; set; }
     public int RequiredDexterity { get; set; }
@@ -66,37 +100,16 @@ internal sealed class Item
     public int MaxDefense { get; set; }
     public int MinBlock { get; set; }
     public int MaxBlock { get; set; }
-    public string TotalMinBlock { get; set; }
-    public string TotalMaxBlock { get; set; }
-    public string TotalMin { get; set; }
-    public string TotalMax { get; set; }
+    public string? TotalMinBlock { get; set; }
+    public string? TotalMaxBlock { get; set; }
+    public string? TotalMin { get; set; }
+    public string? TotalMax { get; set; }
     public int Speed { get; set; }
     public int Sockets { get; set; }
 
-    public Item Clone()
-    {
-        return new Item(
-            Name,
-            Type,
-            Subtype,
-            Status,
-            StatusChance,
-            Status2,
-            Status2Chance,
-            RequiredStrength,
-            RequiredDexterity,
-            RequiredIntelligence,
-            MinDamage,
-            MaxDamage,
-            MinDefense,
-            MaxDefense,
-            MinBlock,
-            MaxBlock,
-            TotalMinBlock,
-            TotalMaxBlock,
-            TotalMin,
-            TotalMax,
-            Speed,
-            Sockets);
-    }
+    public bool Equals(Item? other) => other is not null && Id.Equals(other.Id);
+
+    public override bool Equals(object? obj) => ReferenceEquals(this, obj) || obj is Item other && Equals(other);
+
+    public override int GetHashCode() => Id.GetHashCode();
 }

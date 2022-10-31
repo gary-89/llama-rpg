@@ -36,10 +36,23 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
+                    Grid.Column="0"
                     Grid.ColumnSpan="2"
+                    Grid.Row="0"
                     Text="{x:Bind ViewModel.SelectedItem.Name, FallbackValue='', Mode=OneWay}"
                     FontSize="16"
-                    Margin="0,0,0,10" />
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
+
+                <TextBox
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Text="{x:Bind ViewModel.EditingItem.Name, FallbackValue='', Mode=TwoWay}"
+                    FontSize="16"
+                    MaxLength="25"
+                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="10,10,0,0" />
 
                 <TextBlock
                     Grid.Column="0"
@@ -72,7 +85,7 @@
                         SelectedItem="{x:Bind ViewModel.EditingItem.Type, FallbackValue='', Mode=TwoWay}" />
                     <ComboBox
                         Header=""
-                        ItemsSource="{x:Bind ViewModel.ItemSubtypes}"
+                        ItemsSource="{x:Bind ViewModel.EditingItem.ItemSubtypes, FallbackValue=''}"
                         SelectedItem="{x:Bind ViewModel.EditingItem.Subtype, FallbackValue='', Mode=TwoWay}"
                         Margin="10,0,0,0" />
                 </StackPanel>
