@@ -4,6 +4,7 @@ namespace RpgFilesGeneratorTools.Models;
 
 internal sealed record AffixRule(
     IReadOnlyList<ItemType> ItemTypes,
+    IReadOnlyList<ItemSubtype> ItemSubtypes,
     int Tier,
     bool IsRare,
     bool IsElite,

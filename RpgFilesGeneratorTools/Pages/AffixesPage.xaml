@@ -90,7 +90,7 @@
                 ItemsSource="{x:Bind ViewModel.AffixesSource}"
                 SelectedItem="{x:Bind ViewModel.SelectedAffix, Mode=TwoWay}"
                 SelectionMode="Single"
-                Width="200" />
+                Width="250" />
 
             <local:AffixDetailsView
                 Grid.Column="1"
