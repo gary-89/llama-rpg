@@ -27,7 +27,7 @@ internal sealed class AffixProvider : IAffixProvider
     {
         if (_affixes.Count == 0)
         {
-            await LoadAffixesAsync(cancellationToken);
+            await LoadAffixesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         return _affixes.AsReadOnly();
@@ -39,7 +39,7 @@ internal sealed class AffixProvider : IAffixProvider
         {
             var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Affixes.csv");
 
-            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken);
+            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 
             var index = -1;
 

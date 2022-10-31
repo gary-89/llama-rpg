@@ -73,7 +73,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var rarity = GenerateRarity(settings);
 
-            var generatedAffixes = GenerateAffixes(itemType, item.Subtype, rarity, affixes);
+            var generatedAffixes = GenerateAffixes(itemType, item.Subtype, rarity, affixes, settings);
 
             result = new RandomizedItem(item.Name, itemType, item.Subtype, generatedAffixes, rarity);
 
@@ -89,16 +89,23 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private ItemRarityType GenerateRarity(RandomizerSettings settings)
     {
-        var rarity = _random.Next(0, settings.EliteItemDropRate * settings.RareItemDropRate);
+        var rarity = _random.Next(0, settings.EliteItemDropRate * settings.RareItemDropRate * settings.MagicItemDropRate);
 
         return rarity % settings.EliteItemDropRate == 0
             ? ItemRarityType.Elite
             : rarity % settings.RareItemDropRate == 0
-                ? ItemRarityType.Magic
-                : ItemRarityType.Normal;
+                ? ItemRarityType.Rare
+                : rarity % settings.MagicItemDropRate == 0
+                    ? ItemRarityType.Magic
+                    : ItemRarityType.Normal;
     }
 
-    private IReadOnlyList<string> GenerateAffixes(ItemType itemType, ItemSubtype itemSubtype, ItemRarityType rarity, IEnumerable<Affix> affixes)
+    private IReadOnlyList<string> GenerateAffixes(
+        ItemType itemType,
+        ItemSubtype itemSubtype,
+        ItemRarityType rarity,
+        IEnumerable<Affix> affixes,
+        RandomizerSettings settings)
     {
         if (rarity == ItemRarityType.Normal)
         {
@@ -113,12 +120,15 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             throw new InvalidOperationException($"Failed to generate a random drop: no matching affixes found for item type {itemType}.");
         }
 
-        return rarity switch
+        var numberOfAffixes = rarity switch
         {
-            ItemRarityType.Magic => InternalGenerateAffixes(1, matchingAffixes),
-            ItemRarityType.Elite => InternalGenerateAffixes(3, matchingAffixes),
-            _ => throw new InvalidOperationException("Invalid item rarity: no affixed can be generated")
+            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min, settings.AffixesForMagicItems.Max + 1),
+            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min, settings.AffixesForRareItems.Max + 1),
+            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min, settings.AffixesForEliteItems.Max + 1),
+            _ => 0
         };
+
+        return InternalGenerateAffixes(numberOfAffixes, matchingAffixes);
     }
 
     private IReadOnlyList<string> InternalGenerateAffixes(int count, IReadOnlyCollection<Affix> matchingAffixes)

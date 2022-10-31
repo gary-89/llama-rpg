@@ -4,5 +4,6 @@ internal enum ItemRarityType
 {
     Normal,
     Magic,
+    Rare,
     Elite,
 }

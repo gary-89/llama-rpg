@@ -113,91 +113,200 @@
                 Header="Settings"
                 IsExpanded="False"
                 Margin="0,10,0,0">
-                <StackPanel>
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="0">
-                            <TextBlock>
-                                <Run Text="Character level:" />
-                                <Run Text="{x:Bind LevelSlider.Value, Mode=OneWay}" />
-                            </TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                            <Slider
-                                x:Name="LevelSlider"
-                                Value="{x:Bind ViewModel.Settings.CharacterLevel, Mode=TwoWay}"
-                                Maximum="99"
-                                Minimum="1"
-                                Width="150" />
-                        </StackPanel>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock>
+                                    <Run Text="Monster level (TC):" />
+                                    <Run Text="{x:Bind LevelSlider.Value, Mode=OneWay}" />
+                                </TextBlock>
 
-                        <StackPanel
-                            Grid.Column="1"
-                            Margin="10,0,0,0">
-                            <TextBlock>
-                                <Run Text="Magic item drop:" />
-                                <Run Text="1 /" />
-                                <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
-                            </TextBlock>
+                                <Slider
+                                    x:Name="LevelSlider"
+                                    Value="{x:Bind ViewModel.Settings.MonsterLevel, Mode=TwoWay}"
+                                    Maximum="99"
+                                    Minimum="1"
+                                    Width="100" />
+                            </StackPanel>
 
-                            <Slider
-                                x:Name="RareItemDropRateSlider"
-                                Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
-                                Maximum="100"
-                                Minimum="1"
-                                Width="150" />
-                        </StackPanel>
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="20,0,0,0">
+                                <TextBlock>
+                                    <Run Text="Magic item drop:" />
+                                    <Run Text="1 /" />
+                                    <Run Text="{x:Bind MagicItemDropRateSlider.Value, Mode=OneWay}" />
+                                </TextBlock>
 
-                        <StackPanel
-                            Grid.Column="2"
-                            Margin="10,0,0,0">
-                            <TextBlock>
-                                <Run Text="Elite item drop:" />
-                                <Run Text="1 /" />
-                                <Run Text="{x:Bind EliteItemDropRateSlider.Value, Mode=OneWay}" />
-                            </TextBlock>
+                                <Slider
+                                    x:Name="MagicItemDropRateSlider"
+                                    Value="{x:Bind ViewModel.Settings.MagicItemDropRate, Mode=TwoWay}"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    Width="100" />
 
-                            <Slider
-                                x:Name="EliteItemDropRateSlider"
-                                Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
-                                Maximum="100"
-                                Minimum="1"
-                                Width="150" />
-                        </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Text="Affixes from"
+                                        VerticalAlignment="Center" />
 
-                        <StackPanel
-                            Grid.Column="3"
-                            Margin="10,0,0,0">
-                            <TextBlock>
-                                <Run Text="Items to generate:" />
-                                <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
-                            </TextBlock>
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Min, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
 
-                            <Slider
-                                x:Name="NumberOfItemsToGenerateSlider"
-                                Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
-                                Maximum="10000"
-                                Minimum="1"
-                                StepFrequency="100"
-                                Width="150"
-                                Margin="10,0,0,0" />
-                        </StackPanel>
+                                    <TextBlock
+                                        Text="to"
+                                        VerticalAlignment="Center"
+                                        Margin="7,0,0,0" />
+
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Max, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="2"
+                                Margin="20,0,0,0">
+                                <TextBlock>
+                                    <Run Text="Rate item drop:" />
+                                    <Run Text="1 /" />
+                                    <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
+                                </TextBlock>
+
+                                <Slider
+                                    x:Name="RareItemDropRateSlider"
+                                    Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    Width="100" />
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Text="Affixes from"
+                                        VerticalAlignment="Center" />
+
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Min, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
+
+                                    <TextBlock
+                                        Text="to"
+                                        VerticalAlignment="Center"
+                                        Margin="7,0,0,0" />
+
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Max, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="3"
+                                Margin="20,0,0,0">
+                                <TextBlock>
+                                    <Run Text="Elite item drop:" />
+                                    <Run Text="1 /" />
+                                    <Run Text="{x:Bind EliteItemDropRateSlider.Value, Mode=OneWay}" />
+                                </TextBlock>
+
+                                <Slider
+                                    x:Name="EliteItemDropRateSlider"
+                                    Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    Width="100" />
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Text="Affixes from"
+                                        VerticalAlignment="Center" />
+
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Min, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
+
+                                    <TextBlock
+                                        Text="to"
+                                        VerticalAlignment="Center"
+                                        Margin="7,0,0,0" />
+
+                                    <NumberBox
+                                        Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Max, Mode=TwoWay}"
+                                        Maximum="10"
+                                        Minimum="0"
+                                        SpinButtonPlacementMode="Compact"
+                                        Margin="7,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="1"
+                            Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Item type drop weights:" />
+
+                                <ItemsRepeater
+                                    ItemTemplate="{StaticResource ItemTypeItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
+                                    Margin="0,10,0,0" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="20,0,0,0">
+                                <TextBlock>
+                                    <Run Text="Items to generate:" />
+                                    <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
+                                </TextBlock>
+
+                                <Slider
+                                    x:Name="NumberOfItemsToGenerateSlider"
+                                    Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
+                                    Maximum="10000"
+                                    Minimum="1"
+                                    StepFrequency="100"
+                                    Width="100" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-
-                    <TextBlock
-                        Text="Item type drop weights:"
-                        Margin="0,10,0,0" />
-
-                    <ItemsRepeater
-                        ItemTemplate="{StaticResource ItemTypeItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
-                        Margin="0,10,0,0" />
-                </StackPanel>
+                </ScrollViewer>
             </Expander>
 
             <StackPanel
