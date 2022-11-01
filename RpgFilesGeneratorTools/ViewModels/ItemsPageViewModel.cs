@@ -24,7 +24,6 @@ internal class ItemsPageViewModel : ObservableObject
 
     private ItemViewModel? _selectedItem;
     private string? _filterText;
-    private ItemViewModel? _editingItem;
     private bool _isAdding;
     private bool _isEditing;
     private bool _displayDetails;
@@ -37,16 +36,7 @@ internal class ItemsPageViewModel : ObservableObject
 
         AddCommand = new RelayCommand(AddNewItem);
         EditCommand = new RelayCommand(() => IsEditing = true);
-        CancelCommand = new RelayCommand(() =>
-        {
-            IsEditing = false;
-            if (_isAdding)
-            {
-                DisplayDetails = false;
-            }
-
-            _isAdding = false;
-        });
+        CancelCommand = new RelayCommand(CancelEditing);
         ClearSelectionCommand = new RelayCommand(ClearSelection);
         SaveCommand = new AsyncRelayCommand(SaveItemAsync);
         DeleteItemStatusCommand = new RelayCommand<object>(DeleteItemStatus);
@@ -104,7 +94,7 @@ internal class ItemsPageViewModel : ObservableObject
 
             if (SetProperty(ref _selectedItem, value))
             {
-                EditingItem = (ItemViewModel)value.Clone();
+                RefreshEditingItem(value);
             }
 
             DisplayDetails = true;
@@ -113,132 +103,12 @@ internal class ItemsPageViewModel : ObservableObject
 
     public ObservableCollection<string> ItemStatusesSource { get; } = new();
 
-    public ItemViewModel? EditingItem
-    {
-        get => _editingItem;
-        private set => SetProperty(ref _editingItem, value);
-    }
+    public ItemViewModel EditingItem { get; } = new("New Item", ItemType.Weapon, ItemSubtype.Axe);
 
     public bool IsEditing
     {
         get => _isEditing;
         private set => SetProperty(ref _isEditing, value);
-    }
-
-    private static Item CreateItem(ItemViewModel item)
-    {
-        var itemToAdd = new Item(item);
-        return itemToAdd;
-    }
-
-    private void DeleteItemStatus(object? statusIndex)
-    {
-        if (EditingItem is null || !int.TryParse(statusIndex?.ToString(), out var index))
-        {
-            return;
-        }
-
-        switch (index)
-        {
-            case 0:
-                EditingItem.Status = Empty;
-                EditingItem.StatusChance = default;
-                OnPropertyChanged(nameof(EditingItem));
-                break;
-
-            case 1:
-                EditingItem.Status2 = Empty;
-                EditingItem.Status2Chance = default;
-                OnPropertyChanged(nameof(EditingItem));
-                break;
-        }
-    }
-
-    private void AddNewItem()
-    {
-        _isAdding = true;
-        IsEditing = true;
-        DisplayDetails = true;
-        EditingItem = new ItemViewModel("New item", ItemType.Weapon, ItemSubtype.Axe);
-    }
-
-    private void ClearSelection()
-    {
-        DisplayDetails = false;
-        SelectedIndex = -1;
-    }
-
-    private async Task SaveItemAsync(CancellationToken cancellationToken)
-    {
-        if (EditingItem is null)
-        {
-            IsEditing = false;
-            return;
-        }
-
-        if (_isAdding)
-        {
-            await SaveAddedItemAsync().ConfigureAwait(true);
-        }
-        else
-        {
-            await SaveEditedItemAsync().ConfigureAwait(true);
-        }
-
-        _isAdding = false;
-        IsEditing = false;
-
-        async Task SaveAddedItemAsync()
-        {
-            if (!await _itemProvider.AddItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-            {
-                _logger.LogError("Failed to add the item {ItemName}", EditingItem.Name);
-                return;
-            }
-
-            _items.Add(EditingItem);
-            ItemsSource.Add(EditingItem);
-            SelectedItem = EditingItem;
-        }
-
-        async Task SaveEditedItemAsync()
-        {
-            var editedItem = ItemsSource.FirstOrDefault(x => x.Id == SelectedItem?.Id);
-
-            if (editedItem is null)
-            {
-                IsEditing = false;
-                return;
-            }
-
-            if (!await _itemProvider.EditItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-            {
-                _logger.LogError("Failed to save the item {ItemName}", EditingItem.Name);
-                return;
-            }
-
-            editedItem.Name = EditingItem.Name;
-            editedItem.Type = EditingItem.Type;
-            editedItem.Subtype = EditingItem.Subtype;
-            editedItem.Speed = EditingItem.Speed;
-            editedItem.RequiredDexterity = EditingItem.RequiredDexterity;
-            editedItem.RequiredStrength = EditingItem.RequiredStrength;
-            editedItem.RequiredIntelligence = EditingItem.RequiredIntelligence;
-            editedItem.MinDamage = EditingItem.MinDamage;
-            editedItem.MaxDamage = EditingItem.MaxDamage;
-            editedItem.MinBlock = EditingItem.MinBlock;
-            editedItem.MaxBlock = EditingItem.MaxBlock;
-            editedItem.MinDefense = EditingItem.MinDefense;
-            editedItem.MaxDefense = EditingItem.MaxDefense;
-            editedItem.Status = EditingItem.Status;
-            editedItem.StatusChance = EditingItem.StatusChance;
-            editedItem.Status2 = EditingItem.Status2;
-            editedItem.Status2Chance = EditingItem.Status2Chance;
-
-            RefreshListItem(editedItem);
-
-            OnPropertyChanged(nameof(SelectedItem));
-        }
     }
 
     private async Task<bool> LoadItemsAsync()
@@ -247,7 +117,7 @@ internal class ItemsPageViewModel : ObservableObject
         {
             var items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
-            _items.AddEach(items.Select(x => new ItemViewModel(x)));
+            _items.AddEach(items.OrderBy(x => x.Type).ThenBy(x => x.Subtype).ThenBy(x => x.Name).Select(x => new ItemViewModel(x)));
 
             ItemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
 
@@ -278,6 +148,153 @@ internal class ItemsPageViewModel : ObservableObject
         return true;
     }
 
+    private static Item CreateItem(ItemViewModel item)
+    {
+        var itemToAdd = new Item(item);
+        return itemToAdd;
+    }
+
+    private void DeleteItemStatus(object? statusIndex)
+    {
+        if (!int.TryParse(statusIndex?.ToString(), out var index))
+        {
+            return;
+        }
+
+        switch (index)
+        {
+            case 0:
+                EditingItem.Status = Empty;
+                EditingItem.StatusChance = default;
+                OnPropertyChanged(nameof(EditingItem));
+                break;
+
+            case 1:
+                EditingItem.Status2 = Empty;
+                EditingItem.Status2Chance = default;
+                OnPropertyChanged(nameof(EditingItem));
+                break;
+        }
+    }
+
+    private void CancelEditing()
+    {
+        if (_isAdding)
+        {
+            DisplayDetails = false;
+        }
+
+        _isAdding = false;
+        IsEditing = false;
+    }
+
+    private void AddNewItem()
+    {
+        _isAdding = true;
+        IsEditing = true;
+        DisplayDetails = true;
+        RefreshEditingItem(new ItemViewModel("New item", ItemType.Weapon, ItemSubtype.Axe));
+    }
+
+    private void RefreshEditingItem(ItemViewModel item)
+    {
+        CopyItem(source: item, destination: EditingItem);
+        OnPropertyChanged(nameof(EditingItem));
+    }
+
+    private void ClearSelection()
+    {
+        DisplayDetails = false;
+        SelectedIndex = -1;
+    }
+
+    private async Task SaveItemAsync(CancellationToken cancellationToken)
+    {
+        if (_isAdding && IsNullOrWhiteSpace(EditingItem.Name))
+        {
+            IsEditing = false;
+            return;
+        }
+
+        if (_isAdding)
+        {
+            await SaveAddedItemAsync().ConfigureAwait(true);
+        }
+        else
+        {
+            await SaveEditedItemAsync().ConfigureAwait(true);
+        }
+
+        _isAdding = false;
+        IsEditing = false;
+
+        async Task SaveAddedItemAsync()
+        {
+            if (!await _itemProvider.AddItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
+            {
+                _logger.LogError("Failed to add the item {ItemName}", EditingItem.Name);
+                return;
+            }
+
+            _items.Add(EditingItem);
+
+            var index = _items
+                .OrderBy(x => x.Type)
+                .ThenBy(x => x.Subtype)
+                .ThenBy(x => x.Name)
+                .Select((x, index) => new { x.Id, Index = index })
+                .FirstOrDefault(x => x.Id == EditingItem.Id)?.Index;
+
+            ItemsSource.Insert(index ?? 0, EditingItem);
+            SelectedItem = EditingItem;
+        }
+
+        async Task SaveEditedItemAsync()
+        {
+            var editedItem = ItemsSource.FirstOrDefault(x => x.Id == SelectedItem?.Id);
+
+            if (editedItem is null)
+            {
+                IsEditing = false;
+                return;
+            }
+
+            if (!await _itemProvider.EditItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
+            {
+                _logger.LogError("Failed to save the item {ItemName}", EditingItem.Name);
+                return;
+            }
+
+            CopyItem(source: EditingItem, destination: editedItem);
+
+            RefreshListItem(editedItem);
+
+            OnPropertyChanged(nameof(SelectedItem));
+        }
+    }
+
+    private static void CopyItem(ItemViewModel source, ItemViewModel destination)
+    {
+        destination.Id = source.Id;
+        destination.Name = source.Name;
+        destination.Type = source.Type;
+        destination.Subtype = source.Subtype;
+        destination.Speed = source.Speed;
+        destination.RequiredDexterity = source.RequiredDexterity;
+        destination.RequiredStrength = source.RequiredStrength;
+        destination.RequiredIntelligence = source.RequiredIntelligence;
+        destination.MinDamage = source.MinDamage;
+        destination.MaxDamage = source.MaxDamage;
+        destination.MinBlock = source.MinBlock;
+        destination.MaxBlock = source.MaxBlock;
+        destination.MinDefense = source.MinDefense;
+        destination.MaxDefense = source.MaxDefense;
+        destination.Status = source.Status;
+        destination.StatusChance = source.StatusChance;
+        destination.Status2 = source.Status2;
+        destination.Status2Chance = source.Status2Chance;
+    }
+
     private void RefreshList()
     {
         ItemsSource.Clear();
@@ -287,7 +304,7 @@ internal class ItemsPageViewModel : ObservableObject
                 ? _items
                 : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
                                     x.Type.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                    x.Subtype.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
+                                    (x.Subtype?.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase) ?? false)));
     }
 
     private void RefreshListItem(ItemViewModel item)

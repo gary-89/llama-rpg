@@ -2,15 +2,26 @@
 
 internal enum ItemSubtype
 {
-    Sword,
+    // Melee weapon
     Axe,
     Mace,
-    Bow,
-    Crossbow,
+    Sword,
+
+    // Magic weapon
     Staff,
     Wand,
+
+    // Range weapon
+    Bow,
+    Crossbow,
+
+    // Offhand
     Shield,
-    Boots,
+
+    // Armor
     Chest,
+    Boots,
+
+    // Jewelery
     Necklace,
 };

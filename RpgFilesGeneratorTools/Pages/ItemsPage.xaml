@@ -16,7 +16,7 @@
         <DataTemplate
             x:Key="ItemListItemTemplate"
             x:DataType="models:ItemViewModel">
-            <StackPanel>
+            <StackPanel Margin="0,0,20,0">
                 <TextBlock
                     Text="{x:Bind Name}"
                     TextTrimming="CharacterEllipsis" />
@@ -87,9 +87,7 @@
                 Margin="0,10,0,0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsStackPanel
-                            ItemsUpdatingScrollMode="KeepLastItemInView"
-                            VerticalAlignment="Top" />
+                        <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>

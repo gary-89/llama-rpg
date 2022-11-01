@@ -59,7 +59,7 @@ internal sealed class Item : IEquatable<Item>
             item.Id,
             item.Name,
             item.Type,
-            item.Subtype,
+            item.Subtype ?? throw new InvalidOperationException("Missing item subtype"),
             item.Status,
             item.StatusChance,
             item.Status2,

@@ -5,11 +5,11 @@ using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.Models;
 
-internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel>, ICloneable
+internal sealed class ItemViewModel : ObservableObject
 {
     private string _name = string.Empty;
     private ItemType _type;
-    private ItemSubtype _subtype;
+    private ItemSubtype? _subtype;
 
     public ItemViewModel(string name, ItemType type, ItemSubtype subtype)
     {
@@ -42,10 +42,12 @@ internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel
         string? totalMin,
         string? totalMax,
         int speed,
-        int sockets) :
-        this(name, type, subtype)
+        int sockets)
     {
         Id = id;
+        Name = name;
+        Type = type;
+        Subtype = subtype;
         Status = status;
         StatusChance = statusChance;
         Status2 = status2;
@@ -93,7 +95,6 @@ internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel
             item.Speed,
             item.Sockets)
     {
-
     }
 
     public ObservableCollection<ItemSubtype> ItemSubtypes { get; } = new()
@@ -107,7 +108,7 @@ internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel
         ItemSubtype.Wand
     };
 
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     public string Name
     {
@@ -162,7 +163,7 @@ internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel
         }
     }
 
-    public ItemSubtype Subtype
+    public ItemSubtype? Subtype
     {
         get => _subtype;
         set => SetProperty(ref _subtype, value);
@@ -187,12 +188,4 @@ internal sealed class ItemViewModel : ObservableObject, IEquatable<ItemViewModel
     public string? TotalMax { get; set; }
     public int Speed { get; set; }
     public int Sockets { get; set; }
-
-    public object Clone() => (ItemViewModel)MemberwiseClone();
-
-    public bool Equals(ItemViewModel? other) => other is not null && Id.Equals(other.Id);
-
-    public override bool Equals(object? obj) => ReferenceEquals(this, obj) || obj is ItemViewModel other && Equals(other);
-
-    public override int GetHashCode() => Id.GetHashCode();
 }
