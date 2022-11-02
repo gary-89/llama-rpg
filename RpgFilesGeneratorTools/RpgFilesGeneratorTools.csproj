@@ -32,8 +32,11 @@
     <None Remove="Pages\MapsPage.xaml" />
     <None Remove="Pages\MonstersPage.xaml" />
     <None Remove="Pages\RandomizerPage.xaml" />
+    <None Remove="Pages\Randomizer\ItemsGeneratorView.xaml" />
+    <None Remove="Pages\Randomizer\RandomizerSettingsView.xaml" />
     <None Remove="Styles\Colors.xaml" />
     <None Remove="Styles\TextBlockStyle.xaml" />
+    <None Remove="Styles\ToolTipStyle.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +77,15 @@
     <None Update="Assets\Datasets\Items.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\Randomizer\ItemsGeneratorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Randomizer\RandomizerSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Styles\ToolTipStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

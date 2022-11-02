@@ -21,7 +21,7 @@ internal sealed class RandomizerSettings : ObservableObject
     private int _rareItemDropRate = 10;
     private int _eliteItemDropRate = 50;
     private int _numberOfItemsToGenerate = 1000;
-    private int _monsterLevel = 1;
+    private int _monsterLevel = 50;
 
     public Range AffixesForMagicItems { get; } = new(1, 1);
     public Range AffixesForRareItems { get; } = new(3, 5);

@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Models.ItemTypes;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
@@ -20,9 +21,9 @@ internal class ItemsPageViewModel : ObservableObject
 {
     private readonly IItemProvider _itemProvider;
     private readonly ILogger<ItemsPageViewModel> _logger;
-    private readonly IList<ItemViewModel> _items = new List<ItemViewModel>();
+    private readonly IList<ItemBase> _items = new List<ItemBase>();
 
-    private ItemViewModel? _selectedItem;
+    private ItemBase? _selectedItem;
     private string? _filterText;
     private bool _isAdding;
     private bool _isEditing;
@@ -65,7 +66,7 @@ internal class ItemsPageViewModel : ObservableObject
         }
     }
 
-    public ObservableCollection<ItemViewModel> ItemsSource { get; } = new();
+    public ObservableCollection<ItemBase> ItemsSource { get; } = new();
 
     public IReadOnlyList<ItemType> ItemTypes { get; private set; } = new List<ItemType>();
 
@@ -81,7 +82,7 @@ internal class ItemsPageViewModel : ObservableObject
         set => SetProperty(ref _selectedIndex, value);
     }
 
-    public ItemViewModel? SelectedItem
+    public ItemBase? SelectedItem
     {
         get => _selectedItem;
         set
@@ -94,7 +95,7 @@ internal class ItemsPageViewModel : ObservableObject
 
             if (SetProperty(ref _selectedItem, value))
             {
-                RefreshEditingItem(value);
+                // RefreshEditingItem(value);
             }
 
             DisplayDetails = true;
@@ -117,7 +118,7 @@ internal class ItemsPageViewModel : ObservableObject
         {
             var items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
-            _items.AddEach(items.OrderBy(x => x.Type).ThenBy(x => x.Subtype).ThenBy(x => x.Name).Select(x => new ItemViewModel(x)));
+            _items.AddEach(items.OrderBy(x => x.Type).ThenBy(x => x.Subtype).ThenBy(x => x.Name));
 
             ItemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
 
@@ -125,16 +126,18 @@ internal class ItemsPageViewModel : ObservableObject
 
             var statuses = new HashSet<string>();
 
-            foreach (var item in _items)
+            foreach (var item in _items.Where(x => x is Weapon))
             {
-                if (!IsNullOrEmpty(item.Status))
+                var weapon = (Weapon)item;
+
+                if (!IsNullOrEmpty(weapon.Status))
                 {
-                    statuses.Add(item.Status);
+                    statuses.Add(weapon.Status);
                 }
 
-                if (!IsNullOrEmpty(item.Status2))
+                if (!IsNullOrEmpty(weapon.Status2))
                 {
-                    statuses.Add(item.Status2);
+                    statuses.Add(weapon.Status2);
                 }
             }
 
@@ -148,11 +151,11 @@ internal class ItemsPageViewModel : ObservableObject
         return true;
     }
 
-    private static Item CreateItem(ItemViewModel item)
-    {
-        var itemToAdd = new Item(item);
-        return itemToAdd;
-    }
+    //private static ItemBase CreateItem(ItemViewModel item)
+    //{
+    //    var itemToAdd = new Item(item);
+    //    return itemToAdd;
+    //}
 
     private void DeleteItemStatus(object? statusIndex)
     {
@@ -216,61 +219,61 @@ internal class ItemsPageViewModel : ObservableObject
             return;
         }
 
-        if (_isAdding)
-        {
-            await SaveAddedItemAsync().ConfigureAwait(true);
-        }
-        else
-        {
-            await SaveEditedItemAsync().ConfigureAwait(true);
-        }
+        //if (_isAdding)
+        //{
+        //    await SaveAddedItemAsync().ConfigureAwait(true);
+        //}
+        //else
+        //{
+        //    await SaveEditedItemAsync().ConfigureAwait(true);
+        //}
 
-        _isAdding = false;
-        IsEditing = false;
+        //_isAdding = false;
+        //IsEditing = false;
 
-        async Task SaveAddedItemAsync()
-        {
-            if (!await _itemProvider.AddItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-            {
-                _logger.LogError("Failed to add the item {ItemName}", EditingItem.Name);
-                return;
-            }
+        //async Task SaveAddedItemAsync()
+        //{
+        //    if (!await _itemProvider.AddItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
+        //    {
+        //        _logger.LogError("Failed to add the item {ItemName}", EditingItem.Name);
+        //        return;
+        //    }
 
-            _items.Add(EditingItem);
+        //    _items.Add(EditingItem);
 
-            var index = _items
-                .OrderBy(x => x.Type)
-                .ThenBy(x => x.Subtype)
-                .ThenBy(x => x.Name)
-                .Select((x, index) => new { x.Id, Index = index })
-                .FirstOrDefault(x => x.Id == EditingItem.Id)?.Index;
+        //    var index = _items
+        //        .OrderBy(x => x.Type)
+        //        .ThenBy(x => x.Subtype)
+        //        .ThenBy(x => x.Name)
+        //        .Select((x, index) => new { x.Id, Index = index })
+        //        .FirstOrDefault(x => x.Id == EditingItem.Id)?.Index;
 
-            ItemsSource.Insert(index ?? 0, EditingItem);
-            SelectedItem = EditingItem;
-        }
+        //    ItemsSource.Insert(index ?? 0, EditingItem);
+        //    SelectedItem = EditingItem;
+        //}
 
-        async Task SaveEditedItemAsync()
-        {
-            var editedItem = ItemsSource.FirstOrDefault(x => x.Id == SelectedItem?.Id);
+        //async Task SaveEditedItemAsync()
+        //{
+        //    var editedItem = ItemsSource.FirstOrDefault(x => x.Id == SelectedItem?.Id);
 
-            if (editedItem is null)
-            {
-                IsEditing = false;
-                return;
-            }
+        //    if (editedItem is null)
+        //    {
+        //        IsEditing = false;
+        //        return;
+        //    }
 
-            if (!await _itemProvider.EditItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-            {
-                _logger.LogError("Failed to save the item {ItemName}", EditingItem.Name);
-                return;
-            }
+        //    if (!await _itemProvider.EditItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
+        //    {
+        //        _logger.LogError("Failed to save the item {ItemName}", EditingItem.Name);
+        //        return;
+        //    }
 
-            CopyItem(source: EditingItem, destination: editedItem);
+        //    CopyItem(source: EditingItem, destination: editedItem);
 
-            RefreshListItem(editedItem);
+        //    RefreshListItem(editedItem);
 
-            OnPropertyChanged(nameof(SelectedItem));
-        }
+        //    OnPropertyChanged(nameof(SelectedItem));
+        //}
     }
 
     private static void CopyItem(ItemViewModel source, ItemViewModel destination)
@@ -304,18 +307,18 @@ internal class ItemsPageViewModel : ObservableObject
                 ? _items
                 : _items.Where(x => x.Name.Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
                                     x.Type.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase) ||
-                                    (x.Subtype?.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase) ?? false)));
+                                    x.Subtype.ToString().Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
     }
 
-    private void RefreshListItem(ItemViewModel item)
-    {
-        var index = ItemsSource.IndexOf(item);
+    //private void RefreshListItem(ItemViewModel item)
+    //{
+    //    var index = ItemsSource.IndexOf(item);
 
-        if (index == -1)
-        {
-            return;
-        }
+    //    if (index == -1)
+    //    {
+    //        return;
+    //    }
 
-        ItemsSource[index] = item;
-    }
+    //    ItemsSource[index] = item;
+    //}
 }

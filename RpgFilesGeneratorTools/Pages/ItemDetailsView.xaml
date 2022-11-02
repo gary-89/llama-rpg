@@ -2,11 +2,592 @@
     x:Class="RpgFilesGeneratorTools.Pages.ItemDetailsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:RpgFilesGeneratorTools.Toolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:itemTypes="using:RpgFilesGeneratorTools.Models.ItemTypes"
+    xmlns:items="using:RpgFilesGeneratorTools.Pages.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:ItemsPageViewModel}">
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="WeaponDetailsTemplate"
+            x:DataType="itemTypes:Weapon">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        FontSize="16"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Type:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,0,0">
+                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+
+                    <!-- Speed -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Speed:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Text="{x:Bind Speed, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <!-- Requirement -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Required strength (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Required dexterity (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Required intelligence (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <!-- Damage -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        Text="Damage:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind MinDamage, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind MaxDamage, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <!-- Sockets -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="7"
+                        Text="Sockets max:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="7"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <!-- Item statuses -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="8"
+                        Text="Status(es):"
+                        Style="{StaticResource LabelStyle}"
+                        VerticalAlignment="Top"
+                        Margin="0,10,0,0" />
+
+                    <Grid
+                        Grid.Column="1"
+                        Grid.Row="8"
+                        Margin="10,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            VerticalAlignment="Center">
+                            <Run Text="{x:Bind Status, FallbackValue='', Mode=OneWay}" />
+                        </TextBlock>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text=": "
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                            <TextBlock
+                                Text="{x:Bind StatusChance, FallbackValue='', Mode=OneWay}"
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                            <TextBlock
+                                Text="%"
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                        </StackPanel>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            VerticalAlignment="Center">
+                            <Run Text="{x:Bind Status2, FallbackValue='', Mode=OneWay}" />
+                        </TextBlock>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Text=": "
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                            <TextBlock
+                                Text="{x:Bind Status2Chance, FallbackValue='', Mode=OneWay}"
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                            <TextBlock
+                                Text="%"
+                                VerticalAlignment="Center"
+                                Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate
+            x:Key="OffhandDetailsTemplate"
+            x:DataType="itemTypes:Offhand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        FontSize="16"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Type:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,0,0">
+                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+
+                    <!-- Requirement -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Required strength (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Required dexterity (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Required intelligence (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <!-- Defense -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Defense:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind MinDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind MaxDefense, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        Text="Block:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind MinBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind MaxBlock, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="7"
+                        Text="Total block:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="7"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind TotalMinBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind TotalMaxBlock, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <!-- Sockets -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="7"
+                        Text="Sockets max:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="7"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate
+            x:Key="ArmorDetailsTemplate"
+            x:DataType="itemTypes:Armor">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        FontSize="16"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Type:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,0,0">
+                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+
+                    <!-- Requirement -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Required strength (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Required dexterity (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Required intelligence (plvl * ):"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Margin="10,10,0,0" />
+
+                    <!-- Defense -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Defense:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind MinDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind MaxDefense, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <!-- Sockets -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        Text="Sockets max:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate
+            x:Key="JewelryDetailsTemplate"
+            x:DataType="itemTypes:Jewelry">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        FontSize="16"
+                        Margin="10,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Type:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,0,0">
+                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+
+                    <!-- Sockets -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Sockets max:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Margin="10,10,0,0">
+                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <items:ItemDetailsTemplateSelector
+            x:Key="ItemDetailsTemplateSelector"
+            ArmorTemplate="{StaticResource ArmorDetailsTemplate}"
+            JewelryTemplate="{StaticResource JewelryDetailsTemplate}"
+            OffhandTemplate="{StaticResource OffhandDetailsTemplate}"
+            WeaponTemplate="{StaticResource WeaponDetailsTemplate}" />
+    </UserControl.Resources>
+
     <ScrollViewer
         HorizontalScrollBarVisibility="Visible"
         VerticalScrollBarVisibility="Auto">
@@ -16,7 +597,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
+            <StackPanel>
+                <controls:TemplateSelectorAwareContentControl
+                    Content="{x:Bind ViewModel.SelectedItem, Mode=OneWay}"
+                    ContentTemplateSelector="{StaticResource ItemDetailsTemplateSelector}" />
+            </StackPanel>
+            <!--<Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
@@ -90,7 +676,9 @@
                         Margin="10,0,0,0" />
                 </StackPanel>
 
-                <!-- Speed -->
+            -->
+            <!-- Speed -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="2"
@@ -113,7 +701,9 @@
                     HorizontalAlignment="Left"
                     Margin="10,10,0,0" />
 
-                <!-- Requirement -->
+            -->
+            <!-- Requirement -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="3"
@@ -180,7 +770,9 @@
                     HorizontalAlignment="Left"
                     Margin="10,10,0,0" />
 
-                <!-- Damage -->
+            -->
+            <!-- Damage -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="6"
@@ -216,7 +808,9 @@
                         Margin="10,0,0,0" />
                 </StackPanel>
 
-                <!-- Defense -->
+            -->
+            <!-- Defense -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="7"
@@ -252,7 +846,9 @@
                         Margin="10,0,0,0" />
                 </StackPanel>
 
-                <!-- Block -->
+            -->
+            <!-- Block -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="8"
@@ -288,7 +884,9 @@
                         Margin="10,0,0,0" />
                 </StackPanel>
 
-                <!-- Item statuses -->
+            -->
+            <!-- Item statuses -->
+            <!--
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="9"
@@ -426,7 +1024,7 @@
                         <SymbolIcon Symbol="Delete" />
                     </Button>
                 </Grid>
-            </Grid>
+            </Grid>-->
 
             <!-- Edit item buttons -->
             <Grid

@@ -2,18 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Services;
 
 internal interface IItemProvider
 {
-    Task<bool> AddItemAsync(Item item, CancellationToken cancellationToken);
+    Task<bool> AddItemAsync(ItemBase item, CancellationToken cancellationToken);
 
-    Task<bool> EditItemAsync(Item item, CancellationToken cancellationToken);
+    Task<bool> EditItemAsync(ItemBase item, CancellationToken cancellationToken);
 
-    Task<bool> DeleteItemAsync(Item item, CancellationToken cancellationToken);
+    Task<bool> DeleteItemAsync(ItemBase item, CancellationToken cancellationToken);
 
-    ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken);
+    ValueTask<IReadOnlyList<ItemBase>> GetItemsAsync(CancellationToken cancellationToken);
 
     ValueTask<IReadOnlyList<ItemType>> GetItemTypesAsync(CancellationToken cancellationToken);
 }

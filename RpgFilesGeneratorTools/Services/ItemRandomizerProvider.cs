@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Models.ItemTypes;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;
@@ -60,7 +61,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private bool TryGenerateRandomizedItemFromItemType(
         ItemType itemType,
-        IEnumerable<Item> items,
+        IEnumerable<ItemBase> items,
         IEnumerable<Affix> affixes,
         RandomizerSettings settings,
         [NotNullWhen(true)] out RandomizedItem? result)

@@ -4,431 +4,54 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:RpgFilesGeneratorTools.Models"
-    xmlns:system="using:System"
+    xmlns:randomizer="using:RpgFilesGeneratorTools.Pages.Randomizer"
     xmlns:toolkit="using:RpgFilesGeneratorTools.Toolkit"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     toolkit:ViewModelLocator.AutoHookedUpViewModel="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
-    <Page.Resources>
-        <StackLayout
-            x:Name="VerticalStackLayout"
-            Orientation="Vertical"
-            Spacing="8" />
-
-        <DataTemplate
-            x:Key="HorizontalBarTemplate"
-            x:DataType="system:String">
-            <TextBlock
-                Text="{x:Bind}"
-                Foreground="{StaticResource MagicItemColorBrush}" />
-        </DataTemplate>
-
-        <DataTemplate
-            x:Key="GeneratedItemTemplate"
-            x:DataType="models:RandomizedItem">
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="0,5,0,0">
-                <TextBlock
-                    Text="{x:Bind ItemName}"
-                    FontSize="14"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
-                    TextTrimming="CharacterEllipsis"
-                    Width="150" />
-
-                <TextBlock
-                    Text="{x:Bind ItemType}"
-                    FontSize="14"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
-                    TextTrimming="CharacterEllipsis"
-                    Width="100" />
-
-                <TextBlock
-                    Text="{x:Bind ItemSubtype}"
-                    FontSize="14"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
-                    TextTrimming="CharacterEllipsis"
-                    Width="100" />
-
-                <ItemsRepeater
-                    ItemTemplate="{StaticResource HorizontalBarTemplate}"
-                    ItemsSource="{x:Bind Affixes}"
-                    Layout="{StaticResource VerticalStackLayout}" />
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate
-            x:Key="ItemTypeItemTemplate"
-            x:DataType="viewModels:ItemTypeWeightDrop">
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="10,5,0,0">
-                <TextBlock
-                    Text="{x:Bind ItemType}"
-                    FontSize="14"
-                    Width="80"
-                    VerticalAlignment="Center" />
-                <NumberBox
-                    Value="{x:Bind Weight, Mode=TwoWay}"
-                    Minimum="1"
-                    Margin="10,0,0,0" />
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate
-            x:Key="ItemCountPerTypeItemTemplate"
-            x:DataType="models:ItemCountPerType">
-            <TextBlock>
-                <Run Text="{x:Bind ItemType}" />
-                <Run Text=":" />
-                <Run Text="{x:Bind Count}" />
-            </TextBlock>
-        </DataTemplate>
-    </Page.Resources>
-
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            Text="Randomizer"
-            Style="{StaticResource TitleTextBlockStyle}" />
-
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Expander
-                Grid.Column="0"
-                Header="Settings"
-                IsExpanded="False"
-                Margin="0,10,0,0">
-                <ScrollViewer
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0">
-                                <TextBlock>
-                                    <Run Text="Monster level (TC):" />
-                                    <Run Text="{x:Bind LevelSlider.Value, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Slider
-                                    x:Name="LevelSlider"
-                                    Value="{x:Bind ViewModel.Settings.MonsterLevel, Mode=TwoWay}"
-                                    Maximum="99"
-                                    Minimum="1"
-                                    Width="100" />
-                            </StackPanel>
-
-                            <StackPanel
-                                Grid.Column="1"
-                                Margin="20,0,0,0">
-                                <TextBlock>
-                                    <Run Text="Magic item drop:" />
-                                    <Run Text="1 /" />
-                                    <Run Text="{x:Bind MagicItemDropRateSlider.Value, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Slider
-                                    x:Name="MagicItemDropRateSlider"
-                                    Value="{x:Bind ViewModel.Settings.MagicItemDropRate, Mode=TwoWay}"
-                                    Maximum="100"
-                                    Minimum="1"
-                                    Width="100" />
-
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Text="Affixes from"
-                                        VerticalAlignment="Center" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Min, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-
-                                    <TextBlock
-                                        Text="to"
-                                        VerticalAlignment="Center"
-                                        Margin="7,0,0,0" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Max, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-                                </StackPanel>
-                            </StackPanel>
-
-                            <StackPanel
-                                Grid.Column="2"
-                                Margin="20,0,0,0">
-                                <TextBlock>
-                                    <Run Text="Rate item drop:" />
-                                    <Run Text="1 /" />
-                                    <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Slider
-                                    x:Name="RareItemDropRateSlider"
-                                    Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
-                                    Maximum="100"
-                                    Minimum="1"
-                                    Width="100" />
-
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Text="Affixes from"
-                                        VerticalAlignment="Center" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Min, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-
-                                    <TextBlock
-                                        Text="to"
-                                        VerticalAlignment="Center"
-                                        Margin="7,0,0,0" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Max, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-                                </StackPanel>
-                            </StackPanel>
-
-                            <StackPanel
-                                Grid.Column="3"
-                                Margin="20,0,0,0">
-                                <TextBlock>
-                                    <Run Text="Elite item drop:" />
-                                    <Run Text="1 /" />
-                                    <Run Text="{x:Bind EliteItemDropRateSlider.Value, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Slider
-                                    x:Name="EliteItemDropRateSlider"
-                                    Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
-                                    Maximum="100"
-                                    Minimum="1"
-                                    Width="100" />
-
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Text="Affixes from"
-                                        VerticalAlignment="Center" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Min, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-
-                                    <TextBlock
-                                        Text="to"
-                                        VerticalAlignment="Center"
-                                        Margin="7,0,0,0" />
-
-                                    <NumberBox
-                                        Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Max, Mode=TwoWay}"
-                                        Maximum="10"
-                                        Minimum="0"
-                                        SpinButtonPlacementMode="Compact"
-                                        Margin="7,0,0,0" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid
-                            Grid.Row="1"
-                            Margin="0,10,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="Item type drop weights:" />
-
-                                <ItemsRepeater
-                                    ItemTemplate="{StaticResource ItemTypeItemTemplate}"
-                                    ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
-                                    Margin="0,10,0,0" />
-                            </StackPanel>
-
-                            <StackPanel
-                                Grid.Column="1"
-                                Margin="20,0,0,0">
-                                <TextBlock>
-                                    <Run Text="Items to generate:" />
-                                    <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Slider
-                                    x:Name="NumberOfItemsToGenerateSlider"
-                                    Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
-                                    Maximum="10000"
-                                    Minimum="1"
-                                    StepFrequency="100"
-                                    Width="100" />
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </ScrollViewer>
-            </Expander>
-
-            <StackPanel
-                Grid.Column="1"
-                Margin="10,10,0,0">
-                <StackPanel
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="0,10,0,0">
-                    <Button
-                        Content="Randomize"
-                        Command="{x:Bind ViewModel.RandomizeCommand}" />
-
-                    <Button
-                        Content="Export"
-                        Command="{x:Bind ViewModel.ExportCommand}"
-                        Margin="10,0,0,0" />
-
-                    <Button
-                        Content="Clear"
-                        Command="{x:Bind ViewModel.ClearCommand}"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-
-        <ScrollViewer
-            Grid.Row="2"
-            VerticalScrollBarVisibility="Auto"
-            Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
-            Margin="0,10,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <StackPanel
-                        Orientation="Horizontal"
-                        Margin="0,5,0,0">
+    <TabView
+        CanReorderTabs="False"
+        CloseButtonOverlayMode="Auto"
+        IsAddTabButtonVisible="False"
+        Margin="5,0">
+        <TabView.TabItems>
+            <TabViewItem
+                IsClosable="False"
+                IsSelected="True">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="16"
+                            Glyph="&#xEADF;"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
                         <TextBlock
-                            Text="Item"
-                            FontSize="14"
-                            FontWeight="SemiBold"
-                            Width="150" />
-
-                        <TextBlock
-                            Text="Item type"
-                            FontSize="14"
-                            FontWeight="SemiBold"
-                            Width="100" />
-
-                        <TextBlock
-                            Text="Item subtype"
-                            FontSize="14"
-                            FontWeight="SemiBold"
-                            Width="100" />
-
-                        <TextBlock
-                            Text="Affixes"
-                            FontWeight="SemiBold"
-                            Foreground="Gray" />
+                            Text="Items generator"
+                            Margin="5,0,0,0" />
                     </StackPanel>
+                </TabViewItem.Header>
+                <randomizer:ItemsGeneratorView />
+            </TabViewItem>
 
-                    <ItemsRepeater
-                        Grid.Row="1"
-                        ItemTemplate="{StaticResource GeneratedItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
-                </Grid>
-
-                <Expander
-                    Grid.Column="1"
-                    Header="Statistics"
-                    IsExpanded="True"
-                    VerticalAlignment="Top"
-                    Margin="0,10,0,0">
-                    <StackPanel>
-                        <TextBlock>
-                            <Run Text="Items dropped:" />
-                            <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
-                        </TextBlock>
-
-                        <TextBlock>
-                            <Run Text="Magic items dropped:" />
-                            <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
-                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                        </TextBlock>
-
-                        <TextBlock>
-                            <Run Text="Elite items dropped:" />
-                            <Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemsCount, Mode=OneWay}" />
-                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                        </TextBlock>
-
-                        <ItemsRepeater
-                            ItemTemplate="{StaticResource ItemCountPerTypeItemTemplate}"
-                            ItemsSource="{x:Bind ViewModel.Stats.ItemCountPerTypes, Mode=OneWay}" />
+            <TabViewItem IsClosable="False">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="14"
+                            Glyph="&#xE713;"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Text="Settings"
+                            Margin="5,0,0,0" />
                     </StackPanel>
-                </Expander>
-            </Grid>
-        </ScrollViewer>
-
-        <InfoBar
-            Title="{x:Bind ViewModel.InfoBar.Title, Mode=OneWay}"
-            Grid.Row="3"
-            IsClosable="True"
-            IsOpen="{x:Bind ViewModel.InfoBar.IsOpen, Mode=OneWay}"
-            Message="{x:Bind ViewModel.InfoBar.Message, Mode=OneWay}"
-            Severity="Success"
-            Margin="0,10,0,0">
-            <InfoBar.ActionButton>
-                <Button
-                    Content="Open file"
-                    Command="{x:Bind ViewModel.InfoBar.Command}"
-                    Visibility="{x:Bind ViewModel.InfoBar.IsActionButtonVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </InfoBar.ActionButton>
-        </InfoBar>
-    </Grid>
+                </TabViewItem.Header>
+                <randomizer:RandomizerSettingsView />
+            </TabViewItem>
+        </TabView.TabItems>
+    </TabView>
 </Page>

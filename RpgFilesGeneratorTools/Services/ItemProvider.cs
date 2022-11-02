@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Services;
 
@@ -17,7 +19,7 @@ internal sealed class ItemProvider : IItemProvider
     private readonly AppConfig _appConfig;
     private readonly ItemValidator _itemValidator;
     private readonly ILogger<ItemProvider> _logger;
-    private readonly List<Item> _items = new();
+    private readonly List<ItemBase> _items2 = new();
 
     private List<ItemType>? _itemTypes;
 
@@ -29,53 +31,53 @@ internal sealed class ItemProvider : IItemProvider
     }
 
 
-    public async Task<bool> AddItemAsync(Item item, CancellationToken cancellationToken)
+    public async Task<bool> AddItemAsync(ItemBase item, CancellationToken cancellationToken)
     {
         if (!await _itemValidator.ValidateAsync(item).ConfigureAwait(false))
         {
             return false;
         }
 
-        _items.Add(item);
+        _items2.Add(item);
 
         return true;
     }
 
-    public Task<bool> EditItemAsync(Item item, CancellationToken cancellationToken)
+    public Task<bool> EditItemAsync(ItemBase item, CancellationToken cancellationToken)
     {
-        var index = _items.IndexOf(item);
+        var index = _items2.IndexOf(item);
 
         if (index == -1)
         {
             return Task.FromResult(false);
         }
-        _items.RemoveAt(index);
-        _items.Insert(index, item);
+        _items2.RemoveAt(index);
+        _items2.Insert(index, item);
         return Task.FromResult(true);
     }
 
-    public Task<bool> DeleteItemAsync(Item item, CancellationToken cancellationToken)
+    public Task<bool> DeleteItemAsync(ItemBase item, CancellationToken cancellationToken)
     {
-        var index = _items.IndexOf(item);
+        var index = _items2.IndexOf(item);
 
         if (index == -1)
         {
             return Task.FromResult(false);
         }
 
-        _items.RemoveAt(index);
+        _items2.RemoveAt(index);
 
         return Task.FromResult(true);
     }
 
-    public async ValueTask<IReadOnlyList<Item>> GetItemsAsync(CancellationToken cancellationToken)
+    public async ValueTask<IReadOnlyList<ItemBase>> GetItemsAsync(CancellationToken cancellationToken)
     {
-        if (_items.Count == 0)
+        if (_items2.Count == 0)
         {
             await LoadItemsAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        return _items;
+        return _items2;
     }
 
     public async ValueTask<IReadOnlyList<ItemType>> GetItemTypesAsync(CancellationToken cancellationToken)
@@ -91,37 +93,10 @@ internal sealed class ItemProvider : IItemProvider
         return _itemTypes;
     }
 
-    private async Task LoadItemsAsync(CancellationToken cancellationToken)
-    {
-        var stopwatch = Stopwatch.StartNew();
-
-        try
-        {
-            _logger.LogInformation("Loading items...");
-
-            var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
-            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
-
-            foreach (var line in lines[1..])
-            {
-                AddItem(line);
-            }
-        }
-        catch (Exception exception)
-        {
-            _logger.LogError(exception, "Failed to load items");
-            throw;
-        }
-        finally
-        {
-            _logger.LogInformation("{NumberOfItems} items loaded in {ElapsedTimeInMillisecond} ms", _items.Count, stopwatch.ElapsedMilliseconds);
-        }
-    }
-
-    private void AddItem(string line)
+    private static bool TryGetItem(string line, [NotNullWhen(true)] out ItemBase? item)
     {
         var infos = line.Split(CsvSeparator);
-
+        var name = infos[0].Trim();
         int.TryParse(infos[4].Replace("%", ""), out var statusChancePercentage);
         int.TryParse(infos[6].Replace("%", ""), out var status2ChancePercentage);
         int.TryParse(infos[7].Replace("plvl *", ""), out var requiredStrength);
@@ -139,36 +114,90 @@ internal sealed class ItemProvider : IItemProvider
         if (!Enum.TryParse<ItemType>(infos[1].Trim(), true, out var type) ||
             !Enum.TryParse<ItemSubtype>(infos[2].Trim(), true, out var subtype))
         {
-            return;
+            item = default;
+            return false;
         }
 
-        var item = new Item(
-            Guid.NewGuid(),
-            name: infos[0].Trim(),
-            type: type,
-            subtype: subtype,
-            status: infos[3].Trim(),
-            statusChance: statusChancePercentage,
-            status2: infos[5].Trim(),
-            status2Chance: status2ChancePercentage,
-            requiredStrength: requiredStrength,
-            requiredDexterity: requiredDexterity,
-            requiredIntelligence: requiredIntelligence,
-            minDamage: minDamage,
-            maxDamage: maxDamage,
-            minDefense: minDefense,
-            maxDefense: maxDefense,
-            minBlock: minBlock,
-            maxBlock: maxBlock,
-            totalMinBlock: infos[18],
-            totalMaxBlock: infos[19],
-            totalMin: infos[20],
-            totalMax: infos[21],
-            sockets: sockets,
-            speed: speed);
+        switch (type)
+        {
+            case ItemType.Weapon:
+                item = new Weapon(
+                    name,
+                    subtype,
+                    status: infos[3].Trim(),
+                    statusChancePercentage,
+                    status2: infos[5].Trim(),
+                    status2ChancePercentage,
+                    requiredStrength,
+                    requiredDexterity,
+                    requiredIntelligence,
+                    minDamage,
+                    maxDamage,
+                    speed,
+                    sockets);
+                break;
 
-        _items.Add(item);
+            case ItemType.Offhand:
+                item = new Offhand(
+                    name: name,
+                    subtype,
+                    requiredStrength,
+                    requiredDexterity,
+                    minDefense,
+                    maxDefense,
+                    minBlock,
+                    maxBlock,
+                    totalMinBlock: infos[18],
+                    totalMaxBlock: infos[19],
+                    sockets);
+                break;
+            case ItemType.Armor:
+                item = new Armor(name, subtype, requiredStrength, requiredDexterity, requiredIntelligence, minDefense, maxDefense, sockets);
+                break;
+
+            case ItemType.Jewelry:
+                item = new Jewelry(name, subtype, sockets);
+                break;
+
+            case ItemType.MagicWeapon:
+            case ItemType.MeleeWeapon:
+            case ItemType.RangeWeapon:
+            default:
+                item = default;
+                return false;
+        }
+
+        return true;
     }
 
+    private async Task LoadItemsAsync(CancellationToken cancellationToken)
+    {
+        var stopwatch = Stopwatch.StartNew();
 
+        try
+        {
+            _logger.LogInformation("Loading items...");
+
+            var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
+            var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
+
+            foreach (var line in lines[1..])
+            {
+                if (TryGetItem(line, out var item))
+                {
+                    _items2.Add(item);
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Failed to load items");
+            throw;
+        }
+        finally
+        {
+            stopwatch.Stop();
+            _logger.LogInformation("{NumberOfItems} items loaded in {ElapsedTimeInMillisecond} ms", _items2.Count, stopwatch.ElapsedMilliseconds);
+        }
+    }
 }

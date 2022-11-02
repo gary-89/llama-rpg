@@ -13,6 +13,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Models.ItemTypes;
 using RpgFilesGeneratorTools.Services;
 using RpgFilesGeneratorTools.Toolkit.Async;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
@@ -29,7 +30,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private readonly AsyncRelayCommand _randomizeCommand;
     private readonly AsyncRelayCommand _exportCommand;
 
-    private IReadOnlyList<Item> _items = Array.Empty<Item>();
+    private IReadOnlyList<ItemBase> _items = Array.Empty<ItemBase>();
     private IReadOnlyList<Affix> _affixes = Array.Empty<Affix>();
     private string? _fileToExportPath;
     private bool _exportEnabled;
