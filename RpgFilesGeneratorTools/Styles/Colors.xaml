@@ -5,8 +5,23 @@
     xmlns:ui="using:Windows.UI">
 
     <ui:Color x:Key="MagicItemColor">#6969FF</ui:Color>
+    <ui:Color x:Key="RareItemColor">#FFFF64</ui:Color>
+    <ui:Color x:Key="EliteItemColor">#C7B377</ui:Color>
+    <ui:Color x:Key="WinUiThemeLightColor">#71ADDC</ui:Color>
 
     <SolidColorBrush
         x:Key="MagicItemColorBrush"
         Color="{StaticResource MagicItemColor}" />
+
+    <SolidColorBrush
+        x:Key="RareItemColorBrush"
+        Color="{StaticResource RareItemColor}" />
+
+    <SolidColorBrush
+        x:Key="EliteItemColorBrush"
+        Color="{StaticResource EliteItemColor}" />
+
+    <SolidColorBrush
+        x:Key="WinUiThemeLightColorBrush"
+        Color="{StaticResource WinUiThemeLightColor}" />
 </ResourceDictionary>

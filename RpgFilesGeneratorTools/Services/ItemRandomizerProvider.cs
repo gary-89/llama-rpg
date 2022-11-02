@@ -42,6 +42,8 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             cumulativeWeights.Add(new ItemTypeCumulativeWeight(itemTypeWeight.ItemType, cumulativeWeight));
         }
 
+        var counter = 1;
+
         for (var i = 0; i < settings.NumberOfItemsToGenerate; i++)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -50,7 +52,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var itemType = cumulativeWeights.First(x => x.CumulativeWeight >= randomType).ItemType;
 
-            if (!TryGenerateRandomizedItemFromItemType(itemType, items, affixes, settings, out var item))
+            if (!TryGenerateRandomizedItemFromItemType(ref counter, itemType, items, affixes, settings, out var item))
             {
                 continue;
             }
@@ -60,6 +62,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
     }
 
     private bool TryGenerateRandomizedItemFromItemType(
+        ref int counter,
         ItemType itemType,
         IEnumerable<ItemBase> items,
         IEnumerable<Affix> affixes,
@@ -76,7 +79,11 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var generatedAffixes = GenerateAffixes(itemType, item.Subtype, rarity, affixes, settings);
 
-            result = new RandomizedItem(item.Name, itemType, item.Subtype, generatedAffixes, rarity);
+            var powerLevel = GeneratePowerLevel(settings.MonsterLevel);
+
+            result = new RandomizedItem(counter, item.Name, itemType, item.Subtype, powerLevel, generatedAffixes, rarity);
+
+            counter++;
 
             return true;
         }
@@ -85,6 +92,23 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             _logger.LogError(exception, "Failed to generate a random drop: {Message}", exception.Message);
             result = default;
             return false;
+        }
+    }
+
+    private int GeneratePowerLevel(int monsterLevel)
+    {
+        while (true)
+        {
+            if (monsterLevel < 10)
+            {
+                return 1;
+            }
+
+            if (_random.Next(1, 4) % 3 == 0)
+            {
+                return (int)Math.Floor((decimal)monsterLevel / 10);
+            }
+            monsterLevel -= 10;
         }
     }
 

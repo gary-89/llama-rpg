@@ -121,6 +121,10 @@ internal sealed class RandomizerPageViewModel : ObservableObject
                 RefreshStatsOnAddingItem(item);
             }
 
+            Stats.MaxPowerLevelItem = GeneratedItems.Max(x => x.PowerLevel);
+            Stats.NumberOfMaxPowerLevelItem = GeneratedItems.Count(x => x.PowerLevel == (int)Stats.MaxPowerLevelItem);
+            Stats.MaxPowerLevelGeneratedItemPercentage = Stats.NumberOfMaxPowerLevelItem / GeneratedItems.Count;
+
             Stats.RefreshItemCountPerTypes();
 
             stopwatch.Stop();

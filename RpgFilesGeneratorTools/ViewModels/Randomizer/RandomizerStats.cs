@@ -13,6 +13,27 @@ internal sealed class RandomizerStats : ObservableObject
     private double _rareGeneratedItemsCount;
     private double _rareGeneratedItemPercentage;
     private double _eliteGeneratedItemPercentage;
+    private double _maxPowerLevelGeneratedItemPercentage;
+    private double _numberOfMaxPowerLevelItem;
+    private double _maxPowerLevelItem;
+
+    public double MaxPowerLevelItem
+    {
+        get => _maxPowerLevelItem;
+        set => SetProperty(ref _maxPowerLevelItem, value);
+    }
+
+    public double NumberOfMaxPowerLevelItem
+    {
+        get => _numberOfMaxPowerLevelItem;
+        set => SetProperty(ref _numberOfMaxPowerLevelItem, value);
+    }
+
+    public double MaxPowerLevelGeneratedItemPercentage
+    {
+        get => _maxPowerLevelGeneratedItemPercentage;
+        set => SetProperty(ref _maxPowerLevelGeneratedItemPercentage, value);
+    }
 
     public double TotalGeneratedItemsCount { get; set; }
 
