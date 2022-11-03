@@ -52,6 +52,23 @@
                 </TabViewItem.Header>
                 <randomizer:RandomizerSettingsView />
             </TabViewItem>
+
+            <TabViewItem IsClosable="False">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="14"
+                            Glyph="&#xE9D2;"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Text="Statistics and charts"
+                            Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabViewItem.Header>
+                <randomizer:RandomizerStatisticsView />
+            </TabViewItem>
         </TabView.TabItems>
     </TabView>
 </Page>

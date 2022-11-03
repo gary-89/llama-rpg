@@ -31,7 +31,7 @@
         <StackLayout
             x:Name="VerticalStackLayout"
             Orientation="Vertical"
-            Spacing="8" />
+            Spacing="3" />
 
         <DataTemplate
             x:Key="HorizontalBarTemplate"
@@ -76,23 +76,23 @@
                     Text="{x:Bind PowerLevel}"
                     Width="40" />
 
-                <ItemsRepeater
-                    ItemTemplate="{StaticResource HorizontalBarTemplate}"
-                    ItemsSource="{x:Bind Affixes}"
-                    Layout="{StaticResource VerticalStackLayout}" />
-            </StackPanel>
-        </DataTemplate>
+                <StackPanel>
+                    <TextBlock
+                        Text="{x:Bind AffixBase}"
+                        Visibility="{x:Bind AffixBase, Converter={StaticResource NullToInvisibilityConverter}}" />
 
-        <DataTemplate
-            x:Key="ItemCountPerTypeItemTemplate"
-            x:DataType="models:ItemCountPerType">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                    Text="{x:Bind ItemType}"
-                    Foreground="Gray"
-                    Width="55" />
-                <TextBlock Text=":" />
-                <TextBlock Text="{x:Bind Count}" />
+                    <Border Visibility="{x:Bind AffixBase, Converter={StaticResource NullToInvisibilityConverter}}">
+                        <Border
+                            Visibility="{x:Bind Affixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
+                            Margin="0,3,0,0" />
+                    </Border>
+
+                    <ItemsRepeater
+                        ItemTemplate="{StaticResource HorizontalBarTemplate}"
+                        ItemsSource="{x:Bind Affixes}"
+                        Layout="{StaticResource VerticalStackLayout}"
+                        Visibility="{x:Bind Affixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}" />
+                </StackPanel>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -110,21 +110,50 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <StackPanel
                 Grid.Column="0"
-                Text="Randomizer"
-                Style="{StaticResource TitleTextBlockStyle}" />
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Text="Randomizer"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    VerticalAlignment="Center"
+                    Margin="0,-5,0,0" />
+
+                <TextBlock
+                    Foreground="Gray"
+                    Visibility="{x:Bind ViewModel.RandomizeCommand.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0">
+                    <Run Text="(generating" />
+                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" /><Run Text="/" /><Run Text="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=OneWay}" />
+                    <Run Text="items...)" />
+                </TextBlock>
+
+                <TextBlock
+                    Foreground="Gray"
+                    Visibility="{x:Bind ViewModel.RandomizeCommand.IsRunning, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0">
+                    <Run Text="(" /><Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                    <Run Text="generated items)" />
+                </TextBlock>
+            </StackPanel>
 
             <StackPanel
                 Grid.Column="1"
-                VerticalAlignment="Top"
-                Margin="10,0,0,0">
+                VerticalAlignment="Top">
                 <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
                     <Button
                         Content="Randomize"
                         Command="{x:Bind ViewModel.RandomizeCommand}" />
+
+                    <Button
+                        Content="Stop"
+                        Command="{x:Bind ViewModel.StopCommand}"
+                        Margin="10,0,0,0" />
 
                     <Button
                         Content="Export"
@@ -139,118 +168,80 @@
             </StackPanel>
         </Grid>
 
-        <ScrollViewer
+        <Grid
             Grid.Row="1"
-            VerticalScrollBarVisibility="Auto"
-            Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
             Margin="0,10,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <!--<StackPanel Visibility="{x:Bind ViewModel.RandomizeCommand.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ProgressRing
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    TextAlignment="Center"
+                    Margin="0,20,0,0">
+                    <Run Text="Generating" />
+                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                    <Run Text="/" />
+                    <Run Text="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate}" />
+                    <Run Text="..." />
+                </TextBlock>
+            </StackPanel>-->
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel
-                        Orientation="Horizontal"
-                        Margin="0,5,0,0">
-                        <TextBlock
-                            Text="#"
-                            FontWeight="SemiBold"
-                            Width="40" />
-
-                        <TextBlock
-                            Text="Item"
-                            FontWeight="SemiBold"
-                            Width="150" />
-
-                        <TextBlock
-                            Text="Item type"
-                            FontWeight="SemiBold"
-                            Width="100" />
-
-                        <TextBlock
-                            Text="Item subtype"
-                            FontWeight="SemiBold"
-                            Width="100" />
-
-                        <TextBlock
-                            Text="Plvl"
-                            FontWeight="SemiBold"
-                            Width="40" />
-
-                        <TextBlock
-                            Text="Affixes"
-                            FontWeight="SemiBold" />
-                    </StackPanel>
-
-                    <ItemsRepeater
-                        Grid.Row="1"
-                        ItemTemplate="{StaticResource GeneratedItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
-                </Grid>
-
-                <Expander
-                    Grid.Column="1"
-                    Header="Statistics"
-                    IsExpanded="True"
-                    VerticalAlignment="Top"
-                    Margin="0,10,0,0">
-                    <StackPanel>
-                        <TextBlock>
-                            <Run Text="Items dropped:" />
-                            <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
-                        </TextBlock>
-
-                        <TextBlock>
-                            <Run Text="Magic items dropped:" />
-                            <Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemsCount, Mode=OneWay}" />
-                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.RareGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                        </TextBlock>
-
-                        <TextBlock>
-                            <Run Text="Elite items dropped:" />
-                            <Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemsCount, Mode=OneWay}" />
-                            <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.EliteGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                        </TextBlock>
-
-                        <ItemsRepeater
-                            ItemTemplate="{StaticResource ItemCountPerTypeItemTemplate}"
-                            ItemsSource="{x:Bind ViewModel.Stats.ItemCountPerTypes, Mode=OneWay}"
-                            Margin="0,10,0,0" />
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
                         <StackPanel
                             Orientation="Horizontal"
-                            Margin="0,10,0,0">
+                            Margin="0,5,0,0">
                             <TextBlock
-                                Text="Max plvl item"
-                                Foreground="Gray"
-                                Width="55" />
-                            <TextBlock Text=":" />
-                            <TextBlock Text="{x:Bind ViewModel.Stats.MaxPowerLevelItem, Mode=OneWay}" />
+                                Text="#"
+                                FontWeight="SemiBold"
+                                Width="40" />
+
+                            <TextBlock
+                                Text="Item"
+                                FontWeight="SemiBold"
+                                Width="150" />
+
+                            <TextBlock
+                                Text="Item type"
+                                FontWeight="SemiBold"
+                                Width="100" />
+
+                            <TextBlock
+                                Text="Item subtype"
+                                FontWeight="SemiBold"
+                                Width="100" />
+
+                            <TextBlock
+                                Text="Plvl"
+                                FontWeight="SemiBold"
+                                Width="40" />
+
+                            <TextBlock
+                                Text="Affixes"
+                                FontWeight="SemiBold" />
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Text="Max plvl items dropped"
-                                Foreground="Gray" />
-                            <TextBlock Text=":" />
-                            <TextBlock
-                                Text="{x:Bind ViewModel.Stats.NumberOfMaxPowerLevelItem, Mode=OneWay}"
-                                Margin="2,0,0,0" />
-                            <TextBlock>
-                                <Run Text="(" /><Run Text="{x:Bind ViewModel.Stats.MaxPowerLevelGeneratedItemPercentage, Mode=OneWay, Converter={StaticResource DoubleToStringFormatConverter}, ConverterParameter='P'}" /><Run Text=")" />
-                            </TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                </Expander>
-            </Grid>
-        </ScrollViewer>
+                        <ItemsRepeater
+                            Grid.Row="1"
+                            ItemTemplate="{StaticResource GeneratedItemTemplate}"
+                            ItemsSource="{x:Bind ViewModel.GeneratedItems, Mode=OneWay}" />
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
 
         <InfoBar
             Title="{x:Bind ViewModel.InfoBar.Title, Mode=OneWay}"

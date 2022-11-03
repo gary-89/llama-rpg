@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
@@ -13,27 +15,6 @@ internal sealed class RandomizerStats : ObservableObject
     private double _rareGeneratedItemsCount;
     private double _rareGeneratedItemPercentage;
     private double _eliteGeneratedItemPercentage;
-    private double _maxPowerLevelGeneratedItemPercentage;
-    private double _numberOfMaxPowerLevelItem;
-    private double _maxPowerLevelItem;
-
-    public double MaxPowerLevelItem
-    {
-        get => _maxPowerLevelItem;
-        set => SetProperty(ref _maxPowerLevelItem, value);
-    }
-
-    public double NumberOfMaxPowerLevelItem
-    {
-        get => _numberOfMaxPowerLevelItem;
-        set => SetProperty(ref _numberOfMaxPowerLevelItem, value);
-    }
-
-    public double MaxPowerLevelGeneratedItemPercentage
-    {
-        get => _maxPowerLevelGeneratedItemPercentage;
-        set => SetProperty(ref _maxPowerLevelGeneratedItemPercentage, value);
-    }
 
     public double TotalGeneratedItemsCount { get; set; }
 
@@ -75,6 +56,8 @@ internal sealed class RandomizerStats : ObservableObject
 
     public IReadOnlyList<ItemCountPerType> ItemCountPerTypes => _generatedItemsCountPerItemType.Select(x => new ItemCountPerType(x.Key, x.Value)).ToList();
 
+    public ObservableCollection<ItemCountPerPowerLevel> ItemCountPerPowerLevels { get; } = new();
+
     public void UpdateOnAddingItem(RandomizedItem item)
     {
         if (!_generatedItemsCountPerItemType.ContainsKey(item.ItemType))
@@ -108,12 +91,19 @@ internal sealed class RandomizerStats : ObservableObject
         OnPropertyChanged(nameof(ItemCountPerTypes));
     }
 
+    public void RefreshItemCountPerPowerLevels(IEnumerable<ItemCountPerPowerLevel> itemCountPerPowerLevels)
+    {
+        ItemCountPerPowerLevels.Clear();
+        ItemCountPerPowerLevels.AddEach(itemCountPerPowerLevels.OrderBy(x => x.PowerLevel));
+    }
+
     public void Clear()
     {
         TotalGeneratedItemsCount = 0;
         RareGeneratedItemsCount = 0;
         EliteGeneratedItemsCount = 0;
         _generatedItemsCountPerItemType.Clear();
+        ItemCountPerPowerLevels.Clear();
         RefreshItemCountPerTypes();
     }
 }

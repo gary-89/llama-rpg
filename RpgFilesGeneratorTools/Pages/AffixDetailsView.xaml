@@ -24,6 +24,9 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
@@ -94,14 +97,53 @@
                 <TextBlock
                     Grid.Column="0"
                     Grid.Row="5"
-                    Text="Item level:"
+                    Text="Item level required:"
                     Style="{StaticResource LabelStyle}"
                     Margin="0,5,0,0" />
 
                 <TextBlock
                     Grid.Column="1"
                     Grid.Row="5"
-                    Text="{x:Bind ItemLevel}"
+                    Text="{x:Bind ItemLevelRequired}"
+                    Margin="5,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Text="Power level required:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="6"
+                    Text="{x:Bind PowerLevelRequired}"
+                    Margin="5,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="7"
+                    Text="Group:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Text="{x:Bind Group}"
+                    Margin="5,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="8"
+                    Text="Max level:"
+                    Style="{StaticResource LabelStyle}"
+                    Margin="0,5,0,0" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    Text="{x:Bind MaxLevel}"
                     Margin="5,5,0,0" />
             </Grid>
         </DataTemplate>

@@ -27,13 +27,15 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private readonly IAffixProvider _affixProvider;
     private readonly IItemProvider _itemProvider;
     private readonly ILogger<RandomizerPageViewModel> _logger;
-    private readonly AsyncRelayCommand _randomizeCommand;
     private readonly AsyncRelayCommand _exportCommand;
+    private readonly RelayCommand _stopCommand;
 
     private IReadOnlyList<ItemBase> _items = Array.Empty<ItemBase>();
     private IReadOnlyList<Affix> _affixes = Array.Empty<Affix>();
     private string? _fileToExportPath;
     private bool _exportEnabled;
+    private bool _canStopRandomization;
+    private bool _stopRandomization;
 
     public RandomizerPageViewModel(IItemRandomizerProvider itemRandomizer, IAffixProvider affixProvider, IItemProvider itemProvider, ILogger<RandomizerPageViewModel> logger)
     {
@@ -42,10 +44,11 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         _itemProvider = itemProvider;
         _logger = logger;
 
-        _randomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
-
+        RandomizeCommand = new AsyncRelayCommand(GenerateRandomizedItemsAsync, CanRandomizeItems);
         ClearCommand = new RelayCommand(ClearItemsAndStats);
+        _stopCommand = new RelayCommand(StopRandomization, CanStopRandomizationProcess);
         _exportCommand = new AsyncRelayCommand(ExportGeneratedItemsAsync, CanExportItems);
+
         var openLastGeneratedFileCommand = new RelayCommand(OpenLastGeneratedFile);
 
         InfoBar = new InfoBar(openLastGeneratedFileCommand);
@@ -55,9 +58,11 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     public NotifyTaskCompletion<int> TaskCompletion { get; }
 
-    public ICommand RandomizeCommand => _randomizeCommand;
+    public AsyncRelayCommand RandomizeCommand { get; }
 
     public ICommand ClearCommand { get; }
+
+    public ICommand StopCommand => _stopCommand;
 
     public ICommand ExportCommand => _exportCommand;
 
@@ -81,6 +86,18 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
+    public bool CanStopRandomization
+    {
+        get => _canStopRandomization;
+        set
+        {
+            if (SetProperty(ref _canStopRandomization, value))
+            {
+                _stopCommand.NotifyCanExecuteChanged();
+            }
+        }
+    }
+
     private async Task<int> InitializeAsync()
     {
         _affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None).ConfigureAwait(true);
@@ -89,7 +106,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
         Settings.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, 1)));
 
-        _randomizeCommand.NotifyCanExecuteChanged();
+        RandomizeCommand.NotifyCanExecuteChanged();
         return 0;
     }
 
@@ -97,7 +114,17 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     {
         GeneratedItems.Clear();
         Stats.Clear();
-        _exportCommand.NotifyCanExecuteChanged();
+        ExportEnabled = false;
+    }
+
+    private void StopRandomization()
+    {
+        _stopRandomization = true;
+    }
+
+    private bool CanStopRandomizationProcess()
+    {
+        return CanStopRandomization;
     }
 
     private bool CanRandomizeItems()
@@ -107,29 +134,52 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private async Task GenerateRandomizedItemsAsync(CancellationToken cancellationToken)
     {
-        await RunSafely(InternalGenerateRandomizedItemsAsync).ConfigureAwait(true);
-
-        async Task InternalGenerateRandomizedItemsAsync()
+        try
         {
             var stopwatch = Stopwatch.StartNew();
 
             _logger.LogInformation("Generating {NumberOfItems} randomized items...", Settings.NumberOfItemsToGenerate);
 
-            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
+            ExportEnabled = false;
+
+            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken)
+                               .ConfigureAwait(true))
             {
+                if (_stopRandomization)
+                {
+                    _stopRandomization = false;
+                    CanStopRandomization = false;
+                    _stopCommand.NotifyCanExecuteChanged();
+                    ExportEnabled = true;
+                    break;
+                }
+
                 GeneratedItems.Add(item);
+
+                await Task.Delay(1, cancellationToken).ConfigureAwait(true);
+
                 RefreshStatsOnAddingItem(item);
             }
-
-            Stats.MaxPowerLevelItem = GeneratedItems.Max(x => x.PowerLevel);
-            Stats.NumberOfMaxPowerLevelItem = GeneratedItems.Count(x => x.PowerLevel == (int)Stats.MaxPowerLevelItem);
-            Stats.MaxPowerLevelGeneratedItemPercentage = Stats.NumberOfMaxPowerLevelItem / GeneratedItems.Count;
-
-            Stats.RefreshItemCountPerTypes();
 
             stopwatch.Stop();
 
             _logger.LogInformation("Done in {ElapsedTimeInMillisecond} ms", stopwatch.ElapsedMilliseconds);
+
+            var itemCountPerPowerLevels = GeneratedItems.GroupBy(x => x.PowerLevel).Select(x =>
+            {
+                var count = x.Count();
+                return new ItemCountPerPowerLevel(x.Key, count, (double)count / GeneratedItems.Count);
+            });
+
+            Stats.RefreshItemCountPerPowerLevels(itemCountPerPowerLevels);
+
+            Stats.RefreshItemCountPerTypes();
+
+            ExportEnabled = true;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, exception.Message);
         }
     }
 
@@ -141,6 +191,8 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         {
             ExportEnabled = true;
         }
+
+        CanStopRandomization = GeneratedItems.Count > 0;
     }
 
     private bool CanExportItems() => ExportEnabled;

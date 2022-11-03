@@ -8,5 +8,6 @@ internal sealed record RandomizedItem(
     ItemType ItemType,
     ItemSubtype ItemSubtype,
     int PowerLevel,
+    string? AffixBase,
     IReadOnlyList<string> Affixes,
     ItemRarityType ItemRarityType);

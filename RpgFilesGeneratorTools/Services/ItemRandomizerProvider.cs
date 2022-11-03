@@ -77,11 +77,11 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var rarity = GenerateRarity(settings);
 
-            var generatedAffixes = GenerateAffixes(itemType, item.Subtype, rarity, affixes, settings);
-
             var powerLevel = GeneratePowerLevel(settings.MonsterLevel);
 
-            result = new RandomizedItem(counter, item.Name, itemType, item.Subtype, powerLevel, generatedAffixes, rarity);
+            var generatedAffixes = GenerateAffixes(item, powerLevel, rarity, affixes, settings);
+
+            result = new RandomizedItem(counter, item.Name, itemType, item.Subtype, powerLevel, generatedAffixes.AffixBase, generatedAffixes.Affixes, rarity);
 
             counter++;
 
@@ -97,18 +97,25 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private int GeneratePowerLevel(int monsterLevel)
     {
+        const int DefaultChanceOfDropMaxPowerLevelItem = 30;
+
         while (true)
         {
-            if (monsterLevel < 10)
+            if (monsterLevel < 25)
             {
                 return 1;
             }
 
-            if (_random.Next(1, 4) % 3 == 0)
+            if (_random.Next(1, 100) <= DefaultChanceOfDropMaxPowerLevelItem)
             {
-                return (int)Math.Floor((decimal)monsterLevel / 10);
+                return monsterLevel switch
+                {
+                    < 50 => 2,
+                    _ => 3
+                };
             }
-            monsterLevel -= 10;
+
+            monsterLevel -= 25;
         }
     }
 
@@ -125,17 +132,15 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                     : ItemRarityType.Normal;
     }
 
-    private IReadOnlyList<string> GenerateAffixes(
-        ItemType itemType,
-        ItemSubtype itemSubtype,
+    private (string? AffixBase, IReadOnlyList<string> Affixes) GenerateAffixes(
+        ItemBase item,
+        int itemPowerLevel,
         ItemRarityType rarity,
         IEnumerable<Affix> affixes,
         RandomizerSettings settings)
     {
-        if (rarity == ItemRarityType.Normal)
-        {
-            return Array.Empty<string>();
-        }
+        var itemType = item.Type;
+        var itemSubtype = item.Subtype;
 
         var matchingAffixes = affixes.Where(x => x.Rules.Any(r => r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))).ToList();
 
@@ -145,20 +150,65 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             throw new InvalidOperationException($"Failed to generate a random drop: no matching affixes found for item type {itemType}.");
         }
 
+        IReadOnlyCollection<Affix> mandatoryAffixes;
+
+        var elementalSecondaryAffixes = new[] { "Burn", "Heat", "Water", "Ice", "Electric", "Spark", "Acid", "Venom" };
+        var elementalPrimaryAffixes = new[] { "Fire", "Cold", "Lighting", "Poison" };
+
+        switch (itemType)
+        {
+            case ItemType.Weapon:
+                mandatoryAffixes = matchingAffixes
+                    .Where(x => x.Name.Contains("damage", StringComparison.OrdinalIgnoreCase))
+                    .Where(x => elementalSecondaryAffixes.Any(element => x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
+                    .ToList().AsReadOnly();
+                break;
+
+            case ItemType.Offhand:
+                mandatoryAffixes = matchingAffixes
+                    .Where(x => x.Name.Contains("defense", StringComparison.OrdinalIgnoreCase))
+                    .Where(x => elementalPrimaryAffixes.Any(element => x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
+                    .ToList().AsReadOnly();
+                break;
+
+            case ItemType.Armor:
+                mandatoryAffixes = matchingAffixes
+                    .Where(x => x.Name.Equals("defense", StringComparison.OrdinalIgnoreCase))
+                    .ToList().AsReadOnly();
+                break;
+
+            default:
+                mandatoryAffixes = Enumerable.Empty<Affix>().ToList();
+                break;
+        }
+
+        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes).FirstOrDefault();
+
+        if (rarity == ItemRarityType.Normal)
+        {
+            return (mandatoryAffix, Array.Empty<string>());
+        }
+
         var numberOfAffixes = rarity switch
         {
-            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min, settings.AffixesForMagicItems.Max + 1),
-            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min, settings.AffixesForRareItems.Max + 1),
-            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min, settings.AffixesForEliteItems.Max + 1),
+            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForMagicItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
+            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForRareItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
+            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForEliteItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
             _ => 0
         };
 
-        return InternalGenerateAffixes(numberOfAffixes, matchingAffixes);
+        return (mandatoryAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes));
     }
 
-    private IReadOnlyList<string> InternalGenerateAffixes(int count, IReadOnlyCollection<Affix> matchingAffixes)
+    private IReadOnlyList<string> InternalGenerateAffixes(ItemBase item, int itemPowerLevel, int count, IReadOnlyCollection<Affix> matchingAffixes)
     {
         List<string> result = new();
+
+        if (matchingAffixes.Count == 0)
+        {
+            return result;
+        }
+
         HashSet<string> generatedAffixes = new();
 
         for (var i = 0; i < count; i++)
@@ -177,6 +227,45 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                 int.TryParse(affix1Rule.Modifier1Max, out var max))
             {
                 mod = $"{_random.Next(min, max + 1)}";
+            }
+            else if (item is Weapon weapon)
+            {
+                if (affix1Rule.Modifier1Min.Contains("mindam", StringComparison.OrdinalIgnoreCase) &&
+                    affix1Rule.Modifier1Max.Contains("maxdam * plvl", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    int.TryParse(
+                        affix1Rule.Modifier1Min.Replace("mindam", string.Empty).Replace("+", string.Empty)
+                            .Replace(" ", string.Empty), out var minDmg);
+
+                    min = weapon.MinDamage + minDmg;
+                    max = weapon.MaxDamage * itemPowerLevel + 1;
+
+                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
+                }
+            }
+            else if (item is Offhand offhand)
+            {
+                if (affix1Rule.Modifier1Min.Contains("minblock", StringComparison.OrdinalIgnoreCase) &&
+                    affix1Rule.Modifier1Max.Contains("maxblock * plvl", StringComparison.OrdinalIgnoreCase))
+                {
+                    int.TryParse(
+                        affix1Rule.Modifier1Min.Replace("minblock", string.Empty).Replace("+", string.Empty)
+                            .Replace(" ", string.Empty), out var minBlock);
+
+                    min = offhand.MinBlock + minBlock;
+                    max = offhand.MaxBlock * itemPowerLevel + 1;
+
+                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
+                }
+                else if (affix1Rule.Modifier1Min.Contains("plvl + minblock", StringComparison.OrdinalIgnoreCase) &&
+                         affix1Rule.Modifier1Max.Contains("plvl * 3 + maxblock", StringComparison.OrdinalIgnoreCase))
+                {
+                    min = itemPowerLevel + offhand.MinBlock;
+                    max = itemPowerLevel * 3 + offhand.MaxBlock;
+
+                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
+                }
             }
 
             result.Add($"{affix.Name}: +{mod}");

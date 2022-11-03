@@ -101,8 +101,11 @@ internal sealed class AffixProvider : IAffixProvider
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);
-        int.TryParse(infos[5], out var itemLevel);
-        int.TryParse(infos[7], out var frequency);
+        int.TryParse(infos[5], out var itemLevelRequired);
+        int.TryParse(infos[6], out var powerLevelRequired);
+        int.TryParse(infos[7], out var maxLevel);
+        int.TryParse(infos[8], out var frequency);
+        int.TryParse(infos[9], out var group);
 
         return new AffixRule(
             itemTypes,
@@ -110,7 +113,10 @@ internal sealed class AffixProvider : IAffixProvider
             tier,
             isRare == 1,
             isElite == 1,
-            itemLevel,
+            itemLevelRequired,
+            powerLevelRequired,
+            group,
+            maxLevel,
             frequency,
             Modifier1: infos[10],
             Modifier1Min: infos[11],

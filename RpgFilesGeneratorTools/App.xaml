@@ -71,6 +71,7 @@
                 x:Key="ObjectEqualityToInvisibilityConverter"
                 FalseValue="Visible"
                 TrueValue="Collapsed" />
+            <converters:NullToInvisibilityConverter x:Key="NullToInvisibilityConverter" />
             <converters:RarityTypeToForegroundBrushConverter x:Key="RarityTypeToForegroundBrushConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:BooleanToVisibilityConverter

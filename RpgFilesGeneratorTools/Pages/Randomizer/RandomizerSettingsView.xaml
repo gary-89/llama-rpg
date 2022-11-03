@@ -40,7 +40,11 @@
 
             <!-- Generation: -->
             <StackPanel Grid.Row="0">
-                <TextBlock>
+                <TextBlock
+                    Text="Settings"
+                    Style="{StaticResource TitleTextBlockStyle}" />
+
+                <TextBlock Margin="0,10,0,0">
                     <Run Text="Items to generate:" />
                     <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
                 </TextBlock>
@@ -228,7 +232,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Text="Affixes from"
+                            Text="affixes from"
                             VerticalAlignment="Center" />
 
                         <NumberBox
