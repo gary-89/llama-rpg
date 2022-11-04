@@ -2,6 +2,15 @@
 
 namespace RpgFilesGeneratorTools.Models;
 
+internal enum AffixModifierType
+{
+    Undefined,
+    Number,
+    MinimumDamagePlus,
+    MinimumBlockPlus,
+    PowerLevelPlusMinimumBlock,
+}
+
 internal sealed record AffixRule(
     IReadOnlyList<ItemType> ItemTypes,
     IReadOnlyList<ItemSubtype> ItemSubtypes,
@@ -13,6 +22,9 @@ internal sealed record AffixRule(
     int Group,
     int MaxLevel,
     int Frequency,
-    string Modifier1,
-    string Modifier1Min,
-    string Modifier1Max);
+    string Modifier1Text,
+    string Modifier1MinText,
+    string Modifier1MaxText,
+    AffixModifierType Type,
+    int Modifier1Min,
+    int Modifier1Max);

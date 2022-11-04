@@ -141,9 +141,10 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             _logger.LogInformation("Generating {NumberOfItems} randomized items...", Settings.NumberOfItemsToGenerate);
 
             ExportEnabled = false;
+            CanStopRandomization = true;
 
-            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken)
-                               .ConfigureAwait(true))
+            var numberOfGeneratedItems = 0;
+            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
             {
                 if (_stopRandomization)
                 {
@@ -156,9 +157,14 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
                 GeneratedItems.Add(item);
 
-                await Task.Delay(1, cancellationToken).ConfigureAwait(true);
-
                 RefreshStatsOnAddingItem(item);
+
+                numberOfGeneratedItems++;
+
+                if (numberOfGeneratedItems % 100 == 0)
+                {
+                    await Task.Delay(1, cancellationToken).ConfigureAwait(true);
+                }
             }
 
             stopwatch.Stop();
@@ -176,6 +182,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             Stats.RefreshItemCountPerTypes();
 
             ExportEnabled = true;
+            CanStopRandomization = false;
         }
         catch (Exception exception)
         {

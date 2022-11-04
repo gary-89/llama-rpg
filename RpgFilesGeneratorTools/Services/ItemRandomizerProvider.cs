@@ -13,6 +13,9 @@ namespace RpgFilesGeneratorTools.Services;
 
 internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 {
+    private const string Damage = "damage";
+    private const string Defense = "defense";
+
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
     private readonly ILogger<ItemRandomizerProvider> _logger;
@@ -142,7 +145,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         var itemType = item.Type;
         var itemSubtype = item.Subtype;
 
-        var matchingAffixes = affixes.Where(x => x.Rules.Any(r => r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))).ToList();
+        var matchingAffixes = affixes.Where(x => x.Rules
+            .Any(r => r.ItemLevelRequired < settings.MonsterLevel && (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
+            .ToList();
 
         if (matchingAffixes.Count == 0)
         {
@@ -150,39 +155,39 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             throw new InvalidOperationException($"Failed to generate a random drop: no matching affixes found for item type {itemType}.");
         }
 
-        IReadOnlyCollection<Affix> mandatoryAffixes;
-
         var elementalSecondaryAffixes = new[] { "Burn", "Heat", "Water", "Ice", "Electric", "Spark", "Acid", "Venom" };
         var elementalPrimaryAffixes = new[] { "Fire", "Cold", "Lighting", "Poison" };
 
-        switch (itemType)
+        IReadOnlyCollection<Affix> mandatoryAffixes = itemType switch
         {
-            case ItemType.Weapon:
-                mandatoryAffixes = matchingAffixes
-                    .Where(x => x.Name.Contains("damage", StringComparison.OrdinalIgnoreCase))
-                    .Where(x => elementalSecondaryAffixes.Any(element => x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
-                    .ToList().AsReadOnly();
-                break;
+            ItemType.Weapon =>
+                matchingAffixes.Where(x => x.Name.Contains(Damage, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => elementalSecondaryAffixes.Any(element =>
+                        x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
+                    .ToList()
+                    .AsReadOnly(),
 
-            case ItemType.Offhand:
-                mandatoryAffixes = matchingAffixes
-                    .Where(x => x.Name.Contains("defense", StringComparison.OrdinalIgnoreCase))
-                    .Where(x => elementalPrimaryAffixes.Any(element => x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
-                    .ToList().AsReadOnly();
-                break;
+            ItemType.Offhand =>
+                matchingAffixes
+                    .Where(x => x.Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => elementalPrimaryAffixes.Any(element =>
+                        x.Name.Contains(element, StringComparison.OrdinalIgnoreCase)))
+                    .ToList()
+                    .AsReadOnly(),
 
-            case ItemType.Armor:
-                mandatoryAffixes = matchingAffixes
-                    .Where(x => x.Name.Equals("defense", StringComparison.OrdinalIgnoreCase))
-                    .ToList().AsReadOnly();
-                break;
+            ItemType.Armor =>
+                matchingAffixes.Where(x => x.Name.Equals(Defense, StringComparison.OrdinalIgnoreCase))
+                    .ToList()
+                    .AsReadOnly(),
 
-            default:
-                mandatoryAffixes = Enumerable.Empty<Affix>().ToList();
-                break;
-        }
+            ItemType.Jewelry => Enumerable.Empty<Affix>().ToList(),
+            ItemType.MeleeWeapon => Enumerable.Empty<Affix>().ToList(),
+            ItemType.MagicWeapon => Enumerable.Empty<Affix>().ToList(),
+            ItemType.RangeWeapon => Enumerable.Empty<Affix>().ToList(),
+            _ => Enumerable.Empty<Affix>().ToList()
+        };
 
-        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes).FirstOrDefault();
+        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes, isItemAffixBase: true).FirstOrDefault();
 
         if (rarity == ItemRarityType.Normal)
         {
@@ -200,16 +205,21 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         return (mandatoryAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes));
     }
 
-    private IReadOnlyList<string> InternalGenerateAffixes(ItemBase item, int itemPowerLevel, int count, IReadOnlyCollection<Affix> matchingAffixes)
+    private IReadOnlyList<string> InternalGenerateAffixes(
+        ItemBase item,
+        int itemPowerLevel,
+        int count,
+        IReadOnlyCollection<Affix> matchingAffixes,
+        bool isItemAffixBase = false)
     {
-        List<string> result = new();
+        List<string> generatedAffixes = new();
 
         if (matchingAffixes.Count == 0)
         {
-            return result;
+            return generatedAffixes;
         }
 
-        HashSet<string> generatedAffixes = new();
+        HashSet<string> generatedAffixNames = new();
 
         for (var i = 0; i < count; i++)
         {
@@ -217,62 +227,78 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             do
             {
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
-            } while (generatedAffixes.Contains(affix.Name));
+            } while (generatedAffixNames.Contains(affix.Name));
 
             var affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
+            var mod = affix1Rule.Modifier1MinText;
+            int min, max;
 
-            var mod = affix1Rule.Modifier1Min;
-
-            if (int.TryParse(affix1Rule.Modifier1Min, out var min) &&
-                int.TryParse(affix1Rule.Modifier1Max, out var max))
+            switch (affix1Rule.Type)
             {
-                mod = $"{_random.Next(min, max + 1)}";
-            }
-            else if (item is Weapon weapon)
-            {
-                if (affix1Rule.Modifier1Min.Contains("mindam", StringComparison.OrdinalIgnoreCase) &&
-                    affix1Rule.Modifier1Max.Contains("maxdam * plvl", StringComparison.OrdinalIgnoreCase))
-                {
+                case AffixModifierType.Number:
+                    mod = isItemAffixBase
+                        ? $"{affix1Rule.Modifier1Min} to {affix1Rule.Modifier1Max}"
+                        : $"+{_random.Next(affix1Rule.Modifier1Min, affix1Rule.Modifier1Max + 1)}";
+                    break;
 
-                    int.TryParse(
-                        affix1Rule.Modifier1Min.Replace("mindam", string.Empty).Replace("+", string.Empty)
-                            .Replace(" ", string.Empty), out var minDmg);
-
-                    min = weapon.MinDamage + minDmg;
+                case AffixModifierType.MinimumDamagePlus when item is Weapon weapon:
+                    min = weapon.MinDamage + affix1Rule.Modifier1Min;
                     max = weapon.MaxDamage * itemPowerLevel + 1;
 
-                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
-                }
-            }
-            else if (item is Offhand offhand)
-            {
-                if (affix1Rule.Modifier1Min.Contains("minblock", StringComparison.OrdinalIgnoreCase) &&
-                    affix1Rule.Modifier1Max.Contains("maxblock * plvl", StringComparison.OrdinalIgnoreCase))
-                {
-                    int.TryParse(
-                        affix1Rule.Modifier1Min.Replace("minblock", string.Empty).Replace("+", string.Empty)
-                            .Replace(" ", string.Empty), out var minBlock);
+                    EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    min = offhand.MinBlock + minBlock;
+                    mod = isItemAffixBase
+                        ? $"{min} to {max}"
+                        : $"+{_random.Next(min, max + 1)}";
+                    break;
+
+                case AffixModifierType.MinimumBlockPlus when item is Offhand offhand:
+                    min = offhand.MinBlock + affix1Rule.Modifier1Min;
                     max = offhand.MaxBlock * itemPowerLevel + 1;
 
-                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
-                }
-                else if (affix1Rule.Modifier1Min.Contains("plvl + minblock", StringComparison.OrdinalIgnoreCase) &&
-                         affix1Rule.Modifier1Max.Contains("plvl * 3 + maxblock", StringComparison.OrdinalIgnoreCase))
-                {
+                    EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
+
+                    mod = isItemAffixBase
+                        ? $"{min} to {max}"
+                        : $"+{_random.Next(min, max + 1)}";
+                    break;
+
+                case AffixModifierType.PowerLevelPlusMinimumBlock when item is Offhand offhand:
                     min = itemPowerLevel + offhand.MinBlock;
                     max = itemPowerLevel * 3 + offhand.MaxBlock;
 
-                    mod = $"{_random.Next(min, min > max ? min + 1 : max + 1)}";
-                }
+                    EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
+
+                    mod = isItemAffixBase
+                        ? $"{min} to {max}"
+                        : $"+{_random.Next(min, max + 1)}";
+                    break;
+
+                case AffixModifierType.Undefined:
+                default:
+                    // Ignore
+                    break;
             }
 
-            result.Add($"{affix.Name}: +{mod}");
-            generatedAffixes.Add(affix.Name);
+            generatedAffixes.Add($"{affix.Name}: {mod}");
+            generatedAffixNames.Add(affix.Name);
         }
 
-        return result;
+        return generatedAffixes;
+
+        void EnsureMaxValue(string modifierCode, string modifierText, int min, ref int max)
+        {
+            if (max >= min)
+            {
+                return;
+            }
+
+            max = min;
+
+            _logger.LogDebug(
+                "Generating affix {ModifierCode}: max resulted to be less then min for {ModifierText}.",
+                modifierCode, modifierText);
+        }
     }
 
     private sealed record ItemTypeCumulativeWeight(ItemType ItemType, int CumulativeWeight);

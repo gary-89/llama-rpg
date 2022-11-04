@@ -13,6 +13,13 @@ internal sealed class AffixProvider : IAffixProvider
 {
     private const char CsvSeparator = ',';
 
+    private const string MinDamage = "mindam";
+    private const string MaxDamagePerPowerLevel = "maxdam * plvl";
+    private const string MinBlock = "minblock";
+    private const string MaxBlockPerPowerLevel = "maxblock * plvl";
+    private const string PowerLevelPlusMinBlock = "plvl + minblock";
+    private const string PowerLevelTimesThreePlusMaxBlock = "plvl * 3 + maxblock";
+
     private readonly AppConfig _appConfig;
     private readonly List<Affix> _affixes = new();
     private readonly ILogger<AffixProvider> _logger;
@@ -107,6 +114,37 @@ internal sealed class AffixProvider : IAffixProvider
         int.TryParse(infos[8], out var frequency);
         int.TryParse(infos[9], out var group);
 
+        var modifier1Text = infos[10].Trim();
+        var modifier1MinText = infos[11].Trim();
+        var modifier1MaxText = infos[12].Trim();
+
+        var affixModifierType = AffixModifierType.Undefined;
+        var modifier1Max = 0;
+
+        if (int.TryParse(modifier1MinText, out var modifier1Min) && int.TryParse(modifier1MaxText, out modifier1Max))
+        {
+            affixModifierType = AffixModifierType.Number;
+        }
+        else if (modifier1MinText.Contains(MinDamage, StringComparison.OrdinalIgnoreCase) &&
+                modifier1MaxText.Equals(MaxDamagePerPowerLevel, StringComparison.OrdinalIgnoreCase))
+        {
+            affixModifierType = AffixModifierType.MinimumDamagePlus;
+
+            int.TryParse(modifier1MinText.Replace($"{MinDamage} + ", string.Empty), out modifier1Min);
+        }
+        else if (modifier1MinText.Contains(MinBlock, StringComparison.OrdinalIgnoreCase) &&
+                modifier1MaxText.Equals(MaxBlockPerPowerLevel, StringComparison.OrdinalIgnoreCase))
+        {
+            affixModifierType = AffixModifierType.MinimumBlockPlus;
+
+            int.TryParse(modifier1MinText.Replace($"{MinBlock} + ", string.Empty), out modifier1Min);
+        }
+        else if (modifier1MinText.Equals(PowerLevelPlusMinBlock, StringComparison.OrdinalIgnoreCase) &&
+                 modifier1MaxText.Equals(PowerLevelTimesThreePlusMaxBlock, StringComparison.OrdinalIgnoreCase))
+        {
+            affixModifierType = AffixModifierType.PowerLevelPlusMinimumBlock;
+        }
+
         return new AffixRule(
             itemTypes,
             itemSubtypes,
@@ -118,8 +156,11 @@ internal sealed class AffixProvider : IAffixProvider
             group,
             maxLevel,
             frequency,
-            Modifier1: infos[10],
-            Modifier1Min: infos[11],
-            Modifier1Max: infos[12]);
+            modifier1Text,
+            modifier1MinText,
+            modifier1MaxText,
+            affixModifierType,
+            modifier1Min,
+            modifier1Max);
     }
 }

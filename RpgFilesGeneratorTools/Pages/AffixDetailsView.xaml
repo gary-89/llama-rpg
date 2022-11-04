@@ -65,7 +65,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Grid.Row="2"
-                    Text="{x:Bind Modifier1}"
+                    Text="{x:Bind Modifier1Text}"
                     Margin="5,5,0,0" />
 
                 <TextBlock
@@ -78,7 +78,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Grid.Row="3"
-                    Text="{x:Bind Modifier1Min}"
+                    Text="{x:Bind Modifier1MinText}"
                     Margin="5,5,0,0" />
 
                 <TextBlock
@@ -91,7 +91,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Grid.Row="4"
-                    Text="{x:Bind Modifier1Max}"
+                    Text="{x:Bind Modifier1MaxText}"
                     Margin="5,5,0,0" />
 
                 <TextBlock

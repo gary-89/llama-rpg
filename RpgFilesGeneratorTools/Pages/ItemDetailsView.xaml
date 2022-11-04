@@ -42,7 +42,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="0"
-                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind Name, FallbackValue=''}"
                         FontSize="16"
                         Margin="10,10,0,0" />
 
@@ -58,9 +58,9 @@
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Margin="10,10,0,0">
-                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Type, FallbackValue=''}" />
                         <TextBlock Text=" (" />
-                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue=''}" />
                         <TextBlock Text=")" />
                     </StackPanel>
 
@@ -75,7 +75,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="2"
-                        Text="{x:Bind Speed, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind Speed, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <!-- Requirement -->
@@ -89,7 +89,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="3"
-                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredStrength, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -102,7 +102,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="4"
-                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredDexterity, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -115,7 +115,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="5"
-                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <!-- Damage -->
@@ -130,9 +130,9 @@
                         Grid.Column="1"
                         Grid.Row="6"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind MinDamage, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MinDamage, FallbackValue=''}" />
                         <Run Text="to" />
-                        <Run Text="{x:Bind MaxDamage, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MaxDamage, FallbackValue=''}" />
                     </TextBlock>
 
                     <!-- Sockets -->
@@ -147,7 +147,7 @@
                         Grid.Column="1"
                         Grid.Row="7"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
 
                     <!-- Item statuses -->
@@ -179,7 +179,7 @@
                             Grid.Column="0"
                             Grid.Row="0"
                             VerticalAlignment="Center">
-                            <Run Text="{x:Bind Status, FallbackValue='', Mode=OneWay}" />
+                            <Run Text="{x:Bind Status, FallbackValue=''}" />
                         </TextBlock>
 
                         <StackPanel
@@ -191,7 +191,7 @@
                                 VerticalAlignment="Center"
                                 Margin="5,0,0,0" />
                             <TextBlock
-                                Text="{x:Bind StatusChance, FallbackValue='', Mode=OneWay}"
+                                Text="{x:Bind StatusChance, FallbackValue=''}"
                                 VerticalAlignment="Center"
                                 Margin="5,0,0,0" />
                             <TextBlock
@@ -204,7 +204,7 @@
                             Grid.Column="0"
                             Grid.Row="2"
                             VerticalAlignment="Center">
-                            <Run Text="{x:Bind Status2, FallbackValue='', Mode=OneWay}" />
+                            <Run Text="{x:Bind Status2, FallbackValue=''}" />
                         </TextBlock>
 
                         <StackPanel
@@ -216,7 +216,7 @@
                                 VerticalAlignment="Center"
                                 Margin="5,0,0,0" />
                             <TextBlock
-                                Text="{x:Bind Status2Chance, FallbackValue='', Mode=OneWay}"
+                                Text="{x:Bind Status2Chance, FallbackValue=''}"
                                 VerticalAlignment="Center"
                                 Margin="5,0,0,0" />
                             <TextBlock
@@ -260,7 +260,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="0"
-                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind Name, FallbackValue=''}"
                         FontSize="16"
                         Margin="10,10,0,0" />
 
@@ -276,9 +276,9 @@
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Margin="10,10,0,0">
-                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Type, FallbackValue=''}" />
                         <TextBlock Text=" (" />
-                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue=''}" />
                         <TextBlock Text=")" />
                     </StackPanel>
 
@@ -293,7 +293,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="2"
-                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredStrength, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -306,7 +306,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="3"
-                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredDexterity, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -319,7 +319,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="4"
-                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <!-- Defense -->
@@ -334,9 +334,9 @@
                         Grid.Column="1"
                         Grid.Row="5"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind MinDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MinDefense, FallbackValue=''}" />
                         <Run Text="to" />
-                        <Run Text="{x:Bind MaxDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MaxDefense, FallbackValue=''}" />
                     </TextBlock>
 
                     <TextBlock
@@ -350,9 +350,9 @@
                         Grid.Column="1"
                         Grid.Row="6"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind MinBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MinBlock, FallbackValue=''}" />
                         <Run Text="to" />
-                        <Run Text="{x:Bind MaxBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MaxBlock, FallbackValue=''}" />
                     </TextBlock>
 
                     <TextBlock
@@ -366,9 +366,9 @@
                         Grid.Column="1"
                         Grid.Row="7"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind TotalMinBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind TotalMinBlock, FallbackValue=''}" />
                         <Run Text="to" />
-                        <Run Text="{x:Bind TotalMaxBlock, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind TotalMaxBlock, FallbackValue=''}" />
                     </TextBlock>
 
                     <!-- Sockets -->
@@ -383,7 +383,7 @@
                         Grid.Column="1"
                         Grid.Row="7"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
                 </Grid>
             </Grid>
@@ -418,7 +418,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="0"
-                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind Name, FallbackValue=''}"
                         FontSize="16"
                         Margin="10,10,0,0" />
 
@@ -434,9 +434,9 @@
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Margin="10,10,0,0">
-                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Type, FallbackValue=''}" />
                         <TextBlock Text=" (" />
-                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue=''}" />
                         <TextBlock Text=")" />
                     </StackPanel>
 
@@ -451,7 +451,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="2"
-                        Text="{x:Bind RequiredStrength, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredStrength, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -464,7 +464,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="3"
-                        Text="{x:Bind RequiredDexterity, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredDexterity, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <TextBlock
@@ -477,7 +477,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Grid.Row="4"
-                        Text="{x:Bind RequiredIntelligence, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind RequiredIntelligence, FallbackValue=''}"
                         Margin="10,10,0,0" />
 
                     <!-- Defense -->
@@ -492,9 +492,9 @@
                         Grid.Column="1"
                         Grid.Row="5"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind MinDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MinDefense, FallbackValue=''}" />
                         <Run Text="to" />
-                        <Run Text="{x:Bind MaxDefense, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind MaxDefense, FallbackValue=''}" />
                     </TextBlock>
 
                     <!-- Sockets -->
@@ -509,7 +509,7 @@
                         Grid.Column="1"
                         Grid.Row="6"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
                 </Grid>
             </Grid>
@@ -540,7 +540,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="0"
-                        Text="{x:Bind Name, FallbackValue='', Mode=OneWay}"
+                        Text="{x:Bind Name, FallbackValue=''}"
                         FontSize="16"
                         Margin="10,10,0,0" />
 
@@ -556,9 +556,9 @@
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Margin="10,10,0,0">
-                        <TextBlock Text="{x:Bind Type, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Type, FallbackValue=''}" />
                         <TextBlock Text=" (" />
-                        <TextBlock Text="{x:Bind Subtype, FallbackValue='', Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind Subtype, FallbackValue=''}" />
                         <TextBlock Text=")" />
                     </StackPanel>
 
@@ -574,7 +574,7 @@
                         Grid.Column="1"
                         Grid.Row="2"
                         Margin="10,10,0,0">
-                        <Run Text="{x:Bind Sockets, FallbackValue='', Mode=OneWay}" />
+                        <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
                 </Grid>
             </Grid>
@@ -602,429 +602,6 @@
                     Content="{x:Bind ViewModel.SelectedItem, Mode=OneWay}"
                     ContentTemplateSelector="{StaticResource ItemDetailsTemplateSelector}" />
             </StackPanel>
-            <!--<Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="0"
-                    Text="{x:Bind ViewModel.SelectedItem.Name, FallbackValue='', Mode=OneWay}"
-                    FontSize="16"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <TextBox
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="0"
-                    Text="{x:Bind ViewModel.EditingItem.Name, FallbackValue='', Mode=TwoWay}"
-                    FontSize="16"
-                    MaxLength="25"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Text="Type:"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <StackPanel
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <TextBlock Text="{x:Bind ViewModel.SelectedItem.Type, FallbackValue='', Mode=OneWay}" />
-                    <TextBlock Text=" (" />
-                    <TextBlock Text="{x:Bind ViewModel.SelectedItem.Subtype, FallbackValue='', Mode=OneWay}" />
-                    <TextBlock Text=")" />
-                </StackPanel>
-
-                <StackPanel
-                    Grid.Column="1"
-                    Grid.Row="1"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <ComboBox
-                        Header=""
-                        ItemsSource="{x:Bind ViewModel.ItemTypes}"
-                        SelectedItem="{x:Bind ViewModel.EditingItem.Type, FallbackValue='', Mode=TwoWay}" />
-                    <ComboBox
-                        Header=""
-                        ItemsSource="{x:Bind ViewModel.EditingItem.ItemSubtypes, FallbackValue=''}"
-                        SelectedItem="{x:Bind ViewModel.EditingItem.Subtype, FallbackValue='', Mode=TwoWay}"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-
-            -->
-            <!-- Speed -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    Text="Speed:"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    Text="{x:Bind ViewModel.SelectedItem.Speed, FallbackValue='', Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <NumberBox
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    Value="{x:Bind ViewModel.EditingItem.Speed, Mode=TwoWay, FallbackValue=''}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    HorizontalAlignment="Left"
-                    Margin="10,10,0,0" />
-
-            -->
-            <!-- Requirement -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="3"
-                    Text="Required strength (plvl * ):"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="3"
-                    Text="{x:Bind ViewModel.SelectedItem.RequiredStrength, FallbackValue='', Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <NumberBox
-                    Grid.Column="1"
-                    Grid.Row="3"
-                    Value="{x:Bind ViewModel.EditingItem.RequiredStrength, Mode=TwoWay, FallbackValue=''}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    HorizontalAlignment="Left"
-                    Margin="10,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="4"
-                    Text="Required dexterity (plvl * ):"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="4"
-                    Text="{x:Bind ViewModel.SelectedItem.RequiredDexterity, FallbackValue='', Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <NumberBox
-                    Grid.Column="1"
-                    Grid.Row="4"
-                    Value="{x:Bind ViewModel.EditingItem.RequiredDexterity, Mode=TwoWay, FallbackValue=''}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    HorizontalAlignment="Left"
-                    Margin="10,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="5"
-                    Text="Required intelligence (plvl * ):"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="5"
-                    Text="{x:Bind ViewModel.SelectedItem.RequiredIntelligence, FallbackValue='', Mode=OneWay}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0" />
-
-                <NumberBox
-                    Grid.Column="1"
-                    Grid.Row="5"
-                    Value="{x:Bind ViewModel.EditingItem.RequiredIntelligence, Mode=TwoWay, FallbackValue=''}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    HorizontalAlignment="Left"
-                    Margin="10,10,0,0" />
-
-            -->
-            <!-- Damage -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="6"
-                    Text="Damage:"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="6"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MinDamage, FallbackValue='', Mode=OneWay}" />
-                    <Run Text="to" />
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxDamage, FallbackValue='', Mode=OneWay}" />
-                </TextBlock>
-
-                <StackPanel
-                    Grid.Column="1"
-                    Grid.Row="6"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDamage, FallbackValue='', Mode=TwoWay}" />
-
-                    <TextBlock
-                        Text="to"
-                        VerticalAlignment="Center"
-                        Margin="10,0,0,0" />
-
-                    <NumberBox
-                        Value="{x:Bind ViewModel.EditingItem.MaxDamage, FallbackValue='', Mode=TwoWay}"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-
-            -->
-            <!-- Defense -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="7"
-                    Text="Defense:"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="7"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MinDefense, FallbackValue='', Mode=OneWay}" />
-                    <Run Text="to" />
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxDefense, FallbackValue='', Mode=OneWay}" />
-                </TextBlock>
-
-                <StackPanel
-                    Grid.Column="1"
-                    Grid.Row="7"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinDefense, FallbackValue='', Mode=TwoWay}" />
-
-                    <TextBlock
-                        Text="to"
-                        VerticalAlignment="Center"
-                        Margin="10,0,0,0" />
-
-                    <NumberBox
-                        Value="{x:Bind ViewModel.EditingItem.MaxDefense, FallbackValue='', Mode=TwoWay}"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-
-            -->
-            <!-- Block -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="8"
-                    Text="Block:"
-                    Style="{StaticResource LabelStyle}"
-                    Margin="0,10,0,0" />
-
-                <TextBlock
-                    Grid.Column="1"
-                    Grid.Row="8"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MinBlock, FallbackValue='', Mode=OneWay}" />
-                    <Run Text="to" />
-                    <Run Text="{x:Bind ViewModel.SelectedItem.MaxBlock, FallbackValue='', Mode=OneWay}" />
-                </TextBlock>
-
-                <StackPanel
-                    Grid.Column="1"
-                    Grid.Row="8"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,10,0,0">
-                    <NumberBox Value="{x:Bind ViewModel.EditingItem.MinBlock, FallbackValue='', Mode=TwoWay}" />
-
-                    <TextBlock
-                        Text="to"
-                        VerticalAlignment="Center"
-                        Margin="10,0,0,0" />
-
-                    <NumberBox
-                        Value="{x:Bind ViewModel.EditingItem.MaxBlock, FallbackValue='', Mode=TwoWay}"
-                        Margin="10,0,0,0" />
-                </StackPanel>
-
-            -->
-            <!-- Item statuses -->
-            <!--
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.Row="9"
-                    Text="Status(es):"
-                    Style="{StaticResource LabelStyle}"
-                    VerticalAlignment="Top"
-                    Margin="0,10,0,0" />
-
-                <Grid
-                    Grid.Column="1"
-                    Grid.Row="9"
-                    Margin="10,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                        VerticalAlignment="Center">
-                        <Run Text="{x:Bind ViewModel.SelectedItem.Status, FallbackValue='', Mode=OneWay}" />
-                    </TextBlock>
-
-                    <AutoSuggestBox
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Text="{x:Bind ViewModel.EditingItem.Status, FallbackValue='', Mode=TwoWay}"
-                        ItemsSource="{x:Bind ViewModel.ItemStatusesSource, Mode=OneWay}"
-                        PlaceholderText="Status..."
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Width="100"
-                        VerticalAlignment="Center" />
-
-                    <StackPanel
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Text=": "
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                        <TextBlock
-                            Text="{x:Bind ViewModel.SelectedItem.StatusChance, FallbackValue='', Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                        <NumberBox
-                            Value="{x:Bind ViewModel.EditingItem.StatusChance, FallbackValue='', Mode=TwoWay}"
-                            Maximum="100"
-                            Minimum="0"
-                            Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Margin="5,0,0,0" />
-                        <TextBlock
-                            Text="%"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                    </StackPanel>
-
-                    <Button
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        Command="{x:Bind ViewModel.DeleteItemStatusCommand}"
-                        CommandParameter="0"
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Margin="10,0,0,0">
-                        <SymbolIcon Symbol="Delete" />
-                    </Button>
-
-                    <Border
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Grid.Row="1"
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Height="1"
-                        Margin="0,10,0,0" />
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Grid.Row="2"
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                        VerticalAlignment="Center">
-                        <Run Text="{x:Bind ViewModel.SelectedItem.Status2, FallbackValue='', Mode=OneWay}" />
-                    </TextBlock>
-
-                    <AutoSuggestBox
-                        Grid.Column="0"
-                        Grid.Row="2"
-                        Text="{x:Bind ViewModel.EditingItem.Status2, FallbackValue='', Mode=TwoWay}"
-                        ItemsSource="{x:Bind ViewModel.ItemStatusesSource, Mode=OneWay}"
-                        PlaceholderText="Status2..."
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        VerticalAlignment="Center" />
-
-                    <StackPanel
-                        Grid.Column="1"
-                        Grid.Row="2"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Text=": "
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                        <TextBlock
-                            Text="{x:Bind ViewModel.SelectedItem.Status2Chance, FallbackValue='', Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                        <NumberBox
-                            Value="{x:Bind ViewModel.EditingItem.Status2Chance, FallbackValue='', Mode=TwoWay}"
-                            Maximum="100"
-                            Minimum="0"
-                            Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Margin="5,0,0,0" />
-                        <TextBlock
-                            Text="%"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0" />
-                    </StackPanel>
-
-                    <Button
-                        Grid.Column="2"
-                        Grid.Row="2"
-                        Command="{x:Bind ViewModel.DeleteItemStatusCommand}"
-                        CommandParameter="1"
-                        Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Margin="10,0,0,0">
-                        <SymbolIcon Symbol="Delete" />
-                    </Button>
-                </Grid>
-            </Grid>-->
 
             <!-- Edit item buttons -->
             <Grid
