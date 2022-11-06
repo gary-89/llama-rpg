@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
+using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;
 
@@ -108,6 +109,7 @@ internal sealed class AffixProvider : IAffixProvider
     {
         int.TryParse(infos[2], out var isRare);
         int.TryParse(infos[3], out var isElite);
+        int.TryParse(infos[4], out var isEliteOnly);
         int.TryParse(infos[5], out var itemLevelRequired);
         int.TryParse(infos[6], out var powerLevelRequired);
         int.TryParse(infos[7], out var maxLevel);
@@ -151,6 +153,7 @@ internal sealed class AffixProvider : IAffixProvider
             tier,
             isRare == 1,
             isElite == 1,
+            isEliteOnly == 1,
             itemLevelRequired,
             powerLevelRequired,
             group,
@@ -161,6 +164,7 @@ internal sealed class AffixProvider : IAffixProvider
             modifier1MaxText,
             affixModifierType,
             modifier1Min,
-            modifier1Max);
+            modifier1Max,
+            AffixVariance.Fixed /* TODO*/);
     }
 }

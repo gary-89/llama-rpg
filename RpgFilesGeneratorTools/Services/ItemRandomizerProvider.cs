@@ -78,7 +78,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var item = possibleItems.ElementAt(_random.Next(possibleItems.Count));
 
-            var rarity = GenerateRarity(settings);
+            var rarity = GenerateRarity(settings, item.Type == ItemType.Jewelry);
 
             var powerLevel = GeneratePowerLevel(settings.MonsterLevel);
 
@@ -122,7 +122,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         }
     }
 
-    private ItemRarityType GenerateRarity(RandomizerSettings settings)
+    private ItemRarityType GenerateRarity(RandomizerSettings settings, bool isJewelry)
     {
         var rarity = _random.Next(0, settings.EliteItemDropRate * settings.RareItemDropRate * settings.MagicItemDropRate);
 
@@ -132,7 +132,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                 ? ItemRarityType.Rare
                 : rarity % settings.MagicItemDropRate == 0
                     ? ItemRarityType.Magic
-                    : ItemRarityType.Normal;
+                    : isJewelry
+                        ? ItemRarityType.Magic
+                        : ItemRarityType.Normal;
     }
 
     private (string? AffixBase, IReadOnlyList<string> Affixes) GenerateAffixes(
@@ -187,7 +189,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             _ => Enumerable.Empty<Affix>().ToList()
         };
 
-        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes, isItemAffixBase: true).FirstOrDefault();
+        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes, null, out var affixGroupToExclude).FirstOrDefault();
 
         if (rarity == ItemRarityType.Normal)
         {
@@ -196,13 +198,13 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var numberOfAffixes = rarity switch
         {
-            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForMagicItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
-            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForRareItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
-            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min + (mandatoryAffix is null ? 0 : -1), settings.AffixesForEliteItems.Max + 1 + (mandatoryAffix is null ? 0 : -1)),
+            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min, settings.AffixesForMagicItems.Max + 1),
+            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min, settings.AffixesForRareItems.Max + 1),
+            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min, settings.AffixesForEliteItems.Max + 1),
             _ => 0
         };
 
-        return (mandatoryAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes));
+        return (mandatoryAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes, affixGroupToExclude, out _));
     }
 
     private IReadOnlyList<string> InternalGenerateAffixes(
@@ -210,33 +212,42 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         int itemPowerLevel,
         int count,
         IReadOnlyCollection<Affix> matchingAffixes,
-        bool isItemAffixBase = false)
+        int? affixGroupToExclude,
+        out int? affixGroup)
     {
         List<string> generatedAffixes = new();
+        affixGroup = null;
 
         if (matchingAffixes.Count == 0)
         {
             return generatedAffixes;
         }
 
-        HashSet<string> generatedAffixNames = new();
+        HashSet<int> generatedAffixNames = new();
+
+        if (affixGroupToExclude is not null)
+        {
+            generatedAffixNames.Add(affixGroupToExclude.Value);
+        }
 
         for (var i = 0; i < count; i++)
         {
             Affix affix;
+            AffixRule affix1Rule;
             do
             {
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
-            } while (generatedAffixNames.Contains(affix.Name));
+                affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
+                affixGroup = count == 1 ? affix1Rule.Group : null;
+            } while (generatedAffixNames.Contains(affix1Rule.Group));
 
-            var affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
             var mod = affix1Rule.Modifier1MinText;
             int min, max;
 
             switch (affix1Rule.Type)
             {
                 case AffixModifierType.Number:
-                    mod = isItemAffixBase
+                    mod = affix1Rule.Variance == AffixVariance.Interval
                         ? $"{affix1Rule.Modifier1Min} to {affix1Rule.Modifier1Max}"
                         : $"+{_random.Next(affix1Rule.Modifier1Min, affix1Rule.Modifier1Max + 1)}";
                     break;
@@ -247,7 +258,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = isItemAffixBase
+                    mod = affix1Rule.Variance == AffixVariance.Interval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;
@@ -258,7 +269,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = isItemAffixBase
+                    mod = affix1Rule.Variance == AffixVariance.Interval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;
@@ -269,7 +280,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = isItemAffixBase
+                    mod = affix1Rule.Variance == AffixVariance.Interval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;
@@ -281,7 +292,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             }
 
             generatedAffixes.Add($"{affix.Name}: {mod}");
-            generatedAffixNames.Add(affix.Name);
+            generatedAffixNames.Add(affix1Rule.Group);
         }
 
         return generatedAffixes;

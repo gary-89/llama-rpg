@@ -15,6 +15,13 @@ internal sealed class Range
     public int Max { get; set; }
 }
 
+// TODO: move from view models
+internal enum AffixVariance
+{
+    Fixed = 0,
+    Interval = 1,
+}
+
 internal sealed class RandomizerSettings : ObservableObject
 {
     private int _magicItemDropRate = 5;

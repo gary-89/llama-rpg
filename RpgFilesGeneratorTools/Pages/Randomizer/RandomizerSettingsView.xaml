@@ -30,14 +30,7 @@
     <ScrollViewer
         HorizontalScrollBarVisibility="Auto"
         VerticalScrollBarVisibility="Auto">
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
+        <StackPanel Margin="10">
             <!-- Generation: -->
             <StackPanel Grid.Row="0">
                 <TextBlock
@@ -60,9 +53,7 @@
             </StackPanel>
 
             <!-- Monster level -->
-            <StackPanel
-                Grid.Row="1"
-                Margin="0,20,0,0">
+            <StackPanel Margin="0,20,0,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>
                         <Run Text="Monster level:" />
@@ -100,9 +91,7 @@
             </StackPanel>
 
             <!-- Item rarities -->
-            <Grid
-                Grid.Row="2"
-                Margin="0,20,0,0">
+            <Grid Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -258,9 +247,7 @@
             </Grid>
 
             <!-- Drop weight per item type -->
-            <StackPanel
-                Grid.Row="3"
-                Margin="0,20,0,0">
+            <StackPanel Margin="0,20,0,0">
                 <TextBlock Text="Item type drop weights:" />
 
                 <ItemsRepeater
@@ -268,6 +255,6 @@
                     ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
                     Margin="0,10,0,0" />
             </StackPanel>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>
