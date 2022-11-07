@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;
 
@@ -64,12 +63,12 @@ internal sealed class AffixProvider : IAffixProvider
                 }
 
                 // TODO: improve the string manipulation
-                var itemTypeString = infos[19].Trim().Replace(" ", "").Replace("eapons", "eapon").Replace("hields", "hield");
-                var itemTypeString2 = infos[20].Trim().Replace(" ", "");
-                var itemTypeString3 = infos[21].Trim().Replace(" ", "");
-                var itemTypeString4 = infos[22].Trim().Replace(" ", "");
-                var itemTypeString5 = infos[23].Trim().Replace(" ", "");
-                var itemTypeString6 = infos[24].Trim().Replace(" ", "");
+                var itemTypeString = infos[21].Trim().Replace(" ", "");
+                var itemTypeString2 = infos[22].Trim().Replace(" ", "");
+                var itemTypeString3 = infos[23].Trim().Replace(" ", "");
+                var itemTypeString4 = infos[24].Trim().Replace(" ", "");
+                var itemTypeString5 = infos[25].Trim().Replace(" ", "");
+                var itemTypeString6 = infos[26].Trim().Replace(" ", "");
 
                 if (string.IsNullOrWhiteSpace(infos[1]) ||
                     (!Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _)) ||
@@ -111,14 +110,17 @@ internal sealed class AffixProvider : IAffixProvider
         int.TryParse(infos[3], out var isElite);
         int.TryParse(infos[4], out var isEliteOnly);
         int.TryParse(infos[5], out var itemLevelRequired);
-        int.TryParse(infos[6], out var powerLevelRequired);
-        int.TryParse(infos[7], out var maxLevel);
-        int.TryParse(infos[8], out var frequency);
-        int.TryParse(infos[9], out var group);
+        int.TryParse(infos[7], out var powerLevelRequired);
+        int.TryParse(infos[8], out var maxLevel);
+        int.TryParse(infos[9], out var frequency);
+        int.TryParse(infos[10], out var group);
+        int.TryParse(infos[20], out var varianceNumber);
 
-        var modifier1Text = infos[10].Trim();
-        var modifier1MinText = infos[11].Trim();
-        var modifier1MaxText = infos[12].Trim();
+        var variance = (AffixVariance)varianceNumber;
+
+        var modifier1Text = infos[11].Trim();
+        var modifier1MinText = infos[12].Trim();
+        var modifier1MaxText = infos[13].Trim();
 
         var affixModifierType = AffixModifierType.Undefined;
         var modifier1Max = 0;
@@ -165,6 +167,6 @@ internal sealed class AffixProvider : IAffixProvider
             affixModifierType,
             modifier1Min,
             modifier1Max,
-            AffixVariance.Fixed /* TODO*/);
+            variance);
     }
 }

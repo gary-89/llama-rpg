@@ -178,7 +178,6 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             });
 
             Stats.RefreshItemCountPerPowerLevels(itemCountPerPowerLevels);
-
             Stats.RefreshItemCountPerTypes();
 
             ExportEnabled = true;

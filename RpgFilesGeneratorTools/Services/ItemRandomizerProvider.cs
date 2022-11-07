@@ -82,9 +82,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             var powerLevel = GeneratePowerLevel(settings.MonsterLevel);
 
-            var generatedAffixes = GenerateAffixes(item, powerLevel, rarity, affixes, settings);
+            var (affixBase, generatedAffixes) = GenerateAffixes(item, powerLevel, rarity, affixes, settings);
 
-            result = new RandomizedItem(counter, item.Name, itemType, item.Subtype, powerLevel, generatedAffixes.AffixBase, generatedAffixes.Affixes, rarity);
+            result = new RandomizedItem(counter, item.Name, itemType, item.Subtype, powerLevel, affixBase, generatedAffixes, rarity);
 
             counter++;
 
@@ -147,7 +147,8 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         var itemType = item.Type;
         var itemSubtype = item.Subtype;
 
-        var matchingAffixes = affixes.Where(x => x.Rules
+        var matchingAffixes = affixes
+            .Where(x => x.Rules
             .Any(r => r.ItemLevelRequired < settings.MonsterLevel && (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
             .ToList();
 
@@ -189,11 +190,11 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             _ => Enumerable.Empty<Affix>().ToList()
         };
 
-        var mandatoryAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes, null, out var affixGroupToExclude).FirstOrDefault();
+        var baseAffix = InternalGenerateAffixes(item, itemPowerLevel, count: 1, mandatoryAffixes, null, out var affixGroupToExclude).FirstOrDefault();
 
         if (rarity == ItemRarityType.Normal)
         {
-            return (mandatoryAffix, Array.Empty<string>());
+            return (baseAffix, Array.Empty<string>());
         }
 
         var numberOfAffixes = rarity switch
@@ -204,7 +205,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             _ => 0
         };
 
-        return (mandatoryAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes, affixGroupToExclude, out _));
+        return (baseAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes, affixGroupToExclude, out _));
     }
 
     private IReadOnlyList<string> InternalGenerateAffixes(
@@ -247,7 +248,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             switch (affix1Rule.Type)
             {
                 case AffixModifierType.Number:
-                    mod = affix1Rule.Variance == AffixVariance.Interval
+                    mod = affix1Rule.Variance == AffixVariance.MinAndMaxInterval
                         ? $"{affix1Rule.Modifier1Min} to {affix1Rule.Modifier1Max}"
                         : $"+{_random.Next(affix1Rule.Modifier1Min, affix1Rule.Modifier1Max + 1)}";
                     break;
@@ -258,7 +259,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = affix1Rule.Variance == AffixVariance.Interval
+                    mod = affix1Rule.Variance == AffixVariance.MinAndMaxInterval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;
@@ -269,7 +270,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = affix1Rule.Variance == AffixVariance.Interval
+                    mod = affix1Rule.Variance == AffixVariance.MinAndMaxInterval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;
@@ -280,7 +281,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
-                    mod = affix1Rule.Variance == AffixVariance.Interval
+                    mod = affix1Rule.Variance == AffixVariance.MinAndMaxInterval
                         ? $"{min} to {max}"
                         : $"+{_random.Next(min, max + 1)}";
                     break;

@@ -3,25 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
-internal sealed class Range
-{
-    public Range(int min, int max)
-    {
-        Min = min;
-        Max = max;
-    }
-
-    public int Min { get; set; }
-    public int Max { get; set; }
-}
-
-// TODO: move from view models
-internal enum AffixVariance
-{
-    Fixed = 0,
-    Interval = 1,
-}
-
 internal sealed class RandomizerSettings : ObservableObject
 {
     private int _magicItemDropRate = 5;

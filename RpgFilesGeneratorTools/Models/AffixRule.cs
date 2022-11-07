@@ -1,16 +1,6 @@
 ﻿using System.Collections.Generic;
-using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Models;
-
-internal enum AffixModifierType
-{
-    Undefined,
-    Number,
-    MinimumDamagePlus,
-    MinimumBlockPlus,
-    PowerLevelPlusMinimumBlock,
-}
 
 internal sealed record AffixRule(
     IReadOnlyList<ItemType> ItemTypes,
