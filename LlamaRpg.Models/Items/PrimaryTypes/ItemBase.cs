@@ -1,8 +1,8 @@
-﻿using System;
+﻿using LlamaRpg.Models.Items;
 
-namespace RpgFilesGeneratorTools.Models.ItemTypes;
+namespace LlamaRpg.Models.Models.ItemTypes;
 
-internal abstract class ItemBase : IEquatable<ItemBase>
+public abstract class ItemBase : IEquatable<ItemBase>
 {
     protected ItemBase(string name, ItemSubtype subtype, int requiredStrength, int requiredDexterity, int requiredIntelligence, int sockets)
     {

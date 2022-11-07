@@ -4,9 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using LlamaRpg.Models.Affixes;
+using LlamaRpg.Models.Items;
+using LlamaRpg.Models.Models.ItemTypes;
+using LlamaRpg.Services.Randomization;
 using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.Models.ItemTypes;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;
@@ -18,13 +20,19 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
+    private readonly IRandomizerAffixValidator _validator;
     private readonly ILogger<ItemRandomizerProvider> _logger;
     private readonly Random _random = new();
 
-    public ItemRandomizerProvider(IItemProvider itemProvider, IAffixProvider affixProvider, ILogger<ItemRandomizerProvider> logger)
+    public ItemRandomizerProvider(
+        IItemProvider itemProvider,
+        IAffixProvider affixProvider,
+        IRandomizerAffixValidator validator,
+        ILogger<ItemRandomizerProvider> logger)
     {
         _itemProvider = itemProvider;
         _affixProvider = affixProvider;
+        _validator = validator;
         _logger = logger;
     }
 
@@ -149,7 +157,8 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var matchingAffixes = affixes
             .Where(x => x.Rules
-            .Any(r => r.ItemLevelRequired < settings.MonsterLevel && (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
+                .Any(r => r.ItemLevelRequired < settings.MonsterLevel &&
+                          (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
             .ToList();
 
         if (matchingAffixes.Count == 0)
@@ -205,7 +214,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             _ => 0
         };
 
-        return (baseAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes, affixGroupToExclude, out _));
+        return (baseAffix, InternalGenerateAffixes(item, itemPowerLevel, numberOfAffixes, matchingAffixes.Where(x => x.Rules.Any(r => _validator.ValidateRarity(r, rarity))).ToList(), affixGroupToExclude, out _));
     }
 
     private IReadOnlyList<string> InternalGenerateAffixes(

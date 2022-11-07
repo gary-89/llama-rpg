@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace LlamaRpg.Models.Items;
 
-namespace RpgFilesGeneratorTools.Models;
-
-internal sealed class Item : IEquatable<Item>
+public sealed class Item : IEquatable<Item>
 {
     public Item(
         Guid id,
@@ -52,35 +50,6 @@ internal sealed class Item : IEquatable<Item>
         TotalMax = totalMax;
         Speed = speed;
         Sockets = sockets;
-    }
-
-    public Item(ItemViewModel item)
-        : this(
-            item.Id,
-            item.Name,
-            item.Type,
-            item.Subtype ?? throw new InvalidOperationException("Missing item subtype"),
-            item.Status,
-            item.StatusChance,
-            item.Status2,
-            item.Status2Chance,
-            item.RequiredStrength,
-            item.RequiredDexterity,
-            item.RequiredIntelligence,
-            item.MinDamage,
-            item.MaxDamage,
-            item.MinDefense,
-            item.MaxDefense,
-            item.MinBlock,
-            item.MaxBlock,
-            item.TotalMinBlock,
-            item.TotalMaxBlock,
-            item.TotalMin,
-            item.TotalMax,
-            item.Speed,
-            item.Sockets
-        )
-    {
     }
 
     public Guid Id { get; }

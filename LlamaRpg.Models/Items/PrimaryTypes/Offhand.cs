@@ -1,6 +1,8 @@
-﻿namespace RpgFilesGeneratorTools.Models.ItemTypes;
+﻿using LlamaRpg.Models.Items;
 
-internal sealed class Offhand : ItemBase
+namespace LlamaRpg.Models.Models.ItemTypes;
+
+public sealed class Offhand : ItemBase
 {
     public Offhand(
         string name,

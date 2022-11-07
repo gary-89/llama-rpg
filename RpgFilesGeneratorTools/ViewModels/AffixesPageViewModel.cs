@@ -1,15 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.Services;
-using RpgFilesGeneratorTools.Toolkit.Async;
-using RpgFilesGeneratorTools.Toolkit.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using LlamaRpg.Models.Affixes;
+using Microsoft.Extensions.Logging;
+using RpgFilesGeneratorTools.Services;
+using RpgFilesGeneratorTools.Toolkit.Async;
+using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 

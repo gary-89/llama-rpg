@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using LlamaRpg.Models.Items;
 
-namespace RpgFilesGeneratorTools.Models;
+namespace LlamaRpg.Models.Affixes;
 
-internal sealed record AffixRule(
+public sealed record AffixRule(
     IReadOnlyList<ItemType> ItemTypes,
     IReadOnlyList<ItemSubtype> ItemSubtypes,
     int Tier,

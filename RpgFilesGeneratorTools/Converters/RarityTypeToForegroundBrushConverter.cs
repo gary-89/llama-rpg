@@ -1,8 +1,8 @@
 ﻿using System;
+using LlamaRpg.Models.Items;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
-using RpgFilesGeneratorTools.Models;
 using Windows.UI;
 
 namespace RpgFilesGeneratorTools.Converters;

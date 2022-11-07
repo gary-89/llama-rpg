@@ -1,6 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using LlamaRpg.Models.Models.ItemTypes;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using RpgFilesGeneratorTools.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Pages.Items;
 

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RpgFilesGeneratorTools.Models;
+using LlamaRpg.Models.Items;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.ViewModels.Randomizer;

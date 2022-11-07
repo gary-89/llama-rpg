@@ -1,7 +1,7 @@
-﻿using RpgFilesGeneratorTools.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using LlamaRpg.Models.Affixes;
 
 namespace RpgFilesGeneratorTools.Services;
 

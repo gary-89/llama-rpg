@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace LlamaRpg.Models.Items;
 
-namespace RpgFilesGeneratorTools.Models;
-
-internal sealed record RandomizedItem(
+public sealed record RandomizedItem(
     int Index,
     string ItemName,
     ItemType ItemType,

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.Models.ItemTypes;
+using LlamaRpg.Models.Items;
+using LlamaRpg.Models.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Services;
 

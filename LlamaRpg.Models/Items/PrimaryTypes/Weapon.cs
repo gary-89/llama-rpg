@@ -1,6 +1,8 @@
-﻿namespace RpgFilesGeneratorTools.Models.ItemTypes;
+﻿using LlamaRpg.Models.Items;
 
-internal sealed class Weapon : ItemBase
+namespace LlamaRpg.Models.Models.ItemTypes;
+
+public sealed class Weapon : ItemBase
 {
     public Weapon(
         string name,

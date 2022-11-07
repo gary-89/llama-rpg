@@ -1,6 +1,6 @@
-﻿namespace RpgFilesGeneratorTools.Models;
+﻿namespace LlamaRpg.Models.Affixes;
 
-internal enum AffixModifierType
+public enum AffixModifierType
 {
     Undefined,
     Number,

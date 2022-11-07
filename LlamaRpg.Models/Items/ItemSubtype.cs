@@ -1,6 +1,6 @@
-﻿namespace RpgFilesGeneratorTools.Models;
+﻿namespace LlamaRpg.Models.Items;
 
-internal enum ItemSubtype
+public enum ItemSubtype
 {
     // Melee weapon
     Axe,

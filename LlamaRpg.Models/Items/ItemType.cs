@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RpgFilesGeneratorTools.Models;
+namespace LlamaRpg.Models.Items;
 
-internal enum ItemType
+public enum ItemType
 {
     Weapon,
 

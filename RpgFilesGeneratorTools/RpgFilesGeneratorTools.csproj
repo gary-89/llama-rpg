@@ -148,4 +148,8 @@
   <ItemGroup>
     <Resource Remove="Pages\RandomizerPage.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LlamaRpg.Models\LlamaRpg.Models.csproj" />
+    <ProjectReference Include="..\LlamaRpg.Services\LlamaRpg.Services.csproj" />
+  </ItemGroup>
 </Project>

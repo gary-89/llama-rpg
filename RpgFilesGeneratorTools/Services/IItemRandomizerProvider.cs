@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using RpgFilesGeneratorTools.Models;
+using LlamaRpg.Models.Items;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace RpgFilesGeneratorTools.Services;

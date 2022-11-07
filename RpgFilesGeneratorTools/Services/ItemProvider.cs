@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LlamaRpg.Models.Items;
+using LlamaRpg.Models.Models.ItemTypes;
 using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.Models;
-using RpgFilesGeneratorTools.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Services;
 

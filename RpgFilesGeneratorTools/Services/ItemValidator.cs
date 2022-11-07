@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using RpgFilesGeneratorTools.Models.ItemTypes;
+using LlamaRpg.Models.Models.ItemTypes;
 
 namespace RpgFilesGeneratorTools.Services;
 

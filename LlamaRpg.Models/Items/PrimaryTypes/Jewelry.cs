@@ -1,6 +1,8 @@
-﻿namespace RpgFilesGeneratorTools.Models.ItemTypes;
+﻿using LlamaRpg.Models.Items;
 
-internal sealed class Jewelry : ItemBase
+namespace LlamaRpg.Models.Models.ItemTypes;
+
+public sealed class Jewelry : ItemBase
 {
     public Jewelry(
         string name,

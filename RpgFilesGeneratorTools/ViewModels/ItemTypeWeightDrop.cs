@@ -1,4 +1,4 @@
-﻿using RpgFilesGeneratorTools.Models;
+﻿using LlamaRpg.Models.Items;
 
 namespace RpgFilesGeneratorTools.ViewModels;
 

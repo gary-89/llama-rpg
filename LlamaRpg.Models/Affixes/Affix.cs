@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using RpgFilesGeneratorTools.Toolkit.Extensions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using LlamaRpg.Models.Items;
 
-namespace RpgFilesGeneratorTools.Models;
+namespace LlamaRpg.Models.Affixes;
 
-internal sealed class Affix
+public sealed class Affix
 {
     private const string CommaSeparator = ", ";
 
@@ -22,8 +22,8 @@ internal sealed class Affix
     public string GetItemTypes()
     {
         return _types ??= string.Join(CommaSeparator,
-            Rules.SelectMany(x => x.ItemTypes).Distinct().Select(GetEnumDisplayName)
-                .Concat(Rules.SelectMany(x => x.ItemSubtypes).Distinct().Select(GetEnumDisplayName)));
+            Rules.SelectMany(x => x.ItemTypes).Distinct().Select(x => GetDisplayName(x))
+                .Concat(Rules.SelectMany(x => x.ItemSubtypes).Distinct().Select(x => GetDisplayName(x))));
     }
 
     public IEnumerable<ItemTypeAffixes> GetPerItemTypeAffixes()
@@ -35,7 +35,7 @@ internal sealed class Affix
         {
             foreach (var ruleItemType in rule.ItemTypes)
             {
-                var key = ruleItemType.GetDisplayName();
+                var key = GetDisplayName(ruleItemType);
                 if (!rulesByItemType.ContainsKey(key))
                 {
                     rulesByItemType.Add(key, new List<AffixRule>());
@@ -45,7 +45,7 @@ internal sealed class Affix
 
             foreach (var ruleItemType in rule.ItemSubtypes)
             {
-                var key = ruleItemType.GetDisplayName();
+                var key = GetDisplayName(ruleItemType);
                 if (!rulesByItemType.ContainsKey(key))
                 {
                     rulesByItemType.Add(key, new List<AffixRule>());
@@ -57,6 +57,13 @@ internal sealed class Affix
         return rulesByItemType.Select(x => new ItemTypeAffixes(x.Key, x.Value));
     }
 
-    private static string GetEnumDisplayName(ItemType enumValue) => enumValue.GetDisplayName();
-    private static string GetEnumDisplayName(ItemSubtype enumValue) => enumValue.GetDisplayName();
+    private static string GetDisplayName(Enum enumValue)
+    {
+        var member = enumValue
+            .GetType()
+            .GetMember(enumValue.ToString())
+            .FirstOrDefault();
+
+        return member?.GetCustomAttribute<DisplayAttribute>()?.Name ?? enumValue.ToString();
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LlamaRpg.Models.Items;
 using RpgFilesGeneratorTools.Toolkit.Extensions;
 
 namespace RpgFilesGeneratorTools.Models;

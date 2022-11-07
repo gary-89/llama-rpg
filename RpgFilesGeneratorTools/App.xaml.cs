@@ -1,4 +1,5 @@
 ﻿using System;
+using LlamaRpg.Services.Randomization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
@@ -55,6 +56,7 @@ public partial class App
         var services = new ServiceCollection();
 
         services.AddSingleton<AppConfig>();
+        services.AddSingleton<IRandomizerAffixValidator, RandomizerAffixValidator>();
         services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddSingleton<IItemProvider, ItemProvider>();
         services.AddSingleton<IItemRandomizerProvider, ItemRandomizerProvider>();
