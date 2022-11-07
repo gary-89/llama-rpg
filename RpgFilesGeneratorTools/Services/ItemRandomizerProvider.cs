@@ -18,13 +18,15 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
+    private readonly IItemRandomizerValidator _validator;
     private readonly ILogger<ItemRandomizerProvider> _logger;
     private readonly Random _random = new();
 
-    public ItemRandomizerProvider(IItemProvider itemProvider, IAffixProvider affixProvider, ILogger<ItemRandomizerProvider> logger)
+    public ItemRandomizerProvider(IItemProvider itemProvider, IAffixProvider affixProvider, IItemRandomizerValidator validator, ILogger<ItemRandomizerProvider> logger)
     {
         _itemProvider = itemProvider;
         _affixProvider = affixProvider;
+        _validator = validator;
         _logger = logger;
     }
 
@@ -149,7 +151,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var matchingAffixes = affixes
             .Where(x => x.Rules
-            .Any(r => r.ItemLevelRequired < settings.MonsterLevel && (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
+                .Any(r => _validator.ValidateRarity(r, rarity) &&
+                          r.ItemLevelRequired < settings.MonsterLevel &&
+                          (r.ItemTypes.Contains(itemType) || r.ItemSubtypes.Contains(itemSubtype))))
             .ToList();
 
         if (matchingAffixes.Count == 0)

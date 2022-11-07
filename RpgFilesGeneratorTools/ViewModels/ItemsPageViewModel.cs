@@ -211,6 +211,7 @@ internal class ItemsPageViewModel : ObservableObject
         SelectedIndex = -1;
     }
 
+    // TODO
     private async Task SaveItemAsync(CancellationToken cancellationToken)
     {
         if (_isAdding && IsNullOrWhiteSpace(EditingItem.Name))
