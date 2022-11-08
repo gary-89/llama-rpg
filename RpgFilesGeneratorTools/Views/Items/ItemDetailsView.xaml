@@ -1,19 +1,19 @@
 ﻿<UserControl
-    x:Class="RpgFilesGeneratorTools.Pages.ItemDetailsView"
+    x:Class="RpgFilesGeneratorTools.Views.Items.ItemDetailsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:RpgFilesGeneratorTools.Toolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:itemTypes="using:LlamaRpg.Models.Models.ItemTypes"
     xmlns:items="using:RpgFilesGeneratorTools.Pages.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primaryTypes="using:LlamaRpg.Models.Items.PrimaryTypes"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:ItemsPageViewModel}">
     <UserControl.Resources>
         <DataTemplate
             x:Key="WeaponDetailsTemplate"
-            x:DataType="itemTypes:Weapon">
+            x:DataType="primaryTypes:Weapon">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -231,7 +231,7 @@
 
         <DataTemplate
             x:Key="OffhandDetailsTemplate"
-            x:DataType="itemTypes:Offhand">
+            x:DataType="primaryTypes:Offhand">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -374,14 +374,14 @@
                     <!-- Sockets -->
                     <TextBlock
                         Grid.Column="0"
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Text="Sockets max:"
                         Style="{StaticResource LabelStyle}"
                         Margin="0,10,0,0" />
 
                     <TextBlock
                         Grid.Column="1"
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Margin="10,10,0,0">
                         <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
@@ -391,7 +391,7 @@
 
         <DataTemplate
             x:Key="ArmorDetailsTemplate"
-            x:DataType="itemTypes:Armor">
+            x:DataType="primaryTypes:Armor">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -517,7 +517,7 @@
 
         <DataTemplate
             x:Key="JewelryDetailsTemplate"
-            x:DataType="itemTypes:Jewelry">
+            x:DataType="primaryTypes:Jewelry">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -597,11 +597,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel>
-                <controls:TemplateSelectorAwareContentControl
-                    Content="{x:Bind ViewModel.SelectedItem, Mode=OneWay}"
-                    ContentTemplateSelector="{StaticResource ItemDetailsTemplateSelector}" />
-            </StackPanel>
+            <controls:TemplateSelectorAwareContentControl
+                Content="{x:Bind ViewModel.SelectedItem, Mode=OneWay}"
+                ContentTemplateSelector="{StaticResource ItemDetailsTemplateSelector}" />
 
             <!-- Edit item buttons -->
             <Grid

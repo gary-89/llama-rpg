@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
-using LlamaRpg.Models.Models.ItemTypes;
+using LlamaRpg.Models.Items.PrimaryTypes;
 using LlamaRpg.Services.Randomization;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.ViewModels.Randomizer;

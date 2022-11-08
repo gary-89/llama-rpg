@@ -1,6 +1,4 @@
-﻿using LlamaRpg.Models.Items;
-
-namespace LlamaRpg.Models.Models.ItemTypes;
+﻿namespace LlamaRpg.Models.Items.PrimaryTypes;
 
 public sealed class Offhand : ItemBase
 {

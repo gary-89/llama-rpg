@@ -8,7 +8,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LlamaRpg.Models.Items;
-using LlamaRpg.Models.Models.ItemTypes;
+using LlamaRpg.Models.Items.PrimaryTypes;
 using Microsoft.Extensions.Logging;
 using RpgFilesGeneratorTools.Models;
 using RpgFilesGeneratorTools.Services;

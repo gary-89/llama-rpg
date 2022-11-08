@@ -1,7 +1,7 @@
 ﻿using System;
 using RpgFilesGeneratorTools.ViewModels;
 
-namespace RpgFilesGeneratorTools;
+namespace RpgFilesGeneratorTools.Views;
 
 internal sealed partial class MainView
 {

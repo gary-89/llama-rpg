@@ -1,10 +1,10 @@
 ﻿using RpgFilesGeneratorTools.ViewModels;
 
-namespace RpgFilesGeneratorTools.Pages;
+namespace RpgFilesGeneratorTools.Views.Affixes;
 
-internal sealed partial class AffixDetailsView
+internal sealed partial class AffixesView
 {
-    public AffixDetailsView()
+    public AffixesView()
     {
         InitializeComponent();
     }

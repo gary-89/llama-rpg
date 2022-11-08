@@ -2,107 +2,14 @@
     x:Class="RpgFilesGeneratorTools.Pages.AffixesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:affixes="using:LlamaRpg.Models.Affixes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:RpgFilesGeneratorTools.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:RpgFilesGeneratorTools.Toolkit"
     xmlns:viewModels="using:RpgFilesGeneratorTools.ViewModels"
+    xmlns:views="using:RpgFilesGeneratorTools.Views.Affixes"
     toolkit:ViewModelLocator.AutoHookedUpViewModel="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:AffixesPageViewModel}">
-    <Page.Resources>
-        <DataTemplate
-            x:Key="AffixListItemTemplate"
-            x:DataType="affixes:Affix">
-            <StackPanel>
-                <TextBlock
-                    Text="{x:Bind Name}"
-                    TextTrimming="CharacterEllipsis" />
-                <TextBlock
-                    Text="{x:Bind GetItemTypes()}"
-                    FontSize="12"
-                    Foreground="Gray" />
-            </StackPanel>
-        </DataTemplate>
-    </Page.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            Text="Affixes"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Margin="10,10,0,0" />
-
-        <Grid
-            Grid.Row="1"
-            Margin="10,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <AutoSuggestBox
-                Grid.Column="0"
-                Text="{x:Bind ViewModel.FilterText, Mode=TwoWay}"
-                PlaceholderText="Search affix..."
-                QueryIcon="Find"
-                VerticalAlignment="Center" />
-
-            <CommandBar
-                Grid.Column="1"
-                Background="Transparent"
-                DefaultLabelPosition="Right"
-                IsOpen="False">
-                <AppBarButton
-                    Icon="Add"
-                    Label="Add" />
-                <AppBarButton
-                    Icon="Edit"
-                    Label="Edit" />
-                <AppBarButton
-                    Icon="Copy"
-                    Label="Clone" />
-                <AppBarButton
-                    Icon="Delete"
-                    Label="Delete" />
-            </CommandBar>
-        </Grid>
-
-        <Grid
-            Grid.Row="2"
-            Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <ListView
-                Grid.Column="0"
-                ItemTemplate="{StaticResource AffixListItemTemplate}"
-                ItemsSource="{x:Bind ViewModel.AffixesSource}"
-                SelectedItem="{x:Bind ViewModel.SelectedAffix, Mode=TwoWay}"
-                SelectionMode="Single"
-                Width="250" />
-
-            <local:AffixDetailsView
-                Grid.Column="1"
-                Visibility="{x:Bind ViewModel.SelectedAffix, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}}"
-                Margin="10,10,0,0" />
-        </Grid>
-
-        <ProgressRing
-            Grid.Row="2"
-            IsActive="True"
-            Visibility="{x:Bind ViewModel.TaskInitialize.IsSuccessfullyCompleted, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
-            HorizontalAlignment="Center"
-            Margin="0,20,0,0" />
-    </Grid>
+    <views:AffixesView />
 </Page>

@@ -1,4 +1,4 @@
-﻿using LlamaRpg.Models.Models.ItemTypes;
+﻿using LlamaRpg.Models.Items.PrimaryTypes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 

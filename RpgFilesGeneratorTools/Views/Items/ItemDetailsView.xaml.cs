@@ -1,6 +1,6 @@
 ﻿using RpgFilesGeneratorTools.ViewModels;
 
-namespace RpgFilesGeneratorTools.Pages;
+namespace RpgFilesGeneratorTools.Views.Items;
 
 internal sealed partial class ItemDetailsView
 {
