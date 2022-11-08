@@ -26,7 +26,12 @@ public class RandomizerAffixValidatorTest
     [InlineData(ItemRarityType.Magic, true, false, false, true)]
     [InlineData(ItemRarityType.Magic, false, false, false, true)]
     [InlineData(ItemRarityType.Magic, false, false, true, false)]
-    public void Test1(ItemRarityType rarity, bool isRare, bool isElite, bool isOnlyElite, bool expectedResult)
+    public void ValidateRarity_ForDifferentRarities_CorrectlyCheckTheAffixRule(
+        ItemRarityType rarity,
+        bool isRare,
+        bool isElite,
+        bool isOnlyElite,
+        bool expectedResult)
     {
         // Arrange
         var rule = CreateAffixRule(isRare, isElite, isOnlyElite);

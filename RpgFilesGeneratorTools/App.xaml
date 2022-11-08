@@ -20,6 +20,11 @@
                 <Setter Property="SpinButtonPlacementMode" Value="Inline" />
             </Style>
 
+            <Style TargetType="FontIcon">
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
             <!--<Style TargetType="ToolTip">
                 <Setter Property="Foreground" Value="{ThemeResource ToolTipForegroundThemeBrush}" />
                 <Setter Property="Background" Value="{ThemeResource ToolTipBackgroundThemeBrush}" />
