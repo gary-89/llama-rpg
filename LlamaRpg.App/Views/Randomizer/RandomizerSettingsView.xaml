@@ -1,0 +1,260 @@
+﻿<UserControl
+    x:Class="LlamaRpg.App.Pages.Randomizer.RandomizerSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glyphs="using:LlamaRpg.App.Styles"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:LlamaRpg.App.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="ItemTypeWeightDropItemTemplate"
+            x:DataType="viewModels:ItemTypeWeightDrop">
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="10,5,0,0">
+                <TextBlock
+                    Text="{x:Bind ItemType}"
+                    FontSize="14"
+                    Width="80"
+                    VerticalAlignment="Center" />
+                <NumberBox
+                    Value="{x:Bind Weight, Mode=TwoWay}"
+                    Minimum="1"
+                    Margin="10,0,0,0" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
+            <!-- Generation: -->
+            <StackPanel Grid.Row="0">
+                <TextBlock
+                    Text="Settings"
+                    Style="{StaticResource TitleTextBlockStyle}" />
+
+                <TextBlock Margin="0,10,0,0">
+                    <Run Text="Items to generate:" />
+                    <Run Text="{x:Bind NumberOfItemsToGenerateSlider.Value, Mode=OneWay}" />
+                </TextBlock>
+
+                <Slider
+                    x:Name="NumberOfItemsToGenerateSlider"
+                    Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
+                    Maximum="10000"
+                    Minimum="1"
+                    StepFrequency="100"
+                    Width="150"
+                    HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <!-- Monster level -->
+            <StackPanel Margin="0,20,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>
+                        <Run Text="Monster level:" />
+                        <Run Text="{x:Bind LevelSlider.Value, FallbackValue='-', Mode=OneWay}" />
+                    </TextBlock>
+
+                    <Border
+                        Background="{StaticResource WinUiThemeLightColorBrush}"
+                        CornerRadius="16"
+                        Margin="7,0,0,0">
+                        <ToolTipService.ToolTip>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                MaxWidth="300">
+                                <Run Text="The monster level will impact the power level (plvl) of the items generated." />
+                                <LineBreak /><Run Text="Every 10 monster level, a new power level item can drop with 30% chance." />
+                            </TextBlock>
+                        </ToolTipService.ToolTip>
+
+                        <FontIcon
+                            Glyph="{x:Bind glyphs:IconGlyphs.StatusCircleQuestionMark}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+
+                <Slider
+                    x:Name="LevelSlider"
+                    Value="{x:Bind ViewModel.Settings.MonsterLevel, Mode=TwoWay}"
+                    Maximum="99"
+                    Minimum="1"
+                    Width="150"
+                    HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <!-- Item rarities -->
+            <Grid Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Text="Magic items"
+                    Foreground="{StaticResource MagicItemColorBrush}" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="20,0,0,0">
+                    <TextBlock Foreground="{StaticResource MagicItemColorBrush}">
+                        <Run Text="frequency drop:" />
+                        <Run Text="1 /" />
+                        <Run Text="{x:Bind MagicItemDropRateSlider.Value, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <Slider
+                        x:Name="MagicItemDropRateSlider"
+                        Value="{x:Bind ViewModel.Settings.MagicItemDropRate, Mode=TwoWay}"
+                        Maximum="100"
+                        Minimum="1"
+                        Width="150"
+                        HorizontalAlignment="Left" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="affixes from"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Min, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <TextBlock
+                            Text="to"
+                            VerticalAlignment="Center"
+                            Margin="7,0,0,0" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Max, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="2"
+                    Text="Rare items"
+                    Foreground="{StaticResource RareItemColorBrush}" />
+
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="20,0,0,0">
+                    <TextBlock Foreground="{StaticResource RareItemColorBrush}">
+                        <Run Text="frequency drop:" />
+                        <Run Text="1 /" />
+                        <Run Text="{x:Bind RareItemDropRateSlider.Value, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <Slider
+                        x:Name="RareItemDropRateSlider"
+                        Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
+                        Maximum="100"
+                        Minimum="1"
+                        Width="150"
+                        HorizontalAlignment="Left" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="affixes from"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Min, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <TextBlock
+                            Text="to"
+                            VerticalAlignment="Center"
+                            Margin="7,0,0,0" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Max, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="4"
+                    Text="Elite items"
+                    Foreground="{StaticResource EliteItemColorBrush}" />
+
+                <StackPanel
+                    Grid.Column="5"
+                    Margin="20,0,0,0">
+                    <TextBlock Foreground="{StaticResource EliteItemColorBrush}">
+                        <Run Text="frequency drop:" />
+                        <Run Text="1 /" />
+                        <Run Text="{x:Bind EliteItemDropRateSlider.Value, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <Slider
+                        x:Name="EliteItemDropRateSlider"
+                        Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
+                        Maximum="100"
+                        Minimum="1"
+                        Width="150"
+                        HorizontalAlignment="Left" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="affixes from"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Min, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <TextBlock
+                            Text="to"
+                            VerticalAlignment="Center"
+                            Margin="7,0,0,0" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Max, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!-- Drop weight per item type -->
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="Item type drop weights:" />
+
+                <ItemsRepeater
+                    ItemTemplate="{StaticResource ItemTypeWeightDropItemTemplate}"
+                    ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
+                    Margin="0,10,0,0" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

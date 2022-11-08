@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="LlamaRpg.App.Pages.RandomizerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glyphs="using:LlamaRpg.App.Styles"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:randomizer="using:LlamaRpg.App.Pages.Randomizer"
+    xmlns:toolkit="using:LlamaRpg.App.Toolkit"
+    xmlns:viewModels="using:LlamaRpg.App.ViewModels"
+    toolkit:ViewModelLocator.AutoHookedUpViewModel="True"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
+    <TabView
+        CanReorderTabs="False"
+        CloseButtonOverlayMode="Auto"
+        IsAddTabButtonVisible="False"
+        Margin="5,0">
+        <TabView.TabItems>
+            <TabViewItem
+                IsClosable="False"
+                IsSelected="True">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            Glyph="{x:Bind glyphs:IconGlyphs.Trackers}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Text="Items generator"
+                            Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabViewItem.Header>
+                <randomizer:ItemsGeneratorView />
+            </TabViewItem>
+
+            <TabViewItem IsClosable="False">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            Glyph="{x:Bind glyphs:IconGlyphs.Setting}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Text="Settings"
+                            Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabViewItem.Header>
+                <randomizer:RandomizerSettingsView />
+            </TabViewItem>
+
+            <TabViewItem IsClosable="False">
+                <TabViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            Glyph="{x:Bind glyphs:IconGlyphs.AreaChart}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            Text="Statistics and charts"
+                            Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabViewItem.Header>
+                <randomizer:RandomizerStatisticsView />
+            </TabViewItem>
+        </TabView.TabItems>
+    </TabView>
+</Page>
