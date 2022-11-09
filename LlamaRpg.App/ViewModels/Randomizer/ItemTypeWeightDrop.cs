@@ -1,6 +1,6 @@
 ﻿using LlamaRpg.Models.Items;
 
-namespace LlamaRpg.App.ViewModels;
+namespace RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 internal sealed class ItemTypeWeightDrop
 {

@@ -6,6 +6,7 @@
     xmlns:items="using:LlamaRpg.Models.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:LlamaRpg.App.Models"
+    xmlns:randomizer="using:RpgFilesGeneratorTools.ViewModels.Randomizer"
     xmlns:system="using:System"
     xmlns:viewModels="using:LlamaRpg.App.ViewModels"
     mc:Ignorable="d"
@@ -13,7 +14,7 @@
     <UserControl.Resources>
         <DataTemplate
             x:Key="ItemTypeWeightDropItemTemplate"
-            x:DataType="viewModels:ItemTypeWeightDrop">
+            x:DataType="randomizer:ItemTypeWeightDrop">
             <StackPanel
                 Orientation="Horizontal"
                 Margin="10,5,0,0">
@@ -35,7 +36,7 @@
             Spacing="3" />
 
         <DataTemplate
-            x:Key="HorizontalBarTemplate"
+            x:Key="GeneratedAffixTemplate"
             x:DataType="system:String">
             <TextBlock
                 Text="{x:Bind}"
@@ -89,7 +90,7 @@
                     </Border>
 
                     <ItemsRepeater
-                        ItemTemplate="{StaticResource HorizontalBarTemplate}"
+                        ItemTemplate="{StaticResource GeneratedAffixTemplate}"
                         ItemsSource="{x:Bind Affixes}"
                         Layout="{StaticResource VerticalStackLayout}"
                         Visibility="{x:Bind Affixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}" />
@@ -172,21 +173,6 @@
         <Grid
             Grid.Row="1"
             Margin="0,10,0,0">
-            <!--<StackPanel Visibility="{x:Bind ViewModel.RandomizeCommand.IsRunning, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ProgressRing
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
-                <TextBlock
-                    TextAlignment="Center"
-                    Margin="0,20,0,0">
-                    <Run Text="Generating" />
-                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
-                    <Run Text="/" />
-                    <Run Text="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate}" />
-                    <Run Text="..." />
-                </TextBlock>
-            </StackPanel>-->
-
             <ScrollViewer
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}">

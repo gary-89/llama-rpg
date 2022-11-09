@@ -28,7 +28,7 @@
 
             <TextBlock
                 Grid.Column="1"
-                Text="Llama RPG tools"
+                Text="Llama RPG editor"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 TextWrapping="NoWrap"
                 VerticalAlignment="Center"

@@ -5,13 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:glyphs="using:LlamaRpg.App.Styles"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:randomizer="using:RpgFilesGeneratorTools.ViewModels.Randomizer"
     xmlns:viewModels="using:LlamaRpg.App.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
     <UserControl.Resources>
         <DataTemplate
             x:Key="ItemTypeWeightDropItemTemplate"
-            x:DataType="viewModels:ItemTypeWeightDrop">
+            x:DataType="randomizer:ItemTypeWeightDrop">
             <StackPanel
                 Orientation="Horizontal"
                 Margin="10,5,0,0">

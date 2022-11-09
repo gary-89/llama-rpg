@@ -13,12 +13,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LlamaRpg.App.Services;
 using LlamaRpg.App.Toolkit.Async;
+using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.App.ViewModels.Randomizer;
 using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
 using Microsoft.Extensions.Logging;
-using LlamaRpg.App.Toolkit.Extensions;
+using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace LlamaRpg.App.ViewModels;
 
@@ -38,7 +39,11 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private bool _canStopRandomization;
     private bool _stopRandomization;
 
-    public RandomizerPageViewModel(IItemRandomizerProvider itemRandomizer, IAffixProvider affixProvider, IItemProvider itemProvider, ILogger<RandomizerPageViewModel> logger)
+    public RandomizerPageViewModel(
+        IItemRandomizerProvider itemRandomizer,
+        IAffixProvider affixProvider,
+        IItemProvider itemProvider,
+        ILogger<RandomizerPageViewModel> logger)
     {
         _itemRandomizer = itemRandomizer;
         _affixProvider = affixProvider;
