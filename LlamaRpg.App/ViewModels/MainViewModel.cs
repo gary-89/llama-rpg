@@ -16,9 +16,11 @@ internal sealed class MainViewModel : ObservableObject
     public MainViewModel()
     {
         AboutCommand = new RelayCommand(ShowAboutDialog);
+        ExitCommand = new RelayCommand(Exit);
     }
 
     public ICommand AboutCommand { get; }
+    public ICommand ExitCommand { get; }
 
     public IReadOnlyList<ApplicationPage> Pages { get; } = Enum.GetValues<ApplicationPage>();
 
@@ -46,5 +48,10 @@ internal sealed class MainViewModel : ObservableObject
         };
 
         await dialog.ShowAsync();
+    }
+
+    private static void Exit()
+    {
+        Application.Current.Exit();
     }
 }

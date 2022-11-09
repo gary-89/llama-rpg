@@ -30,10 +30,18 @@
 
         <MenuBar Grid.Row="0">
             <MenuBarItem Title="File">
-                <MenuFlyoutItem Text="New" />
-                <MenuFlyoutItem Text="Open..." />
-                <MenuFlyoutItem Text="Save" />
-                <MenuFlyoutItem Text="Exit" />
+                <MenuFlyoutItem
+                    Text="New"
+                    IsEnabled="False" />
+                <MenuFlyoutItem
+                    Text="Open..."
+                    IsEnabled="False" />
+                <MenuFlyoutItem
+                    Text="Save"
+                    IsEnabled="False" />
+                <MenuFlyoutItem
+                    Text="Exit"
+                    Command="{x:Bind ViewModel.ExitCommand}" />
             </MenuBarItem>
 
             <MenuBarItem Title="Help">

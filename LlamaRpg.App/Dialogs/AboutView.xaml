@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBlock Text="Tools for designers for LlamaRPG" />
+        <TextBlock Text="Llama RPG editor" />
         <TextBlock Text="Version 0.0.1" />
-        <TextBlock Text="2022" />
+        <TextBlock Text="2022 - Gary design" />
     </StackPanel>
 </UserControl>
