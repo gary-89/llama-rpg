@@ -27,7 +27,6 @@
     <None Remove="Pages\AffixesPage.xaml" />
     <None Remove="Pages\ItemsPage.xaml" />
     <None Remove="Pages\MapsPage.xaml" />
-    <None Remove="Pages\MonstersPage.xaml" />
     <None Remove="Pages\RandomizerPage.xaml" />
     <None Remove="Styles\Colors.xaml" />
     <None Remove="Styles\TextBlockStyle.xaml" />
@@ -108,9 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Views\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\MonstersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Dialogs\AboutView.xaml">

@@ -6,5 +6,5 @@ namespace LlamaRpg.Services.Randomization;
 public interface IRandomizerAffixValidator
 {
     bool ValidateRarity(AffixRule rule, ItemRarityType rarity);
-    bool ValidateWeaponElements(Affix affix, SecondaryElement? secondaryElementOfWeapon);
+    bool ValidateEnhanceDamageAffix(Affix affix, SecondaryElement secondaryElementOfWeapon);
 }

@@ -59,6 +59,7 @@
                     <Button
                         Grid.Column="1"
                         Command="{x:Bind ViewModel.AddCommand}"
+                        IsEnabled="False"
                         Margin="10,0,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="New" />

@@ -25,32 +25,21 @@ public sealed class RandomizerAffixValidator : IRandomizerAffixValidator
         return rarity == ItemRarityType.Magic && !rule.IsEliteOnly;
     }
 
-    public bool ValidateWeaponElements(Affix affix, SecondaryElement? secondaryElementOfWeapon)
+    public bool ValidateEnhanceDamageAffix(Affix affix, SecondaryElement secondaryElementOfWeapon)
     {
-        if (secondaryElementOfWeapon.HasValue == false || (affix.PrimaryElement is null && affix.SecondaryElement is null))
+        if (affix.PrimaryElement.HasValue == false
+            || affix.Name.Contains("enhanced", StringComparison.OrdinalIgnoreCase) == false)
         {
             return true;
         }
 
-        return affix.SecondaryElement.HasValue
-            ? secondaryElementOfWeapon.Value == affix.SecondaryElement.Value
-            : ValidateElement(secondaryElementOfWeapon.Value, affix.PrimaryElement);
-    }
-
-    private static bool ValidateElement(SecondaryElement secondaryElementOfWeapon, PrimaryElement? affixPrimaryElement)
-    {
-        if (affixPrimaryElement.HasValue == false)
-        {
-            return true;
-        }
-
-        return affixPrimaryElement.Value switch
+        return affix.PrimaryElement.Value switch
         {
             PrimaryElement.Cold => secondaryElementOfWeapon is SecondaryElement.Ice or SecondaryElement.Water,
             PrimaryElement.Fire => secondaryElementOfWeapon is SecondaryElement.Burn or SecondaryElement.Heat,
-            PrimaryElement.Lightning => secondaryElementOfWeapon is SecondaryElement.Spark or SecondaryElement.Electric,
+            PrimaryElement.Electric => secondaryElementOfWeapon is SecondaryElement.Spark or SecondaryElement.Lightning,
             PrimaryElement.Poison => secondaryElementOfWeapon is SecondaryElement.Venom or SecondaryElement.Acid,
-            _ => throw new ArgumentOutOfRangeException(nameof(affixPrimaryElement))
+            _ => throw new ArgumentOutOfRangeException(nameof(secondaryElementOfWeapon))
         };
     }
 }

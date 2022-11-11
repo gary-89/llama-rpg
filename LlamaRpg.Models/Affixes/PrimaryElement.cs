@@ -4,6 +4,6 @@ public enum PrimaryElement
 {
     Fire,
     Cold,
-    Lightning,
+    Electric,
     Poison,
 }

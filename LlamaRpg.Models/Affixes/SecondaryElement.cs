@@ -6,7 +6,7 @@ public enum SecondaryElement
     Heat,
     Water,
     Ice,
-    Electric,
+    Lightning,
     Spark,
     Acid,
     Venom,

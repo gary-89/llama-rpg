@@ -36,6 +36,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -135,11 +136,11 @@
                         <Run Text="{x:Bind MaxDamage, FallbackValue=''}" />
                     </TextBlock>
 
-                    <!-- Sockets -->
+                    <!-- Block -->
                     <TextBlock
                         Grid.Column="0"
                         Grid.Row="7"
-                        Text="Sockets max:"
+                        Text="Block:"
                         Style="{StaticResource LabelStyle}"
                         Margin="0,10,0,0" />
 
@@ -147,13 +148,30 @@
                         Grid.Column="1"
                         Grid.Row="7"
                         Margin="10,10,0,0">
+                        <Run Text="{x:Bind MinBlock, FallbackValue=''}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind MaxBlock, FallbackValue=''}" />
+                    </TextBlock>
+
+                    <!-- Sockets -->
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="8"
+                        Text="Sockets max:"
+                        Style="{StaticResource LabelStyle}"
+                        Margin="0,10,0,0" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Grid.Row="8"
+                        Margin="10,10,0,0">
                         <Run Text="{x:Bind Sockets, FallbackValue=''}" />
                     </TextBlock>
 
                     <!-- Item statuses -->
                     <TextBlock
                         Grid.Column="0"
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Text="Status(es):"
                         Style="{StaticResource LabelStyle}"
                         VerticalAlignment="Top"
@@ -161,7 +179,7 @@
 
                     <Grid
                         Grid.Column="1"
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Margin="10,10,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -615,6 +633,7 @@
                 <Button
                     Grid.Column="1"
                     Command="{x:Bind ViewModel.EditCommand}"
+                    IsEnabled="False"
                     Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <SymbolIcon Symbol="Edit" />

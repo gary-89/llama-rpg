@@ -260,28 +260,30 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             baseAffixes.Add(baseAffix);
         }
 
-        if (item.Subtype == ItemSubtype.Wand)
+        if (item.Subtype is not (ItemSubtype.Wand or ItemSubtype.Staff))
         {
-            mandatoryAffixes = matchingAffixes
-                .Where(x => x.Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
-                .Where(x => x.Name.Contains(primaryElement.ToString(), StringComparison.OrdinalIgnoreCase))
-                .ToList()
-                .AsReadOnly();
+            return baseAffixes;
+        }
 
-            var baseAffix2 = InternalGenerateAffixes(
-                item,
-                default,
-                default,
-                itemPowerLevel,
-                count: 1,
-                mandatoryAffixes,
-                default,
-                out _).FirstOrDefault();
+        mandatoryAffixes = matchingAffixes
+            .Where(x => x.Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
+            .Where(x => x.Name.Contains(primaryElement.ToString(), StringComparison.OrdinalIgnoreCase))
+            .ToList()
+            .AsReadOnly();
 
-            if (baseAffix2 is not null)
-            {
-                baseAffixes.Add(baseAffix2);
-            }
+        var baseAffix2 = InternalGenerateAffixes(
+            item,
+            default,
+            default,
+            itemPowerLevel,
+            count: 1,
+            mandatoryAffixes,
+            default,
+            out _).FirstOrDefault();
+
+        if (baseAffix2 is not null)
+        {
+            baseAffixes.Add(baseAffix2);
         }
 
         return baseAffixes;
@@ -316,15 +318,16 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         {
             Affix affix;
             AffixRule affix1Rule;
-
+            bool invalidAffix;
             do
             {
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
                 affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
                 affixGroup = count == 1 ? affix1Rule.Group : null;
-                // TODO: to be defined
-                //invalidAffix = _validator.ValidateWeaponElements(affix, secondaryElementOfWeapon) == false;
-            } while (generatedAffixNames.Contains(affix1Rule.Group));
+
+                invalidAffix = secondaryElementOfWeapon.HasValue && _validator.ValidateEnhanceDamageAffix(affix, secondaryElementOfWeapon.Value) == false;
+
+            } while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 
             var mod = affix1Rule.Modifier1MinText;
             int min, max;

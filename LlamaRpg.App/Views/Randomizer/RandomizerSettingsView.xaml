@@ -34,7 +34,7 @@
         VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="10">
             <!-- Generation: -->
-            <StackPanel Grid.Row="0">
+            <StackPanel>
                 <TextBlock
                     Text="Settings"
                     Style="{StaticResource TitleTextBlockStyle}" />

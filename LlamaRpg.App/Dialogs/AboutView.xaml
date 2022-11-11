@@ -8,7 +8,7 @@
     mc:Ignorable="d">
     <StackPanel>
         <TextBlock Text="Llama RPG editor" />
-        <TextBlock Text="Version 0.0.1" />
-        <TextBlock Text="2022 - Gary design" />
+        <TextBlock Text="Version 0.0.2" />
+        <TextBlock Text="2022" />
     </StackPanel>
 </UserControl>
