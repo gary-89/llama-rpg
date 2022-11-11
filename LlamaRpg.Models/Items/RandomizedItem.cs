@@ -6,6 +6,6 @@ public sealed record RandomizedItem(
     ItemType ItemType,
     ItemSubtype ItemSubtype,
     int PowerLevel,
-    string? AffixBase,
+    IReadOnlyList<string> BaseAffixes,
     IReadOnlyList<string> Affixes,
     ItemRarityType ItemRarityType);

@@ -23,7 +23,7 @@
                     VerticalAlignment="Center" />
                 <NumberBox
                     Value="{x:Bind Weight, Mode=TwoWay}"
-                    Minimum="1"
+                    Minimum="0"
                     Margin="10,0,0,0" />
             </StackPanel>
         </DataTemplate>

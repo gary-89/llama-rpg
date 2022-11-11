@@ -5,44 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:items="using:LlamaRpg.Models.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:LlamaRpg.App.Models"
-    xmlns:randomizer="using:RpgFilesGeneratorTools.ViewModels.Randomizer"
     xmlns:system="using:System"
     xmlns:viewModels="using:LlamaRpg.App.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
     <UserControl.Resources>
         <DataTemplate
-            x:Key="ItemTypeWeightDropItemTemplate"
-            x:DataType="randomizer:ItemTypeWeightDrop">
-            <StackPanel
-                Orientation="Horizontal"
-                Margin="10,5,0,0">
-                <TextBlock
-                    Text="{x:Bind ItemType}"
-                    FontSize="14"
-                    Width="80"
-                    VerticalAlignment="Center" />
-                <NumberBox
-                    Value="{x:Bind Weight, Mode=TwoWay}"
-                    Minimum="1"
-                    Margin="10,0,0,0" />
-            </StackPanel>
-        </DataTemplate>
-
-        <StackLayout
-            x:Name="VerticalStackLayout"
-            Orientation="Vertical"
-            Spacing="3" />
-
-        <DataTemplate
             x:Key="GeneratedAffixTemplate"
             x:DataType="system:String">
             <TextBlock
                 Text="{x:Bind}"
-                Foreground="{StaticResource MagicItemColorBrush}"
-                TextAlignment="Left"
-                HorizontalAlignment="Left" />
+                Foreground="{StaticResource MagicItemColorBrush}" />
         </DataTemplate>
 
         <DataTemplate
@@ -79,20 +52,13 @@
                     Width="40" />
 
                 <StackPanel>
-                    <TextBlock
-                        Text="{x:Bind AffixBase}"
-                        Visibility="{x:Bind AffixBase, Converter={StaticResource NullToInvisibilityConverter}}" />
+                    <ItemsControl
+                        ItemsSource="{x:Bind BaseAffixes}"
+                        Visibility="{x:Bind BaseAffixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}" />
 
-                    <Border Visibility="{x:Bind AffixBase, Converter={StaticResource NullToInvisibilityConverter}}">
-                        <Border
-                            Visibility="{x:Bind Affixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
-                            Margin="0,3,0,0" />
-                    </Border>
-
-                    <ItemsRepeater
+                    <ItemsControl
                         ItemTemplate="{StaticResource GeneratedAffixTemplate}"
                         ItemsSource="{x:Bind Affixes}"
-                        Layout="{StaticResource VerticalStackLayout}"
                         Visibility="{x:Bind Affixes.Count, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}" />
                 </StackPanel>
             </StackPanel>

@@ -6,6 +6,9 @@ namespace LlamaRpg.Models.Affixes;
 
 public sealed class Affix
 {
+    private static readonly IReadOnlyList<string> s_primaryElements = Enum.GetNames(typeof(PrimaryElement));
+    private static readonly IReadOnlyList<string> s_secondaryElements = Enum.GetNames(typeof(SecondaryElement));
+
     private const string CommaSeparator = ", ";
 
     private string? _types;
@@ -13,9 +16,16 @@ public sealed class Affix
     public Affix(string name)
     {
         Name = name;
+
+        SetPrimaryElement();
+        SetSecondaryElement();
     }
 
     public string Name { get; }
+
+    public PrimaryElement? PrimaryElement { get; private set; }
+
+    public SecondaryElement? SecondaryElement { get; private set; }
 
     public List<AffixRule> Rules { get; } = new();
 
@@ -65,5 +75,35 @@ public sealed class Affix
             .FirstOrDefault();
 
         return member?.GetCustomAttribute<DisplayAttribute>()?.Name ?? enumValue.ToString();
+    }
+
+    private void SetPrimaryElement()
+    {
+        foreach (var primaryElementString in s_primaryElements)
+        {
+            if (!Name.Contains(primaryElementString, StringComparison.OrdinalIgnoreCase) ||
+                !Enum.TryParse<PrimaryElement>(primaryElementString, out var primaryElement))
+            {
+                continue;
+            }
+
+            PrimaryElement = primaryElement;
+            break;
+        }
+    }
+
+    private void SetSecondaryElement()
+    {
+        foreach (var secondaryElementString in s_secondaryElements)
+        {
+            if (!Name.Contains(secondaryElementString, StringComparison.OrdinalIgnoreCase) ||
+                !Enum.TryParse<SecondaryElement>(secondaryElementString, out var secondaryElement))
+            {
+                continue;
+            }
+
+            SecondaryElement = secondaryElement;
+            break;
+        }
     }
 }

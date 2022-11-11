@@ -110,7 +110,14 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
         var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
-        Settings.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, 1)));
+        Settings.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, x switch
+        {
+            ItemType.Weapon => ItemTypeWeightDrop.DefaultWeaponWeight,
+            ItemType.Offhand => ItemTypeWeightDrop.DefaultOffhandWeight,
+            ItemType.Armor => ItemTypeWeightDrop.DefaultArmorWeight,
+            ItemType.Jewelry => ItemTypeWeightDrop.DefaultJewelryWeight,
+            _ => 0
+        })));
 
         RandomizeCommand.NotifyCanExecuteChanged();
         return 0;

@@ -133,6 +133,8 @@ internal sealed class ItemProvider : IItemProvider
                     requiredIntelligence,
                     minDamage,
                     maxDamage,
+                    minBlock,
+                    maxBlock,
                     speed,
                     sockets);
                 break;

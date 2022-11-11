@@ -14,6 +14,8 @@ public sealed class Weapon : ItemBase
         int requiredIntelligence,
         int minDamage,
         int maxDamage,
+        int minBlock,
+        int maxBlock,
         int speed,
         int sockets
     )
@@ -27,6 +29,8 @@ public sealed class Weapon : ItemBase
         Status2Chance = status2Chance;
         MinDamage = minDamage;
         MaxDamage = maxDamage;
+        MinBlock = minBlock;
+        MaxBlock = maxBlock;
     }
 
     public string? Status { get; }
@@ -35,5 +39,7 @@ public sealed class Weapon : ItemBase
     public int Status2Chance { get; }
     public int MinDamage { get; }
     public int MaxDamage { get; }
+    public int MinBlock { get; }
+    public int MaxBlock { get; }
     public int Speed { get; }
 }
