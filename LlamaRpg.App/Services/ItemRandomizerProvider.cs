@@ -163,6 +163,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         var matchingAffixes = affixes
             .Where(x => x.Rules
                 .Any(r => r.ItemLevelRequired < settings.MonsterLevel
+                          && r.PowerLevelRequired <= itemPowerLevel
                           && (r.ItemTypes.Contains(itemType)
                               || r.ItemSubtypes.Contains(itemSubtype)
                               || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (itemSubtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
@@ -325,7 +326,8 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                 affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
-                invalidAffix = secondaryElementOfWeapon.HasValue && _validator.ValidateEnhanceDamageAffix(affix, secondaryElementOfWeapon.Value) == false;
+                invalidAffix = (secondaryElementOfWeapon.HasValue && _validator.ValidateEnhanceDamageAffix(affix, secondaryElementOfWeapon.Value) == false)
+                    || itemPowerLevel < affix1Rule.PowerLevelRequired;
 
             } while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 
