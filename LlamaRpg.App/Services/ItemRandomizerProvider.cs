@@ -344,7 +344,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                 case AffixModifierType.MinimumDamagePlus when item is Weapon weapon:
                     min = weapon.MinDamage + affix1Rule.Modifier1Min;
-                    max = weapon.MaxDamage * itemPowerLevel + 1;
+                    max = weapon.MaxDamage * itemPowerLevel;
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
@@ -355,7 +355,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                 case AffixModifierType.MinimumBlockPlus when item is Weapon weapon:
                     min = weapon.MinBlock + affix1Rule.Modifier1Min;
-                    max = weapon.MaxBlock * itemPowerLevel + 1;
+                    max = weapon.MaxBlock * itemPowerLevel;
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
@@ -366,7 +366,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
                 case AffixModifierType.MinimumBlockPlus when item is Offhand offhand:
                     min = offhand.MinBlock + affix1Rule.Modifier1Min;
-                    max = offhand.MaxBlock * itemPowerLevel + 1;
+                    max = offhand.MaxBlock * itemPowerLevel;
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
