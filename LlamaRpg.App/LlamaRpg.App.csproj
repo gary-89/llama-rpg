@@ -135,4 +135,7 @@
     <ProjectReference Include="..\LlamaRpg.Models\LlamaRpg.Models.csproj" />
     <ProjectReference Include="..\LlamaRpg.Services\LlamaRpg.Services.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using LlamaRpg.Models.Items.PrimaryTypes;
+﻿using LlamaRpg.Models.Items.PrimaryTypes;
 
-namespace LlamaRpg.App.Services;
+namespace LlamaRpg.Services.Validators;
 
 internal sealed class ItemValidator
 {

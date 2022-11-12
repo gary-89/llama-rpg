@@ -10,6 +10,8 @@ public sealed class Affix
     private static readonly IReadOnlyList<string> s_secondaryElements = Enum.GetNames(typeof(SecondaryElement));
 
     private const string CommaSeparator = ", ";
+    private const string Damage = "damage";
+    private const string Defense = "defense";
 
     private string? _types;
 
@@ -17,11 +19,30 @@ public sealed class Affix
     {
         Name = name;
 
+        SetType();
         SetPrimaryElement();
         SetSecondaryElement();
     }
 
+    private void SetType()
+    {
+        if (Name.Contains(Damage, StringComparison.OrdinalIgnoreCase))
+        {
+            Type = AffixType.ElementalDamage;
+        }
+        else if (Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
+        {
+            Type = Name.Equals(Defense, StringComparison.OrdinalIgnoreCase) ? AffixType.Defense : AffixType.ElementalDefense;
+        }
+        else
+        {
+            Type = AffixType.Undefined;
+        }
+    }
+
     public string Name { get; }
+
+    public AffixType Type { get; private set; }
 
     public PrimaryElement? PrimaryElement { get; private set; }
 

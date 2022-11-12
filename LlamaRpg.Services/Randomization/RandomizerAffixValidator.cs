@@ -3,7 +3,7 @@ using LlamaRpg.Models.Items;
 
 namespace LlamaRpg.Services.Randomization;
 
-public sealed class RandomizerAffixValidator : IRandomizerAffixValidator
+internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
 {
     public bool ValidateRarity(AffixRule rule, ItemRarityType rarity)
     {

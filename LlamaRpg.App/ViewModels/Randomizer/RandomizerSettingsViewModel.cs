@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RpgFilesGeneratorTools.ViewModels.Randomizer;
+using LlamaRpg.Models.Items;
+using LlamaRpg.Models.Randomizer;
 
 namespace LlamaRpg.App.ViewModels.Randomizer;
 
-internal sealed class RandomizerSettings : ObservableObject
+internal sealed class RandomizerSettingsViewModel : ObservableObject
 {
     private int _magicItemDropRate = 5;
     private int _rareItemDropRate = 10;
@@ -12,9 +13,9 @@ internal sealed class RandomizerSettings : ObservableObject
     private int _numberOfItemsToGenerate = 1000;
     private int _monsterLevel = 50;
 
-    public Range AffixesForMagicItems { get; } = new(1, 1);
-    public Range AffixesForRareItems { get; } = new(3, 5);
-    public Range AffixesForEliteItems { get; } = new(3, 7);
+    public Range AffixesForMagicItems { get; } = new((int)1, (int)1);
+    public Range AffixesForRareItems { get; } = new((int)3, (int)5);
+    public Range AffixesForEliteItems { get; } = new((int)3, (int)7);
 
     public int MonsterLevel
     {

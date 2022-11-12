@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using LlamaRpg.App.Services;
 using LlamaRpg.App.Toolkit.Async;
 using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.App.ViewModels.Randomizer;
 using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
+using LlamaRpg.Models.Randomizer;
+using LlamaRpg.Services.Randomization;
+using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
-using RpgFilesGeneratorTools.ViewModels.Randomizer;
 
 namespace LlamaRpg.App.ViewModels;
 
@@ -74,7 +75,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     public ObservableCollection<RandomizedItem> GeneratedItems { get; } = new();
 
-    public RandomizerSettings Settings { get; } = new();
+    public RandomizerSettingsViewModel SettingsViewModel { get; } = new();
 
     public RandomizerStats Stats { get; } = new();
 
@@ -104,13 +105,23 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
+    private static RandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
+    {
+        return new RandomizerSettings(
+            settings.NumberOfItemsToGenerate,
+            settings.MonsterLevel,
+            new ItemDropRates(settings.MagicItemDropRate, settings.RareItemDropRate, settings.EliteItemDropRate),
+            new ItemNumberOfAffixes(settings.AffixesForMagicItems, settings.AffixesForRareItems, settings.AffixesForEliteItems),
+            settings.ItemTypeWeights);
+    }
+
     private async Task<int> InitializeAsync()
     {
         _affixes = await _affixProvider.GetAffixesAsync(CancellationToken.None).ConfigureAwait(true);
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
         var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
-        Settings.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, x switch
+        SettingsViewModel.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, x switch
         {
             ItemType.Weapon => ItemTypeWeightDrop.DefaultWeaponWeight,
             ItemType.Offhand => ItemTypeWeightDrop.DefaultOffhandWeight,
@@ -151,13 +162,13 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         {
             var stopwatch = Stopwatch.StartNew();
 
-            _logger.LogInformation("Generating {NumberOfItems} randomized items...", Settings.NumberOfItemsToGenerate);
+            _logger.LogInformation("Generating {NumberOfItems} randomized items...", SettingsViewModel.NumberOfItemsToGenerate);
 
             ExportEnabled = false;
             CanStopRandomization = true;
 
             var numberOfGeneratedItems = 0;
-            await foreach (var item in _itemRandomizer.GenerateRandomizedItemsAsync(Settings, cancellationToken).ConfigureAwait(true))
+            await foreach (var item in _itemRandomizer.GenerateItemsAsync(CreateSettings(SettingsViewModel), cancellationToken).ConfigureAwait(true))
             {
                 if (_stopRandomization)
                 {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using LlamaRpg.Models.Affixes;
+﻿using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
 using Microsoft.Extensions.Logging;
 
-namespace LlamaRpg.App.Services;
+namespace LlamaRpg.Services.Readers;
 
 internal sealed class AffixProvider : IAffixProvider
 {
@@ -72,7 +66,7 @@ internal sealed class AffixProvider : IAffixProvider
                 var itemTypeString6 = infos[26].Trim().Replace(" ", "");
 
                 if (string.IsNullOrWhiteSpace(infos[1]) ||
-                    (!Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _)) ||
+                    !Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _) ||
                     !int.TryParse(infos[1], out var tier))
                 {
                     continue; // Invalid affix: skip

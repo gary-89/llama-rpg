@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using LlamaRpg.App.ViewModels.Randomizer;
 using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
-using LlamaRpg.Services.Randomization;
+using LlamaRpg.Models.Randomizer;
+using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
 
-namespace LlamaRpg.App.Services;
+namespace LlamaRpg.Services.Randomization;
 
 internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 {
-    private const string Damage = "damage";
-    private const string Defense = "defense";
 
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
     private readonly IRandomizerAffixValidator _validator;
     private readonly ILogger<ItemRandomizerProvider> _logger;
     private readonly Random _random = new();
-    private readonly IReadOnlyList<string> _primaryElements;
-    private readonly IReadOnlyList<string> _secondaryElements;
 
     public ItemRandomizerProvider(
         IItemProvider itemProvider,
@@ -36,12 +28,9 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         _affixProvider = affixProvider;
         _validator = validator;
         _logger = logger;
-
-        _primaryElements = Enum.GetNames(typeof(PrimaryElement));
-        _secondaryElements = Enum.GetNames(typeof(SecondaryElement));
     }
 
-    public async IAsyncEnumerable<RandomizedItem> GenerateRandomizedItemsAsync(
+    public async IAsyncEnumerable<RandomizedItem> GenerateItemsAsync(
         RandomizerSettings settings,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
@@ -137,13 +126,13 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private ItemRarityType GenerateRarity(RandomizerSettings settings, bool isJewelry)
     {
-        var rarity = _random.Next(0, settings.EliteItemDropRate * settings.RareItemDropRate * settings.MagicItemDropRate);
+        var rarity = _random.Next(0, settings.ItemDropRates.EliteItemDropRate * settings.ItemDropRates.RareItemDropRate * settings.ItemDropRates.MagicItemDropRate);
 
-        return rarity % settings.EliteItemDropRate == 0
+        return rarity % settings.ItemDropRates.EliteItemDropRate == 0
             ? ItemRarityType.Elite
-            : rarity % settings.RareItemDropRate == 0
+            : rarity % settings.ItemDropRates.RareItemDropRate == 0
                 ? ItemRarityType.Rare
-                : rarity % settings.MagicItemDropRate == 0
+                : rarity % settings.ItemDropRates.MagicItemDropRate == 0
                     ? ItemRarityType.Magic
                     : isJewelry
                         ? ItemRarityType.Magic
@@ -189,16 +178,15 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var numberOfAffixes = rarity switch
         {
-            ItemRarityType.Magic => _random.Next(settings.AffixesForMagicItems.Min, settings.AffixesForMagicItems.Max + 1),
-            ItemRarityType.Rare => _random.Next(settings.AffixesForRareItems.Min, settings.AffixesForRareItems.Max + 1),
-            ItemRarityType.Elite => _random.Next(settings.AffixesForEliteItems.Min, settings.AffixesForEliteItems.Max + 1),
+            ItemRarityType.Magic => _random.Next(settings.ItemNumberOfAffixes.AffixesForMagicItems.Min, settings.ItemNumberOfAffixes.AffixesForMagicItems.Max + 1),
+            ItemRarityType.Rare => _random.Next(settings.ItemNumberOfAffixes.AffixesForRareItems.Min, settings.ItemNumberOfAffixes.AffixesForRareItems.Max + 1),
+            ItemRarityType.Elite => _random.Next(settings.ItemNumberOfAffixes.AffixesForEliteItems.Min, settings.ItemNumberOfAffixes.AffixesForEliteItems.Max + 1),
             _ => 0
         };
 
         var generatedAffixes = InternalGenerateAffixes(
             item,
-            itemType == ItemType.Weapon ? primaryElement : default,
-            itemType == ItemType.Weapon ? secondaryElement : default,
+            secondaryElementOfWeapon: itemType == ItemType.Weapon ? secondaryElement : default,
             itemPowerLevel,
             numberOfAffixes,
             matchingAffixes.Where(x => x.Rules.Any(r => _validator.ValidateRarity(r, rarity))).ToList(),
@@ -221,21 +209,21 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         {
             ItemType.Weapon =>
                 matchingAffixes
-                    .Where(x => x.Name.Contains(Damage, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Type == AffixType.ElementalDamage)
                     .Where(x => x.Name.Contains(secondaryElement.ToString(), StringComparison.OrdinalIgnoreCase))
                     .ToList()
                     .AsReadOnly(),
 
             ItemType.Offhand =>
                 matchingAffixes
-                    .Where(x => x.Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Type == AffixType.ElementalDefense)
                     .Where(x => x.Name.Contains(primaryElement.ToString(), StringComparison.OrdinalIgnoreCase))
                     .ToList()
                     .AsReadOnly(),
 
             ItemType.Armor =>
                 matchingAffixes
-                    .Where(x => x.Name.Equals(Defense, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Type == AffixType.Defense)
                     .ToList()
                     .AsReadOnly(),
 
@@ -248,8 +236,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var baseAffix = InternalGenerateAffixes(
             item,
-            default,
-            default,
+            secondaryElementOfWeapon: default,
             itemPowerLevel,
             count: 1,
             mandatoryAffixes,
@@ -267,15 +254,13 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         }
 
         mandatoryAffixes = matchingAffixes
-            .Where(x => x.Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
-            .Where(x => x.Name.Contains(primaryElement.ToString(), StringComparison.OrdinalIgnoreCase))
+            .Where(x => x.Type == AffixType.ElementalDefense && x.PrimaryElement == primaryElement)
             .ToList()
             .AsReadOnly();
 
         var baseAffix2 = InternalGenerateAffixes(
             item,
-            default,
-            default,
+            secondaryElementOfWeapon: default,
             itemPowerLevel,
             count: 1,
             mandatoryAffixes,
@@ -292,7 +277,6 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private IReadOnlyList<string> InternalGenerateAffixes(
         ItemBase item,
-        PrimaryElement? primaryElementOfWeapon,
         SecondaryElement? secondaryElementOfWeapon,
         int itemPowerLevel,
         int count,

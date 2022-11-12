@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using LlamaRpg.Models.Items;
+﻿using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
 
-namespace LlamaRpg.App.Services;
+namespace LlamaRpg.Services.Readers;
 
-internal interface IItemProvider
+public interface IItemProvider
 {
     Task<bool> AddItemAsync(ItemBase item, CancellationToken cancellationToken);
 

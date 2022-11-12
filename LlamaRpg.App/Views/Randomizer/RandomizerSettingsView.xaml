@@ -4,15 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:glyphs="using:LlamaRpg.App.Styles"
+    xmlns:items="using:LlamaRpg.Models.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:randomizer="using:RpgFilesGeneratorTools.ViewModels.Randomizer"
     xmlns:viewModels="using:LlamaRpg.App.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModels:RandomizerPageViewModel}">
     <UserControl.Resources>
         <DataTemplate
             x:Key="ItemTypeWeightDropItemTemplate"
-            x:DataType="randomizer:ItemTypeWeightDrop">
+            x:DataType="items:ItemTypeWeightDrop">
             <StackPanel
                 Orientation="Horizontal"
                 Margin="10,5,0,0">
@@ -46,7 +46,7 @@
 
                 <Slider
                     x:Name="NumberOfItemsToGenerateSlider"
-                    Value="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=TwoWay}"
+                    Value="{x:Bind ViewModel.SettingsViewModel.NumberOfItemsToGenerate, Mode=TwoWay}"
                     Maximum="10000"
                     Minimum="1"
                     StepFrequency="100"
@@ -84,7 +84,7 @@
 
                 <Slider
                     x:Name="LevelSlider"
-                    Value="{x:Bind ViewModel.Settings.MonsterLevel, Mode=TwoWay}"
+                    Value="{x:Bind ViewModel.SettingsViewModel.MonsterLevel, Mode=TwoWay}"
                     Maximum="99"
                     Minimum="1"
                     Width="150"
@@ -118,7 +118,7 @@
 
                     <Slider
                         x:Name="MagicItemDropRateSlider"
-                        Value="{x:Bind ViewModel.Settings.MagicItemDropRate, Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SettingsViewModel.MagicItemDropRate, Mode=TwoWay}"
                         Maximum="100"
                         Minimum="1"
                         Width="150"
@@ -131,7 +131,7 @@
 
                         <NumberBox
                             x:Name="MinAffixesForMagicItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Min, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForMagicItems.Min, Mode=TwoWay}"
                             Maximum="{x:Bind MaxAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
@@ -144,7 +144,7 @@
 
                         <NumberBox
                             x:Name="MaxAffixesForMagicItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Max, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForMagicItems.Max, Mode=TwoWay}"
                             Maximum="10"
                             Minimum="{x:Bind MinAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
@@ -168,7 +168,7 @@
 
                     <Slider
                         x:Name="RareItemDropRateSlider"
-                        Value="{x:Bind ViewModel.Settings.RareItemDropRate, Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SettingsViewModel.RareItemDropRate, Mode=TwoWay}"
                         Maximum="100"
                         Minimum="1"
                         Width="150"
@@ -181,7 +181,7 @@
 
                         <NumberBox
                             x:Name="MinAffixesForRareItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Min, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForRareItems.Min, Mode=TwoWay}"
                             Maximum="{x:Bind MaxAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
@@ -194,7 +194,7 @@
 
                         <NumberBox
                             x:Name="MaxAffixesForRareItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Max, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForRareItems.Max, Mode=TwoWay}"
                             Maximum="10"
                             Minimum="{x:Bind MinAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
@@ -218,7 +218,7 @@
 
                     <Slider
                         x:Name="EliteItemDropRateSlider"
-                        Value="{x:Bind ViewModel.Settings.EliteItemDropRate, Mode=TwoWay}"
+                        Value="{x:Bind ViewModel.SettingsViewModel.EliteItemDropRate, Mode=TwoWay}"
                         Maximum="100"
                         Minimum="1"
                         Width="150"
@@ -231,7 +231,7 @@
 
                         <NumberBox
                             x:Name="MinAffixesForEliteItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Min, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForEliteItems.Min, Mode=TwoWay}"
                             Maximum="{x:Bind MaxAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
@@ -244,7 +244,7 @@
 
                         <NumberBox
                             x:Name="MaxAffixesForEliteItemsNumberBox"
-                            Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Max, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForEliteItems.Max, Mode=TwoWay}"
                             Maximum="10"
                             Minimum="{x:Bind MinAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
@@ -259,7 +259,7 @@
 
                 <ItemsRepeater
                     ItemTemplate="{StaticResource ItemTypeWeightDropItemTemplate}"
-                    ItemsSource="{x:Bind ViewModel.Settings.ItemTypeWeights, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.SettingsViewModel.ItemTypeWeights, Mode=OneWay}"
                     Margin="0,10,0,0" />
             </StackPanel>
         </StackPanel>

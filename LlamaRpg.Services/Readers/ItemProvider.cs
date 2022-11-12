@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
+using LlamaRpg.Services.Validators;
 using Microsoft.Extensions.Logging;
 
-namespace LlamaRpg.App.Services;
+namespace LlamaRpg.Services.Readers;
 
 internal sealed class ItemProvider : IItemProvider
 {
@@ -29,7 +24,6 @@ internal sealed class ItemProvider : IItemProvider
         _itemValidator = itemValidator;
         _logger = logger;
     }
-
 
     public async Task<bool> AddItemAsync(ItemBase item, CancellationToken cancellationToken)
     {

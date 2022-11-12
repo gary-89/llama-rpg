@@ -1,8 +1,7 @@
 ﻿using System;
-using LlamaRpg.App.Services;
 using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.App.ViewModels;
-using LlamaRpg.Services.Randomization;
+using LlamaRpg.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
@@ -54,14 +53,8 @@ public partial class App
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-
-        services.AddSingleton<AppConfig>();
-        services.AddSingleton<IRandomizerAffixValidator, RandomizerAffixValidator>();
-        services.AddSingleton<IAffixProvider, AffixProvider>();
-        services.AddSingleton<IItemProvider, ItemProvider>();
-        services.AddSingleton<IItemRandomizerProvider, ItemRandomizerProvider>();
+        services.AddAppServices();
         services.AddTransient<MainViewModel>();
-        services.AddSingleton<ItemValidator>();
         services.AddSerilog();
 
         return services.BuildServiceProvider();

@@ -1,6 +1,6 @@
-﻿namespace LlamaRpg.App.ViewModels.Randomizer;
+﻿namespace LlamaRpg.Models.Randomizer;
 
-internal sealed class Range
+public sealed class Range
 {
     public Range(int min, int max)
     {

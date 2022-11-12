@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace LlamaRpg.App.Services;
+﻿namespace LlamaRpg.Services;
 
 internal sealed class AppConfig
 {

@@ -8,12 +8,12 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LlamaRpg.App.Models;
-using LlamaRpg.App.Services;
 using LlamaRpg.App.Toolkit.Async;
+using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
+using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
-using LlamaRpg.App.Toolkit.Extensions;
 using static System.String;
 
 namespace LlamaRpg.App.ViewModels;

@@ -94,7 +94,7 @@
                     VerticalAlignment="Center"
                     Margin="10,0,0,0">
                     <Run Text="(generating" />
-                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" /><Run Text="/" /><Run Text="{x:Bind ViewModel.Settings.NumberOfItemsToGenerate, Mode=OneWay}" />
+                    <Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" /><Run Text="/" /><Run Text="{x:Bind ViewModel.SettingsViewModel.NumberOfItemsToGenerate, Mode=OneWay}" />
                     <Run Text="items...)" />
                 </TextBlock>
 
