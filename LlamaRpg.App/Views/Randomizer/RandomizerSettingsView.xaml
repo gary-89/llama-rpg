@@ -130,8 +130,9 @@
                             VerticalAlignment="Center" />
 
                         <NumberBox
+                            x:Name="MinAffixesForMagicItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Min, Mode=TwoWay}"
-                            Maximum="10"
+                            Maximum="{x:Bind MaxAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
@@ -142,9 +143,10 @@
                             Margin="7,0,0,0" />
 
                         <NumberBox
+                            x:Name="MaxAffixesForMagicItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForMagicItems.Max, Mode=TwoWay}"
                             Maximum="10"
-                            Minimum="0"
+                            Minimum="{x:Bind MinAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
                     </StackPanel>
@@ -178,8 +180,9 @@
                             VerticalAlignment="Center" />
 
                         <NumberBox
+                            x:Name="MinAffixesForRareItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Min, Mode=TwoWay}"
-                            Maximum="10"
+                            Maximum="{x:Bind MaxAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
@@ -190,9 +193,10 @@
                             Margin="7,0,0,0" />
 
                         <NumberBox
+                            x:Name="MaxAffixesForRareItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForRareItems.Max, Mode=TwoWay}"
                             Maximum="10"
-                            Minimum="0"
+                            Minimum="{x:Bind MinAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
                     </StackPanel>
@@ -226,8 +230,9 @@
                             VerticalAlignment="Center" />
 
                         <NumberBox
+                            x:Name="MinAffixesForEliteItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Min, Mode=TwoWay}"
-                            Maximum="10"
+                            Maximum="{x:Bind MaxAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
@@ -238,9 +243,10 @@
                             Margin="7,0,0,0" />
 
                         <NumberBox
+                            x:Name="MaxAffixesForEliteItemsNumberBox"
                             Value="{x:Bind ViewModel.Settings.AffixesForEliteItems.Max, Mode=TwoWay}"
                             Maximum="10"
-                            Minimum="0"
+                            Minimum="{x:Bind MinAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
                     </StackPanel>
