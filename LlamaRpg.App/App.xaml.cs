@@ -1,4 +1,5 @@
 ﻿using System;
+using LlamaRpg.App.Services;
 using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.App.ViewModels;
 using LlamaRpg.Services;
@@ -54,6 +55,9 @@ public partial class App
     {
         var services = new ServiceCollection();
         services.AddAppServices();
+        services.AddHttpClient(AppClientFactoryNames.AppUpdatesClientName, x => x.BaseAddress = new Uri("https://www.garydesign.org/"));
+        services.AddTransient<AppConfig>();
+        services.AddSingleton<IUpdatesDetector, UpdateDetector>();
         services.AddTransient<MainViewModel>();
         services.AddSerilog();
 

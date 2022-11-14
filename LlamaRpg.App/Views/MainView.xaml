@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:LlamaRpg.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glyphs="using:LlamaRpg.App.Styles"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:LlamaRpg.App.Models"
     xmlns:viewModels="using:LlamaRpg.App.ViewModels"
@@ -60,11 +61,34 @@
             MenuItemsSource="{x:Bind ViewModel.Pages}"
             SelectedItem="{x:Bind ViewModel.SelectedPage, Mode=TwoWay}">
             <NavigationView.PaneFooter>
-                <TextBlock
-                    Text="Llama RPG editor | 2022 | alpha 0.0.4"
-                    FontSize="12"
-                    Foreground="Gray"
-                    Margin="10,0,0,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Text="Llama RPG editor | 2022 |"
+                        FontSize="12"
+                        Foreground="Gray"
+                        Margin="10,0,0,0" />
+
+                    <TextBlock
+                        Text="{x:Bind ViewModel.CurrentVersion}"
+                        FontSize="12"
+                        Foreground="Gray"
+                        Margin="3,0,0,0" />
+
+                    <FontIcon
+                        Foreground="Orange"
+                        Glyph="{x:Bind glyphs:IconGlyphs.InfoSolid}"
+                        Visibility="{x:Bind ViewModel.NewVersionIsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="3,0,0,0">
+                        <ToolTipService.ToolTip>
+                            <TextBlock>
+                                <Run Text="New version is available: " />
+                                <Run Text="{x:Bind ViewModel.LastAppVersion, Mode=OneWay}" />
+                            </TextBlock>
+                        </ToolTipService.ToolTip>
+                    </FontIcon>
+                </StackPanel>
             </NavigationView.PaneFooter>
 
             <Frame Content="{x:Bind converters:MenuItemToPageConverter.Convert(ViewModel.SelectedPage), Mode=OneWay}" />

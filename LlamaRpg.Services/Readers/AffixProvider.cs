@@ -15,13 +15,13 @@ internal sealed class AffixProvider : IAffixProvider
     private const string PowerLevelPlusMinBlock = "plvl + minblock";
     private const string PowerLevelTimesThreePlusMaxBlock = "plvl * 3 + maxblock";
 
-    private readonly AppConfig _appConfig;
+    private readonly AppServicesConfig _appServicesConfig;
     private readonly List<Affix> _affixes = new();
     private readonly ILogger<AffixProvider> _logger;
 
-    public AffixProvider(AppConfig appConfig, ILogger<AffixProvider> logger)
+    public AffixProvider(AppServicesConfig appServicesConfig, ILogger<AffixProvider> logger)
     {
-        _appConfig = appConfig;
+        _appServicesConfig = appServicesConfig;
         _logger = logger;
     }
 
@@ -39,7 +39,7 @@ internal sealed class AffixProvider : IAffixProvider
     {
         try
         {
-            var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Affixes.csv");
+            var itemsFilePath = Path.Combine(_appServicesConfig.AssetsFilesFolder, "Affixes.csv");
 
             var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 

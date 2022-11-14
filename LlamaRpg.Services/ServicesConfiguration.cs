@@ -8,7 +8,7 @@ public static class ServicesConfiguration
 {
     public static ServiceCollection AddAppServices(this ServiceCollection services)
     {
-        services.AddSingleton<AppConfig>();
+        services.AddSingleton<AppServicesConfig>();
         services.AddSingleton<IRandomizerAffixValidator, RandomizerAffixValidator>();
         services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddSingleton<IItemProvider, ItemProvider>();

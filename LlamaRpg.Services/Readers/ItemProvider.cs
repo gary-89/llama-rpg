@@ -11,16 +11,16 @@ internal sealed class ItemProvider : IItemProvider
 {
     private const char CsvSeparator = ',';
 
-    private readonly AppConfig _appConfig;
+    private readonly AppServicesConfig _appServicesConfig;
     private readonly ItemValidator _itemValidator;
     private readonly ILogger<ItemProvider> _logger;
     private readonly List<ItemBase> _items2 = new();
 
     private List<ItemType>? _itemTypes;
 
-    public ItemProvider(AppConfig appConfig, ItemValidator itemValidator, ILogger<ItemProvider> logger)
+    public ItemProvider(AppServicesConfig appServicesConfig, ItemValidator itemValidator, ILogger<ItemProvider> logger)
     {
-        _appConfig = appConfig;
+        _appServicesConfig = appServicesConfig;
         _itemValidator = itemValidator;
         _logger = logger;
     }
@@ -174,7 +174,7 @@ internal sealed class ItemProvider : IItemProvider
         {
             _logger.LogInformation("Loading items...");
 
-            var itemsFilePath = Path.Combine(_appConfig.AssetsFilesFolder, "Items.csv");
+            var itemsFilePath = Path.Combine(_appServicesConfig.AssetsFilesFolder, "Items.csv");
             var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 
             foreach (var line in lines[1..])

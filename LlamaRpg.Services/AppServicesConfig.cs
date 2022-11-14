@@ -1,6 +1,6 @@
 ﻿namespace LlamaRpg.Services;
 
-internal sealed class AppConfig
+internal sealed class AppServicesConfig
 {
     public string AppFolder => AppContext.BaseDirectory;
 
