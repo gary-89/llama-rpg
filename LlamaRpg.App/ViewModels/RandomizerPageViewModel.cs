@@ -32,13 +32,17 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private readonly ILogger<RandomizerPageViewModel> _logger;
     private readonly AsyncRelayCommand _exportCommand;
     private readonly RelayCommand _stopCommand;
+    private readonly IList<RandomizedItem> _generatedItems = new List<RandomizedItem>();
 
+    private CancellationTokenSource? _cancellationTokenSource;
     private IReadOnlyList<ItemBase> _items = Array.Empty<ItemBase>();
     private IReadOnlyList<Affix> _affixes = Array.Empty<Affix>();
     private string? _fileToExportPath;
     private bool _exportEnabled;
     private bool _canStopRandomization;
     private bool _stopRandomization;
+    private string? _filterText;
+    private int _generatedItemsCount;
 
     public RandomizerPageViewModel(
         IRandomizedItemProvider randomizedItem,
@@ -67,6 +71,18 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     public AsyncRelayCommand RandomizeCommand { get; }
 
+    public string? FilterText
+    {
+        get => _filterText;
+        set
+        {
+            if (SetProperty(ref _filterText, value))
+            {
+                var _ = RefreshItems();
+            }
+        }
+    }
+
     public ICommand ClearCommand { get; }
 
     public ICommand StopCommand => _stopCommand;
@@ -74,6 +90,12 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     public ICommand ExportCommand => _exportCommand;
 
     public ObservableCollection<RandomizedItem> GeneratedItems { get; } = new();
+
+    public int GeneratedItemsCount
+    {
+        get => _generatedItemsCount;
+        set => SetProperty(ref _generatedItemsCount, value);
+    }
 
     public RandomizerSettingsViewModel SettingsViewModel { get; } = new();
 
@@ -134,9 +156,57 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         return 0;
     }
 
+    private async Task RefreshItems()
+    {
+        _cancellationTokenSource?.Cancel();
+
+        await Task.Delay(500).ConfigureAwait(true);
+
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        await InternalRefreshItemsAsync(_cancellationTokenSource.Token).ConfigureAwait(true);
+    }
+
+    private Task InternalRefreshItemsAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            GeneratedItems.Clear();
+
+            if (string.IsNullOrWhiteSpace(FilterText))
+            {
+                GeneratedItems.AddEach(_generatedItems);
+                return Task.CompletedTask;
+            }
+
+            var filteredItems = _generatedItems.Where(x =>
+                x.ItemName.Contains(FilterText, StringComparison.OrdinalIgnoreCase)
+                || x.BaseAffixes.Any(a => a.Contains(FilterText, StringComparison.OrdinalIgnoreCase))
+                || x.Affixes.Any(a => a.Contains(FilterText, StringComparison.OrdinalIgnoreCase)));
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            GeneratedItems.AddEach(filteredItems);
+        }
+        catch (OperationCanceledException)
+        {
+            // Ignore
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Something went wrong during the refresh: {Message}", exception.Message);
+        }
+
+        return Task.CompletedTask;
+    }
+
     private void ClearItemsAndStats()
     {
         GeneratedItems.Clear();
+        _generatedItems.Clear();
+        GeneratedItemsCount = 0;
         Stats.Clear();
         ExportEnabled = false;
     }
@@ -180,6 +250,8 @@ internal sealed class RandomizerPageViewModel : ObservableObject
                 }
 
                 GeneratedItems.Add(item);
+                GeneratedItemsCount++;
+                _generatedItems.Add(item);
 
                 RefreshStatsOnAddingItem(item);
 

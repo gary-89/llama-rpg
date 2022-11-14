@@ -103,7 +103,7 @@
                     Visibility="{x:Bind ViewModel.RandomizeCommand.IsRunning, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
                     VerticalAlignment="Center"
                     Margin="10,0,0,0">
-                    <Run Text="(" /><Run Text="{x:Bind ViewModel.GeneratedItems.Count, Mode=OneWay}" />
+                    <Run Text="(" /><Run Text="{x:Bind ViewModel.GeneratedItemsCount, Mode=OneWay}" />
                     <Run Text="generated items)" />
                 </TextBlock>
             </StackPanel>
@@ -133,6 +133,12 @@
                         Command="{x:Bind ViewModel.ClearCommand}"
                         Margin="10,0,0,0" />
                 </StackPanel>
+
+                <AutoSuggestBox
+                    Text="{x:Bind ViewModel.FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    PlaceholderText="Search item, affix..."
+                    QueryIcon="Find"
+                    Margin="0,10,0,0" />
             </StackPanel>
         </Grid>
 
