@@ -26,7 +26,7 @@ namespace LlamaRpg.App.ViewModels;
 
 internal sealed class RandomizerPageViewModel : ObservableObject
 {
-    private readonly IItemRandomizerProvider _itemRandomizer;
+    private readonly IRandomizedItemProvider _randomizedItem;
     private readonly IAffixProvider _affixProvider;
     private readonly IItemProvider _itemProvider;
     private readonly ILogger<RandomizerPageViewModel> _logger;
@@ -41,12 +41,12 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private bool _stopRandomization;
 
     public RandomizerPageViewModel(
-        IItemRandomizerProvider itemRandomizer,
+        IRandomizedItemProvider randomizedItem,
         IAffixProvider affixProvider,
         IItemProvider itemProvider,
         ILogger<RandomizerPageViewModel> logger)
     {
-        _itemRandomizer = itemRandomizer;
+        _randomizedItem = randomizedItem;
         _affixProvider = affixProvider;
         _itemProvider = itemProvider;
         _logger = logger;
@@ -168,7 +168,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
             CanStopRandomization = true;
 
             var numberOfGeneratedItems = 0;
-            await foreach (var item in _itemRandomizer.GenerateItemsAsync(CreateSettings(SettingsViewModel), cancellationToken).ConfigureAwait(true))
+            await foreach (var item in _randomizedItem.GenerateItemsAsync(CreateSettings(SettingsViewModel), cancellationToken).ConfigureAwait(true))
             {
                 if (_stopRandomization)
                 {

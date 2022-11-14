@@ -13,7 +13,7 @@ public static class ServicesConfiguration
         services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddSingleton<IItemProvider, ItemProvider>();
         services.AddSingleton<ItemValidator>();
-        services.AddSingleton<IItemRandomizerProvider, ItemRandomizerProvider>();
+        services.AddSingleton<IRandomizedItemProvider, RandomizedItemProvider>();
         return services;
     }
 }

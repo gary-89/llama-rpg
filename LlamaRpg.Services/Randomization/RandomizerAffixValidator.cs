@@ -7,6 +7,11 @@ internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
 {
     public bool ValidateRarity(AffixRule rule, ItemRarityType rarity)
     {
+        if (rarity == ItemRarityType.Normal)
+        {
+            return true;
+        }
+
         if (rule.IsEliteOnly && rarity == ItemRarityType.Elite)
         {
             return true;

@@ -9,20 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace LlamaRpg.Services.Randomization;
 
-internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
+internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 {
-
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
     private readonly IRandomizerAffixValidator _validator;
-    private readonly ILogger<ItemRandomizerProvider> _logger;
+    private readonly ILogger<RandomizedItemProvider> _logger;
     private readonly Random _random = new();
 
-    public ItemRandomizerProvider(
+    public RandomizedItemProvider(
         IItemProvider itemProvider,
         IAffixProvider affixProvider,
         IRandomizerAffixValidator validator,
-        ILogger<ItemRandomizerProvider> logger)
+        ILogger<RandomizedItemProvider> logger)
     {
         _itemProvider = itemProvider;
         _affixProvider = affixProvider;
@@ -64,6 +63,17 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
             yield return item;
         }
+    }
+
+    private static bool ValidateAffixRule(AffixRule r, ItemBase item, int itemLevelRequired, int itemPowerLevelRequired)
+    {
+        return r.ItemLevelRequired < itemLevelRequired
+               && r.PowerLevelRequired <= itemPowerLevelRequired
+               && (r.ItemTypes.Contains(item.Type)
+                   || r.ItemSubtypes.Contains(item.Subtype)
+                   || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (item.Subtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
+                   || (r.ItemTypes.Contains(ItemType.RangeWeapon) && (item.Subtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
+                   || (r.ItemTypes.Contains(ItemType.MagicWeapon) && (item.Subtype is ItemSubtype.Wand or ItemSubtype.Staff)));
     }
 
     private bool TryGenerateRandomizedItemFromItemType(
@@ -146,30 +156,20 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
         IEnumerable<Affix> affixes,
         RandomizerSettings settings)
     {
-        var itemType = item.Type;
-        var itemSubtype = item.Subtype;
-
         var matchingAffixes = affixes
-            .Where(x => x.Rules
-                .Any(r => r.ItemLevelRequired < settings.MonsterLevel
-                          && r.PowerLevelRequired <= itemPowerLevel
-                          && (r.ItemTypes.Contains(itemType)
-                              || r.ItemSubtypes.Contains(itemSubtype)
-                              || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (itemSubtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
-                              || (r.ItemTypes.Contains(ItemType.RangeWeapon) && (itemSubtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
-                              || (r.ItemTypes.Contains(ItemType.MagicWeapon) && (itemSubtype is ItemSubtype.Wand or ItemSubtype.Staff)))))
+            .Where(x => x.Rules.Any(r => ValidateAffixRule(r, item, settings.MonsterLevel, itemPowerLevel)))
             .ToList();
 
         if (matchingAffixes.Count == 0)
         {
-            _logger.LogError("Failed to generate a random drop: no matching affixes found for item type {ItemType}.", itemType);
-            throw new InvalidOperationException($"Failed to generate a random drop: no matching affixes found for item type {itemType}.");
+            _logger.LogError("Failed to generate a random drop: no matching affixes found for item type {ItemType}.", item.Type);
+            throw new InvalidOperationException($"Failed to generate a random drop: no matching affixes found for item type {item.Type}.");
         }
 
         var primaryElement = (PrimaryElement)_random.Next(0, 4);
         var secondaryElement = (SecondaryElement)_random.Next(0, 8);
 
-        var baseAffixes = GenerateBaseAffixes(item, primaryElement, secondaryElement, itemPowerLevel, matchingAffixes, out var affixGroupToExclude);
+        var baseAffixes = GenerateBaseAffixes(item, rarity, primaryElement, secondaryElement, itemPowerLevel, settings.MonsterLevel, matchingAffixes, out var affixGroupToExclude);
 
         if (rarity == ItemRarityType.Normal)
         {
@@ -186,20 +186,25 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var generatedAffixes = InternalGenerateAffixes(
             item,
-            secondaryElementOfWeapon: itemType == ItemType.Weapon ? secondaryElement : default,
+            rarity,
+            secondaryElementOfWeapon: item.Type == ItemType.Weapon ? secondaryElement : default,
             itemPowerLevel,
+            settings.MonsterLevel,
             numberOfAffixes,
-            matchingAffixes.Where(x => x.Rules.Any(r => _validator.ValidateRarity(r, rarity))).ToList(),
-            affixGroupToExclude, out _);
+            matchingAffixes,
+            affixGroupToExclude,
+            out _);
 
         return (baseAffixes.AsReadOnly(), generatedAffixes);
     }
 
     private List<string> GenerateBaseAffixes(
         ItemBase item,
+        ItemRarityType rarity,
         PrimaryElement primaryElement,
         SecondaryElement secondaryElement,
         int itemPowerLevel,
+        int itemLevelRequired,
         IReadOnlyCollection<Affix> matchingAffixes,
         out int? affixGroupToExclude)
     {
@@ -236,8 +241,10 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var baseAffix = InternalGenerateAffixes(
             item,
+            rarity,
             secondaryElementOfWeapon: default,
             itemPowerLevel,
+            itemLevelRequired,
             count: 1,
             mandatoryAffixes,
             default,
@@ -260,8 +267,10 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
         var baseAffix2 = InternalGenerateAffixes(
             item,
+            rarity,
             secondaryElementOfWeapon: default,
             itemPowerLevel,
+            itemLevelRequired,
             count: 1,
             mandatoryAffixes,
             default,
@@ -277,8 +286,10 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
 
     private IReadOnlyList<string> InternalGenerateAffixes(
         ItemBase item,
+        ItemRarityType itemRarity,
         SecondaryElement? secondaryElementOfWeapon,
         int itemPowerLevel,
+        int itemLevelRequired,
         int count,
         IReadOnlyCollection<Affix> matchingAffixes,
         int? affixGroupToExclude,
@@ -304,6 +315,7 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
             Affix affix;
             AffixRule affix1Rule;
             bool invalidAffix;
+
             do
             {
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
@@ -311,7 +323,8 @@ internal sealed class ItemRandomizerProvider : IItemRandomizerProvider
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
                 invalidAffix = (secondaryElementOfWeapon.HasValue && _validator.ValidateEnhanceDamageAffix(affix, secondaryElementOfWeapon.Value) == false)
-                    || itemPowerLevel < affix1Rule.PowerLevelRequired;
+                    || ValidateAffixRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false
+                    || _validator.ValidateRarity(affix1Rule, itemRarity) == false;
 
             } while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 
