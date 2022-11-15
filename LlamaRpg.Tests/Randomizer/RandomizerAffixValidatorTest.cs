@@ -1,6 +1,6 @@
 ﻿using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
-using LlamaRpg.Services.Randomization;
+using LlamaRpg.Services.Validators;
 
 namespace LlamaRpg.Tests.Randomizer;
 
@@ -53,16 +53,62 @@ public class RandomizerAffixValidatorTest
     [InlineData("Enhanced electric", SecondaryElement.Lightning)]
     [InlineData("Enhanced poison", SecondaryElement.Venom)]
     [InlineData("Enhanced poison", SecondaryElement.Acid)]
-    public void ValidateEnhanceDamage_WithCorrectElementCorrelation_ReturnTrue(string affixName, SecondaryElement elementOfWeapon)
+    public void ValidateItemSecondaryElement_WithCorrectElementCorrelation_ReturnTrue(string affixName, SecondaryElement elementOfItem)
     {
         // Arrange
         var affix = new Affix(affixName, hasPercentageSuffix: false);
 
         // Act
-        var result = _validator.ValidateEnhanceDamageAffix(affix, elementOfWeapon);
+        var result = _validator.ValidateSecondaryElementOfItem(affix, elementOfItem);
 
         // Assert
         Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData("Enhanced heat", PrimaryElement.Fire)]
+    [InlineData("Enhanced burn", PrimaryElement.Fire)]
+    [InlineData("Enhanced water", PrimaryElement.Cold)]
+    [InlineData("Enhanced ice", PrimaryElement.Cold)]
+    [InlineData("Enhanced spark", PrimaryElement.Electric)]
+    [InlineData("Enhanced lightning", PrimaryElement.Electric)]
+    [InlineData("Enhanced venom", PrimaryElement.Poison)]
+    [InlineData("Enhanced acid", PrimaryElement.Poison)]
+    public void ValidateItemPrimaryElement_WithCorrectElementCorrelation_ReturnTrue(string affixName, PrimaryElement elementOfItem)
+    {
+        // Arrange
+        var affix = new Affix(affixName, hasPercentageSuffix: false);
+
+        // Act
+        var result = _validator.ValidatePrimaryElementOfItem(affix, elementOfItem);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData("Enhanced cold", PrimaryElement.Fire)]
+    [InlineData("Enhanced poison", PrimaryElement.Fire)]
+    [InlineData("Enhanced electric", PrimaryElement.Fire)]
+    [InlineData("Enhanced fire", PrimaryElement.Cold)]
+    [InlineData("Enhanced poison", PrimaryElement.Cold)]
+    [InlineData("Enhanced electric", PrimaryElement.Cold)]
+    [InlineData("Enhanced fire", PrimaryElement.Electric)]
+    [InlineData("Enhanced cold", PrimaryElement.Electric)]
+    [InlineData("Enhanced poison", PrimaryElement.Electric)]
+    [InlineData("Enhanced fire", PrimaryElement.Poison)]
+    [InlineData("Enhanced electric", PrimaryElement.Poison)]
+    [InlineData("Enhanced cold", PrimaryElement.Poison)]
+    public void ValidateItemPrimaryElement_WithWrongElementCorrelation_ReturnFalse(string affixName, PrimaryElement elementOfWeapon)
+    {
+        // Arrange
+        var affix = new Affix(affixName, hasPercentageSuffix: false);
+
+        // Act
+        var result = _validator.ValidatePrimaryElementOfItem(affix, elementOfWeapon);
+
+        // Assert
+        Assert.False(result);
     }
 
     [Theory]
@@ -90,13 +136,13 @@ public class RandomizerAffixValidatorTest
     [InlineData("Enhanced cold", SecondaryElement.Venom)]
     [InlineData("Enhanced fire", SecondaryElement.Venom)]
     [InlineData("Enhanced electric", SecondaryElement.Venom)]
-    public void ValidateEnhanceDamage_WithWrongElementCorrelation_ReturnFalse(string affixName, SecondaryElement elementOfWeapon)
+    public void ValidateItemSecondaryElement_WithWrongElementCorrelation_ReturnFalse(string affixName, SecondaryElement elementOfWeapon)
     {
         // Arrange
         var affix = new Affix(affixName, hasPercentageSuffix: false);
 
         // Act
-        var result = _validator.ValidateEnhanceDamageAffix(affix, elementOfWeapon);
+        var result = _validator.ValidateSecondaryElementOfItem(affix, elementOfWeapon);
 
         // Assert
         Assert.False(result);

@@ -5,6 +5,7 @@ using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
 using LlamaRpg.Models.Randomizer;
 using LlamaRpg.Services.Readers;
+using LlamaRpg.Services.Validators;
 using Microsoft.Extensions.Logging;
 
 namespace LlamaRpg.Services.Randomization;
@@ -15,19 +16,19 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
-    private readonly IRandomizerAffixValidator _validator;
+    private readonly IRandomizerAffixValidator _affixValidator;
     private readonly ILogger<RandomizedItemProvider> _logger;
     private readonly Random _random = new();
 
     public RandomizedItemProvider(
         IItemProvider itemProvider,
         IAffixProvider affixProvider,
-        IRandomizerAffixValidator validator,
+        IRandomizerAffixValidator affixValidator,
         ILogger<RandomizedItemProvider> logger)
     {
         _itemProvider = itemProvider;
         _affixProvider = affixProvider;
-        _validator = validator;
+        _affixValidator = affixValidator;
         _logger = logger;
     }
 
@@ -189,7 +190,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         var generatedAffixes = InternalGenerateAffixes(
             item,
             rarity,
-            secondaryElementOfWeapon: item.Type == ItemType.Weapon ? secondaryElement : default,
+            primaryElementOfItem: item.Type is ItemType.Weapon or ItemType.Offhand ? primaryElement : default,
+            secondaryElementOfItem: item.Type is ItemType.Weapon or ItemType.Offhand ? secondaryElement : default,
             itemPowerLevel,
             settings.MonsterLevel,
             numberOfAffixes,
@@ -244,7 +246,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         var baseAffix = InternalGenerateAffixes(
             item,
             rarity,
-            secondaryElementOfWeapon: default,
+            primaryElementOfItem: default,
+            secondaryElementOfItem: default,
             itemPowerLevel,
             itemLevelRequired,
             count: 1,
@@ -270,7 +273,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         var baseAffix2 = InternalGenerateAffixes(
             item,
             rarity,
-            secondaryElementOfWeapon: default,
+            primaryElementOfItem: default,
+            secondaryElementOfItem: default,
             itemPowerLevel,
             itemLevelRequired,
             count: 1,
@@ -289,7 +293,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
     private IReadOnlyList<string> InternalGenerateAffixes(
         ItemBase item,
         ItemRarityType itemRarity,
-        SecondaryElement? secondaryElementOfWeapon,
+        PrimaryElement? primaryElementOfItem,
+        SecondaryElement? secondaryElementOfItem,
         int itemPowerLevel,
         int itemLevelRequired,
         int count,
@@ -324,9 +329,9 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                 affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
-                invalidAffix = (secondaryElementOfWeapon.HasValue && _validator.ValidateEnhanceDamageAffix(affix, secondaryElementOfWeapon.Value) == false)
-                    || ValidateAffixRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false
-                    || _validator.ValidateRarity(affix1Rule, itemRarity) == false;
+                invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
+                               || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
+                               || ValidateAffixRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false;
 
             } while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 

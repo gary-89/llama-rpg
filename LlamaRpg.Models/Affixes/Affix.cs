@@ -33,7 +33,9 @@ public sealed class Affix
         }
         else if (Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
         {
-            Type = Name.Equals(Defense, StringComparison.OrdinalIgnoreCase) ? AffixType.Defense : AffixType.ElementalDefense;
+            Type = Name.Equals(Defense, StringComparison.OrdinalIgnoreCase)
+                ? AffixType.Defense
+                : AffixType.ElementalDefense;
         }
         else
         {

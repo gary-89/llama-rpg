@@ -4,5 +4,5 @@ namespace LlamaRpg.App.Services;
 
 internal sealed class AppConfig
 {
-    public Version CurrentVersion { get; } = new(0, 0, 5, 0);
+    public Version CurrentVersion { get; } = new(0, 0, 6, 0);
 }

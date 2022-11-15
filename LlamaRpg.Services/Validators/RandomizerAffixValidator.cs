@@ -1,10 +1,12 @@
 ﻿using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
 
-namespace LlamaRpg.Services.Randomization;
+namespace LlamaRpg.Services.Validators;
 
 internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
 {
+    private const string Enhance = "enhanced";
+
     public bool ValidateRarity(AffixRule rule, ItemRarityType rarity)
     {
         if (rarity == ItemRarityType.Normal)
@@ -30,10 +32,27 @@ internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
         return rarity == ItemRarityType.Magic && !rule.IsEliteOnly;
     }
 
-    public bool ValidateEnhanceDamageAffix(Affix affix, SecondaryElement secondaryElementOfWeapon)
+    public bool ValidateItemElements(Affix affix, PrimaryElement? primaryElementOfWeapon, SecondaryElement? secondaryElementOfWeapon)
+    {
+        return (primaryElementOfWeapon.HasValue == false || ValidatePrimaryElementOfItem(affix, primaryElementOfWeapon.Value))
+               && (secondaryElementOfWeapon.HasValue == false || ValidateSecondaryElementOfItem(affix, secondaryElementOfWeapon.Value));
+    }
+
+    public bool ValidatePrimaryElementOfItem(Affix affix, PrimaryElement primaryElementOfWeapon)
     {
         if (affix.PrimaryElement.HasValue == false
-            || affix.Name.Contains("enhanced", StringComparison.OrdinalIgnoreCase) == false)
+            || affix.Name.Contains(Enhance, StringComparison.OrdinalIgnoreCase) == false)
+        {
+            return true;
+        }
+
+        return affix.PrimaryElement.Value == primaryElementOfWeapon;
+    }
+
+    public bool ValidateSecondaryElementOfItem(Affix affix, SecondaryElement secondaryElementOfWeapon)
+    {
+        if (affix.PrimaryElement.HasValue == false
+            || affix.Name.Contains(Enhance, StringComparison.OrdinalIgnoreCase) == false)
         {
             return true;
         }
