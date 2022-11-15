@@ -79,6 +79,7 @@
             <converters:NullToInvisibilityConverter x:Key="NullToInvisibilityConverter" />
             <converters:RarityTypeToForegroundBrushConverter x:Key="RarityTypeToForegroundBrushConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:DownloadUpdatesStateToSeverityConverter x:Key="DownloadUpdatesStateToSeverityConverter" />
             <converters:BooleanToVisibilityConverter
                 x:Key="InvertedBooleanToVisibilityConverter"
                 IsInverted="True" />

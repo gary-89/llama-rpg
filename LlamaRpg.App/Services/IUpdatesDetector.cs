@@ -7,4 +7,6 @@ namespace LlamaRpg.App.Services;
 internal interface IUpdatesDetector
 {
     public Task<Version?> GetLastVersionAsync(CancellationToken cancellationToken);
+
+    public Task<string?> DownloadLastVersionAsync(CancellationToken cancellationToken);
 }

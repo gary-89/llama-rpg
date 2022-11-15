@@ -26,6 +26,8 @@ namespace LlamaRpg.App.ViewModels;
 
 internal sealed class RandomizerPageViewModel : ObservableObject
 {
+    private const char CommaSeparator = ',';
+
     private readonly IRandomizedItemProvider _randomizedItem;
     private readonly IAffixProvider _affixProvider;
     private readonly IItemProvider _itemProvider;
@@ -281,7 +283,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, exception.Message);
+            _logger.LogError("Something went wrong during the generation of items: {Message}", exception.Message);
         }
     }
 
@@ -305,17 +307,31 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         {
             ExportEnabled = false;
 
-            var tempFolderPath = Path.GetTempPath();
+            var exportPath = Path.Combine(AppContext.BaseDirectory, "Item generation");
 
-            _fileToExportPath = $"{Path.Combine(tempFolderPath, "Export " + DateTime.Now.ToString("yyyyMMdd HHmmss"))}.txt";
+            if (!Directory.Exists(exportPath))
+            {
+                Directory.CreateDirectory(exportPath);
+            }
+
+            _fileToExportPath = $"{Path.Combine(exportPath, "Llama RPG items " + DateTime.Now.ToString("yyyyMMdd HHmmss"))}.txt";
 
             _logger.LogInformation("Exporting items to {Path}.", _fileToExportPath);
 
-            var lines = GeneratedItems.Select(x => string.Join(',', x.ItemType, x.Affixes, x.ItemRarityType.ToString()));
+            var lines = GeneratedItems
+                .Select(x => string.Join(
+                    CommaSeparator,
+                    x.ItemName,
+                    x.ItemType,
+                    x.ItemSubtype,
+                    x.PowerLevel,
+                    x.ItemRarityType.ToString(),
+                    x.BaseAffixes.Count > 0 ? string.Join(CommaSeparator, x.BaseAffixes) : string.Empty,
+                    x.Affixes.Count > 0 ? string.Join(CommaSeparator, x.Affixes) : string.Empty));
 
             await File.WriteAllLinesAsync(_fileToExportPath, lines, Encoding.UTF8, cancellationToken).ConfigureAwait(true);
 
-            await InfoBar.ShowAsync("File created", $"Items successfully exported to: {_fileToExportPath}", true).ConfigureAwait(true);
+            await InfoBar.ShowAsync("File created", $"Items exported to: {_fileToExportPath}", true).ConfigureAwait(true);
         }
         catch (Exception e)
         {

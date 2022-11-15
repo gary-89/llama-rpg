@@ -49,6 +49,12 @@
 
                 <TextBlock
                     Text="{x:Bind PowerLevel}"
+                    Visibility="{x:Bind PowerLevel, Converter={StaticResource ObjectEqualityToInvisibilityConverter}, ConverterParameter='0'}"
+                    Width="40" />
+
+                <TextBlock
+                    Text="-"
+                    Visibility="{x:Bind PowerLevel, Converter={StaticResource ObjectEqualityToVisibilityConverter}, ConverterParameter='0'}"
                     Width="40" />
 
                 <StackPanel>

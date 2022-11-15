@@ -25,6 +25,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -49,11 +50,15 @@
                 <MenuFlyoutItem
                     Text="About"
                     Command="{x:Bind ViewModel.AboutCommand}" />
+                <MenuFlyoutItem
+                    Text="Download last version"
+                    Command="{x:Bind ViewModel.DownloadLastVersionCommand}"
+                    Visibility="{x:Bind ViewModel.NewVersionIsAvailable, Mode=OneWay, ConverterParameter={StaticResource BooleanToVisibilityConverter}}" />
             </MenuBarItem>
         </MenuBar>
 
         <NavigationView
-            Grid.Row="1"
+            Grid.Row="2"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
@@ -80,7 +85,7 @@
                         Visibility="{x:Bind ViewModel.NewVersionIsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Margin="3,0,0,0">
+                        Margin="7,0,0,0">
                         <ToolTipService.ToolTip>
                             <TextBlock>
                                 <Run Text="New version is available: " />
@@ -93,5 +98,22 @@
 
             <Frame Content="{x:Bind converters:MenuItemToPageConverter.Convert(ViewModel.SelectedPage), Mode=OneWay}" />
         </NavigationView>
+
+        <InfoBar
+            Title="App updates"
+            Grid.Row="1"
+            IsClosable="True"
+            IsIconVisible="True"
+            IsOpen="{x:Bind ViewModel.DisplayInfoBar, Mode=TwoWay}"
+            Message="{x:Bind ViewModel.InfoBarMessage, Mode=OneWay}"
+            Severity="{x:Bind ViewModel.DownloadUpdatesState, Mode=OneWay, Converter={StaticResource DownloadUpdatesStateToSeverityConverter}}">
+            <InfoBar.Content>
+                <ProgressBar
+                    IsIndeterminate="{x:Bind ViewModel.IsDownloadingNewVersion, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsDownloadingNewVersion, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    MaxWidth="200"
+                    Margin="0,0,0,6" />
+            </InfoBar.Content>
+        </InfoBar>
     </Grid>
 </UserControl>

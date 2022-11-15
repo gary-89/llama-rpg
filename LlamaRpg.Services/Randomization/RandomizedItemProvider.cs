@@ -92,7 +92,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
             var rarity = GenerateRarity(settings, item.Type == ItemType.Jewelry);
 
-            var powerLevel = GeneratePowerLevel(settings.MonsterLevel);
+            var powerLevel = item.Type == ItemType.Jewelry ? 0 : GeneratePowerLevel(settings.MonsterLevel);
 
             var (baseAffixes, generatedAffixes) = GenerateAffixes(item, powerLevel, rarity, affixes, settings);
 

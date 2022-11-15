@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using LlamaRpg.Models.Items;
 using LlamaRpg.App.Toolkit.Extensions;
+using LlamaRpg.Models.Items;
 
 namespace LlamaRpg.App.Models;
 
