@@ -14,25 +14,10 @@
     <ApplicationIcon>Llama-icon.ico</ApplicationIcon>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Content Remove="Assets\Datasets\Affixes.csv" />
     <Content Remove="Assets\Datasets\Items.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="AboutView.xaml" />
-    <None Remove="MainView.xaml" />
-    <None Remove="Pages\AffixDetailsView.xaml" />
-    <None Remove="Pages\AffixesPage.xaml" />
-    <None Remove="Pages\ItemsPage.xaml" />
-    <None Remove="Pages\MapsPage.xaml" />
-    <None Remove="Pages\RandomizerPage.xaml" />
-    <None Remove="Styles\Colors.xaml" />
-    <None Remove="Styles\TextBlockStyle.xaml" />
-    <None Remove="Styles\ToolTipStyle.xaml" />
-    <None Remove="Views\Affixes\AffixesView.xaml" />
-    <None Remove="Views\Items\ItemsView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LlamaRpg.Models\LlamaRpg.Models.csproj" />
+    <ProjectReference Include="..\LlamaRpg.Services\LlamaRpg.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.5" />
@@ -56,6 +46,15 @@
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\Datasets\Affixes.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Datasets\Items.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <!-- 
     Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
     Tools extension to be activated for this project even if the Windows App SDK Nuget
@@ -63,59 +62,6 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Datasets\Affixes.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Datasets\Items.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Page Update="Views\Items\ItemsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Affixes\AffixesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Randomizer\RandomizerStatisticsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Randomizer\ItemsGeneratorView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Randomizer\RandomizerSettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Styles\ToolTipStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Styles\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\Affixes\AffixDetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Styles\TextBlockStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\MapsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\ItemsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Dialogs\AboutView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Pages\AffixesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 
   <!-- 
@@ -126,14 +72,4 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
-  <ItemGroup>
-    <CustomAdditionalCompileInputs Remove="Pages\RandomizerPage.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Remove="Pages\RandomizerPage.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LlamaRpg.Models\LlamaRpg.Models.csproj" />
-    <ProjectReference Include="..\LlamaRpg.Services\LlamaRpg.Services.csproj" />
-  </ItemGroup>
 </Project>
