@@ -8,6 +8,7 @@ internal sealed class AffixProvider : IAffixProvider
 {
     private const char CsvSeparator = ',';
 
+    private const string AffixesFileName = "Affixes.csv";
     private const string MinDamage = "mindam";
     private const string MaxDamagePerPowerLevel = "maxdam * plvl";
     private const string MinBlock = "minblock";
@@ -18,6 +19,20 @@ internal sealed class AffixProvider : IAffixProvider
     private readonly AppServicesConfig _appServicesConfig;
     private readonly List<Affix> _affixes = new();
     private readonly ILogger<AffixProvider> _logger;
+
+    private readonly HashSet<string> _percentageBaseAffixNames = new()
+    {
+        "Accuracy",
+        "Enhanced",
+        "Critical Strike",
+        "Life Steal",
+        "Mana Steal",
+        "Reflect",
+        "Resistance",
+        "Avoidance",
+        "Evasion",
+        "Find",
+    };
 
     public AffixProvider(AppServicesConfig appServicesConfig, ILogger<AffixProvider> logger)
     {
@@ -39,7 +54,7 @@ internal sealed class AffixProvider : IAffixProvider
     {
         try
         {
-            var itemsFilePath = Path.Combine(_appServicesConfig.AssetsFilesFolder, "Affixes.csv");
+            var itemsFilePath = Path.Combine(_appServicesConfig.AssetsFilesFolder, AffixesFileName);
 
             var lines = await File.ReadAllLinesAsync(itemsFilePath, cancellationToken).ConfigureAwait(false);
 
@@ -48,16 +63,20 @@ internal sealed class AffixProvider : IAffixProvider
             foreach (var line in lines[1..])
             {
                 var infos = line.Split(CsvSeparator);
+                var affixName = infos[0];
 
-                if (!string.IsNullOrWhiteSpace(infos[0]))
+                if (!string.IsNullOrWhiteSpace(affixName))
                 {
-                    var affix = new Affix(infos[0]);
+                    var affix = new Affix(
+                        affixName,
+                        hasPercentageSuffix: _percentageBaseAffixNames.Any(x =>
+                            affixName.Contains(x, StringComparison.OrdinalIgnoreCase) || x.Contains(affixName, StringComparison.OrdinalIgnoreCase)));
+
                     _affixes.Add(affix);
                     index++;
                     continue;
                 }
 
-                // TODO: improve the string manipulation
                 var itemTypeString = infos[21].Trim().Replace(" ", "");
                 var itemTypeString2 = infos[22].Trim().Replace(" ", "");
                 var itemTypeString3 = infos[23].Trim().Replace(" ", "");

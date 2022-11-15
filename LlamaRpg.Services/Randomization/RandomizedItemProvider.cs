@@ -11,6 +11,8 @@ namespace LlamaRpg.Services.Randomization;
 
 internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 {
+    private const string Percentage = "%";
+
     private readonly IItemProvider _itemProvider;
     private readonly IAffixProvider _affixProvider;
     private readonly IRandomizerAffixValidator _validator;
@@ -400,7 +402,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                     break;
             }
 
-            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name}: {mod}"));
+            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name}: {mod}{(affix.HasPercentageSuffix ? Percentage : string.Empty)}"));
             generatedAffixNames.Add(affix1Rule.Group);
         }
 

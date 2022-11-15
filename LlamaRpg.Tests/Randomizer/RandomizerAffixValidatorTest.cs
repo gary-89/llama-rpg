@@ -56,7 +56,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateEnhanceDamage_WithCorrectElementCorrelation_ReturnTrue(string affixName, SecondaryElement elementOfWeapon)
     {
         // Arrange
-        var affix = new Affix(affixName);
+        var affix = new Affix(affixName, hasPercentageSuffix: false);
 
         // Act
         var result = _validator.ValidateEnhanceDamageAffix(affix, elementOfWeapon);
@@ -93,7 +93,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateEnhanceDamage_WithWrongElementCorrelation_ReturnFalse(string affixName, SecondaryElement elementOfWeapon)
     {
         // Arrange
-        var affix = new Affix(affixName);
+        var affix = new Affix(affixName, hasPercentageSuffix: false);
 
         // Act
         var result = _validator.ValidateEnhanceDamageAffix(affix, elementOfWeapon);

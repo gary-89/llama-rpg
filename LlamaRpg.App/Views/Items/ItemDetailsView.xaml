@@ -657,19 +657,6 @@
                 </Button>
 
                 <Button
-                    Grid.Column="1"
-                    Command="{x:Bind ViewModel.SaveCommand}"
-                    Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                    Margin="10,0,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="Save" />
-                        <TextBlock
-                            Text="Save"
-                            Margin="10,0,0,0" />
-                    </StackPanel>
-                </Button>
-
-                <Button
                     Grid.Column="2"
                     Command="{x:Bind ViewModel.CancelCommand}"
                     Visibility="{x:Bind ViewModel.IsEditing, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"

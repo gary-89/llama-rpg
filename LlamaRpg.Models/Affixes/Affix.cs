@@ -15,9 +15,10 @@ public sealed class Affix
 
     private string? _types;
 
-    public Affix(string name)
+    public Affix(string name, bool hasPercentageSuffix)
     {
         Name = name;
+        HasPercentageSuffix = hasPercentageSuffix;
 
         SetType();
         SetPrimaryElement();
@@ -41,6 +42,8 @@ public sealed class Affix
     }
 
     public string Name { get; }
+
+    public bool HasPercentageSuffix { get; }
 
     public AffixType Type { get; private set; }
 

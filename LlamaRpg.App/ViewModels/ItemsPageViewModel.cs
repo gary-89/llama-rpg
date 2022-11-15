@@ -40,7 +40,6 @@ internal class ItemsPageViewModel : ObservableObject
         EditCommand = new RelayCommand(() => IsEditing = true);
         CancelCommand = new RelayCommand(CancelEditing);
         ClearSelectionCommand = new RelayCommand(ClearSelection);
-        SaveCommand = new AsyncRelayCommand(SaveItemAsync);
         DeleteItemStatusCommand = new RelayCommand<object>(DeleteItemStatus);
 
         TaskInitialize = new NotifyTaskCompletion<bool>(LoadItemsAsync());
@@ -51,7 +50,6 @@ internal class ItemsPageViewModel : ObservableObject
     public ICommand ClearSelectionCommand { get; }
     public ICommand AddCommand { get; }
     public ICommand EditCommand { get; }
-    public ICommand SaveCommand { get; }
     public ICommand CancelCommand { get; }
     public ICommand DeleteItemStatusCommand { get; }
 
@@ -210,71 +208,6 @@ internal class ItemsPageViewModel : ObservableObject
     {
         DisplayDetails = false;
         SelectedIndex = -1;
-    }
-
-    private async Task SaveItemAsync(CancellationToken cancellationToken)
-    {
-        if (_isAdding && IsNullOrWhiteSpace(EditingItem.Name))
-        {
-            IsEditing = false;
-            return;
-        }
-
-        //if (_isAdding)
-        //{
-        //    await SaveAddedItemAsync().ConfigureAwait(true);
-        //}
-        //else
-        //{
-        //    await SaveEditedItemAsync().ConfigureAwait(true);
-        //}
-
-        //_isAdding = false;
-        //IsEditing = false;
-
-        //async Task SaveAddedItemAsync()
-        //{
-        //    if (!await _itemProvider.AddItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-        //    {
-        //        _logger.LogError("Failed to add the item {ItemName}", EditingItem.Name);
-        //        return;
-        //    }
-
-        //    _items.Add(EditingItem);
-
-        //    var index = _items
-        //        .OrderBy(x => x.Type)
-        //        .ThenBy(x => x.Subtype)
-        //        .ThenBy(x => x.Name)
-        //        .Select((x, index) => new { x.Id, Index = index })
-        //        .FirstOrDefault(x => x.Id == EditingItem.Id)?.Index;
-
-        //    ItemsSource.Insert(index ?? 0, EditingItem);
-        //    SelectedItem = EditingItem;
-        //}
-
-        //async Task SaveEditedItemAsync()
-        //{
-        //    var editedItem = ItemsSource.FirstOrDefault(x => x.Id == SelectedItem?.Id);
-
-        //    if (editedItem is null)
-        //    {
-        //        IsEditing = false;
-        //        return;
-        //    }
-
-        //    if (!await _itemProvider.EditItemAsync(CreateItem(EditingItem), cancellationToken).ConfigureAwait(true))
-        //    {
-        //        _logger.LogError("Failed to save the item {ItemName}", EditingItem.Name);
-        //        return;
-        //    }
-
-        //    CopyItem(source: EditingItem, destination: editedItem);
-
-        //    RefreshListItem(editedItem);
-
-        //    OnPropertyChanged(nameof(SelectedItem));
-        //}
     }
 
     private static void CopyItem(ItemViewModel source, ItemViewModel destination)
