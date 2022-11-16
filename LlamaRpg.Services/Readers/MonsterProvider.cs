@@ -40,21 +40,20 @@ internal sealed class MonsterProvider : IMonsterProvider
             {
                 var infos = line.Split(CsvSeparator);
 
-                var areaLevelString = infos[0];
-
-                var monsterName = infos[1].Trim();
+                var areaTypeString = infos[0];
+                var monsterName = infos[1];
                 var monsterType = infos[2];
                 var monsterLevelString = infos[4];
 
                 if (string.IsNullOrWhiteSpace(monsterName)
                     || string.IsNullOrWhiteSpace(monsterType)
-                    || !int.TryParse(areaLevelString, out var areaLevel)
+                    || !int.TryParse(areaTypeString, out var areaTypeInt)
                     || !int.TryParse(monsterLevelString, out var monsterLevel))
                 {
                     continue; // Invalid monster: skip
                 }
 
-                var monster = new Monster(monsterName, monsterType, areaLevel, monsterLevel);
+                var monster = new Monster(monsterName, monsterType, (MonsterAreaType)areaTypeInt, monsterLevel);
 
                 _monsters.Add(monster);
             }

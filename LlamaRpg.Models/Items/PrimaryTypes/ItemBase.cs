@@ -17,6 +17,7 @@ public abstract class ItemBase : IEquatable<ItemBase>
     public string Name { get; }
     public ItemType Type { get; protected set; }
     public ItemSubtype Subtype { get; }
+    public ItemType? SubType2 { get; protected set; }
     public int RequiredStrength { get; }
     public int RequiredDexterity { get; }
     public int RequiredIntelligence { get; }

@@ -2,4 +2,11 @@
 
 namespace LlamaRpg.Models.Monsters;
 
-public sealed record RandomizedMonster(int Index, string Name, string Type, UniqueMonsterType UniqueMonsterType, int Area, int Level, IList<Item> Items);
+public sealed record RandomizedMonster(
+    int Index,
+    string Name,
+    string Type,
+    UniqueMonsterType UniqueMonsterType,
+    MonsterAreaType MonsterArea,
+    int Level,
+    IList<RandomizedItem> Items);

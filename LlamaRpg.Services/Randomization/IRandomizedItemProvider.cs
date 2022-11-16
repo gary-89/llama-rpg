@@ -5,5 +5,5 @@ namespace LlamaRpg.Services.Randomization;
 
 public interface IRandomizedItemProvider
 {
-    public IAsyncEnumerable<RandomizedItem> GenerateItemsAsync(RandomizerSettings settings, CancellationToken cancellationToken);
+    public IAsyncEnumerable<RandomizedItem> GenerateItemsAsync(ItemRandomizerSettings settings, CancellationToken cancellationToken);
 }

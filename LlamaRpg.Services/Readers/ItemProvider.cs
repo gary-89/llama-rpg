@@ -10,6 +10,9 @@ namespace LlamaRpg.Services.Readers;
 internal sealed class ItemProvider : IItemProvider
 {
     private const char CsvSeparator = ',';
+    private const string Space = " ";
+
+
 
     private readonly AppServicesConfig _appServicesConfig;
     private readonly ItemValidator _itemValidator;
@@ -91,22 +94,22 @@ internal sealed class ItemProvider : IItemProvider
     {
         var infos = line.Split(CsvSeparator);
         var name = infos[0].Trim();
-        int.TryParse(infos[4].Replace("%", ""), out var statusChancePercentage);
-        int.TryParse(infos[6].Replace("%", ""), out var status2ChancePercentage);
-        int.TryParse(infos[7].Replace("plvl *", ""), out var requiredStrength);
-        int.TryParse(infos[8].Replace("plvl *", ""), out var requiredDexterity);
-        int.TryParse(infos[9].Replace("plvl *", ""), out var requiredIntelligence);
-        int.TryParse(infos[10], out var sockets);
-        int.TryParse(infos[11], out var speed);
-        int.TryParse(infos[12], out var minDamage);
-        int.TryParse(infos[13], out var maxDamage);
-        int.TryParse(infos[14], out var minDefense);
-        int.TryParse(infos[15], out var maxDefense);
-        int.TryParse(infos[16], out var minBlock);
-        int.TryParse(infos[17], out var maxBlock);
+        int.TryParse(infos[5].Replace("%", ""), out var statusChancePercentage);
+        int.TryParse(infos[7].Replace("%", ""), out var status2ChancePercentage);
+        int.TryParse(infos[8].Replace("plvl *", ""), out var requiredStrength);
+        int.TryParse(infos[9].Replace("plvl *", ""), out var requiredDexterity);
+        int.TryParse(infos[10].Replace("plvl *", ""), out var requiredIntelligence);
+        int.TryParse(infos[11], out var sockets);
+        int.TryParse(infos[12], out var speed);
+        int.TryParse(infos[13], out var minDamage);
+        int.TryParse(infos[14], out var maxDamage);
+        int.TryParse(infos[15], out var minDefense);
+        int.TryParse(infos[16], out var maxDefense);
+        int.TryParse(infos[17], out var minBlock);
+        int.TryParse(infos[18], out var maxBlock);
 
         if (!Enum.TryParse<ItemType>(infos[1].Trim(), true, out var type) ||
-            !Enum.TryParse<ItemSubtype>(infos[2].Trim(), true, out var subtype))
+            !Enum.TryParse<ItemSubtype>(infos[3].Trim(), true, out var subtype))
         {
             item = default;
             return false;
@@ -118,9 +121,10 @@ internal sealed class ItemProvider : IItemProvider
                 item = new Weapon(
                     name,
                     subtype,
-                    status: infos[3].Trim(),
+                    Enum.TryParse<ItemType>(infos[2].Replace(Space, string.Empty), true, out var subtype2) ? subtype2 : null,
+                    status: infos[4].Trim(),
                     statusChancePercentage,
-                    status2: infos[5].Trim(),
+                    status2: infos[6].Trim(),
                     status2ChancePercentage,
                     requiredStrength,
                     requiredDexterity,
@@ -143,8 +147,8 @@ internal sealed class ItemProvider : IItemProvider
                     maxDefense,
                     minBlock,
                     maxBlock,
-                    totalMinBlock: infos[18],
-                    totalMaxBlock: infos[19],
+                    totalMinBlock: infos[19],
+                    totalMaxBlock: infos[20],
                     sockets);
                 break;
             case ItemType.Armor:

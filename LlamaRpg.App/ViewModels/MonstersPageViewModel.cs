@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,23 +8,26 @@ using CommunityToolkit.Mvvm.Input;
 using LlamaRpg.App.Toolkit.Async;
 using LlamaRpg.App.Toolkit.Extensions;
 using LlamaRpg.App.ViewModels.Monsters;
-using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Monsters;
+using LlamaRpg.Services.Randomization;
 using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
+using Range = LlamaRpg.Models.Range;
 
 namespace LlamaRpg.App.ViewModels;
 
 internal class MonstersPageViewModel : ObservableObject
 {
     private readonly IMonsterProvider _monsterProvider;
+    private readonly IRandomizedMonsterProvider _randomizedMonsterProvider;
     private readonly ILogger<MonstersPageViewModel> _logger;
 
     private readonly AsyncRelayCommand _randomizeCommand;
 
-    public MonstersPageViewModel(IMonsterProvider monsterProvider, ILogger<MonstersPageViewModel> logger)
+    public MonstersPageViewModel(IMonsterProvider monsterProvider, IRandomizedMonsterProvider randomizedMonsterProvider, ILogger<MonstersPageViewModel> logger)
     {
         _monsterProvider = monsterProvider;
+        _randomizedMonsterProvider = randomizedMonsterProvider;
         _logger = logger;
 
         ClearCommand = new RelayCommand(() => GeneratedMonsters.Clear());
@@ -70,34 +72,13 @@ internal class MonstersPageViewModel : ObservableObject
     {
         try
         {
-            var random = new Random();
+            var settings = new MonsterRandomizerSettings(
+                Settings.AreaType >= 0 ? (MonsterAreaType)Settings.AreaType : null,
+                new Range(Settings.MinMonsterLevel, Settings.MaxMonsterLevel));
 
-            var source = MonstersSource.Where(x => x.Area == Settings.AreaType).ToList();
-
-            for (var i = 0; i < 100; i++)
+            await foreach (var monster in _randomizedMonsterProvider.GenerateMonstersAsync(settings, CancellationToken.None).ConfigureAwait(true))
             {
-                var index = random.Next(0, source.Count);
-                var monster = source[index];
-
-                var uniqueBoss = random.Next(0, 100);
-
-                var uniqueMonsterType = uniqueBoss > 30
-                    ? UniqueMonsterType.Normal
-                    : uniqueBoss > 10
-                        ? UniqueMonsterType.Boss
-                        : UniqueMonsterType.SuperBoss;
-
-                var generatedMonster = new RandomizedMonster(
-                    i + 1,
-                    monster.Name,
-                    monster.Type,
-                    uniqueMonsterType,
-                    monster.Area,
-                    monster.Level + (uniqueMonsterType switch { UniqueMonsterType.Boss => 5, UniqueMonsterType.SuperBoss => 10, _ => 0 }),
-                    Array.Empty<Item>());
-
-                GeneratedMonsters.Add(generatedMonster);
-
+                GeneratedMonsters.Add(monster);
                 await Task.Delay(10, cancellationToken).ConfigureAwait(true);
             }
         }

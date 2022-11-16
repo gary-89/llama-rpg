@@ -129,9 +129,9 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         }
     }
 
-    private static RandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
+    private static ItemRandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
     {
-        return new RandomizerSettings(
+        return new ItemRandomizerSettings(
             settings.NumberOfItemsToGenerate,
             settings.MonsterLevel,
             new ItemDropRates(settings.MagicItemDropRate, settings.RareItemDropRate, settings.EliteItemDropRate),

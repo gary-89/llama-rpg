@@ -2,7 +2,7 @@
 
 namespace LlamaRpg.Models.Randomizer;
 
-public sealed record RandomizerSettings(
+public sealed record ItemRandomizerSettings(
     int NumberOfItemsToGenerate,
     int MonsterLevel,
     ItemDropRates ItemDropRates,

@@ -1,4 +1,4 @@
-﻿namespace LlamaRpg.Models.Randomizer;
+﻿namespace LlamaRpg.Models;
 
 public sealed class Range
 {

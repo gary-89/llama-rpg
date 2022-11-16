@@ -5,6 +5,7 @@ public sealed class Weapon : ItemBase
     public Weapon(
         string name,
         ItemSubtype subtype,
+        ItemType? subtype2,
         string? status,
         int statusChance,
         string? status2,
@@ -22,6 +23,7 @@ public sealed class Weapon : ItemBase
         : base(name, subtype, requiredStrength, requiredDexterity, requiredIntelligence, sockets)
     {
         Type = ItemType.Weapon;
+        SubType2 = subtype2;
         Speed = speed;
         Status = status;
         Status2 = status2;

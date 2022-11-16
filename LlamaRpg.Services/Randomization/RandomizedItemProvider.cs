@@ -33,7 +33,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
     }
 
     public async IAsyncEnumerable<RandomizedItem> GenerateItemsAsync(
-        RandomizerSettings settings,
+        ItemRandomizerSettings settings,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var items = await _itemProvider.GetItemsAsync(cancellationToken).ConfigureAwait(false);
@@ -84,12 +84,12 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         ItemType itemType,
         IEnumerable<ItemBase> items,
         IEnumerable<Affix> affixes,
-        RandomizerSettings settings,
+        ItemRandomizerSettings settings,
         [NotNullWhen(true)] out RandomizedItem? result)
     {
         try
         {
-            var possibleItems = items.Where(x => x.Type == itemType).ToList();
+            var possibleItems = items.Where(x => x.Type == itemType || x.SubType2 == itemType).ToList();
 
             var item = possibleItems.ElementAt(_random.Next(possibleItems.Count));
 
@@ -137,7 +137,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         }
     }
 
-    private ItemRarityType GenerateRarity(RandomizerSettings settings, bool isJewelry)
+    private ItemRarityType GenerateRarity(ItemRandomizerSettings settings, bool isJewelry)
     {
         var rarity = _random.Next(0, settings.ItemDropRates.EliteItemDropRate * settings.ItemDropRates.RareItemDropRate * settings.ItemDropRates.MagicItemDropRate);
 
@@ -157,7 +157,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         int itemPowerLevel,
         ItemRarityType rarity,
         IEnumerable<Affix> affixes,
-        RandomizerSettings settings)
+        ItemRandomizerSettings settings)
     {
         var matchingAffixes = affixes
             .Where(x => x.Rules.Any(r => ValidateAffixRule(r, item, settings.MonsterLevel, itemPowerLevel)))

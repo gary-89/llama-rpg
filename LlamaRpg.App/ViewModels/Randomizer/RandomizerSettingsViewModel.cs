@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LlamaRpg.Models;
 using LlamaRpg.Models.Items;
-using LlamaRpg.Models.Randomizer;
 
 namespace LlamaRpg.App.ViewModels.Randomizer;
 
