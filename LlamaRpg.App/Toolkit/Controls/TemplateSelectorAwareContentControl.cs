@@ -5,7 +5,7 @@ namespace LlamaRpg.App.Toolkit.Controls;
 internal class TemplateSelectorAwareContentControl : ContentControl
 {
     /// <summary>
-    /// Invoked when the value of the Content property changes. 
+    /// Invoked when the value of the Content property changes.
     /// </summary>
     /// <param name="oldContent">The old value of the Content property.</param>
     /// <param name="newContent">The new value of the Content property.</param>

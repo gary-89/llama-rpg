@@ -20,4 +20,4 @@ public enum ItemType
 
     [Display(Name = "Range weapon")]
     RangeWeapon,
-};
+}

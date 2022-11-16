@@ -12,7 +12,7 @@ internal sealed class NotifyTaskCompletion<TResult> : INotifyPropertyChanged
 
         if (!task.IsCompleted)
         {
-            var _ = WatchTaskAsync(CompletionTask);
+            _ = WatchTaskAsync(CompletionTask);
         }
     }
 

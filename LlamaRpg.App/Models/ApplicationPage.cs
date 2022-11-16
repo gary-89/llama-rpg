@@ -6,4 +6,4 @@ internal enum ApplicationPage
     Affixes,
     Monsters,
     Randomizer,
-};
+}

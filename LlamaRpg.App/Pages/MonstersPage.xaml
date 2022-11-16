@@ -20,13 +20,13 @@
             <StackPanel>
                 <TextBlock>
                     <Run Text="{x:Bind ItemName}" />
-                    <Run
+                    <!--<Run
                         Text="("
                         Foreground="Gray" /><Run
                         Text="{x:Bind ItemSubtype}"
                         Foreground="Gray" /><Run
                         Text=")"
-                        Foreground="Gray" />
+                        Foreground="Gray" />-->
                 </TextBlock>
             </StackPanel>
         </DataTemplate>

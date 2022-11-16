@@ -6,12 +6,12 @@ namespace LlamaRpg.Models.Affixes;
 
 public sealed class Affix
 {
-    private static readonly IReadOnlyList<string> s_primaryElements = Enum.GetNames(typeof(PrimaryElement));
-    private static readonly IReadOnlyList<string> s_secondaryElements = Enum.GetNames(typeof(SecondaryElement));
-
     private const string CommaSeparator = ", ";
     private const string Damage = "damage";
     private const string Defense = "defense";
+
+    private static readonly IReadOnlyList<string> _primaryElements = Enum.GetNames(typeof(PrimaryElement));
+    private static readonly IReadOnlyList<string> _secondaryElements = Enum.GetNames(typeof(SecondaryElement));
 
     private string? _types;
 
@@ -57,7 +57,8 @@ public sealed class Affix
 
     public string GetItemTypes()
     {
-        return _types ??= string.Join(CommaSeparator,
+        return _types ??= string.Join(
+            CommaSeparator,
             Rules.SelectMany(x => x.ItemTypes).Distinct().Select(x => GetDisplayName(x))
                 .Concat(Rules.SelectMany(x => x.ItemSubtypes).Distinct().Select(x => GetDisplayName(x))));
     }
@@ -76,6 +77,7 @@ public sealed class Affix
                 {
                     rulesByItemType.Add(key, new List<AffixRule>());
                 }
+
                 rulesByItemType[key].Add(rule);
             }
 
@@ -86,6 +88,7 @@ public sealed class Affix
                 {
                     rulesByItemType.Add(key, new List<AffixRule>());
                 }
+
                 rulesByItemType[key].Add(rule);
             }
         }
@@ -105,7 +108,7 @@ public sealed class Affix
 
     private void SetPrimaryElement()
     {
-        foreach (var primaryElementString in s_primaryElements)
+        foreach (var primaryElementString in _primaryElements)
         {
             if (!Name.Contains(primaryElementString, StringComparison.OrdinalIgnoreCase) ||
                 !Enum.TryParse<PrimaryElement>(primaryElementString, out var primaryElement))
@@ -120,7 +123,7 @@ public sealed class Affix
 
     private void SetSecondaryElement()
     {
-        foreach (var secondaryElementString in s_secondaryElements)
+        foreach (var secondaryElementString in _secondaryElements)
         {
             if (!Name.Contains(secondaryElementString, StringComparison.OrdinalIgnoreCase) ||
                 !Enum.TryParse<SecondaryElement>(secondaryElementString, out var secondaryElement))

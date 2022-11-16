@@ -10,12 +10,12 @@ namespace LlamaRpg.App.Converters;
 
 internal sealed class EnumToForegroundBrushConverter : IValueConverter
 {
-    private static readonly SolidColorBrush s_defaultBrush = Application.Current.Resources["DefaultTextForegroundThemeBrush"] as SolidColorBrush
+    private static readonly SolidColorBrush DefaultBrush = Application.Current.Resources["DefaultTextForegroundThemeBrush"] as SolidColorBrush
                                                              ?? throw new InvalidOperationException("Default text block brush cannot be found");
 
-    private static readonly SolidColorBrush s_eliteItemColorBrush = new(Color.FromArgb(255, 199, 179, 119));
-    private static readonly SolidColorBrush s_rareItemColorBrush = new(Color.FromArgb(255, 255, 255, 100));
-    private static readonly SolidColorBrush s_magicItemColorBrush = new(Color.FromArgb(255, 105, 105, 255));
+    private static readonly SolidColorBrush EliteItemColorBrush = new(Color.FromArgb(255, 199, 179, 119));
+    private static readonly SolidColorBrush RareItemColorBrush = new(Color.FromArgb(255, 255, 255, 100));
+    private static readonly SolidColorBrush MagicItemColorBrush = new(Color.FromArgb(255, 105, 105, 255));
 
     public object Convert(object value, Type targetType, object parameter, string language)
     {
@@ -23,18 +23,18 @@ internal sealed class EnumToForegroundBrushConverter : IValueConverter
         {
             ItemRarityType itemType => itemType switch
             {
-                ItemRarityType.Magic => s_magicItemColorBrush,
-                ItemRarityType.Rare => s_rareItemColorBrush,
-                ItemRarityType.Elite => s_eliteItemColorBrush,
-                _ => s_defaultBrush
+                ItemRarityType.Magic => MagicItemColorBrush,
+                ItemRarityType.Rare => RareItemColorBrush,
+                ItemRarityType.Elite => EliteItemColorBrush,
+                _ => DefaultBrush
             },
             UniqueMonsterType monsterType => monsterType switch
             {
-                UniqueMonsterType.Boss => s_magicItemColorBrush,
-                UniqueMonsterType.SuperBoss => s_eliteItemColorBrush,
-                _ => s_defaultBrush
+                UniqueMonsterType.Boss => MagicItemColorBrush,
+                UniqueMonsterType.SuperBoss => EliteItemColorBrush,
+                _ => DefaultBrush
             },
-            _ => s_defaultBrush
+            _ => DefaultBrush
         };
     }
 

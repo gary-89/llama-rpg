@@ -5,7 +5,6 @@
 
     <Product>LlamaRpg Tools</Product>
     <Authors>Gary Design</Authors>
-    <Company>Gary Design</Company>
 
     <Nullable>enable</Nullable>
     <NeutralLanguage>en</NeutralLanguage>

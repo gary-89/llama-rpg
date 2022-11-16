@@ -11,7 +11,8 @@ internal static class ServiceCollectionExtensions
     {
         var flushInterval = new TimeSpan(0, 0, 1);
         var logFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LlamaRpgTools");
-        const long FileSizeLimitBytes = (long)1024 * 1024 * 1024 * 10;
+
+        const long FileSizeLimitBytes = 1024L * 1024 * 1024 * 10;
 
         if (!Directory.Exists(logFolderPath))
         {

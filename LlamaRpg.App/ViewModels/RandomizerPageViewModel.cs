@@ -80,7 +80,7 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         {
             if (SetProperty(ref _filterText, value))
             {
-                var _ = RefreshItems();
+                _ = RefreshItems();
             }
         }
     }
@@ -145,14 +145,18 @@ internal sealed class RandomizerPageViewModel : ObservableObject
         _items = await _itemProvider.GetItemsAsync(CancellationToken.None).ConfigureAwait(true);
 
         var itemTypes = await _itemProvider.GetItemTypesAsync(CancellationToken.None).ConfigureAwait(true);
-        SettingsViewModel.ItemTypeWeights.AddEach(itemTypes.Select(x => new ItemTypeWeightDrop(x, x switch
+        SettingsViewModel.ItemTypeWeights.AddEach(itemTypes.Select(x =>
         {
-            ItemType.Weapon => ItemTypeWeightDrop.DefaultWeaponWeight,
-            ItemType.Offhand => ItemTypeWeightDrop.DefaultOffhandWeight,
-            ItemType.Armor => ItemTypeWeightDrop.DefaultArmorWeight,
-            ItemType.Jewelry => ItemTypeWeightDrop.DefaultJewelryWeight,
-            _ => 0
-        })));
+            var weight = x switch
+            {
+                ItemType.Weapon => ItemTypeWeightDrop.DefaultWeaponWeight,
+                ItemType.Offhand => ItemTypeWeightDrop.DefaultOffhandWeight,
+                ItemType.Armor => ItemTypeWeightDrop.DefaultArmorWeight,
+                ItemType.Jewelry => ItemTypeWeightDrop.DefaultJewelryWeight,
+                _ => 0
+            };
+            return new ItemTypeWeightDrop(x, weight);
+        }));
 
         RandomizeCommand.NotifyCanExecuteChanged();
         return 0;

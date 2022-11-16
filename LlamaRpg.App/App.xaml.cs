@@ -66,6 +66,6 @@ public partial class App
 
     private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        _logger?.LogCritical(e.Exception, "{Type} exception: {Message}", (e.Handled ? "Handled" : "Unhandled"), e.Message);
+        _logger?.LogCritical(e.Exception, "{Type} exception: {Message}", e.Handled ? "Handled" : "Unhandled", e.Message);
     }
 }

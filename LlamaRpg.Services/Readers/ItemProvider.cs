@@ -12,8 +12,6 @@ internal sealed class ItemProvider : IItemProvider
     private const char CsvSeparator = ',';
     private const string Space = " ";
 
-
-
     private readonly AppServicesConfig _appServicesConfig;
     private readonly ItemValidator _itemValidator;
     private readonly ILogger<ItemProvider> _logger;
@@ -48,6 +46,7 @@ internal sealed class ItemProvider : IItemProvider
         {
             return Task.FromResult(false);
         }
+
         _items2.RemoveAt(index);
         _items2.Insert(index, item);
         return Task.FromResult(true);

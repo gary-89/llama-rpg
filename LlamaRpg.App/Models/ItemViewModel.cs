@@ -70,8 +70,8 @@ internal sealed class ItemViewModel : ObservableObject
         Sockets = sockets;
     }
 
-    public ItemViewModel(Item item) :
-        this(
+    public ItemViewModel(Item item)
+        : this(
             item.Id,
             item.Name,
             item.Type,

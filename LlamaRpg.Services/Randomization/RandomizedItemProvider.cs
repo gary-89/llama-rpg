@@ -332,8 +332,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                 invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
                                || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
                                || ValidateAffixRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false;
-
-            } while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
+            }
+            while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 
             var mod = affix1Rule.Modifier1MinText;
             int min, max;
@@ -381,7 +381,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
                 case AffixModifierType.PowerLevelPlusMinimumBlock when item is Weapon weapon:
                     min = itemPowerLevel + weapon.MinBlock;
-                    max = itemPowerLevel * 3 + weapon.MaxBlock;
+                    max = (itemPowerLevel * 3) + weapon.MaxBlock;
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
@@ -392,7 +392,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
                 case AffixModifierType.PowerLevelPlusMinimumBlock when item is Offhand offhand:
                     min = itemPowerLevel + offhand.MinBlock;
-                    max = itemPowerLevel * 3 + offhand.MaxBlock;
+                    max = (itemPowerLevel * 3) + offhand.MaxBlock;
 
                     EnsureMaxValue(affix1Rule.Modifier1Text, affix1Rule.Modifier1MinText, min, ref max);
 
@@ -424,7 +424,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
             _logger.LogDebug(
                 "Generating affix {ModifierCode}: max resulted to be less then min for {ModifierText}.",
-                modifierCode, modifierText);
+                modifierCode,
+                modifierText);
         }
     }
 

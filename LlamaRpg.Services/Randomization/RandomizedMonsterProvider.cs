@@ -28,7 +28,7 @@ internal sealed class RandomizedMonsterProvider : IRandomizedMonsterProvider
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var source = monsters.Where(x => (settings.MonsterAreaType is null || x.monsterArea == settings.MonsterAreaType)
+            var source = monsters.Where(x => (settings.MonsterAreaType is null || x.MonsterArea == settings.MonsterAreaType)
                                              && x.Level >= settings.MonsterLevel.Min
                                              && x.Level <= settings.MonsterLevel.Max).ToList();
 
@@ -64,18 +64,20 @@ internal sealed class RandomizedMonsterProvider : IRandomizedMonsterProvider
                 items.Add(item);
             }
 
+            var monsterLevel = monster.Level + uniqueMonsterType switch
+            {
+                UniqueMonsterType.Boss => 5,
+                UniqueMonsterType.SuperBoss => 10,
+                _ => 0
+            };
+
             var generatedMonster = new RandomizedMonster(
                 i + 1,
                 monster.Name,
                 monster.Type,
                 uniqueMonsterType,
-                monster.monsterArea,
-                monster.Level + (uniqueMonsterType switch
-                {
-                    UniqueMonsterType.Boss => 5,
-                    UniqueMonsterType.SuperBoss => 10,
-                    _ => 0
-                }),
+                monster.MonsterArea,
+                monsterLevel,
                 items);
 
             yield return generatedMonster;
