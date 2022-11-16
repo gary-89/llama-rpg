@@ -4,5 +4,6 @@ internal enum ApplicationPage
 {
     Items,
     Affixes,
+    Monsters,
     Randomizer,
 };

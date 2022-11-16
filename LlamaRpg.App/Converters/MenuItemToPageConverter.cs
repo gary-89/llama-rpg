@@ -17,6 +17,7 @@ internal sealed class MenuItemToPageConverter
         {
             ApplicationPage.Items => new ItemsPage(),
             ApplicationPage.Affixes => new AffixesPage(),
+            ApplicationPage.Monsters => new MonstersPage(),
             ApplicationPage.Randomizer => new RandomizerPage(),
             _ => new ItemsPage()
         };

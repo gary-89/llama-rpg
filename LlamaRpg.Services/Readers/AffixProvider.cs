@@ -44,13 +44,13 @@ internal sealed class AffixProvider : IAffixProvider
     {
         if (_affixes.Count == 0)
         {
-            await LoadAffixesAsync(cancellationToken).ConfigureAwait(false);
+            await LoadAsync(cancellationToken).ConfigureAwait(false);
         }
 
         return _affixes.AsReadOnly();
     }
 
-    private async Task LoadAffixesAsync(CancellationToken cancellationToken)
+    private async Task LoadAsync(CancellationToken cancellationToken)
     {
         try
         {

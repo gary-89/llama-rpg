@@ -31,19 +31,19 @@
 
                 <TextBlock
                     Text="{x:Bind ItemName}"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource EnumToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="150" />
 
                 <TextBlock
                     Text="{x:Bind ItemType}"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource EnumToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="100" />
 
                 <TextBlock
                     Text="{x:Bind ItemSubtype}"
-                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource RarityTypeToForegroundBrushConverter}}"
+                    Foreground="{x:Bind ItemRarityType, Converter={StaticResource EnumToForegroundBrushConverter}}"
                     TextTrimming="CharacterEllipsis"
                     Width="100" />
 

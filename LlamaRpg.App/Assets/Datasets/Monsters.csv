@@ -1,0 +1,741 @@
+TransLvl,NameStr,MonType,AI,Level,lUndead,hUndead,demon,flying,Skill1,Sk1mode,Sk1lvl,Skill2,Sk2mode,Sk2lvl,Skill3,Sk3mode,Sk3lvl,Skill4,Sk4mode,Sk4lvl,Skill5,Sk5mode,Sk5lvl,Skill6,Sk6mode,Sk6lvl,Skill7,Sk7mode,Sk7lvl,Skill8,Sk8mode,Sk8lvl,ResDm,ResMa,ResFi,ResLi,ResCo,ResPo,ToBlock,minHP,maxHP,AC,Exp,A1MinD,A1MaxD,A1TH,TreasureClass1,TreasureClass2,TreasureClass3
+0,Skeleton,skeleton,Skeleton,2,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,50,10,86,129,84,86,34,101,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,Returned,skeleton,Skeleton,6,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,50,15,87,127,84,86,41,101,93,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,BoneWarrior,skeleton,Skeleton,7,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,40,50,20,89,124,84,85,41,121,94,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+3,BurningDead,skeleton,Skeleton,13,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,50,,,50,25,93,133,84,85,45,101,93,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+4,Horror,skeleton,Skeleton,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,20,,60,,50,30,94,131,84,85,41,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+0,Zombie,zombie,Zombie,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,3,101,181,84,111,51,151,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,HungryDead,zombie,Zombie,2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,4,101,186,84,111,34,101,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+2,Ghoul,zombie,Zombie,12,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,13,108,197,84,109,51,138,93,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+3,DrownedCarcass,zombie,Zombie,22,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,,50,,,50,22,107,192,85,109,51,136,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,PlagueBearer,zombie,Zombie,17,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,,,,50,17,109,192,84,109,55,137,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+0,Afflicted,bighead,Bighead,12,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,,,11,66,127,63,81,76,113,77,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+1,Tainted,bighead,Bighead,11,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,,,10,67,130,63,81,63,101,74,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+2,Misshapen,bighead,Bighead,5,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,,5,62,124,64,81,76,101,73,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+3,Disfigured,bighead,Bighead,8,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,,,8,67,128,63,81,67,101,77,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+4,Damned,bighead,Bighead,27,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,80,,,22,65,126,63,88,71,106,75,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+0,FoulCrow,foulcrow,BloodHawk,4,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5,19,46,13,37,26,51,89,Act 1 Cast A,Act 1 Champ A,Act 1 Unique A
+1,BloodHawk,foulcrow,BloodHawk,6,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,7,21,41,14,37,41,61,93,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BlackRaptor,foulcrow,BloodHawk,16,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,17,21,45,13,37,37,64,94,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+3,CloudStalker,foulcrow,BloodHawk,22,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,20,60,,,22,22,44,13,36,36,72,94,Act 3 Cast A,Act 3 Champ A,Act 3 Unique A
+0,Fallen,fallen,Fallen,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,9,21,61,84,61,51,101,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,Carver,fallen,Fallen,5,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,24,54,84,61,51,101,91,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,Devilkin,fallen,Fallen,7,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,18,53,84,59,41,101,94,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+3,DarkOne,fallen,Fallen,10,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,36,23,55,84,60,43,101,91,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+4,WarpedFallen,fallen,Fallen,40,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,50,49,21,55,84,93,45,93,93,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Brute,brute,Brute,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6,139,224,84,121,76,101,91,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+1,Yeti,brute,Brute,9,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,,10,146,236,84,121,58,101,95,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+2,Crusher,brute,Brute,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,,,,,19,143,231,84,120,62,101,93,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+3,WailingBeast,brute,Brute,23,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,20,,,,23,142,230,85,121,61,107,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,GargantuanBeast,brute,Brute,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4,129,215,84,121,67,101,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+0,SandRaider,sandraider,SandRaider,13,,,,,Fire Hit,seq_firehit,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,136,211,84,117,67,101,175,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,Marauder,sandraider,SandRaider,17,,,,,Fire Hit,seq_firehit,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,32,134,212,84,117,64,101,175,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+2,Invader,sandraider,SandRaider,18,,,,,Fire Hit,seq_firehit,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,34,135,211,84,117,67,92,176,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,Infidel,sandraider,SandRaider,24,,,,,Fire Hit,seq_firehit,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,44,135,211,85,116,63,94,176,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,Assailant,sandraider,SandRaider,26,,,,,Fire Hit,seq_firehit,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,48,134,210,84,123,65,95,176,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Ghost,wraith,Wraith,7,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,50,8,83,165,84,93,61,121,94,Act 1 Wraith B,Act 1 Champ B,Act 1 Unique B
+1,Wraith,wraith,Wraith,10,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,,,,50,11,87,173,84,92,58,115,91,Act 1 Wraith C,Act 1 Champ C,Act 1 Unique C
+2,Specter,wraith,Wraith,19,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,40,,,,,50,19,86,173,84,92,62,101,93,Act 2 Wraith C,Act 2 Champ C,Act 2 Unique C
+3,Apparition,wraith,Wraith,20,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,50,,,,,50,20,86,172,85,93,62,108,93,Act 2 Wraith C,Act 2 Champ C,Act 2 Unique C
+4,DarkShape,wraith,Wraith,22,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,60,,,,,50,22,85,172,85,93,65,108,94,Act 3 Wraith A,Act 3 Champ A,Act 3 Unique A
+0,DarkHunter,corruptrogue,CorruptRogue,2,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,12,58,101,84,78,34,101,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,VileHunter,corruptrogue,CorruptRogue,5,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,18,62,101,84,78,51,126,91,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,DarkStalker,corruptrogue,CorruptRogue,8,,,1,,CountessFirewall,A1,10,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,67,112,84,79,51,117,95,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+3,BlackRogue,corruptrogue,CorruptRogue,9,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,66,111,84,79,43,115,95,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+4,FleshHunter,corruptrogue,CorruptRogue,23,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,,40,65,107,85,78,47,121,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,DuneBeast,baboon,Baboon,18,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,18,108,151,84,96,51,151,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+1,RockDweller,baboon,Baboon,18,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,18,108,151,84,96,51,151,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+2,JungleHunter,baboon,Baboon,21,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,107,151,85,97,51,151,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,DoomApe,baboon,Baboon,22,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,107,151,85,96,51,158,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,TempleGuard,baboon,Baboon,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,107,151,85,97,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,MoonClan,goatman,Goatman,4,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5,110,137,51,91,76,126,89,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,NightClan,goatman,Goatman,6,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,7,114,141,51,91,81,141,93,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,BloodClan,goatman,Goatman,7,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8,112,136,51,91,81,161,94,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+3,HellClan,goatman,Goatman,19,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,,,19,116,143,51,90,70,147,93,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+4,DeathClan,goatman,Goatman,10,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,20,,,,11,119,146,51,91,72,158,91,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+0,FallenShaman,fallen,FallenShaman,2,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFire,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,,25,,,,4,58,101,84,81,34,101,101,Act 1 Cast A,Act 1 Champ A,Act 1 Unique A
+1,CarverShaman,fallen,FallenShaman,6,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFire,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,,30,,,,7,61,101,84,81,41,121,93,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,DevilkinShaman,fallen,FallenShaman,9,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFire,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,,35,,,,10,66,111,84,81,43,115,95,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+3,DarkShaman,fallen,FallenShaman,11,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFire,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,,40,,,,12,67,109,84,81,51,113,92,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+4,WarpedShaman,fallen,FallenShaman,40,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFire,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,20,70,,,,39,65,107,84,125,53,121,93,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+0,QuillRat,quillrat,QuillRat,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,21,81,84,71,51,101,101,Quill 1,Act 1 Champ A,Act 1 Unique A
+1,SpikeFiend,quillrat,QuillRat,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6,24,85,84,71,26,126,91,Quill 2,Act 1 Champ A,Act 1 Unique A
+2,ThornBeast,quillrat,QuillRat,8,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,9,23,89,84,71,34,117,95,Quill 3,Act 1 Champ B,Act 1 Unique B
+3,RazorSpine,quillrat,QuillRat,9,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,10,21,86,84,71,29,115,95,Quill 4,Act 1 Champ C,Act 1 Unique C
+4,JungleUrchin,quillrat,QuillRat,18,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,18,22,87,84,71,34,117,92,Quill 5,Act 3 Champ A,Act 3 Unique A
+0,SandMaggot,sandmaggot,SandMaggot,16,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,17,139,174,84,117,82,182,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,RockWorm,sandmaggot,SandMaggot,17,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,17,139,173,84,117,91,191,92,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,Devourer,sandmaggot,SandMaggot,19,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,19,141,173,84,116,85,177,93,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,GiantLamprey,sandmaggot,SandMaggot,21,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,21,139,171,85,117,86,186,94,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+4,WorldKiller,sandmaggot,SandMaggot,27,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,27,140,172,84,127,89,189,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,TombViper,clawviper,ClawViper,11,,,,,SerpentCharge,seq_serpentcharge,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,12,67,109,84,78,51,88,92,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+1,ClawViper,clawviper,ClawViper,15,,,,,SerpentCharge,seq_serpentcharge,1,,,,,,,,,,,,,,,,,,,,,,,,,,20,,16,66,107,84,78,61,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,Salamander,clawviper,ClawViper,18,,,,,SerpentCharge,seq_serpentcharge,1,,,,,,,,,,,,,,,,,,,,,,,,,,40,,18,66,108,84,78,51,92,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,PitViper,clawviper,ClawViper,22,,,,,SerpentCharge,seq_serpentcharge,1,,,,,,,,,,,,,,,,,,,,,,,,,,60,60,22,66,107,85,78,58,101,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,SerpentMagus,clawviper,ClawViper,24,,,,,SerpentCharge,seq_serpentcharge,1,,,,,,,,,,,,,,,,,,,,,,,40,,,80,20,24,65,107,85,78,51,94,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,SandLeaper,sandleaper,SandLeaper,14,,,,,MonLeap,seq_leaperleap,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,194,84,94,61,121,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,CaveLeaper,sandleaper,SandLeaper,15,,,,,MonLeap,seq_leaperleap,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,66,194,84,94,61,121,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,TombCreeper,sandleaper,SandLeaper,17,,,,,MonLeap,seq_leaperleap,3,,,,,,,,,,,,,,,,,,,,,,,,40,,,,17,64,192,84,94,64,128,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,TreeLurker,sandleaper,SandLeaper,22,,,,,MonLeap,seq_leaperleap,4,,,,,,,,,,,,,,,,,,,,,,,,20,40,,,22,66,192,85,94,65,122,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,RazorPitDemon,sandleaper,SandLeaper,26,,,,,MonLeap,seq_leaperleap,5,,,,,,,,,,,,,,,,,,,,,,20,,60,40,,,26,65,193,84,99,59,118,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,Huntress,pantherwoman,PantherWoman,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,57,97,64,71,51,121,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,SaberCat,pantherwoman,PantherWoman,15,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,57,97,63,70,51,121,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,NightTiger,pantherwoman,PantherWoman,17,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,59,95,63,71,55,128,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,HellCat,pantherwoman,PantherWoman,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,58,96,63,70,47,116,93,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+0,Itchies,swarm,Swarm,16,,,,,Swarm Move,seq_swarmmove,1,,,,,,,,,,,,,,,,,,,,,,60,,,,,,17,21,45,84,61,73,91,94,Swarm 1,Act 2 Champ B,Act 2 Unique B
+1,BlackLocusts,swarm,Swarm,17,,,,,Swarm Move,seq_swarmmove,1,,,,,,,,,,,,,,,,,,,,,,70,,,,,,17,23,45,84,61,73,91,92,Swarm 1,Act 2 Champ B,Act 2 Unique B
+2,PlagueBugs,swarm,Swarm,21,,,,,Swarm Move,seq_swarmmove,1,,,,,,,,,,,,,,,,,,,,,,80,,,,,,21,21,44,85,61,72,86,94,Swarm 2,Act 3 Champ B,Act 3 Unique B
+3,HellSwarm,swarm,Swarm,22,,,,,Swarm Move,seq_swarmmove,1,,,,,,,,,,,,,,,,,,,,,,90,,,40,,,22,22,44,85,61,79,93,94,Swarm 2,Act 3 Champ B,Act 3 Unique B
+0,DungSoldier,scarab,Scarab,14,,,,,Jab,seq_scarabjab,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,111,84,125,51,151,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,SandWarrior,scarab,Scarab,16,,,,,Jab,seq_scarabjab,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,68,112,84,125,55,155,94,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+2,Scarab,scarab,Scarab,17,,,,,Jab,seq_scarabjab,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,67,112,84,125,55,155,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,SteelWeevil,scarab,Scarab,19,,,,,Jab,seq_scarabjab,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,68,111,84,125,47,147,93,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+4,AlbinoRoach,scarab,Scarab,24,,,,,Jab,seq_scarabjab,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,67,111,85,125,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,DriedCorpse,mummy,Mummy,13,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,14,68,158,84,86,56,112,93,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,Decayed,mummy,Mummy,15,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,16,69,157,84,87,61,111,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,Embalmed,mummy,Mummy,18,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,18,69,156,84,86,51,109,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,PreservedDead,mummy,Mummy,23,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,23,69,155,85,86,54,107,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,Cadaver,mummy,Mummy,25,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,25,70,154,85,89,57,107,93,Act 3 H2H C,Act 3 Champ C,Act 3 Unique C
+0,HollowOne,unraveler,GreaterMummy,15,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,,50,,194,238,84,136,121,161,94,Act 2 Cast A,Act 2 Champ A,Act 2 Unique A
+1,Guardian,unraveler,GreaterMummy,18,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,2,,,,,,,,,,,,,,,,,,,,,50,,193,237,84,136,117,151,92,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+2,Unraveler,unraveler,GreaterMummy,20,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,3,,,,,,,,,,,,,,,,,,,,,50,,193,236,85,136,124,154,93,Act 2 Cast C,Act 2 Champ C,Act 2 Unique C
+3,Horadrim Ancient,unraveler,GreaterMummy,23,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,4,,,,,,,,,,,,,,,,,,,,,50,,192,236,85,136,121,154,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+4,Baal Subject Mummy,unraveler,GreaterMummy,40,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,5,,,,,,,,,,,,,,,,,,,,,50,,192,235,84,211,121,153,93,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+0,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,CarrionBird,vulture,Vulture,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,83,91,121,94,Swarm 1,Act 2 Champ A,Act 2 Unique A
+1,UndeadScavenger,vulture,Vulture,15,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,66,107,84,83,91,121,94,Swarm 1,Act 2 Champ A,Act 2 Unique A
+2,HellBuzzard,vulture,Vulture,22,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,66,107,85,83,93,122,94,Swarm 2,Act 3 Champ B,Act 3 Unique B
+3,WingedNightmare,vulture,Vulture,23,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,65,107,85,83,94,121,92,Swarm 2,Act 3 Champ B,Act 3 Unique B
+0,Sucker,mosquito,Mosquito,21,,,,1,Mosquito,seq_mosquitoskill,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,21,107,85,74,51,122,94,Swarm 2,Act 3 Champ A,Act 3 Unique A
+1,Feeder,mosquito,Mosquito,23,,,,1,Mosquito,seq_mosquitoskill,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,21,107,85,74,54,121,92,Swarm 2,Act 3 Champ B,Act 3 Unique B
+2,BloodHook,mosquito,Mosquito,22,,,,1,Mosquito,seq_mosquitoskill,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,22,107,85,74,51,122,94,Swarm 2,Act 3 Champ B,Act 3 Unique B
+3,BloodWing,mosquito,Mosquito,24,,,,1,Mosquito,seq_mosquitoskill,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,21,107,85,74,51,119,92,Swarm 2,Act 3 Champ B,Act 3 Unique B
+0,Gloam,willowisp,WillOWisp,21,1,,,1,Chain Lightning,SC,1,,,,,,,,,,,,,,,,,,,,,,40,,,50,,,21,44,87,85,74,36,151,94,Act 3 Wraith A,Act 3 Champ A,Act 3 Unique A
+1,SwampGhost,willowisp,WillOWisp,23,1,,,1,Chain Lightning,SC,2,,,,,,,,,,,,,,,,,,,,,,50,,,60,,,23,44,86,85,74,34,154,92,Act 3 Wraith B,Act 3 Champ B,Act 3 Unique B
+2,BurningSoul,willowisp,WillOWisp,26,1,,,1,Chain Lightning,SC,3,,,,,,,,,,,,,,,,,,,,,,60,,,70,,,26,45,86,84,78,36,153,93,Act 4 Wraith A,Act 3 Champ A,Act 3 Unique A
+3,BlackSoul,willowisp,WillOWisp,28,1,,,1,Chain Lightning,SC,4,,,,,,,,,,,,,,,,,,,,,,70,,,80,,,28,44,87,84,82,34,151,93,Act 4 Wraith B,Act 3 Champ B,Act 3 Unique B
+0,Arach,arach,Arach,11,,,,,SpiderLay,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,12,155,192,84,114,88,138,92,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+1,SandFisher,arach,Arach,15,,,,,SpiderLay,A2,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,151,191,84,113,91,151,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,PoisonSpinner,arach,Arach,21,,,,,SpiderLay,A2,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,151,191,85,113,86,143,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,FlameSpider,arach,Arach,22,,,,,SpiderLay,A2,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,151,192,85,113,93,151,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,SpiderMagus,arach,Arach,23,,,,,SpiderLay,A2,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,151,190,85,114,94,147,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,ThornedHulk,thornhulk,ThornHulk,21,,,,,MonFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,153,248,85,123,86,143,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+1,BrambleHulk,thornhulk,ThornHulk,22,,,,,MonFrenzy,A2,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,153,248,85,123,93,151,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+2,Thrasher,thornhulk,ThornHulk,23,,,,,MonFrenzy,A2,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,153,248,85,123,87,147,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+3,Spikefist,thornhulk,ThornHulk,27,,,,,MonFrenzy,A2,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,152,247,84,133,89,148,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,GhoulLord,vampire,Vampire,19,,1,,,VampireFireball,SC,2,VampireFirewall,SC,2,VampireMeteor,SC,2,VampireMissile,SC,2,,,,,,,,,,,,,30,,,,50,,19,153,211,84,110,47,116,93,Act 2 Cast C,Act 2 Champ C,Act 2 Unique C
+1,NightLord,vampire,Vampire,23,,1,,,VampireFireball,SC,3,VampireFirewall,SC,3,VampireMeteor,SC,3,VampireMissile,SC,3,,,,,,,,,,,,,40,,,,50,,23,153,209,85,110,54,121,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+2,DarkLord,vampire,Vampire,24,,1,,,VampireFireball,SC,4,VampireFirewall,SC,4,VampireMeteor,SC,4,VampireMissile,SC,4,,,,,,,,,,,,,50,,,,50,,24,153,211,85,110,51,119,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+3,BloodLord,vampire,Vampire,25,,1,,,VampireFireball,SC,5,VampireFirewall,SC,5,VampireMeteor,SC,5,VampireMissile,SC,5,,,,,,,,,,,,,60,,,,50,,25,152,210,85,113,51,119,93,Act 3 Cast C,Act 3 Champ C,Act 3 Unique C
+4,Banished,vampire,Vampire,12,,1,,,VampireFireball,SC,1,VampireFirewall,SC,1,VampireMeteor,SC,1,VampireMissile,SC,1,,,,,,,,,,,,,20,,,,50,,13,154,212,84,111,51,126,93,Act 1 Cast A,Act 1 Champ A,Act 1 Unique A
+0,DesertWing,batdemon,BatDemon,15,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,44,151,84,82,71,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,Fiend,batdemon,BatDemon,19,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,46,151,84,82,62,93,93,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+2,Gloombat,batdemon,BatDemon,22,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,44,151,85,82,65,101,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,BloodDiver,batdemon,BatDemon,24,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,45,151,85,82,63,94,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,DarkFamiliar,batdemon,BatDemon,27,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,43,151,84,89,65,101,93,Act 3 H2H C,Act 3 Champ C,Act 3 Unique C
+0,RatMan,fetish,Fetish,10,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,11,64,110,84,80,72,115,91,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+1,Fetish,fetish,Fetish,21,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,64,107,85,79,65,101,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+2,Flayer,fetish,Fetish,22,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,66,107,85,79,72,108,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,SoulKiller,fetish,Fetish,23,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,65,107,85,79,67,107,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,StygianDoll,fetish,Fetish,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,DeckardCain,human,NpcOutOfTown,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Gheed,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Akara,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Kashya,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,75,142,284,84,,,,,,,
+0,Dummy,,HellMeteor,0,,,,,HellMeteor,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Charsi,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Warriv,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Andariel,demon,Andariel,12,,,1,,AndrialSpray,seq_andarielspray,1,AndyPoisonBolt,A1,1,,,,,,,,,,,,,,,,,,,,,-50,50,50,80,0,2562,2562,84,916,76,238,153,Andarielq,Andarielq,Andarielq
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,DarkRanger,corruptrogue,CorruptArcher,4,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,13,91,128,84,91,60,90,256,Act 1 Miss A,Act 1 Champ A,Act 1 Unique A
+1,VileArcher,corruptrogue,CorruptArcher,5,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,93,131,84,91,60,90,255,Act 1 Miss B,Act 1 Champ B,Act 1 Unique B
+2,DarkArcher,corruptrogue,CorruptArcher,7,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,95,136,84,91,60,90,254,Act 1 Miss B,Act 1 Champ B,Act 1 Unique B
+3,BlackArcher,corruptrogue,CorruptArcher,10,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,96,141,84,91,60,90,253,Act 1 Miss C,Act 1 Champ C,Act 1 Unique C
+4,FleshArcher,corruptrogue,CorruptArcher,24,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,,45,97,137,85,91,60,90,252,Act 3 Miss B,Act 3 Champ B,Act 3 Unique B
+0,DarkSpearwoman,corruptrogue,CorruptLancer,2,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4,86,129,84,91,67,134,101,Act 1 H2H A,Act 1 Champ A,Act 1 Unique A
+1,VileLancer,corruptrogue,CorruptLancer,5,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6,85,124,84,91,76,151,91,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,DarkLancer,corruptrogue,CorruptLancer,8,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,9,89,134,84,91,67,151,95,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+3,BlackLancer,corruptrogue,CorruptLancer,9,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,10,86,131,84,91,58,143,95,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+4,FleshLancer,corruptrogue,CorruptLancer,24,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,,24,87,131,85,90,57,144,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,SkeletonArcher,skeleton,SkeletonBow,5,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,15,70,147,84,89,65,90,255,Act 1 Miss B,Act 1 Champ B,Act 1 Unique B
+1,ReturnedArcher,skeleton,SkeletonBow,8,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,23,78,156,84,90,65,90,253,Act 1 Miss B,Act 1 Champ B,Act 1 Unique B
+2,BoneArcher,skeleton,SkeletonBow,9,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,50,25,76,156,84,90,65,90,253,Act 1 Miss C,Act 1 Champ C,Act 1 Unique C
+3,BurningDeadArcher,skeleton,SkeletonBow,13,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,35,76,151,84,89,45,70,252,Act 2 Miss A,Act 2 Champ A,Act 2 Unique A
+4,HorrorArcher,skeleton,SkeletonBow,18,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,,40,,50,45,74,151,84,90,45,70,252,Act 2 Miss B,Act 2 Champ B,Act 2 Unique B
+0,Warriv,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Atma,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Drognan,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Fara,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,SandMaggotYoung,sandmaggot,MaggotLarva,16,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,21,65,84,55,28,46,94,,,
+1,RockWormYoung,sandmaggot,MaggotLarva,17,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,23,64,84,55,28,46,92,,,
+2,DevourerYoung,sandmaggot,MaggotLarva,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,21,66,84,54,24,47,93,,,
+3,GiantLampreyYoung,sandmaggot,MaggotLarva,21,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,21,21,64,85,54,29,43,94,,,
+4,WorldKillerYoung,sandmaggot,MaggotLarva,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,21,65,85,55,26,44,92,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Blunderbore,blunderbore,PinHead,18,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,160,200,84,114,76,134,125,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+1,Gorbelly,blunderbore,PinHead,20,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,160,200,85,114,77,139,125,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+2,Mauler,blunderbore,PinHead,25,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,160,200,85,118,76,138,126,Act 3 H2H C,Act 2 Champ C,Act 2 Unique C
+3,Urdar,blunderbore,PinHead,32,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,25,25,50,25,42,160,200,84,142,76,136,125,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,SandMaggotEgg,,MaggotEgg,16,,,,,MaggotEgg,seq_maggotegg,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,77,98,84,50,,,,,,
+1,RockWormEgg,,MaggotEgg,17,,,,,MaggotEgg,seq_maggotegg,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,78,95,84,50,,,,,,
+2,DevourerEgg,,MaggotEgg,19,,,,,MaggotEgg,seq_maggotegg,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,78,96,84,50,,,,,,
+3,GiantLampreyEgg,,MaggotEgg,21,,,,,MaggotEgg,seq_maggotegg,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,78,96,85,50,,,,,,
+4,WorldKillerEgg,,MaggotEgg,27,,,,,MaggotEgg,seq_maggotegg,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,77,95,84,54,,,,,,
+0,dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Greiz,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Elzix,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Geglash,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Jerhyn,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Lysander,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,human,Vendor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,human,Vendor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,FoulCrowNest,,FoulCrowNest,3,,,,,Nest,seq_nestlay,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,456,545,17,177,,,,Act 1 Cast A,Act 1 Champ A,Act 1 Unique A
+1,BloodHawkNest,,FoulCrowNest,8,,,,,Nest,seq_nestlay,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,489,584,19,178,,,,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BlackVultureNest,,FoulCrowNest,15,,,,,Nest,seq_nestlay,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,479,576,19,177,,,,Act 2 Cast A,Act 2 Champ A,Act 2 Unique A
+3,CloudStalkerNest,,FoulCrowNest,22,,,,,Nest,seq_nestlay,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,477,572,19,177,,,,Act 3 Cast A,Act 3 Champ A,Act 3 Unique A
+0,Meshif,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Duriel,demon,Duriel,22,,,1,,Charge,seq_durielcharge,5,Jab,seq_durieljab,15,Smite,seq_durielsmite,7,MonHolyFreeze,NU,1,,,,,,,,,,,,,,,20,20,50,20,0,4757,4757,85,1655,140,180,201,Duriel,Duriel,Duriel
+0,Undead RatMan,undeadfetish,Fetish,10,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,11,64,110,84,80,72,115,91,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+1,Undead Fetish,undeadfetish,Fetish,21,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,21,64,107,85,79,65,101,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+2,Undead Flayer,undeadfetish,Fetish,22,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,22,66,107,85,79,72,108,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,Undead SoulKiller,undeadfetish,Fetish,23,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,23,65,107,85,79,67,107,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,Undead StygianDoll,undeadfetish,Fetish,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+4,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+4,unused,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Maggot,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,MummyGenerator,construct,Sarcophagus,15,,,,,Nest,seq_mummyspawn,1,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,,957,957,56,327,,,,,,
+0,Radament,demon,GreaterMummy,16,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBolt,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,40,50,17,498,498,63,218,73,155,94,Radament,Radament,Radament
+0,unused,,ElementalBeast,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,,,,,,,,,,
+0,unused,,ElementalBeast,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,,,,,,,,,,
+0,unused,,ElementalBeast,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,,,,,,,,,,
+0,unused,,ElementalBeast,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,,,,,,,,,,
+0,FlyingScimitar,construct,FlyingScimitar,12,,,,1,Charge,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,13,97,131,84,83,38,113,93,Flying Scimitar,Flying Scimitar,Flying Scimitar
+0,Zakarumite,zakarum,ZakarumZealot,20,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,129,172,85,100,62,108,93,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+1,Faithful,zakarum,ZakarumZealot,22,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,22,131,172,85,100,65,108,94,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,Zealot,zakarum,ZakarumZealot,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,131,173,85,100,57,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Sexton,zakarum,ZakarumPriest,22,,,,,ZakarumHeal,S1,1,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,22,131,172,85,105,72,158,94,Act 3 Cast A,Act 3 Champ A,Act 3 Unique A
+1,Cantor,zakarum,ZakarumPriest,23,,,,,ZakarumHeal,S1,2,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,23,130,171,85,106,67,154,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+2,Heirophant,zakarum,ZakarumPriest,24,,,,,ZakarumHeal,S1,3,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,24,131,173,85,106,69,151,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+3,Heirophant,zakarum,ZakarumPriest,24,,,,,ZakarumHeal,S1,3,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,24,131,173,85,106,69,151,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+0,Mephisto,demon,Mephisto,26,,,1,,PrimeLightning,A2,6,PrimeBolt,A2,6,PrimePoisonNova,A2,7,MephistoMissile,A2,5,MephFrostNova,A2,1,Blizzard,A2,5,,,,,,,,,33,33,25,50,20,5695,5695,124,2131,295,442,251,Mephisto,Mephisto,Mephisto
+0,Diablo,demon,Diablo,40,,,1,,DiabLight,SC,3,DiabCold,S2,4,DiabFire,S1,5,DiabWall,S3,3,DiabRun,seq_diablorun,5,PrimeFirewall,S3,8,DiabPrison,S3,1,,,,,,33,33,33,50,25,6427,6427,87,3462,77,197,313,Diablo,Diablo,Diablo
+0,DeckardCain,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,DeckardCain,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,DeckardCain,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Swamp Dweller,frogdemon,FrogDemon,21,,,,,Submerge,seq_froghidden,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,21,130,171,85,110,65,151,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+1,Bog Creature,frogdemon,FrogDemon,22,,,,,Submerge,seq_froghidden,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,22,131,172,85,110,72,158,94,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+2,Slime Prince,frogdemon,FrogDemon,24,,,,,Submerge,seq_froghidden,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,24,131,173,85,110,69,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Summoner,human,Summoner,18,,,,,Glacial Spike,SC,6,Frost Nova,SC,5,Fire Ball,SC,5,VampireFirewall,SC,7,Weaken,SC,4,,,,,,,,,,,,50,50,50,,18,129,172,153,123,,,,Summoner,Summoner,Summoner
+0,tyrael,,NpcStationary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,asheara,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,hratli,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,alkor,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,ormus,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,izual,demon,Izual,29,,,,,Frost Nova,SC,8,,,,,,,,,,,,,,,,,,,,,,30,30,30,30,75,30,50,9481,9481,84,3695,132,237,251,Izual,Izual,Izual
+0,halbu,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,WaterWatcherLimb,tentacle,Tentacle,18,,,,,Submerge,seq_tentaclesubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,18,129,172,84,107,76,151,92,,,
+1,RiverStalkerLimb,tentacle,Tentacle,20,,,,,Submerge,seq_tentaclesubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,20,129,172,85,107,77,154,93,,,
+2,StygianWatcherLimb,tentacle,Tentacle,22,,,,,Submerge,seq_tentaclesubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,22,131,172,85,107,79,158,94,,,
+0,WaterWatcherHead,tentacle,TentacleHead,18,,,,,Submerge,seq_tentheadsubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,24,129,172,84,86,,,,,,
+1,RiverStalkerHead,tentacle,TentacleHead,20,,,,,Submerge,seq_tentheadsubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,27,129,172,85,87,,,,,,
+2,StygianWatcherHead,tentacle,TentacleHead,22,,,,,Submerge,seq_tentheadsubmerge,1,Emerge,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,29,131,172,85,86,,,,,,
+0,meshif,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,DeckardCain,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,navi,human,Navi,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,9981,9981,217,,0,,101,,,
+0,Bloodraven,corruptrogue,BloodRaven,10,,,1,,Nest,seq_bloodravencast,1,Quick Strike,seq_brquickstrike,1,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,28,323,323,64,151,60,95,253,Blood Raven,Blood Raven,Blood Raven
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,RogueScout,human,GoodNpcRanged,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,93,231,84,,0,,255,,,
+0,Dummy,human,Hireable,1,,,,,RogueMissile,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,TownRogue,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,75,189,331,84,,0,,93,,,
+0,GargoyleTrap,construct,GargoyleTrap,15,,,,,GargoyleTrap,seq_gargoyletrap,1,,,,,,,,,,,,,,,,,,,,,,,,,,70,,16,132,172,84,106,,,,,,
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,9,56,84,84,56,,,,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BoneMage,skeleton,SkeletonMage,10,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,11,55,82,84,56,,,,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+3,BurningDeadMage,skeleton,SkeletonMage,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,15,57,81,84,56,,,,Act 2 Cast A,Act 2 Champ A,Act 2 Unique A
+4,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+0,RatManShaman,fetish,FetishShaman,11,,,1,,FetishInferno,A1,7,FetishAura,A1,1,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,12,67,109,84,77,,,,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+1,FetishShaman,fetish,FetishShaman,22,,,1,,FetishInferno,A1,8,FetishAura,A1,2,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,22,66,107,85,77,,,,Act 3 Cast A,Act 3 Champ A,Act 3 Unique A
+2,FlayerShaman,fetish,FetishShaman,23,,,1,,FetishInferno,A1,9,FetishAura,A1,3,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,23,65,107,85,76,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+3,SoulKillerShaman,fetish,FetishShaman,24,,,1,,FetishInferno,A1,10,FetishAura,A1,4,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,77,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+4,StygianDollShaman,fetish,FetishShaman,24,,,1,,FetishInferno,A1,11,FetishAura,A1,5,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,77,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+0,larva,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,SandMaggotQueen,sandmaggot,SandMaggotQueen,11,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,QueenDeath,seq_queendeath,1,,,,,,,,,,,,,,,,,,,12,159,259,84,134,,,,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,RockWormQueen,sandmaggot,SandMaggotQueen,14,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,QueenDeath,seq_queendeath,1,,,,,,,,,,,,,,,,,,,15,161,261,84,134,,,,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+2,DevourerQueen,sandmaggot,SandMaggotQueen,17,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,QueenDeath,seq_queendeath,1,,,,,,,,,,,,,,,,,,,17,159,259,84,134,,,,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,GiantLampreyQueen,sandmaggot,SandMaggotQueen,21,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,QueenDeath,seq_queendeath,1,,,,,,,,,,,,,,,,,,,21,160,257,85,134,,,,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+4,WorldKillerQueen,sandmaggot,SandMaggotQueen,29,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,QueenDeath,seq_queendeath,1,,,,,,,,,,,,,,,,,,,29,157,257,84,153,,,,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,ClayGolem,golem,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,,,20,50,,21,100,100,100,,2,5,40,,,
+0,BloodGolem,golem,NecroPet,,,,,,BloodGolem,NU,0,,,,,,,,,,,,,,,,,,,,,,,20,,,,20,31,201,201,120,,7,20,60,,,
+0,IronGolem,golem,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,,100,41,306,306,140,,7,19,80,,,
+0,FireGolem,golem,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,100,,,,50,313,313,200,,10,27,120,,,
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,NightMarauder,baboon,Baboon,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,107,151,85,97,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Dummy,human,Towner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Natalya,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,FleshSpawner,vilekind,VileMother,24,,,1,,Nest,seq_vileres,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,229,295,63,142,82,182,92,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+1,StygianHag,vilekind,VileMother,27,,,1,,Nest,seq_vileres,1,,,,,,,,,,,,,,,,,,,,,,,,,,25,,27,229,295,63,154,89,189,93,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+2,Grotesque,vilekind,VileMother,30,,,1,,Nest,seq_vileres,1,,,,,,,,,,,,,,,,,,,,,,,,,,40,,29,228,294,63,168,90,190,92,Act 4 Cast B,Act 4 Champ B,Act 4 Unique B
+0,FleshBeast,vilekind,VileDog,24,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,38,57,85,85,76,44,76,152,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+1,StygianDog,vilekind,VileDog,27,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,,43,56,84,84,82,48,77,151,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+2,GrotesqueWyrm,vilekind,VileDog,30,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,47,55,84,84,89,48,74,151,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+0,Groper,fingermage,FingerMage,24,1,,,1,FingerMageSpider,S1,3,,,,,,,,,,,,,,,,,,,,,,,,40,40,,,24,153,211,85,110,51,119,92,Act 4 Wraith A,Act 4 Champ A,Act 4 Unique A
+1,Strangler,fingermage,FingerMage,27,1,,,1,FingerMageSpider,S1,4,,,,,,,,,,,,,,,,,,,,,,,,50,50,,,27,152,209,84,120,53,124,93,Act 4 Wraith B,Act 4 Champ B,Act 4 Unique B
+2,StormCaster,fingermage,FingerMage,30,1,,,1,FingerMageSpider,S1,5,,,,,,,,,,,,,,,,,,,,,,,,60,60,,,29,152,209,84,130,53,122,92,Act 4 Wraith B,Act 4 Champ B,Act 4 Unique B
+0,Corpulent,regurgitator,Regurgitator,24,,,1,,RegurgitatorEat,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,211,285,85,138,82,138,92,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+1,CorpseSpitter,regurgitator,Regurgitator,27,,,1,,RegurgitatorEat,S1,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,209,283,84,150,89,148,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+2,MawFiend,regurgitator,Regurgitator,30,,,1,,RegurgitatorEat,S1,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,29,209,283,84,163,90,148,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,DoomKnight,doomknight,DoomKnight,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,80,20,20,40,24,131,173,107,111,69,151,92,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,AbyssKnight,doomknight,AbyssKnight,27,1,,,,DoomKnightMissile,S1,3,MonBoneArmor,S1,5,MonBoneSpirit,S1,2,,,,,,,,,,,,,,,,,,40,80,40,40,27,129,172,107,121,71,153,93,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,OblivionKnight,doomknight,OblivionKnight,30,1,,,,DoomKnightMissile,S1,3,MonBoneArmor,S1,6,MonBoneSpirit,S1,2,Decrepify,S2,3,Bestow,seq_undeadbestow,2,MonCurseCast,S2,3,,,,,,,,,60,60,60,60,29,130,171,107,131,69,153,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,QuillBear,quillrat,QuillMother,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,SpikeGiant,quillrat,QuillMother,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,ThornBrute,quillrat,QuillMother,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,RazorBeast,quillrat,QuillMother,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+4,GiantUrchin,quillrat,QuillMother,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,Idle,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,EvilHole,1,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,Dummy,,EvilHole,4,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,Dummy,,EvilHole,7,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,Dummy,,EvilHole,9,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+4,Dummy,,EvilHole,22,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,a trap,,Trap-Missile,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,a trap,,Trap-RightArrow,1,,,,,PoisonBallTrap,S1,1,CursedBallTrapRight,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,51,151,3001,,,
+0,a trap,,Trap-LeftArrow,1,,,,,PoisonBallTrap,S1,1,CursedBallTrapLeft,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,51,151,3001,,,
+0,a trap,,Trap-Poison,,,,,,PrimePoisonNova,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,a trap,,Trap-Missile,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Kaelan,human,JarJar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,InvisoSpawner,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Diablo,demon,Diablo,110,,,1,,DiabLight,SC,2,DiabCold,S2,2,DiabFire,S1,4,DiabWall,S3,2,DiabRun,seq_diablorun,5,PrimeFirewall,S3,8,DiabPrison,S3,1,Diablogeddon,S3,5,50,50,75,75,75,75,50,6427,6427,87,3462,77,197,313,ROP,ROP,ROP
+0,SuckerNest,,MosquitoNest,,,,,,Nest,seq_mosquitonest,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,207,550,84,196,,,,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+1,FeederNest,,MosquitoNest,,,,,,Nest,seq_mosquitonest,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,216,550,84,196,,,,Act 1 H2H B,Act 1 Champ B,Act 1 Unique B
+2,BloodHookNest,,MosquitoNest,,,,,,Nest,seq_mosquitonest,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,214,550,84,196,,,,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+3,BloodWingNest,,MosquitoNest,,,,,,Nest,seq_mosquitonest,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,214,550,85,201,,,,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Guard,human,Hireable,1,,,,,Jab,seq_act2guardjab,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,skillname88,construct,Idle,12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,193,385,84,,,,,,,
+0,skillname88,construct,Idle,12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,193,385,84,,,,,,,
+0,skillname88,construct,Idle,12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,193,385,84,,,,,,,
+0,skillname88,construct,Idle,12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,193,385,84,,,,,,,
+0,Dummy,construct,BoneWall,7,,,,,Bone Wall,NU,0,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,19,19,35,,,,,,,
+0,Council Member,councilmember,HighPriest,25,,,1,,Hydra,S1,2,ZakarumHeal,S1,2,,,,,,,,,,,,,,,,,,,,,,,,,25,191,381,85,149,51,119,93,Council,Council,Council
+1,Council Member,councilmember,HighPriest,25,,,1,,Hydra,S1,3,ZakarumHeal,S1,3,,,,,,,,,,,,,,,,,,,,,,,,,25,191,381,85,149,51,119,93,Council,Council,Council
+2,Council Member,councilmember,HighPriest,25,,,1,,Hydra,S1,4,ZakarumHeal,S1,4,,,,,,,,,,,,,,,,,,,,,,,,,25,191,381,85,149,51,119,93,Council,Council,Council
+0,Turret,construct,DesertTurret,10,,,,,DesertTurret,seq_desertturret,1,,,,,,,,,,,,,,,,,,,,,,,50,95,50,85,1000,,291,387,39,95,,,,,,
+1,Turret,construct,DesertTurret,10,,,,,DesertTurret,seq_desertturret,1,,,,,,,,,,,,,,,,,,,,,,,50,95,50,85,1000,,291,387,39,95,,,,,,
+2,Turret,construct,DesertTurret,10,,,,,DesertTurret,seq_desertturret,1,,,,,,,,,,,,,,,,,,,,,,,50,95,50,85,1000,,291,387,39,95,,,,,,
+0,Hydra,,Hydra,,,,,,HydraMissile,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Hydra,,Hydra,,,,,,HydraMissile,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Hydra,,Hydra,,,,,,HydraMissile,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,a trap,construct,Trap-Melee,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,284,379,38,,75,150,180,,,
+0,Dummy,,7TIllusion,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dopplezon,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,10,10,141,,,,,,,
+0,Valkyrie,,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,400,480,141,,9,24,250,,,
+0,Dummy,human,Idle,,,,,,Jab,seq_act2guardjab,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,17,577,770,84,,,,,,,
+0,Iron Wolf,human,Hireable,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Balrog,megademon,Megademon,24,,,1,,MegademonInferno,S1,6,,,,,,,,,,,,,,,,,,,,,,,,70,,,,32,191,229,101,129,51,94,125,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+1,PitLord,megademon,Megademon,27,,,1,,MegademonInferno,S1,7,,,,,,,,,,,,,,,,,,,,,,,,70,,,,36,190,229,101,140,53,101,126,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+2,VenomLord,megademon,Megademon,30,,,1,,MegademonInferno,S1,8,,,,,,,,,,,,,,,,,,,,,,,,70,,,70,39,191,228,101,152,53,95,125,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,skeleton,skeleton,NecroPet,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,21,21,5,,1,2,5,,,
+0,skillan80,skeleton,NecroPet,,1,,,,NecromageMissile,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,61,61,24,,1,2,5,,,
+0,Griswold,undead,Griswold,5,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,6,608,608,84,273,51,151,91,Griswold,Griswold,Griswold
+0,compellingorb,construct,Idle,40,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1000,,152,303,84,,,,,,,
+0,tyrael,,NpcStationary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,youngdiablo,,DarkWanderer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,a trap,,Trap-Nova,,,,,,Trap Nova,S1,1,,,,,,,,,,,,,,,,,,,,,,90,90,90,90,90,90,,,,,,,,,,,
+0,Dummy,mummy,Idle,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Act 2 H2H C,Act 2 Champ C,Act 2 Unique C
+0,LightningSpire,construct,ArcaneTower,1,,,,,ArcaneTower,seq_arcanetower,1,Lightning,seq_arcanetower,6,,,,,,,,,,,,,,,,,,,,90,90,90,70,1000,46,1001,2021,34,944,,,,,,
+0,FireTower,construct,DesertTurret,1,,,,,DesertTurret,seq_desertturret,1,,,,,,,,,,,,,,,,,,,,,,90,90,90,,,70,46,1001,2021,34,944,,,,,,
+0,Slinger,pantherwoman,PantherJavelin,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,54,87,58,67,51,121,94,Act 2 Miss A,Act 2 Champ A,Act 2 Unique A
+1,SpearCat,pantherwoman,PantherJavelin,15,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,54,88,58,67,51,121,94,Act 2 Miss A,Act 2 Champ A,Act 2 Unique A
+2,NightSlinger,pantherwoman,PantherJavelin,17,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,53,87,58,67,55,128,92,Act 2 Miss B,Act 2 Champ B,Act 2 Unique B
+3,HellSlinger,pantherwoman,PantherJavelin,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,53,86,58,67,47,116,93,Act 2 Miss C,Act 2 Champ C,Act 2 Unique C
+0,Dummy,human,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Dummy,human,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,30,50,9,56,84,84,56,,,,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BoneMage,skeleton,SkeletonMage,10,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,30,50,11,55,82,84,56,,,,Act 1 Cast C,Act 1 Champ B,Act 1 Unique B
+3,BaalColdMage,skeleton,SkeletonMage,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,50,,30,50,15,57,81,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+4,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,30,50,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,9,56,84,84,56,,,,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BoneMage,skeleton,SkeletonMage,10,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,11,55,82,84,56,,,,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+3,BurningDeadMage,skeleton,SkeletonMage,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,70,,,50,15,57,81,84,56,,,,Act 2 Cast A,Act 2 Champ A,Act 2 Unique A
+4,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,9,56,84,84,56,,,,Act 1 Cast B,Act 1 Champ B,Act 1 Unique B
+2,BoneMage,skeleton,SkeletonMage,10,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,11,55,82,84,56,,,,Act 1 Cast C,Act 1 Champ C,Act 1 Unique C
+3,BurningDeadMage,skeleton,SkeletonMage,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,50,30,,50,15,57,81,84,56,,,,Act 2 Cast A,Act 2 Champ A,Act 2 Unique A
+4,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+0,Hell Bovine,bovine,Skeleton,28,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,133,285,88,140,151,223,93,Cow,Act 4 Champ B,Act 4 Unique B
+0,StrMonsterWindow,,Idle,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,90,90,90,90,90,70,46,,100,84,491,,,,,,
+0,StrMonsterWindow,,Idle,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,90,90,90,90,90,70,46,,100,84,491,,,,,,
+0,SpearCat,pantherwoman,PantherJavelin,15,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,47,82,53,64,,,,Act 2 Miss A,Act 2 Champ A,Act 2 Unique A
+1,NightSlinger,pantherwoman,PantherJavelin,17,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,17,48,81,53,64,,,,Act 2 Miss B,Act 2 Champ B,Act 2 Unique B
+0,RatMan,fetish,FetishBlowgun,9,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,13,66,111,84,65,15,33,127,Act 1 H2H C,Act 1 Champ C,Act 1 Unique C
+1,Fetish,fetish,FetishBlowgun,21,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,64,107,85,65,15,33,126,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+2,Flayer,fetish,FetishBlowgun,22,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,29,66,107,85,65,15,33,125,Act 3 H2H A,Act 3 Champ A,Act 3 Unique A
+3,SoulKiller,fetish,FetishBlowgun,23,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,31,65,107,85,65,15,33,126,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,StygianDoll,fetish,FetishBlowgun,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,32,65,107,85,65,15,33,125,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Dummy,undead,Spirit,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,90,90,90,90,90,70,,1267,,,503,144,219,125,Trapped Soul,Trapped Soul,Trapped Soul
+0,The Smith,demon,Smith,10,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-50,13,291,291,84,151,101,129,115,Smith,Smith,Smith
+0,TrappedSoul,,TrappedSoul,30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,57,76,2,1,16,37,148,Trapped Soul,Trapped Soul,Trapped Soul
+0,TrappedSoul,,TrappedSoul,30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,57,76,2,1,16,37,148,Trapped Soul,Trapped Soul,Trapped Soul
+0,Jamella,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Izual,,NpcStationary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,RatMan,fetish,Fetish,10,,,,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,11,64,110,84,76,29,86,125,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Malachai,human,Buffy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,The Feature Creep,demon,Smith,25,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-50,30,760,760,107,339,151,226,112,Haphesto,Haphesto,Haphesto
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Wake of Destruction,construct,AssassinSentry,,,,,,Wake Of Destruction Sentry,S2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Charged Bolt Sentry,construct,AssassinSentry,,,,,,BoltSentry,seq_chargesentry,1,Shock Field,S1,0,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Lightning Sentry,construct,AssassinSentry,,,,,,sentry lightning,seq_chargesentry,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Blade Creeper,construct,BladeCreeper,,,,,,Blade Sentinel,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Invis Pet,,InvisoPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Inferno Sentry,construct,AssassinSentry,,,,,,mon inferno sentry,seq_infernosentry,1,Wake of Fire Sentry,S1,0,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Death Sentry,construct,DeathSentry,,,,,,mon death sentry,seq_chargesentry,1,death sentry ltng,seq_chargesentry,1,,,,,,,,,,,,,,,,,,,,,,,,,,100,100,100,,,,,,,
+0,Shadow Warrior,,ShadowWarrior,,,,,,Fists of Fire,seq_swtigerfist,1,Blade Fury,seq_swbladefury,1,Blades of Ice,seq_swtigerfist,1,Dragon Claw,seq_swtigerfist,1,Dragon Flight,seq_swdragonflight,1,Claws of Thunder,seq_swtigerfist,1,Attack,A2,1,,,,40,,,,,,50,376,376,196,,0,0,163,,,
+0,Shadow Master,,ShadowMaster,,,,,,Fists of Fire,seq_swtigerfist,1,Blade Fury,seq_swbladefury,1,Blades of Ice,seq_swtigerfist,1,Dragon Claw,seq_swtigerfist,1,Dragon Flight,seq_swdragonflight,1,Claws of Thunder,seq_swtigerfist,1,Attack,A2,1,,,,40,,,,,,50,376,376,196,,0,0,163,,,
+0,Druid Hawk,,Raven,,,,,1,Raven,NU,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,26,26,25,,,,,,,
+0,Druid Spirit Wolf,,DruidWolf,,,,,,Teleport 2,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,130,130,67,,,,50,,,
+1,Druid Fenris,,DruidWolf,,,,,,fenris rage,A1,1,Teleport 2,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,216,216,116,,,,150,,,
+0,Spirit of Barbs,,Totem,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,25,25,25,25,25,70,,213,213,196,,,,,,,
+1,Heart of Wolverine,,Totem,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,25,25,25,25,25,70,,136,136,123,,,,,,,
+2,Oak Sage,,Totem,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,25,25,25,25,25,70,,60,60,49,,,,,,,
+0,Druid Plague Poppy,,Vines,,,,,,Vine Attack,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,25,,,,,,,
+0,Druid Cycle of Life,,CycleOfLife,,,,,,CorpseCycler,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,95,95,92,,,,,,,
+0,Vine Creature,,CycleOfLife,,,,,,VineCycler,S1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,165,165,165,,,,,,,
+0,Druid Bear,,DruidBear,,,,,,BearSmite,seq_bearsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,750,750,245,,,,300,,,
+0,Eagleexp,,Idle,,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,48,36,58,95,,4,14,93,,,
+0,Wolf,,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8,16,25,37,,2,6,14,,,
+0,Bear,,NecroPet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,12,19,30,,1,5,28,,,
+0,Barricade Door,,Idle,26,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,1000,,95,152,88,,,,,,,
+1,Barricade Door,,Idle,26,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,1000,,95,152,88,,,,,,,
+0,Prison Door,,Idle,26,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,25,25,25,25,1000,,49,95,88,,,,,,,
+0,Barricade Tower,construct,SiegeTower,15,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,1000,,385,576,88,,,,,,,
+0,RotWalker,zombie,ReanimatedHorde,31,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,,,,,,70,45,115,171,107,128,31,86,139,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,ReanimatedHorde,zombie,ReanimatedHorde,33,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,,,,,,80,47,114,171,107,135,34,86,138,Act 5 H2H B,Act 5 Champ A,Act 5 Unique A
+2,ProwlingDead,zombie,ReanimatedHorde,35,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,,,,,,90,50,114,171,107,143,32,87,139,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,UnholyCorpse,zombie,ReanimatedHorde,40,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,20,,50,,,70,50,114,171,107,164,33,89,138,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,DefiledWarrior,zombie,ReanimatedHorde,42,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,,50,,,,70,50,114,170,107,173,35,89,138,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Siege Beast,siegebeast,SiegeBeast,37,,,,,Siege Beast Stomp,A2,1,Charge,seq_siegebeastcharge,1,,,,,,,,,,,,,,,,,,,,,,,,,50,379,379,88,287,92,122,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+1,CrushBiest,siegebeast,SiegeBeast,38,,,,,Siege Beast Stomp,A2,2,Charge,seq_siegebeastcharge,2,,,,,,,,,,,,,,,,,,,,,,,,,50,379,379,88,295,88,121,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+2,BloodBringer,siegebeast,SiegeBeast,38,,,,,Siege Beast Stomp,A2,3,Charge,seq_siegebeastcharge,3,,,,,,,,,,,,,,,,,,,,,,,,,50,379,379,88,295,88,121,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,GoreBearer,siegebeast,SiegeBeast,38,,,,,Siege Beast Stomp,A2,4,Charge,seq_siegebeastcharge,5,,,,,,,,,,,,,,,,,,,,,,,,,50,379,379,88,295,88,121,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,DeamonSteed,siegebeast,SiegeBeast,38,,,,,Siege Beast Stomp,A2,5,Charge,seq_siegebeastcharge,7,,,,,,,,,,,,,,,,,,,,,,,,,50,379,379,88,295,88,121,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,SnowYeti1,snowyeti,Brute,40,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,,,75,,50,190,227,107,198,33,89,138,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,SnowYeti2,snowyeti,Brute,41,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,75,,50,190,228,107,204,31,85,138,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,SnowYeti3,snowyeti,Brute,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,75,,50,190,227,107,209,35,89,138,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,SnowYeti4,snowyeti,Brute,43,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,75,,50,189,228,107,215,34,86,138,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,WolfRider1,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,WolfRider2,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,WolfRider3,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Minionexp,minion,Minion,31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,238,101,167,76,96,151,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Slayerexp,minion,Minion,33,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,176,77,96,151,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,IceBoar,minion,Minion,35,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,189,237,101,186,78,96,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,FireBoar,minion,Minion,36,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,191,74,96,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,HellSpawn,minion,Minion,37,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,197,74,96,151,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+5,IceSpawn,minion,Minion,40,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,214,77,97,151,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+6,GreaterHellSpawn,minion,Minion,41,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,236,101,220,74,97,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+7,GreaterIceSpawn,minion,Minion,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,226,77,97,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,FanaticMinion,minion,SuicideMinion,31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,,,,50,38,57,84,178,100,150,,,,
+1,BerserkSlayer,minion,SuicideMinion,33,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,,50,39,58,84,188,100,150,,,,
+2,ConsumedIceBoar,minion,SuicideMinion,35,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,,,,50,38,57,84,198,100,150,,,,
+3,ConsumedFireBoar,minion,SuicideMinion,36,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,,,50,38,57,84,204,100,150,,,,
+4,FrenziedHellSpawn,minion,SuicideMinion,37,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,20,70,,,,50,39,57,84,210,100,150,,,,
+5,FrenziedIceSpawn,minion,SuicideMinion,40,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,,,,50,38,58,84,228,100,150,,,,
+6,InsaneHellSpawn,minion,SuicideMinion,41,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,,,50,39,58,84,234,100,150,,,,
+7,InsaneIceSpawn,minion,SuicideMinion,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,20,70,,,,50,39,57,84,241,100,150,,,,
+0,Succubusexp,succubus,Succubus,32,,,1,1,,,,,,,Defense Curse,S2,1,Blood Mana,S2,1,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,42,96,152,107,121,46,86,125,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,VileTemptress,succubus,Succubus,34,,,1,1,,,,,,,Defense Curse,S2,1,Blood Mana,S2,1,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,44,95,152,107,127,46,82,125,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,StygianHarlot,succubus,Succubus,35,,,1,1,,,,,,,Defense Curse,S2,2,Blood Mana,S2,2,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,46,95,152,107,131,46,87,126,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,Hell Temptress,succubus,Succubus,40,,,1,1,,,,,,,Defense Curse,S2,2,Blood Mana,S2,2,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,96,152,107,150,45,85,125,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,Blood Temptress,succubus,Succubus,42,,,1,1,,,,,,,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,95,152,107,159,47,85,125,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Dominus,succubus,SuccubusWitch,32,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,1,Blood Mana,S2,1,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,46,96,152,107,122,46,86,137,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+1,VileWitch,succubus,SuccubusWitch,34,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,1,Blood Mana,S2,1,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,49,95,152,107,130,46,82,138,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,StygianFury,succubus,SuccubusWitch,35,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,2,Blood Mana,S2,2,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,95,152,107,133,46,87,139,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+3,Blood Witch,succubus,SuccubusWitch,40,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,2,Blood Mana,S2,2,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,96,152,107,153,45,85,138,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+4,Hell Witch,succubus,SuccubusWitch,42,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,1,,,,,,,,,,,,,,80,,50,95,152,107,161,47,85,138,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+0,OverSeer,overseer,Overseer,33,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,43,380,380,84,121,62,120,126,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Lasher,overseer,Overseer,34,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,44,379,379,84,124,60,119,125,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,OverLord,overseer,Overseer,36,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,47,379,379,84,131,61,118,125,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,BloodBoss,overseer,Overseer,37,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,48,379,379,84,135,61,122,126,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,HellWhip,overseer,Overseer,39,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,50,379,379,84,142,61,117,126,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,MinionSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,151,106,84,93,,,,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,MinionSlayerSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,MinionIce/fireBoarSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,MinionIce/fireBoarSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,Minionice/hellSpawnSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+5,MinionIce/fireBoarSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+6,MinionIce/fireBoarSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+7,Minionice/hellSpawnSpawner,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,Imp1,imp,Imp,31,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,1,Imp Fire Missile,A1,1,Imp Inferno,SC,1,,,,,,,,,,,,,,,,30,45,65,84,113,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+1,Imp2,imp,Imp,33,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,1,Imp Fire Missile,A1,1,Imp Inferno,SC,2,,,,,,,,,,,,,,,,32,45,65,84,119,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,Imp3,imp,Imp,34,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,2,Imp Fire Missile,A1,1,Imp Inferno,SC,3,,,,,,,,,,,,,,,,33,45,65,84,122,,,,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+3,Imp4,imp,Imp,36,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,3,Imp Fire Missile,A1,1,Imp Inferno,SC,4,,,,,,,,,,,,,,,,35,45,65,84,129,,,,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+4,Imp5,imp,Imp,38,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,3,Imp Fire Missile,A1,1,Imp Inferno,SC,5,,,,,,,,,,,,,,,,37,45,65,84,137,,,,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+0,CatapultS,,Catapult,34,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1000,,191,379,19,130,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+1,CatapultE,,Catapult,34,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1000,,191,379,19,130,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+2,CatapultSiege,,Catapult,32,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1000,,190,379,19,123,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,CatapultW,,Catapult,34,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1000,,191,379,19,130,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Frozen Horror1,frozenhorror,FrozenHorror,37,,,,,Horror Arctic Blast,seq_horrorarcticblast,4,,,,,,,,,,,,,,,,,,,,,,,,,,75,,48,285,379,101,242,61,96,126,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Frozen Horror2,frozenhorror,FrozenHorror,38,,,,,Horror Arctic Blast,seq_horrorarcticblast,4,,,,,,,,,,,,,,,,,,,,,,,,,,75,,49,284,379,101,249,59,96,125,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,Frozen Horror3,frozenhorror,FrozenHorror,39,,,,,Horror Arctic Blast,seq_horrorarcticblast,5,,,,,,,,,,,,,,,,,,,,,,,,,,75,,50,284,379,101,256,61,93,126,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,Frozen Horror4,frozenhorror,FrozenHorror,40,,,,,Horror Arctic Blast,seq_horrorarcticblast,5,,,,,,,,,,,,,,,,,,,,,,,,,,75,,50,285,379,101,263,61,97,125,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,Frozen Horror5,frozenhorror,FrozenHorror,41,,,,,Horror Arctic Blast,seq_horrorarcticblast,6,,,,,,,,,,,,,,,,,,,,,,,,,,75,,50,284,379,101,271,58,97,126,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Blood Lord1,bloodlord,BloodLord,33,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,284,380,126,240,67,148,189,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Blood Lord2,bloodlord,BloodLord,35,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,284,380,126,253,69,151,188,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,Blood Lord3,bloodlord,BloodLord,36,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,284,379,126,260,66,148,188,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,Blood Lord4,bloodlord,BloodLord,40,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,285,379,126,291,69,153,188,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,Blood Lord5,bloodlord,BloodLord,43,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,283,379,126,316,67,149,188,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Larzuk,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Drehya,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Malah,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Nihlathak Town,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Qual-Kehk,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Catapult Spotter S,,CatapultSpotter,,,,,,Catapult Charged Ball,A1,1,Catapult Spike Ball,A1,1,CatapultBlizzard,A1,1,CatapultPlague,A1,1,CatapultMeteor,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,Catapult Spotter E,,CatapultSpotter,,,,,,Catapult Charged Ball,A1,1,Catapult Spike Ball,A1,1,CatapultBlizzard,A1,1,CatapultPlague,A1,1,CatapultMeteor,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,Catapult Spotter Siege,,CatapultSpotter,,,,,,Catapult Charged Ball,A1,1,Catapult Spike Ball,A1,1,CatapultBlizzard,A1,1,CatapultPlague,A1,1,CatapultMeteor,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,Catapult Spotter W,,CatapultSpotter,,,,,,Catapult Charged Ball,A1,1,Catapult Spike Ball,A1,1,CatapultBlizzard,A1,1,CatapultPlague,A1,1,CatapultMeteor,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,DeckardCain,human,Npc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,tyrael,,NpcStationary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Act 5 Combatant,human,NpcBarb,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,50,571,761,251,,32,57,252,,,
+0,Act 5 Combatant,human,NpcBarb,30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,50,226,355,212,,90,122,251,,,
+0,Barricade Wall Right,,Idle,26,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,1000,,95,152,88,,,,,,,
+1,Barricade Wall Left,,Idle,26,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,1000,,95,152,88,,,,,,,
+0,Nihlathak,human,Nihlathak,65,,,,,Imp Teleport,A1,1,Overseer Whip,A2,1,NihlathakCorpseExplosion,A1,1,Horror Arctic Blast,seq_nihlathakarctic,20,MinionSpawner,A1,1,,,,,,,,,,,,,,70,70,50,191,191,126,277,,,,Nihlathak,Nihlathak,Nihlathak
+0,Drehya,human,NpcOutOfTown,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Evil hut,,GenericSpawner,30,,,,,Nest,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,,,,,,50,70,70,,,284,475,63,123,,,,,,
+0,Death Mauler1,deathmauler,DeathMauler,32,,,,,DeathMaul,seq_deathmaulerdig,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,123,152,126,153,51,76,251,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Death Mauler2,deathmauler,DeathMauler,35,,,,,DeathMaul,seq_deathmaulerdig,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,124,152,126,166,51,78,251,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Death Mauler3,deathmauler,DeathMauler,38,,,,,DeathMaul,seq_deathmaulerdig,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,124,152,126,180,51,76,251,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,Death Mauler4,deathmauler,DeathMauler,40,,,,,DeathMaul,seq_deathmaulerdig,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,124,152,126,191,53,77,251,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,Death Mauler5,deathmauler,DeathMauler,41,,,,,DeathMaul,seq_deathmaulerdig,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,123,152,126,196,51,74,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,POW,human,Wussie,40,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,,946,1324,84,,,,,,,
+0,Act 5 Townguard,human,Npc,30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,,,,,,,,,,,
+1,Act 5 Townguard,human,Npc,30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Ancient Statue 1,,AncientStatue,40,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,Ancient Statue 2,,AncientStatue,40,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,Ancient Statue 3,,AncientStatue,40,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Ancient Barbarian 1,human,Ancient,37,,,,,Whirlwind,seq_ancientwhirlwind,15,,,,,,,,,,,,,,,,,,,,,,70,,70,,,70,,500,600,84,,9,14,251,,,
+1,Ancient Barbarian 2,human,Ancient,37,,,,,Shout,SC,5,,,,,,,,,,,,,,,,,,,,,,,,,70,70,,,500,600,84,,9,14,251,,,
+2,Ancient Barbarian 3,human,Ancient,37,,,,,MonLeapAttack,seq_ancientleap,5,,,,,,,,,,,,,,,,,,,,,,70,,70,,,70,,500,600,84,,9,14,251,,,
+0,Baal Throne,demon,BaalThrone,60,,,1,,Decrepify,S3,5,Baal Corpse Explode,S3,1,Defense Curse,S3,3,Blood Mana,S3,3,,,,,,,,,,,,,,,33,33,33,50,50,6336,6336,87,6333,76,111,125,,,
+0,Baal Crab,demon,BaalCrab,60,,,1,,Baal Nova,S3,1,Baal Inferno,seq_baalinferno,1,Baal Tentacle,S2,1,Baal Cold Missiles,A1,1,Baal Teleport,A1,1,Defense Curse,S3,3,Blood Mana,S3,3,,,,,,33,33,33,50,40,6336,6336,87,6460,106,179,251,Baal,Baal,Baal
+0,Baal Taunt,demon,BaalTaunt,0,,,,,Baal Taunt,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Putrid Defiler1,putriddefiler,PutridDefiler,35,,,1,1,Impregnate,S1,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,50,114,189,126,149,32,91,126,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+1,Putrid Defiler2,putriddefiler,PutridDefiler,37,,,1,1,Impregnate,S1,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,50,114,190,126,157,31,92,126,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,Putrid Defiler3,putriddefiler,PutridDefiler,38,,,1,1,Impregnate,S1,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,50,115,190,126,162,30,88,125,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+3,Putrid Defiler4,putriddefiler,PutridDefiler,39,,,1,1,Impregnate,S1,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,50,114,189,126,166,29,89,126,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+4,Putrid Defiler5,putriddefiler,PutridDefiler,40,,,1,1,Impregnate,S1,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,50,114,190,126,171,33,93,125,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+0,Pain Worm1,vilekind,VileDog,34,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,44,65,106,84,5,28,60,125,,,
+1,Pain Worm2,vilekind,VileDog,35,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,46,64,106,84,5,32,60,126,,,
+2,Pain Worm3,vilekind,VileDog,36,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,47,65,106,84,5,31,61,125,,,
+3,Pain Worm4,vilekind,VileDog,37,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,48,65,107,84,5,31,61,126,,,
+4,Pain Worm5,vilekind,VileDog,42,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,64,106,84,6,31,62,125,,,
+0,Bunny,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Council Member,councilmember,HighPriest,40,,,1,,Hydra,S1,4,ZakarumHeal,S1,4,,,,,,,,,,,,,,,,,,,,,,,,,39,190,379,84,225,53,121,93,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,VenomLord,megademon,Megademon,40,,,1,,MegademonInferno,S1,4,,,,,,,,,,,,,,,,,,,,,,,,70,,,70,50,190,379,101,239,57,97,125,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,Baal Crab to Stairs,demon,BaalToStairs,60,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,50,,,,,,,,,,,
+0,Act 5 Hireling 1hs,human,Hireable,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,,,,,,,,,,,
+1,Act 5 Hireling 2hs,human,Hireable,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,,,,,,,,,,,
+0,Baal Tentacle,demon,BaalTentacle,34,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,44,65,106,84,,28,87,125,,,
+1,Baal Tentacle,demon,BaalTentacle,35,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,46,64,106,84,,32,91,126,,,
+2,Baal Tentacle,demon,BaalTentacle,36,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,47,65,106,84,,31,87,125,,,
+3,Baal Tentacle,demon,BaalTentacle,37,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,48,65,107,84,,31,92,126,,,
+4,Baal Tentacle,demon,BaalTentacle,42,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,64,106,84,,31,93,125,,,
+0,Injured Barbarian 1,human,Idle,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Injured Barbarian 2,human,Idle,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Injured Barbarian 3,human,Idle,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,Baal Crab Clone,demon,BaalCrabClone,60,,,1,,Baal Nova,S3,1,Baal Inferno,seq_baalinferno,1,Baal Tentacle,S2,1,Baal Cold Missiles,A1,1,Baal Clone Teleport,A1,1,Defense Curse,S3,3,Blood Mana,S3,3,,,,,,15,15,15,33,40,1901,1901,87,,106,179,251,,,
+0,Baals Minion,demon,BaalMinion,55,,,1,,Smite,A2,1,,,,,,,,,,,,,,,,,,,,,,,,50,,50,95,50,472,660,87,634,30,92,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+1,Baals Minion,demon,BaalMinion,57,,,1,,Smite,A2,1,,,,,,,,,,,,,,,,,,,,,,,,50,,50,95,50,472,661,87,683,32,92,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+2,Baals Minion,demon,BaalMinion,60,,,1,,Smite,A2,1,,,,,,,,,,,,,,,,,,,,,,,,50,,50,95,50,476,666,87,763,30,90,251,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Worldstone Effect,,Idle,,,,,,Baal Taunt,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,BurningDeadArcher,skeleton,SkeletonBow,32,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,50,25,,100,15,70,100,100,95,3,17,115,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,BoneArcher,skeleton,SkeletonBow,35,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,25,50,110,23,70,100,100,95,3,17,115,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+3,BurningDeadArcher,skeleton,SkeletonBow,38,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,50,25,,120,25,70,100,100,95,3,17,115,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+1,ReturnedArcher,skeleton,SkeletonBow,40,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,25,,130,35,70,100,100,95,3,17,115,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,HorrorArcher,skeleton,SkeletonBow,41,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,140,48,70,100,100,95,10,25,115,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+4,Afflicted,bighead,Bighead,32,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,80,50,,15,80,130,80,100,50,100,100,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Tainted,bighead,Bighead,34,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,80,33,,15,80,130,80,100,50,100,100,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Misshapen,bighead,Bighead,37,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,80,50,,15,80,130,80,100,50,100,100,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,Disfigured,bighead,Bighead,39,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,75,80,50,,15,80,130,80,100,50,100,100,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,Damned,bighead,Bighead,41,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,80,75,33,15,80,130,80,100,50,100,100,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,MoonClan,goatman,Goatman,32,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,,,20,115,140,90,100,80,140,80,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,NightClan,goatman,Goatman,35,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,,,20,115,140,90,100,80,140,80,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,HellClan,goatman,Goatman,38,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,,,,20,115,140,90,100,80,140,80,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,BloodClan,goatman,Goatman,40,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,60,,,,20,115,140,90,100,80,140,80,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,DeathClan,goatman,Goatman,41,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,30,30,,,,20,115,140,90,100,80,140,80,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,FoulCrow,foulcrow,BloodHawk,32,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,,10,40,55,125,75,90,140,100,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,BloodHawk,foulcrow,BloodHawk,35,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,60,,,,10,40,55,125,75,90,140,100,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,BlackRaptor,foulcrow,BloodHawk,38,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,10,40,55,125,75,90,140,100,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,CloudStalker,foulcrow,BloodHawk,40,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,20,60,,,10,40,55,125,75,90,140,100,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+4,ClawViper,clawviper,ClawViperEx,32,,,,,Charge,seq_serpentcharge,5,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,20,70,95,115,100,30,60,120,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+4,PitViper,clawviper,ClawViperEx,35,,,,,Charge,seq_serpentcharge,5,,,,,,,,,,,,,,,,,,,,,,25,,50,,,,20,70,95,115,100,,,,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,Salamander,clawviper,ClawViperEx,38,,,,,Charge,seq_serpentcharge,5,,,,,,,,,,,,,,,,,,,,,,,,75,,60,,20,70,95,115,100,,,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+1,TombViper,clawviper,ClawViperEx,40,,,,,Charge,seq_serpentcharge,5,,,,,,,,,,,,,,,,,,,,,,,,,60,,75,20,70,95,115,100,10,25,,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+1,SerpentMagus,clawviper,ClawViperEx,41,,,,,Charge,seq_serpentcharge,5,,,,,,,,,,,,,,,,,,,,,,,40,20,20,20,20,20,70,95,115,100,,,,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Marauder,sandraider,SandRaider,33,,,,,Fire Hit,seq_sandraiderflurry,6,,,,,,,,,,,,,,,,,,,,,,,,80,50,,,35,120,150,100,120,80,110,150,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Infidel,sandraider,SandRaider,36,,,,,Fire Hit,seq_sandraiderflurry,7,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,120,150,100,120,80,110,150,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+4,SandRaider,sandraider,SandRaider,39,,,,,Fire Hit,seq_sandraiderflurry,8,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,120,150,100,120,80,110,150,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,Invader,sandraider,SandRaider,40,,,,,Fire Hit,seq_sandraiderflurry,9,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,120,150,100,120,80,110,150,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,Assailant,sandraider,SandRaider,41,,,,,Fire Hit,seq_sandraiderflurry,10,,,,,,,,,,,,,,,,,,,,,,,,,,,,35,120,150,100,120,80,110,150,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,Death Mauler1,deathmauler,DeathMauler,32,,,,,DeathMaul,seq_deathmaulerdig,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,123,152,126,153,51,76,251,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,QuillRat,quillrat,QuillRat,32,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,90,120,84,71,51,101,101,Quill 1,Act 1 Champ A,Act 1 Unique A
+1,SpikeFiend,quillrat,QuillRat,32,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,90,120,84,71,51,101,101,Quill 1,Act 1 Champ A,Act 1 Unique A
+4,RazorSpine,quillrat,QuillRat,32,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,90,120,84,71,51,101,101,Quill 1,Act 1 Champ A,Act 1 Unique A
+0,CarrionBird,vulture,Vulture,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,83,91,121,94,Swarm 1,Act 2 Champ A,Act 2 Unique A
+0,ThornedHulk,thornhulk,ThornHulk,27,,,,,MonFrenzy,A2,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,152,247,84,133,89,148,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,Slinger,pantherwoman,PantherJavelin,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,53,86,58,67,47,116,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Slinger,pantherwoman,PantherJavelin,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,53,86,58,67,47,116,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,Slinger,pantherwoman,PantherJavelin,19,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,53,86,58,67,47,116,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,VileArcher,corruptrogue,CorruptArcher,5,,,1,,MonBow,A1,1,MonFireArrow,A1,9,MonExplodingArrow,A1,7,,,,,,,,,,,,,,,,,,,,,,15,93,131,84,91,30,60,255,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,DarkArcher,corruptrogue,CorruptArcher,5,,,1,,MonBow,A1,1,MonColdArrow,A1,9,MonFreezingArrow,A1,7,,,,,,,,,,,,,,,,,,,,,,15,93,131,84,91,30,60,255,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,VileLancer,corruptrogue,CorruptLancer,5,,,1,,Jab,seq_crlancerjab,3,MonPowerStrike,A1,9,,,,,,,,,,,,,,,,,,,,,,,,,6,85,124,84,91,76,151,91,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,DarkLancer,corruptrogue,CorruptLancer,5,,,1,,Jab,seq_crlancerjab,3,MonIceSpear,A1,5,,,,,,,,,,,,,,,,,,,,,,,,,6,85,124,84,91,76,151,91,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+3,BlackLancer,corruptrogue,CorruptLancer,5,,,1,,Jab,seq_crlancerjab,3,MonPowerStrike,A1,9,,,,,,,,,,,,,,,,,,,,,,,,,6,85,124,84,91,76,151,91,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,Blunderbore,blunderbore,PinHead,18,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,108,193,84,114,76,134,160,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Mauler,blunderbore,PinHead,18,,,1,,Smite,seq_pinheadsmite,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,108,193,84,114,76,134,160,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,15,56,84,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+3,BurningDeadMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,15,56,84,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+1,ReturnedMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,15,56,84,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+3,HorrorMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,15,56,84,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,BoneMage,skeleton,SkeletonMage,15,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,30,50,15,56,84,84,56,,,,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+4,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+0,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,17,56,81,84,55,,,,Act 2 Cast B,Act 2 Champ B,Act 2 Unique B
+0,Huntress,pantherwoman,PantherWoman,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,57,97,64,71,51,121,94,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,SaberCat,pantherwoman,PantherWoman,14,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,57,97,64,71,51,121,94,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,CaveLeaper,sandleaper,SandLeaper,15,,,,,MonLeap,seq_leaperleap,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,66,194,84,94,61,121,94,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+3,TombCreeper,sandleaper,SandLeaper,15,,,,,MonLeap,seq_leaperleap,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,16,66,194,84,94,61,121,94,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,Ghost,wraith,Wraith,15,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,50,8,83,165,84,93,61,121,94,Act 1 Wraith B,Act 5 Champ A,Act 5 Unique A
+0,Wraith,wraith,Wraith,15,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,50,8,83,165,84,93,61,121,94,Act 1 Wraith B,Act 5 Champ A,Act 5 Unique A
+0,Specter,wraith,Wraith,15,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,50,8,83,165,84,93,61,121,94,Act 1 Wraith B,Act 5 Champ A,Act 5 Unique A
+0,Succubusexp,succubus,Succubus,42,,,1,1,,,,,,,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,95,152,107,159,47,85,125,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Hell Temptress,succubus,Succubus,42,,,1,1,,,,,,,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,95,152,107,159,47,85,125,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+3,Dominus,succubus,SuccubusWitch,42,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,3,,,,,,,,,,,,,,80,,50,95,152,107,161,47,85,138,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+4,Hell Witch,succubus,SuccubusWitch,42,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,3,,,,,,,,,,,,,,80,,50,95,152,107,161,47,85,138,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+1,VileWitch,succubus,SuccubusWitch,42,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,3,,,,,,,,,,,,,,80,,50,95,152,107,161,47,85,138,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+0,Gloam,willowisp,WillOWisp,42,1,,,1,Chain Lightning,SC,4,,,,,,,,,,,,,,,,,,,,,,70,,,80,,,28,44,87,84,82,34,151,93,Act 4 Wraith B,Act 5 Champ A,Act 5 Unique A
+3,BlackSoul,willowisp,WillOWisp,42,1,,,1,Chain Lightning,SC,4,,,,,,,,,,,,,,,,,,,,,,70,,,80,,,28,44,87,84,82,34,151,93,Act 4 Wraith B,Act 5 Champ A,Act 5 Unique A
+0,BurningSoul,willowisp,WillOWisp,42,1,,,1,Chain Lightning,SC,4,,,,,,,,,,,,,,,,,,,,,,70,,,80,,,28,44,87,84,82,34,151,93,Act 4 Wraith B,Act 5 Champ A,Act 5 Unique A
+1,Carver,fallen,Fallen,40,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,50,49,21,55,84,93,45,93,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+2,Devilkin,fallen,Fallen,40,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,50,49,21,55,84,93,45,93,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+0,DarkOne,fallen,Fallen,40,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,50,50,50,50,50,50,49,21,55,84,93,45,93,93,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,CarverShaman,fallen,FallenShaman,40,,,1,,Resurrect,seq_shamanresurrect,1,ShamanIce,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,20,70,,,,39,65,107,84,125,53,121,93,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,DevilkinShaman,fallen,FallenShaman,40,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFireEx,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,20,70,,,,39,65,107,84,125,53,121,93,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+0,DarkShaman,fallen,FallenShaman,40,,,1,,Resurrect,seq_shamanresurrect,1,ShamanFireEx,seq_shamanresurrect,1,,,,,,,,,,,,,,,,,,,,20,70,,,,39,65,107,84,125,53,121,93,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+2,BoneWarrior,skeleton,Skeleton,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,20,,60,,50,30,94,131,84,85,41,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,Returned,skeleton,Skeleton,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,20,,60,,50,30,94,131,84,85,41,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+1,Gloombat,batdemon,BatDemon,27,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,43,151,84,89,65,101,93,Act 3 H2H C,Act 3 Champ C,Act 3 Unique C
+0,Fiend,batdemon,BatDemon,27,,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,27,43,151,84,89,65,101,93,Act 3 H2H C,Act 3 Champ C,Act 3 Unique C
+2,Blood Lord1,bloodlord,BloodLord,36,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,284,379,126,260,66,148,188,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,Blood Lord4,bloodlord,BloodLord,36,,,,,BloodLordFrenzy,A2,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,284,379,126,260,66,148,188,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,Scarab,scarab,Scarab,24,,,,,Jab,seq_scarabjab,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,67,111,85,83,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,SteelWeevil,scarab,Scarab,24,,,,,Jab,seq_scarabjab,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,67,111,85,83,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+1,Flayer,fetish,Fetish,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,StygianDoll,fetish,Fetish,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,SoulKiller,fetish,Fetish,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+1,Flayer,fetish,FetishBlowgun,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,32,65,107,85,65,,,125,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,StygianDoll,fetish,FetishBlowgun,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,32,65,107,85,65,,,125,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,SoulKiller,fetish,FetishBlowgun,24,,,1,,SkeletonRaise,seq_fethisraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,32,65,107,85,65,,,125,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+1,FlayerShaman,fetish,FetishShaman,24,,,1,,FetishInferno,A1,11,FetishAura,A1,5,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,77,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+0,StygianDollShaman,fetish,FetishShaman,24,,,1,,FetishInferno,A1,11,FetishAura,A1,5,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,77,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+2,SoulKillerShaman,fetish,FetishShaman,24,,,1,,FetishInferno,A1,11,FetishAura,A1,5,Resurrect2,seq_fetishres,1,,,,,,,,,,,,,,,,,,,,,,24,65,107,85,77,,,,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+4,TempleGuard,baboon,Baboon,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,107,151,85,97,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+3,TempleGuard,baboon,Baboon,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,107,151,85,97,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+4,Guardian,unraveler,GreaterMummy,40,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBoltEx,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,,50,39,192,235,84,211,121,153,93,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+2,Unraveler,unraveler,GreaterMummy,40,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBoltEx,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,,50,39,192,235,84,211,121,153,93,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+4,Horadrim Ancient,unraveler,GreaterMummy,40,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBoltEx,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,,50,39,192,235,84,211,121,153,93,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+2,Horadrim Ancient,unraveler,GreaterMummy,40,,1,,,Resurrect2,seq_mummyres,1,Bestow,seq_mummyres,1,UnHolyBoltEx,seq_mummyres,1,,,,,,,,,,,,,,,,,,,,,50,39,192,235,84,211,121,153,93,Act 5 Cast B,Act 5 Champ B,Act 5 Unique B
+1,Zealot,zakarum,ZakarumZealot,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,131,173,85,100,57,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,Zealot,zakarum,ZakarumZealot,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,131,173,85,100,57,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+1,Heirophant,zakarum,ZakarumPriest,24,,,,,ZakarumHeal,S1,3,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,24,131,173,85,106,69,151,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+2,Heirophant,zakarum,ZakarumPriest,24,,,,,ZakarumHeal,S1,3,ZakarumLightning,S1,1,MonTeleport,S1,1,MonBlizzard,S1,1,,,,,,,,,,,,,,,,,,,24,131,173,85,106,69,151,92,Act 3 Cast B,Act 3 Champ B,Act 3 Unique B
+2,Grotesque,vilekind,VileMother,30,,,1,,Nest,seq_vileres,1,,,,,,,,,,,,,,,,,,,,,,,,,,40,,29,228,294,63,168,90,190,92,Act 4 Cast B,Act 4 Champ B,Act 4 Unique B
+0,FleshSpawner,vilekind,VileMother,30,,,1,,Nest,seq_vileres,1,,,,,,,,,,,,,,,,,,,,,,,,,,40,,29,228,294,63,168,90,190,92,Act 4 Cast B,Act 4 Champ B,Act 4 Unique B
+2,GrotesqueWyrm,vilekind,VileDog,30,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,47,55,84,84,89,48,74,151,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+0,FleshBeast,vilekind,VileDog,30,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,40,,47,55,84,84,89,48,74,151,Act 4 Cast A,Act 4 Champ A,Act 4 Unique A
+4,WorldKiller,sandmaggot,SandMaggot,27,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,27,140,172,84,127,89,189,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+4,WorldKillerYoung,sandmaggot,MaggotLarva,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,21,65,85,55,26,44,92,,,
+4,WorldKillerEgg,,MaggotEgg,27,,,,,MaggotEgg,seq_maggotegg,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,77,95,84,54,,,,,,
+2,Slayerexp,minion,Minion,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,226,77,97,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+3,HellSpawn,minion,Minion,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,226,77,97,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+2,GreaterHellSpawn,minion,Minion,42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,190,237,101,226,77,97,151,Act 5 H2H B,Act 5 Champ B,Act 5 Unique B
+0,Arach,arach,Arach,23,,,,,SpiderLay,A2,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,151,190,85,114,94,147,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,Balrog,megademon,Megademon,30,,,1,,MegademonInferno,S1,9,,,,,,,,,,,,,,,,,,,,,,,,70,,,70,39,191,228,101,152,53,95,125,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,PitLord,megademon,Megademon,30,,,1,,MegademonInferno,S1,9,,,,,,,,,,,,,,,,,,,,,,,,70,,,70,39,191,228,101,152,53,95,125,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,Imp1,imp,Imp,38,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,3,Imp Fire Missile Ex,A1,1,Imp Inferno,seq_impinferno,5,,,,,,,,,,,,,,,,37,65,107,84,137,,,,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+3,Imp4,imp,Imp,38,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,3,Imp Fire Missile Ex,A1,1,Imp Inferno,seq_impinferno,5,,,,,,,,,,,,,,,,37,65,107,84,137,,,,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+2,Undead StygianDoll,undeadfetish,Fetish,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,Undead SoulKiller,undeadfetish,Fetish,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,24,65,107,85,79,69,101,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+1,Strangler,fingermage,FingerMage,30,1,,,1,FingerMageSpider,S1,5,,,,,,,,,,,,,,,,,,,,,,,,60,60,,,29,152,209,84,130,53,122,92,Act 4 Wraith B,Act 4 Champ B,Act 4 Unique B
+1,StormCaster,fingermage,FingerMage,30,1,,,1,FingerMageSpider,S1,5,,,,,,,,,,,,,,,,,,,,,,,,60,60,,,29,152,209,84,130,53,122,92,Act 4 Wraith B,Act 4 Champ B,Act 4 Unique B
+2,MawFiend,regurgitator,Regurgitator,30,,,1,,RegurgitatorEat,S1,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,29,209,283,84,163,90,148,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+3,BloodLord,vampire,Vampire,25,,1,,,VampireFireball,SC,5,VampireFirewall,SC,5,VampireMeteor,SC,5,VampireMissile,SC,1,,,,,,,,,,,,,60,,,,50,,25,152,210,85,113,51,119,93,Act 3 Cast C,Act 3 Champ C,Act 3 Unique C
+0,GhoulLord,vampire,Vampire,25,,1,,,VampireFireball,SC,5,VampireFirewall,SC,5,VampireMeteor,SC,5,VampireMissile,SC,1,,,,,,,,,,,,,60,,,,50,,25,152,210,85,113,51,119,93,Act 3 Cast C,Act 3 Champ C,Act 3 Unique C
+3,DarkLord,vampire,Vampire,25,,1,,,VampireFireball,SC,5,VampireFirewall,SC,5,VampireMeteor,SC,5,VampireMissile,SC,1,,,,,,,,,,,,,60,,,,50,,25,152,210,85,113,51,119,93,Act 3 Cast C,Act 3 Champ C,Act 3 Unique C
+0,UnholyCorpse,zombie,ReanimatedHorde,42,1,,,,Self-resurrect,S1,1,Charge,seq_reanimatedcharge,1,,,,,,,,,,,,,,,,,,,,50,,,,70,50,114,170,107,173,35,89,138,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+0,DoomKnight,doomknight,DoomKnight,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,80,20,20,40,24,131,173,107,111,69,151,92,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,DoomKnight,doomknight,DoomKnight,24,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,80,20,20,40,24,131,173,107,111,69,151,92,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,OblivionKnight,doomknight,OblivionKnight,30,1,,,,DoomKnightMissile,S1,1,MonBoneArmor,S1,6,MonBoneSpirit,S1,2,Decrepify,S2,3,Bestow,seq_undeadbestow,2,MonCurseCast,S2,3,,,,,,,,,60,60,60,60,29,130,171,107,131,69,153,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,OblivionKnight,doomknight,OblivionKnight,30,1,,,,DoomKnightMissile,S1,1,MonBoneArmor,S1,6,MonBoneSpirit,S1,2,Decrepify,S2,3,Bestow,seq_undeadbestow,2,MonCurseCast,S2,3,,,,,,,,,60,60,60,60,29,130,171,107,131,69,153,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+3,Cadaver,mummy,Mummy,25,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,70,25,70,154,85,89,57,107,93,Act 3 H2H C,Act 3 Champ C,Act 3 Unique C
+0,Mephisto,demon,UberMephisto,110,,,1,,PrimeLightning,A2,6,PrimeBolt,A2,20,PrimePoisonNova,A2,7,MephistoMissile,A2,5,MephFrostNova,A2,1,Blizzard,A2,5,,,,,,,,,33,33,25,50,20,5695,5695,124,2131,295,442,251,,,
+0,Diablo,demon,UberDiablo,110,,,1,,DiabLight,SC,2,DiabCold,S2,2,DiabFire,S1,4,DiabWall,S3,2,DiabRun,seq_diablorun,5,PrimeFirewall,S3,8,DiabPrison,S3,1,Diablogeddon,S3,5,50,50,75,75,75,75,50,6427,6427,87,3462,77,197,313,,,
+0,izual,demon,UberIzual,110,,,,,Frost Nova,SC,8,Chilling Armor,SC,20,MonTeleport,SC,1,,,,,,,,,,,,,,,,30,30,30,30,75,30,50,9481,9481,84,3695,132,237,251,,,
+0,Lilith,demon,Andariel,110,,,1,,AndrialSpray,seq_andarielspray,1,AndyPoisonBolt,A1,1,,,,,,,,,,,,,,,,,,,,,-50,50,50,80,0,2562,2562,84,916,76,238,153,,,
+0,Duriel,demon,Duriel,110,,,1,,Charge,seq_durielcharge,5,Jab,seq_durieljab,15,Smite,seq_durielsmite,7,MonHolyFreeze,NU,1,,,,,,,,,,,,,,,20,20,50,20,0,4757,4757,85,1655,140,180,201,,,
+0,Baal Crab,demon,UberBaal,110,,,1,,Baal Nova,S3,1,Baal Inferno,seq_baalinferno,1,Baal Tentacle,S2,1,Baal Cold Missiles,A1,1,Baal Teleport,A1,1,Defense Curse,S3,3,Blood Mana,S3,3,Chilling Armor,A1,30,,,33,33,33,50,40,6336,6336,87,6460,106,179,251,,,
+7,Evil hut,,MinionSpawner,14,,,,,MinionSpawner,A1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,15,67,107,84,93,,,,,,
+0,Dummy,,EvilHole,1,,,,,Nest,S4,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,PitLord,megademon,Megademon,30,,,1,,MegademonInferno,S1,9,,,,,,,,,,,,,,,,,,,,,,,,70,,,70,39,191,228,101,152,53,95,125,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+0,OblivionKnight,doomknight,OblivionKnight,30,1,,,,DoomKnightMissile,S1,1,MonBoneArmor,S1,6,MonBoneSpirit,S1,2,Decrepify,S2,3,Bestow,seq_undeadbestow,2,MonCurseCast,S2,3,,,,,,,,,60,60,60,60,29,130,171,107,131,69,153,92,Act 4 H2H B,Act 4 Champ B,Act 4 Unique B
+3,Imp4,imp,Imp,38,,,1,,Imp Teleport,S1,1,ImpBolt,S2,1,Imp Fireball,S2,3,Imp Fire Missile Ex,A1,1,Imp Inferno,seq_impinferno,5,,,,,,,,,,,,,,,,37,65,107,84,137,,,,Act 5 Cast C,Act 5 Champ C,Act 5 Unique C
+3,HellSwarm,swarm,Swarm,22,,,,,Swarm Move,seq_swarmmove,1,,,,,,,,,,,,,,,,,,,,,,90,,,40,,,22,22,44,85,61,79,93,94,Swarm 2,Act 3 Champ B,Act 3 Unique B
+4,WorldKiller,sandmaggot,SandMaggot,27,,,,,MagottUp,seq_maggotup,1,MagottDown,seq_maggotdown,1,MagottLay,seq_maggotlay,1,,,,,,,,,,,,,,,,,,,,,,27,140,172,84,127,89,189,93,Act 4 H2H A,Act 4 Champ A,Act 4 Unique A
+0,Arach,arach,Arach,23,,,,,SpiderLay,A2,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,151,190,85,114,94,147,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+0,SteelWeevil,scarab,Scarab,24,,,,,Jab,seq_scarabjab,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,24,67,111,85,83,51,151,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,Hell Temptress,succubus,Succubus,42,,,1,1,,,,,,,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,1,,,,,,,,,,,,,,,,50,95,152,107,159,47,85,125,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+1,VileWitch,succubus,SuccubusWitch,42,,,1,1,Amplify Damage,S2,3,Weaken,S2,3,Defense Curse,S2,3,Blood Mana,S2,3,SuccubusBolt,S2,3,,,,,,,,,,,,,,80,,50,95,152,107,161,47,85,138,Act 5 Cast A,Act 5 Champ A,Act 5 Unique A
+4,FleshHunter,corruptrogue,CorruptRogue,23,,,1,,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,,40,65,107,85,78,47,121,92,Act 3 H2H B,Act 3 Champ B,Act 3 Unique B
+2,DarkArcher,corruptrogue,CorruptArcher,5,,,1,,MonBow,A1,1,MonColdArrow,A1,9,MonFreezingArrow,A1,7,,,,,,,,,,,,,,,,,,,,,,15,93,131,84,91,30,60,255,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+3,BlackLancer,corruptrogue,CorruptLancer,5,,,1,,Jab,seq_crlancerjab,3,MonPowerStrike,A1,9,,,,,,,,,,,,,,,,,,,,,,,,,6,85,124,84,91,76,151,91,Act 5 H2H A,Act 5 Champ A,Act 5 Unique A
+4,HellWhip,overseer,Overseer,39,,,1,,Cry Help,S1,1,Healing Vortex,S2,1,Overseer Whip,A2,1,Smite,seq_genericspawner,1,,,,,,,,,,,,,,,,,,,50,379,379,84,142,61,117,126,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+1,Returned,skeleton,Skeleton,14,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,20,,60,,50,30,94,131,84,85,41,101,94,Act 2 H2H A,Act 2 Champ A,Act 2 Unique A
+4,HorrorArcher,skeleton,SkeletonBow,41,,1,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,33,33,33,140,48,70,100,100,95,10,25,115,Act 5 H2H C,Act 5 Champ C,Act 5 Unique C
+3,BurningDeadMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,30,,,50,15,56,84,84,56,,,,,,
+3,HorrorMage,skeleton,SkeletonMage,8,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,30,,50,15,56,84,84,56,,,,,,
+2,BoneMage,skeleton,SkeletonMage,15,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,30,50,15,56,84,84,56,,,,,,
+0,HorrorMage,skeleton,SkeletonMage,17,1,,,,SkeletonRaise,seq_skeletonraise,1,,,,,,,,,,,,,,,,,,,,,,,,,,,70,17,56,81,84,55,,,,,,
+3,DarkLord,vampire,Vampire,25,,1,,,VampireFireball,SC,5,VampireFirewall,SC,5,VampireMeteor,SC,5,VampireMissile,SC,1,,,,,,,,,,,,,60,,,,50,,25,152,210,85,113,51,119,93,,,
+0,Specter,wraith,Wraith,15,1,,,1,,,,,,,,,,,,,,,,,,,,,,,,,20,,,,,50,8,83,165,84,93,61,121,94,,,
+0,BurningSoul,willowisp,WillOWisp,42,1,,,1,Chain Lightning,SC,4,,,,,,,,,,,,,,,,,,,,,,70,,,80,,,28,44,87,84,82,34,151,93,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,Hell Bovine,bovine,Skeleton,28,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,133,285,88,140,151,223,93,Cow,Act 4 Champ B,Act 4 Unique B
+4,PlagueBearer,zombie,Zombie,17,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,50,,,,50,17,109,192,84,109,55,137,92,Act 2 H2H B,Act 2 Champ B,Act 2 Unique B
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,dummy,,Idle,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

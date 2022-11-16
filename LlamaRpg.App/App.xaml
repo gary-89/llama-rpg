@@ -25,64 +25,31 @@
                 <Setter Property="FontSize" Value="14" />
             </Style>
 
-            <!--<Style TargetType="ToolTip">
-                <Setter Property="Foreground" Value="{ThemeResource ToolTipForegroundThemeBrush}" />
-                <Setter Property="Background" Value="{ThemeResource ToolTipBackgroundThemeBrush}" />
-                <Setter Property="BorderBrush" Value="{ThemeResource ToolTipForegroundThemeBrush}" />
-                <Setter Property="BorderThickness" Value="{ThemeResource ToolTipBorderThemeThickness}" />
-                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontSize}" />
-                <Setter Property="FontSize" Value="{ThemeResource ToolTipContentThemeFontSize}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ToolTip">
-                            <ContentPresenter
-                                x:Name="LayoutRoot"
-                                Content="{TemplateBinding Content}"
-                                Background="{TemplateBinding Background}"
-                                BackgroundSizing="{TemplateBinding BackgroundSizing}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                ContentTransitions="{TemplateBinding ContentTransitions}"
-                                TextWrapping="Wrap"
-                                Padding="{TemplateBinding Padding}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="OpenStates">
-                                        <VisualState x:Name="Closed">
-                                            <Storyboard>
-                                                <FadeOutThemeAnimation TargetName="LayoutRoot" />
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Opened">
-                                            <Storyboard>
-                                                <FadeInThemeAnimation TargetName="LayoutRoot" />
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                            </ContentPresenter>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
-
             <converters:MenuItemToPageConverter x:Key="MenuItemToPageConverter" />
+
             <converters:DoubleToStringFormatConverter x:Key="DoubleToStringFormatConverter" />
+
+            <converters:NullToInvisibilityConverter x:Key="NullToInvisibilityConverter" />
+
+            <converters:EnumToForegroundBrushConverter x:Key="EnumToForegroundBrushConverter" />
+
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <converters:DownloadUpdatesStateToSeverityConverter x:Key="DownloadUpdatesStateToSeverityConverter" />
+
+            <converters:BooleanToVisibilityConverter
+                x:Key="InvertedBooleanToVisibilityConverter"
+                IsInverted="True" />
+
             <converters:ObjectEqualityToVisibilityConverter
                 x:Key="ObjectEqualityToVisibilityConverter"
                 FalseValue="Collapsed"
                 TrueValue="Visible" />
+
             <converters:ObjectEqualityToVisibilityConverter
                 x:Key="ObjectEqualityToInvisibilityConverter"
                 FalseValue="Visible"
                 TrueValue="Collapsed" />
-            <converters:NullToInvisibilityConverter x:Key="NullToInvisibilityConverter" />
-            <converters:RarityTypeToForegroundBrushConverter x:Key="RarityTypeToForegroundBrushConverter" />
-            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <converters:DownloadUpdatesStateToSeverityConverter x:Key="DownloadUpdatesStateToSeverityConverter" />
-            <converters:BooleanToVisibilityConverter
-                x:Key="InvertedBooleanToVisibilityConverter"
-                IsInverted="True" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

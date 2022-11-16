@@ -18,6 +18,11 @@
   <ItemGroup>
     <Content Remove="Assets\Datasets\Affixes.csv" />
     <Content Remove="Assets\Datasets\Items.csv" />
+    <Content Remove="Assets\Datasets\Monsters.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\MonstersPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +58,12 @@
     <None Update="Assets\Datasets\Items.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Datasets\Monsters.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Page Update="Pages\MonstersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 
