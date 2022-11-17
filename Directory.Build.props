@@ -1,18 +1,19 @@
 <Project>
   <PropertyGroup>
-    <DefaultTargetFramework>net6.0</DefaultTargetFramework>
+    <DefaultTargetFramework>net7.0</DefaultTargetFramework>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
     <Product>LlamaRpg Tools</Product>
-    <Authors>Gary Design</Authors>
+    <Authors>Gary Francis</Authors>
 
+    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NeutralLanguage>en</NeutralLanguage>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Roslynator.Analyzers" Version="4.1.1">
+    <PackageReference Update="Roslynator.Analyzers" Version="4.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
