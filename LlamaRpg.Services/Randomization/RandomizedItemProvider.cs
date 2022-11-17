@@ -188,6 +188,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         };
 
         var generatedAffixes = InternalGenerateAffixes(
+            baseAffix: false,
             item,
             rarity,
             primaryElementOfItem: item.Type is ItemType.Weapon or ItemType.Offhand ? primaryElement : default,
@@ -244,6 +245,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         };
 
         var baseAffix = InternalGenerateAffixes(
+            baseAffix: true,
             item,
             rarity,
             primaryElementOfItem: default,
@@ -271,6 +273,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
             .AsReadOnly();
 
         var baseAffix2 = InternalGenerateAffixes(
+            baseAffix: false,
             item,
             rarity,
             primaryElementOfItem: default,
@@ -291,6 +294,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
     }
 
     private IReadOnlyList<string> InternalGenerateAffixes(
+        bool baseAffix,
         ItemBase item,
         ItemRarityType itemRarity,
         PrimaryElement? primaryElementOfItem,
@@ -302,6 +306,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         int? affixGroupToExclude,
         out int? affixGroup)
     {
+        const int maxNumberOfAttempts = 100;
+
         List<(int Group, string AffixText)> generatedAffixesWithGroup = new();
         affixGroup = null;
 
@@ -322,7 +328,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
             Affix affix;
             AffixRule affix1Rule;
             bool invalidAffix;
-
+            var numberOfAttempts = 0;
             do
             {
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
@@ -331,7 +337,12 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
                 invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
                                || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
+                               || (baseAffix is true && affix1Rule.PowerLevelRequired != itemPowerLevel)
                                || ValidateAffixRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false;
+                if (numberOfAttempts++ > maxNumberOfAttempts)
+                {
+                    throw new Exception($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
+                }
             }
             while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
 
