@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LlamaRpg.App.Models;
@@ -91,7 +87,7 @@ internal sealed class MainViewModel : ObservableObject
         set => SetProperty(ref _selectedPage, value);
     }
 
-    private static async void ShowAboutDialog()
+    private async void ShowAboutDialog()
     {
         if (App.MainRoot is null)
         {
@@ -105,7 +101,7 @@ internal sealed class MainViewModel : ObservableObject
             Title = "About",
             CloseButtonText = "Cancel",
             DefaultButton = ContentDialogButton.Close,
-            Content = new AboutView()
+            Content = new Dialogs.AboutView(CurrentVersion),
         };
 
         await dialog.ShowAsync();
