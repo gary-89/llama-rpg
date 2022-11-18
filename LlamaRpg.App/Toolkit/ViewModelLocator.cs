@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
 namespace LlamaRpg.App.Toolkit;
@@ -24,45 +23,38 @@ public static class ViewModelLocator
 
     private static void AutoHookedUpViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        try
+        if (d is not FrameworkElement frameworkElement)
         {
-            if (d is not FrameworkElement frameworkElement)
-            {
-                return;
-            }
-
-            var viewType = d.GetType();
-
-            var fullName = viewType.FullName;
-
-            if (fullName is null)
-            {
-                return;
-            }
-
-            const string ViewModelSuffix = "ViewModel";
-            const string PagesNamespace = ".Pages.";
-            const string ViewModelsNamespace = ".ViewModels.";
-
-            var viewModelTypeName = fullName.Replace(PagesNamespace, ViewModelsNamespace) + ViewModelSuffix;
-            var viewModelType = Type.GetType(viewModelTypeName);
-
-            if (viewModelType is null)
-            {
-                return;
-            }
-
-            if (App.Services is null)
-            {
-                throw new InvalidCastException();
-            }
-
-            var viewModel = ActivatorUtilities.CreateInstance(App.Services, viewModelType);
-            frameworkElement.DataContext = viewModel;
+            return;
         }
-        catch (Exception exception)
+
+        var viewType = d.GetType();
+
+        var fullName = viewType.FullName;
+
+        if (fullName is null)
         {
-            var error = exception.Message;
+            return;
         }
+
+        const string ViewModelSuffix = "ViewModel";
+        const string PagesNamespace = ".Pages.";
+        const string ViewModelsNamespace = ".ViewModels.";
+
+        var viewModelTypeName = fullName.Replace(PagesNamespace, ViewModelsNamespace) + ViewModelSuffix;
+        var viewModelType = Type.GetType(viewModelTypeName);
+
+        if (viewModelType is null)
+        {
+            return;
+        }
+
+        if (App.Services is null)
+        {
+            throw new InvalidCastException();
+        }
+
+        var viewModel = ActivatorUtilities.CreateInstance(App.Services, viewModelType);
+        frameworkElement.DataContext = viewModel;
     }
 }

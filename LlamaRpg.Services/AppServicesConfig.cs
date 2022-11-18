@@ -1,5 +1,8 @@
-﻿namespace LlamaRpg.Services;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace LlamaRpg.Services;
+
+[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "The class will be injected.")]
 internal sealed class AppServicesConfig
 {
     public string AppFolder => AppContext.BaseDirectory;
