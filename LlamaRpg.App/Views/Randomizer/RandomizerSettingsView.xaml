@@ -120,7 +120,7 @@
                         x:Name="MagicItemDropRateSlider"
                         Value="{x:Bind ViewModel.SettingsViewModel.MagicItemDropRate, Mode=TwoWay}"
                         Maximum="100"
-                        Minimum="1"
+                        Minimum="3"
                         Width="150"
                         HorizontalAlignment="Left" />
 
@@ -170,7 +170,7 @@
                         x:Name="RareItemDropRateSlider"
                         Value="{x:Bind ViewModel.SettingsViewModel.RareItemDropRate, Mode=TwoWay}"
                         Maximum="100"
-                        Minimum="1"
+                        Minimum="3"
                         Width="150"
                         HorizontalAlignment="Left" />
 
@@ -220,7 +220,7 @@
                         x:Name="EliteItemDropRateSlider"
                         Value="{x:Bind ViewModel.SettingsViewModel.EliteItemDropRate, Mode=TwoWay}"
                         Maximum="100"
-                        Minimum="1"
+                        Minimum="3"
                         Width="150"
                         HorizontalAlignment="Left" />
 

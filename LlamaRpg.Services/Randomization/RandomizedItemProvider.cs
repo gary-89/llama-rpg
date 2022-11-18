@@ -58,6 +58,11 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
             var possibleItems = items.Where(x => x.Type == itemType || x.SubType2 == itemType).ToList();
 
+            if (!possibleItems.Any())
+            {
+                throw new InvalidOperationException("No item available: impossible to generate randomized items.");
+            }
+
             var item = possibleItems.ElementAt(_random.Next(possibleItems.Count));
 
             if (!TryGenerateRandomizedItem(ref counter, item.Name, item.Type, item.Subtype, settings, out var randomItem))
