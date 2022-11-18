@@ -30,7 +30,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         ItemRandomizerSettings settings)
     {
         var matchingAffixes = affixes
-            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item, settings.MonsterLevel, itemPowerLevel)))
+            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item.Type, item.Subtype, settings.MonsterLevel, itemPowerLevel)))
             .ToList();
 
         if (matchingAffixes.Count == 0)
@@ -118,11 +118,11 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                 invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
                                || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
                                || (isBaseAffix && affix1Rule.PowerLevelRequired != itemPowerLevel)
-                               || _affixValidator.ValidateRule(affix1Rule, item, itemLevelRequired, itemPowerLevel) == false;
+                               || _affixValidator.ValidateRule(affix1Rule, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel) == false;
 
                 if (numberOfAttempts++ > maxNumberOfAttempts)
                 {
-                    throw new Exception($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
+                    throw new InvalidOperationException($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
                 }
             }
             while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));

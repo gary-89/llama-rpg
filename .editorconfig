@@ -453,10 +453,6 @@ dotnet_naming_symbols.constants.required_modifiers = const
 dotnet_naming_style.constant_style.capitalization = pascal_case
 
 # Static fields are camelCase and start with s_
-dotnet_naming_rule.static_fields_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.static_fields_should_be_camel_case.symbols = static_fields
-dotnet_naming_rule.static_fields_should_be_camel_case.style = camel_case_style
-
 dotnet_naming_symbols.static_fields.applicable_kinds = field
 dotnet_naming_symbols.static_fields.required_modifiers = static
 
@@ -672,7 +668,7 @@ dotnet_diagnostic.SA1108.severity = suggestion
 dotnet_diagnostic.SA1111.severity = suggestion
 
 # SA1122: Use string.Empty for empty strings
-dotnet_diagnostic.SA1122.severity = suggestion
+dotnet_diagnostic.SA1122.severity = warning
 
 # SA1127: Generic type constraints should be on their own line
 dotnet_diagnostic.SA1127.severity = suggestion

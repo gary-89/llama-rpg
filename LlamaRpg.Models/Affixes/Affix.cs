@@ -10,8 +10,8 @@ public sealed class Affix
     private const string Damage = "damage";
     private const string Defense = "defense";
 
-    private static readonly IReadOnlyList<string> _primaryElements = Enum.GetNames(typeof(PrimaryElement));
-    private static readonly IReadOnlyList<string> _secondaryElements = Enum.GetNames(typeof(SecondaryElement));
+    private static readonly IReadOnlyList<string> PrimaryElements = Enum.GetNames(typeof(PrimaryElement));
+    private static readonly IReadOnlyList<string> SecondaryElements = Enum.GetNames(typeof(SecondaryElement));
 
     private string? _types;
 
@@ -108,7 +108,7 @@ public sealed class Affix
 
     private void SetPrimaryElement()
     {
-        foreach (var primaryElementString in _primaryElements)
+        foreach (var primaryElementString in PrimaryElements)
         {
             if (!Name.Contains(primaryElementString, StringComparison.OrdinalIgnoreCase) ||
                 !Enum.TryParse<PrimaryElement>(primaryElementString, out var primaryElement))
@@ -123,7 +123,7 @@ public sealed class Affix
 
     private void SetSecondaryElement()
     {
-        foreach (var secondaryElementString in _secondaryElements)
+        foreach (var secondaryElementString in SecondaryElements)
         {
             if (!Name.Contains(secondaryElementString, StringComparison.OrdinalIgnoreCase) ||
                 !Enum.TryParse<SecondaryElement>(secondaryElementString, out var secondaryElement))

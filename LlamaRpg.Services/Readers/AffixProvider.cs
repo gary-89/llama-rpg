@@ -8,6 +8,7 @@ internal sealed class AffixProvider : IAffixProvider
 {
     private const char CsvSeparator = ',';
 
+    private const string EmptySpace = " ";
     private const string AffixesFileName = "Affixes.csv";
     private const string MinDamage = "mindam";
     private const string MaxDamagePerPowerLevel = "maxdam * plvl";
@@ -77,12 +78,12 @@ internal sealed class AffixProvider : IAffixProvider
                     continue;
                 }
 
-                var itemTypeString = infos[21].Trim().Replace(" ", "");
-                var itemTypeString2 = infos[22].Trim().Replace(" ", "");
-                var itemTypeString3 = infos[23].Trim().Replace(" ", "");
-                var itemTypeString4 = infos[24].Trim().Replace(" ", "");
-                var itemTypeString5 = infos[25].Trim().Replace(" ", "");
-                var itemTypeString6 = infos[26].Trim().Replace(" ", "");
+                var itemTypeString = infos[21].Trim().Replace(EmptySpace, string.Empty);
+                var itemTypeString2 = infos[22].Trim().Replace(EmptySpace, string.Empty);
+                var itemTypeString3 = infos[23].Trim().Replace(EmptySpace, string.Empty);
+                var itemTypeString4 = infos[24].Trim().Replace(EmptySpace, string.Empty);
+                var itemTypeString5 = infos[25].Trim().Replace(EmptySpace, string.Empty);
+                var itemTypeString6 = infos[26].Trim().Replace(EmptySpace, string.Empty);
 
                 if (string.IsNullOrWhiteSpace(infos[1]) ||
                     !Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _) ||

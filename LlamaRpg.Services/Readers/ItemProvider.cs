@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using LlamaRpg.Models.Items;
 using LlamaRpg.Models.Items.PrimaryTypes;
-using LlamaRpg.Services.Validators;
 using Microsoft.Extensions.Logging;
 
 namespace LlamaRpg.Services.Readers;
@@ -10,70 +9,30 @@ namespace LlamaRpg.Services.Readers;
 internal sealed class ItemProvider : IItemProvider
 {
     private const char CsvSeparator = ',';
-    private const string Space = " ";
+    private const string EmptySpace = " ";
+    private const string Percentage = "%";
+    private const string PowerLevelMultiplier = "plvl *";
 
     private readonly AppServicesConfig _appServicesConfig;
-    private readonly ItemValidator _itemValidator;
     private readonly ILogger<ItemProvider> _logger;
-    private readonly List<ItemBase> _items2 = new();
+    private readonly List<ItemBase> _items = new();
 
     private List<ItemType>? _itemTypes;
 
-    public ItemProvider(AppServicesConfig appServicesConfig, ItemValidator itemValidator, ILogger<ItemProvider> logger)
+    public ItemProvider(AppServicesConfig appServicesConfig, ILogger<ItemProvider> logger)
     {
         _appServicesConfig = appServicesConfig;
-        _itemValidator = itemValidator;
         _logger = logger;
-    }
-
-    public async Task<bool> AddItemAsync(ItemBase item, CancellationToken cancellationToken)
-    {
-        if (!await _itemValidator.ValidateAsync(item).ConfigureAwait(false))
-        {
-            return false;
-        }
-
-        _items2.Add(item);
-
-        return true;
-    }
-
-    public Task<bool> EditItemAsync(ItemBase item, CancellationToken cancellationToken)
-    {
-        var index = _items2.IndexOf(item);
-
-        if (index == -1)
-        {
-            return Task.FromResult(false);
-        }
-
-        _items2.RemoveAt(index);
-        _items2.Insert(index, item);
-        return Task.FromResult(true);
-    }
-
-    public Task<bool> DeleteItemAsync(ItemBase item, CancellationToken cancellationToken)
-    {
-        var index = _items2.IndexOf(item);
-
-        if (index == -1)
-        {
-            return Task.FromResult(false);
-        }
-
-        _items2.RemoveAt(index);
-
-        return Task.FromResult(true);
     }
 
     public async ValueTask<IReadOnlyList<ItemBase>> GetItemsAsync(CancellationToken cancellationToken)
     {
-        if (_items2.Count == 0)
+        if (_items.Count == 0)
         {
             await LoadItemsAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        return _items2;
+        return _items;
     }
 
     public async ValueTask<IReadOnlyList<ItemType>> GetItemTypesAsync(CancellationToken cancellationToken)
@@ -93,11 +52,11 @@ internal sealed class ItemProvider : IItemProvider
     {
         var infos = line.Split(CsvSeparator);
         var name = infos[0].Trim();
-        int.TryParse(infos[5].Replace("%", ""), out var statusChancePercentage);
-        int.TryParse(infos[7].Replace("%", ""), out var status2ChancePercentage);
-        int.TryParse(infos[8].Replace("plvl *", ""), out var requiredStrength);
-        int.TryParse(infos[9].Replace("plvl *", ""), out var requiredDexterity);
-        int.TryParse(infos[10].Replace("plvl *", ""), out var requiredIntelligence);
+        int.TryParse(infos[5].Replace(Percentage, string.Empty), out var statusChancePercentage);
+        int.TryParse(infos[7].Replace(Percentage, string.Empty), out var status2ChancePercentage);
+        int.TryParse(infos[8].Replace(PowerLevelMultiplier, string.Empty), out var requiredStrength);
+        int.TryParse(infos[9].Replace(PowerLevelMultiplier, string.Empty), out var requiredDexterity);
+        int.TryParse(infos[10].Replace(PowerLevelMultiplier, string.Empty), out var requiredIntelligence);
         int.TryParse(infos[11], out var sockets);
         int.TryParse(infos[12], out var speed);
         int.TryParse(infos[13], out var minDamage);
@@ -120,7 +79,7 @@ internal sealed class ItemProvider : IItemProvider
                 item = new Weapon(
                     name,
                     subtype,
-                    Enum.TryParse<ItemType>(infos[2].Replace(Space, string.Empty), true, out var subtype2) ? subtype2 : null,
+                    Enum.TryParse<ItemType>(infos[2].Replace(EmptySpace, string.Empty), true, out var subtype2) ? subtype2 : null,
                     status: infos[4].Trim(),
                     statusChancePercentage,
                     status2: infos[6].Trim(),
@@ -184,7 +143,7 @@ internal sealed class ItemProvider : IItemProvider
             {
                 if (TryGetItem(line, out var item))
                 {
-                    _items2.Add(item);
+                    _items.Add(item);
                 }
             }
         }
@@ -196,7 +155,7 @@ internal sealed class ItemProvider : IItemProvider
         finally
         {
             stopwatch.Stop();
-            _logger.LogInformation("{NumberOfItems} items loaded in {ElapsedTimeInMillisecond} ms", _items2.Count, stopwatch.ElapsedMilliseconds);
+            _logger.LogInformation("{NumberOfItems} items loaded in {ElapsedTimeInMillisecond} ms", _items.Count, stopwatch.ElapsedMilliseconds);
         }
     }
 }

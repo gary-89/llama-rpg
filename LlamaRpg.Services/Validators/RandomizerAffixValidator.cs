@@ -1,6 +1,5 @@
 ﻿using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
-using LlamaRpg.Models.Items.PrimaryTypes;
 
 namespace LlamaRpg.Services.Validators;
 
@@ -33,15 +32,15 @@ internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
         return rarity == ItemRarityType.Magic && !rule.IsEliteOnly;
     }
 
-    public bool ValidateRule(AffixRule r, ItemBase item, int itemLevelRequired, int itemPowerLevelRequired)
+    public bool ValidateRule(AffixRule r, ItemType itemType, ItemSubtype itemSubtype, int itemLevelRequired, int itemPowerLevelRequired)
     {
         return r.ItemLevelRequired < itemLevelRequired
                && r.PowerLevelRequired <= itemPowerLevelRequired
-               && (r.ItemTypes.Contains(item.Type)
-                   || r.ItemSubtypes.Contains(item.Subtype)
-                   || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (item.Subtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
-                   || (r.ItemTypes.Contains(ItemType.RangeWeapon) && (item.Subtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
-                   || (r.ItemTypes.Contains(ItemType.MagicWeapon) && (item.Subtype is ItemSubtype.Wand or ItemSubtype.Staff)));
+               && (r.ItemTypes.Contains(itemType)
+                   || r.ItemSubtypes.Contains(itemSubtype)
+                   || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (itemSubtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
+                   || (r.ItemTypes.Contains(ItemType.RangeWeapon) && (itemSubtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
+                   || (r.ItemTypes.Contains(ItemType.MagicWeapon) && (itemSubtype is ItemSubtype.Wand or ItemSubtype.Staff)));
     }
 
     public bool ValidateItemElements(Affix affix, PrimaryElement? primaryElementOfWeapon, SecondaryElement? secondaryElementOfWeapon)
