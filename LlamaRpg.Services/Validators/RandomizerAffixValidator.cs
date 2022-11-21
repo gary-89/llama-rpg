@@ -9,27 +9,13 @@ internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
 
     public bool ValidateRarity(AffixRule rule, ItemRarityType rarity)
     {
-        if (rarity == ItemRarityType.Normal)
+        return rarity switch
         {
-            return true;
-        }
-
-        if (rule.IsEliteOnly && rarity == ItemRarityType.Elite)
-        {
-            return true;
-        }
-
-        if (rule.IsRare && rarity is ItemRarityType.Magic or ItemRarityType.Rare)
-        {
-            return true;
-        }
-
-        if (rule.IsElite && rarity is ItemRarityType.Magic or ItemRarityType.Rare or ItemRarityType.Elite)
-        {
-            return true;
-        }
-
-        return rarity == ItemRarityType.Magic && !rule.IsEliteOnly;
+            ItemRarityType.Normal or ItemRarityType.Magic => rule.IsEliteOnly == false,
+            ItemRarityType.Rare => rule.IsEliteOnly == false && rule.IsRare,
+            ItemRarityType.Elite => rule.IsElite,
+            _ => throw new InvalidOperationException("Invalid item rarity")
+        };
     }
 
     public bool ValidateRule(AffixRule r, ItemType itemType, ItemSubtype itemSubtype, int itemLevelRequired, int itemPowerLevelRequired)

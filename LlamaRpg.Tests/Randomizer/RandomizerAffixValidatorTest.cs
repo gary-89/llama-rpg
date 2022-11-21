@@ -15,18 +15,21 @@ public class RandomizerAffixValidatorTest
 
     [Theory]
     [InlineData(ItemRarityType.Normal, false, false, false, true)]
-    [InlineData(ItemRarityType.Elite, true, true, false, true)]
-    [InlineData(ItemRarityType.Elite, true, false, false, false)]
-    [InlineData(ItemRarityType.Elite, false, false, false, false)]
-    [InlineData(ItemRarityType.Elite, false, false, true, true)]
-    [InlineData(ItemRarityType.Rare, true, true, false, true)]
-    [InlineData(ItemRarityType.Rare, true, false, false, true)]
-    [InlineData(ItemRarityType.Rare, false, false, false, false)]
-    [InlineData(ItemRarityType.Rare, false, false, true, false)]
-    [InlineData(ItemRarityType.Magic, true, true, false, true)]
-    [InlineData(ItemRarityType.Magic, true, false, false, true)]
+    [InlineData(ItemRarityType.Normal, true, false, false, true)]
+    [InlineData(ItemRarityType.Normal, true, true, false, true)]
+    [InlineData(ItemRarityType.Normal, false, true, true, false)]
     [InlineData(ItemRarityType.Magic, false, false, false, true)]
-    [InlineData(ItemRarityType.Magic, false, false, true, false)]
+    [InlineData(ItemRarityType.Magic, true, false, false, true)]
+    [InlineData(ItemRarityType.Magic, true, true, false, true)]
+    [InlineData(ItemRarityType.Magic, false, true, true, false)]
+    [InlineData(ItemRarityType.Rare, false, false, false, false)]
+    [InlineData(ItemRarityType.Rare, true, false, false, true)]
+    [InlineData(ItemRarityType.Rare, true, true, false, true)]
+    [InlineData(ItemRarityType.Rare, false, true, true, false)]
+    [InlineData(ItemRarityType.Elite, false, false, false, false)]
+    [InlineData(ItemRarityType.Elite, true, false, false, false)]
+    [InlineData(ItemRarityType.Elite, true, true, false, true)]
+    [InlineData(ItemRarityType.Elite, false, true, true, true)]
     public void ValidateRarity_ForDifferentRarities_CorrectlyCheckTheAffixRule(
         ItemRarityType rarity,
         bool isRare,
@@ -56,7 +59,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateItemSecondaryElement_WithCorrectElementCorrelation_ReturnTrue(string affixName, SecondaryElement elementOfItem)
     {
         // Arrange
-        var affix = new Affix(affixName, hasPercentageSuffix: false);
+        var affix = new Affix(affixName, hasPercentageModifier: false);
 
         // Act
         var result = _validator.ValidateSecondaryElementOfItem(affix, elementOfItem);
@@ -77,7 +80,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateItemPrimaryElement_WithCorrectElementCorrelation_ReturnTrue(string affixName, PrimaryElement elementOfItem)
     {
         // Arrange
-        var affix = new Affix(affixName, hasPercentageSuffix: false);
+        var affix = new Affix(affixName, hasPercentageModifier: false);
 
         // Act
         var result = _validator.ValidatePrimaryElementOfItem(affix, elementOfItem);
@@ -102,7 +105,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateItemPrimaryElement_WithWrongElementCorrelation_ReturnFalse(string affixName, PrimaryElement elementOfWeapon)
     {
         // Arrange
-        var affix = new Affix(affixName, hasPercentageSuffix: false);
+        var affix = new Affix(affixName, hasPercentageModifier: false);
 
         // Act
         var result = _validator.ValidatePrimaryElementOfItem(affix, elementOfWeapon);
@@ -139,7 +142,7 @@ public class RandomizerAffixValidatorTest
     public void ValidateItemSecondaryElement_WithWrongElementCorrelation_ReturnFalse(string affixName, SecondaryElement elementOfWeapon)
     {
         // Arrange
-        var affix = new Affix(affixName, hasPercentageSuffix: false);
+        var affix = new Affix(affixName, hasPercentageModifier: false);
 
         // Act
         var result = _validator.ValidateSecondaryElementOfItem(affix, elementOfWeapon);
