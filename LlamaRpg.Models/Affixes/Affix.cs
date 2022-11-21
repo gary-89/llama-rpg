@@ -15,37 +15,21 @@ public sealed class Affix
 
     private string? _types;
 
-    public Affix(string name, bool hasPercentageSuffix)
+    public Affix(string name, bool hasPercentageModifier)
     {
         Name = name;
-        HasPercentageSuffix = hasPercentageSuffix;
+        HasPercentageModifier = hasPercentageModifier;
 
         SetType();
         SetPrimaryElement();
         SetSecondaryElement();
     }
 
-    private void SetType()
-    {
-        if (Name.Contains(Damage, StringComparison.OrdinalIgnoreCase))
-        {
-            Type = AffixType.ElementalDamage;
-        }
-        else if (Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
-        {
-            Type = Name.Equals(Defense, StringComparison.OrdinalIgnoreCase)
-                ? AffixType.Defense
-                : AffixType.ElementalDefense;
-        }
-        else
-        {
-            Type = AffixType.Undefined;
-        }
-    }
-
     public string Name { get; }
 
-    public bool HasPercentageSuffix { get; }
+    public AffixAttributeType Attribute { get; private set; }
+
+    public bool HasPercentageModifier { get; }
 
     public AffixType Type { get; private set; }
 
@@ -54,6 +38,11 @@ public sealed class Affix
     public SecondaryElement? SecondaryElement { get; private set; }
 
     public List<AffixRule> Rules { get; } = new();
+
+    public void SetAttribute(AffixAttributeType affixAttributeType)
+    {
+        Attribute = affixAttributeType;
+    }
 
     public string GetItemTypes()
     {
@@ -133,6 +122,24 @@ public sealed class Affix
 
             SecondaryElement = secondaryElement;
             break;
+        }
+    }
+
+    private void SetType()
+    {
+        if (Name.Contains(Damage, StringComparison.OrdinalIgnoreCase))
+        {
+            Type = AffixType.ElementalDamage;
+        }
+        else if (Name.Contains(Defense, StringComparison.OrdinalIgnoreCase))
+        {
+            Type = Name.Equals(Defense, StringComparison.OrdinalIgnoreCase)
+                ? AffixType.Defense
+                : AffixType.ElementalDefense;
+        }
+        else
+        {
+            Type = AffixType.Undefined;
         }
     }
 }

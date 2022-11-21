@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:items="using:LlamaRpg.Models.Items"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:LlamaRpg.App.ViewModels"
     mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate
@@ -177,10 +178,21 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock
+        <StackPanel
             Grid.ColumnSpan="2"
-            Text="{x:Bind ViewModel.SelectedAffix.Name, FallbackValue='', Mode=OneWay}"
-            FontSize="16" />
+            Orientation="Horizontal">
+            <TextBlock
+                Text="{x:Bind ViewModel.SelectedAffix.Name, FallbackValue='', Mode=OneWay}"
+                FontSize="16"
+                VerticalAlignment="Center" />
+
+            <TextBlock
+                Foreground="Gray"
+                VerticalAlignment="Center"
+                Margin="3,0,0,0">
+                <Run Text="(" /><Run Text="{x:Bind ViewModel.SelectedAffix.Attribute, Mode=OneWay, FallbackValue=''}" /><Run Text=")" />
+            </TextBlock>
+        </StackPanel>
 
         <TextBlock
             Grid.Column="0"

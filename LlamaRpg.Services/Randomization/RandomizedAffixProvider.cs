@@ -199,7 +199,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                     break;
             }
 
-            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name}: {mod}{(affix.HasPercentageSuffix ? Percentage : string.Empty)}"));
+            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name}: {mod}{(affix.HasPercentageModifier ? Percentage : string.Empty)}"));
             generatedAffixNames.Add(affix1Rule.Group);
         }
 

@@ -119,7 +119,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
     private int GenerateItemPowerLevel(int monsterLevel)
     {
-        const int DefaultChanceOfDropMaxPowerLevelItem = 30;
+        const int defaultChanceOfDropMaxPowerLevelItem = 30;
 
         while (true)
         {
@@ -128,7 +128,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                 return 1;
             }
 
-            if (_random.Next(1, 100) <= DefaultChanceOfDropMaxPowerLevelItem)
+            if (_random.Next(1, 100) <= defaultChanceOfDropMaxPowerLevelItem)
             {
                 return monsterLevel switch
                 {

@@ -64,7 +64,9 @@
 
                     <Border
                         Background="{StaticResource WinUiThemeLightColorBrush}"
-                        CornerRadius="16"
+                        CornerRadius="18"
+                        Width="18"
+                        Height="18"
                         Margin="7,0,0,0">
                         <ToolTipService.ToolTip>
                             <TextBlock
@@ -78,7 +80,8 @@
                         <FontIcon
                             Glyph="{x:Bind glyphs:IconGlyphs.StatusCircleQuestionMark}"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Margin="0,-2,0,0" />
                     </Border>
                 </StackPanel>
 
@@ -126,13 +129,15 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Text="affixes from"
+                            Text="prefixes from"
+                            TextAlignment="Right"
+                            Width="85"
                             VerticalAlignment="Center" />
 
                         <NumberBox
-                            x:Name="MinAffixesForMagicItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForMagicItems.Min, Mode=TwoWay}"
-                            Maximum="{x:Bind MaxAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
+                            x:Name="MinPrefixesForMagicItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.PrefixesForMagicItems.Min, Mode=TwoWay}"
+                            Maximum="{x:Bind MaxPrefixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
@@ -143,13 +148,55 @@
                             Margin="7,0,0,0" />
 
                         <NumberBox
-                            x:Name="MaxAffixesForMagicItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForMagicItems.Max, Mode=TwoWay}"
+                            x:Name="MaxPrefixesForMagicItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.PrefixesForMagicItems.Max, Mode=TwoWay}"
                             Maximum="10"
-                            Minimum="{x:Bind MinAffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
+                            Minimum="{x:Bind MinPrefixesForMagicItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
                     </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0,3,0,0">
+                        <TextBlock
+                            Text="suffixes from"
+                            TextAlignment="Right"
+                            Width="85"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            x:Name="MinSuffixesForMagicItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.SuffixesForMagicItems.Min, Mode=TwoWay}"
+                            Maximum="{x:Bind MaxSuffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <TextBlock
+                            Text="to"
+                            VerticalAlignment="Center"
+                            Margin="7,0,0,0" />
+
+                        <NumberBox
+                            x:Name="MaxSuffixesForMagicItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.SuffixesForMagicItems.Max, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="{x:Bind MinSuffixesForMagicItemsNumberBox.Value, Mode=OneWay}"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+                    </StackPanel>
+
+                    <TextBlock
+                        Foreground="Gray"
+                        TextAlignment="Center"
+                        Margin="0,10,0,0">
+                        <Run Text="Total number of affixes:" />
+                        <Run Text="from" />
+                        <Run Text="{x:Bind ViewModel.SettingsViewModel.MinTotalAffixesForMagicItems, Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind ViewModel.SettingsViewModel.MaxTotalAffixesForMagicItems, Mode=OneWay}" />
+                    </TextBlock>
                 </StackPanel>
 
                 <TextBlock
@@ -176,13 +223,15 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Text="affixes from"
+                            Text="prefixes from"
+                            TextAlignment="Right"
+                            Width="85"
                             VerticalAlignment="Center" />
 
                         <NumberBox
-                            x:Name="MinAffixesForRareItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForRareItems.Min, Mode=TwoWay}"
-                            Maximum="{x:Bind MaxAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
+                            x:Name="MinPrefixesForRareItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.PrefixesForRareItems.Min, Mode=TwoWay}"
+                            Maximum="{x:Bind MaxPrefixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
@@ -193,13 +242,55 @@
                             Margin="7,0,0,0" />
 
                         <NumberBox
-                            x:Name="MaxAffixesForRareItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForRareItems.Max, Mode=TwoWay}"
+                            x:Name="MaxPrefixesForRareItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.PrefixesForRareItems.Max, Mode=TwoWay}"
                             Maximum="10"
-                            Minimum="{x:Bind MinAffixesForRareItemsNumberBox.Value, Mode=OneWay}"
+                            Minimum="{x:Bind MinPrefixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
                     </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0,3,0,0">
+                        <TextBlock
+                            Text="suffixes from"
+                            TextAlignment="Right"
+                            Width="85"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            x:Name="MinSuffixesForRareItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.SuffixesForRareItems.Min, Mode=TwoWay}"
+                            Maximum="{x:Bind MaxSuffixesForRareItemsNumberBox.Value, Mode=OneWay}"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <TextBlock
+                            Text="to"
+                            VerticalAlignment="Center"
+                            Margin="7,0,0,0" />
+
+                        <NumberBox
+                            x:Name="MaxSuffixesForRareItemsNumberBox"
+                            Value="{x:Bind ViewModel.SettingsViewModel.SuffixesForRareItems.Max, Mode=TwoWay}"
+                            Maximum="10"
+                            Minimum="{x:Bind MinSuffixesForRareItemsNumberBox.Value, Mode=OneWay}"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+                    </StackPanel>
+
+                    <TextBlock
+                        Foreground="Gray"
+                        TextAlignment="Center"
+                        Margin="0,10,0,0">
+                        <Run Text="Total number of affixes:" />
+                        <Run Text="from" />
+                        <Run Text="{x:Bind ViewModel.SettingsViewModel.MinTotalAffixesForRareItems, Mode=OneWay}" />
+                        <Run Text="to" />
+                        <Run Text="{x:Bind ViewModel.SettingsViewModel.MaxTotalAffixesForRareItems, Mode=OneWay}" />
+                    </TextBlock>
                 </StackPanel>
 
                 <TextBlock
@@ -227,11 +318,13 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
                             Text="affixes from"
+                            TextAlignment="Right"
+                            Width="85"
                             VerticalAlignment="Center" />
 
                         <NumberBox
                             x:Name="MinAffixesForEliteItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForEliteItems.Min, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.TotalAffixesForEliteItems.Min, Mode=TwoWay}"
                             Maximum="{x:Bind MaxAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             Minimum="0"
                             SpinButtonPlacementMode="Compact"
@@ -244,7 +337,7 @@
 
                         <NumberBox
                             x:Name="MaxAffixesForEliteItemsNumberBox"
-                            Value="{x:Bind ViewModel.SettingsViewModel.AffixesForEliteItems.Max, Mode=TwoWay}"
+                            Value="{x:Bind ViewModel.SettingsViewModel.TotalAffixesForEliteItems.Max, Mode=TwoWay}"
                             Maximum="10"
                             Minimum="{x:Bind MinAffixesForEliteItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"

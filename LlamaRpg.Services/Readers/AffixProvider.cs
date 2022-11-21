@@ -64,18 +64,29 @@ internal sealed class AffixProvider : IAffixProvider
             foreach (var line in lines[1..])
             {
                 var infos = line.Split(CsvSeparator);
-                var affixName = infos[0];
+                var affixName = infos[0].Trim();
 
                 if (!string.IsNullOrWhiteSpace(affixName))
                 {
+                    var hasPercentageModifier = _percentageBaseAffixNames.Any(x =>
+                        affixName.Contains(x, StringComparison.OrdinalIgnoreCase) ||
+                        x.Contains(affixName, StringComparison.OrdinalIgnoreCase));
+
                     var affix = new Affix(
                         affixName,
-                        hasPercentageSuffix: _percentageBaseAffixNames.Any(x =>
-                            affixName.Contains(x, StringComparison.OrdinalIgnoreCase) || x.Contains(affixName, StringComparison.OrdinalIgnoreCase)));
+                        hasPercentageModifier);
 
                     _affixes.Add(affix);
                     index++;
                     continue;
+                }
+
+                var affixAttributeTypeString = infos[6].Trim();
+
+                if (!Enum.TryParse<AffixAttributeType>(affixAttributeTypeString, true, out var affixAttributeType))
+                {
+                    _logger.LogError("Invalid attribute type: cannot define if affix is a prefix or suffix.");
+                    continue; // Invalid affix: skip
                 }
 
                 var itemTypeString = infos[21].Trim().Replace(EmptySpace, string.Empty);
@@ -86,7 +97,7 @@ internal sealed class AffixProvider : IAffixProvider
                 var itemTypeString6 = infos[26].Trim().Replace(EmptySpace, string.Empty);
 
                 if (string.IsNullOrWhiteSpace(infos[1]) ||
-                    !Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _) ||
+                    (!Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _)) ||
                     !int.TryParse(infos[1], out var tier))
                 {
                     continue; // Invalid affix: skip
@@ -109,6 +120,7 @@ internal sealed class AffixProvider : IAffixProvider
                 }
 
                 var lastAffix = _affixes[index];
+                lastAffix.SetAttribute(affixAttributeType);
                 lastAffix.Rules.Add(CreateAffixRule(itemTypes, itemSubtypes, tier, infos));
             }
         }

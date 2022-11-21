@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -21,6 +15,7 @@ using LlamaRpg.Models.Randomizer;
 using LlamaRpg.Services.Randomization;
 using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
+using Range = LlamaRpg.Models.Range;
 
 namespace LlamaRpg.App.ViewModels;
 
@@ -131,11 +126,16 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private static ItemRandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
     {
+        var numberOfAffixesPerItemRarity = new ItemNumberOfAffixes(
+            new Range(settings.MinTotalAffixesForMagicItems, settings.MaxTotalAffixesForMagicItems),
+            new Range(settings.MinTotalAffixesForRareItems, settings.MaxTotalAffixesForRareItems),
+            settings.TotalAffixesForEliteItems);
+
         return new ItemRandomizerSettings(
             settings.NumberOfItemsToGenerate,
             settings.MonsterLevel,
             new ItemDropRates(settings.MagicItemDropRate, settings.RareItemDropRate, settings.EliteItemDropRate),
-            new ItemNumberOfAffixes(settings.AffixesForMagicItems, settings.AffixesForRareItems, settings.AffixesForEliteItems),
+            numberOfAffixesPerItemRarity,
             settings.ItemTypeWeights);
     }
 
