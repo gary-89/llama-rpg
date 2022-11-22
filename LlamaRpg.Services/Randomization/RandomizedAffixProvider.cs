@@ -27,10 +27,11 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         int itemPowerLevel,
         ItemRarityType rarity,
         IEnumerable<Affix> affixes,
-        ItemRandomizerSettings settings)
+        int monsterLevel,
+        ItemNumberOfAffixes itemNumberOfAffixes)
     {
         var matchingAffixes = affixes
-            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item.Type, item.Subtype, settings.MonsterLevel, itemPowerLevel)))
+            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item.Type, item.Subtype, monsterLevel, itemPowerLevel)))
             .ToList();
 
         if (matchingAffixes.Count == 0)
@@ -42,7 +43,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         var primaryElement = (PrimaryElement)_random.Next(0, 4);
         var secondaryElement = (SecondaryElement)_random.Next(0, 8);
 
-        var baseAffixes = GenerateBaseAffixes(item, rarity, primaryElement, secondaryElement, itemPowerLevel, settings.MonsterLevel, matchingAffixes, out var affixGroupToExclude);
+        var baseAffixes = GenerateBaseAffixes(item, rarity, primaryElement, secondaryElement, itemPowerLevel, monsterLevel, matchingAffixes, out var affixGroupToExclude);
 
         if (rarity == ItemRarityType.Normal)
         {
@@ -51,9 +52,9 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
 
         var numberOfAffixes = rarity switch
         {
-            ItemRarityType.Magic => _random.Next(settings.ItemNumberOfAffixes.AffixesForMagicItems.Min, settings.ItemNumberOfAffixes.AffixesForMagicItems.Max + 1),
-            ItemRarityType.Rare => _random.Next(settings.ItemNumberOfAffixes.AffixesForRareItems.Min, settings.ItemNumberOfAffixes.AffixesForRareItems.Max + 1),
-            ItemRarityType.Elite => _random.Next(settings.ItemNumberOfAffixes.AffixesForEliteItems.Min, settings.ItemNumberOfAffixes.AffixesForEliteItems.Max + 1),
+            ItemRarityType.Magic => _random.Next(itemNumberOfAffixes.PrefixesForMagicItems.Min, itemNumberOfAffixes.SuffixesForMagicItems.Max + 1),
+            ItemRarityType.Rare => _random.Next(itemNumberOfAffixes.PrefixesForRareItems.Min, itemNumberOfAffixes.SuffixesForRareItems.Max + 1),
+            ItemRarityType.Elite => _random.Next(itemNumberOfAffixes.AffixesForEliteItems.Min, itemNumberOfAffixes.AffixesForEliteItems.Max + 1),
             _ => 0
         };
 
@@ -66,7 +67,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
             primaryElementOfItem: item.Type is ItemType.Weapon or ItemType.Offhand ? primaryElement : default,
             secondaryElementOfItem: item.Type is ItemType.Weapon or ItemType.Offhand ? secondaryElement : default,
             itemPowerLevel,
-            settings.MonsterLevel,
+            monsterLevel,
             affixGroupToExclude,
             out _);
 

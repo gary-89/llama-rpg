@@ -12,5 +12,6 @@ public interface IRandomizedAffixProvider
         int itemPowerLevel,
         ItemRarityType rarity,
         IEnumerable<Affix> affixes,
-        ItemRandomizerSettings settings);
+        int monsterLevel,
+        ItemNumberOfAffixes itemNumberOfAffixes);
 }

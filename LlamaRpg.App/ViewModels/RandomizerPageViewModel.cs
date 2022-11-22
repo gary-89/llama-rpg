@@ -15,7 +15,6 @@ using LlamaRpg.Models.Randomizer;
 using LlamaRpg.Services.Randomization;
 using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
-using Range = LlamaRpg.Models.Range;
 
 namespace LlamaRpg.App.ViewModels;
 
@@ -127,8 +126,10 @@ internal sealed class RandomizerPageViewModel : ObservableObject
     private static ItemRandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
     {
         var numberOfAffixesPerItemRarity = new ItemNumberOfAffixes(
-            new Range(settings.MinTotalAffixesForMagicItems, settings.MaxTotalAffixesForMagicItems),
-            new Range(settings.MinTotalAffixesForRareItems, settings.MaxTotalAffixesForRareItems),
+            settings.PrefixesForMagicItems,
+            settings.SuffixesForMagicItems,
+            settings.PrefixesForRareItems,
+            settings.SuffixesForRareItems,
             settings.TotalAffixesForEliteItems);
 
         return new ItemRandomizerSettings(

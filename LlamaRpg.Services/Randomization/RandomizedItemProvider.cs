@@ -77,7 +77,8 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                     randomItem.PowerLevel,
                     randomItem.ItemRarityType,
                     affixes,
-                    settings);
+                    settings.MonsterLevel,
+                    settings.ItemNumberOfAffixes);
 
                 randomItem.SetAffixes(baseAffixes, generatedAffixes);
             }
