@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using LlamaRpg.Models;
 using LlamaRpg.Models.Items;
 using Range = LlamaRpg.Models.Range;
 
@@ -91,13 +90,13 @@ internal sealed class RandomizerSettingsViewModel : ObservableObject
 
     public ObservableCollection<ItemTypeWeightDrop> ItemTypeWeights { get; } = new();
 
-    private void AffixesForMagicItemsOnRangeChanged(object? sender, RangeChangedEventArgs e)
+    private void AffixesForMagicItemsOnRangeChanged(object? sender, EventArgs e)
     {
         MinTotalAffixesForMagicItems = PrefixesForMagicItems.Min + SuffixesForMagicItems.Min;
         MaxTotalAffixesForMagicItems = PrefixesForMagicItems.Max + SuffixesForMagicItems.Max;
     }
 
-    private void AffixesForRareItemsOnRangeChanged(object? sender, RangeChangedEventArgs e)
+    private void AffixesForRareItemsOnRangeChanged(object? sender, EventArgs e)
     {
         MinTotalAffixesForRareItems = PrefixesForRareItems.Min + SuffixesForRareItems.Min;
         MaxTotalAffixesForRareItems = PrefixesForRareItems.Max + SuffixesForRareItems.Max;

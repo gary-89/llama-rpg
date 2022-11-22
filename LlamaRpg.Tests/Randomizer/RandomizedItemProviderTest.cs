@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 
 namespace LlamaRpg.Tests.Randomizer;
+
 public class RandomizedItemProviderTest
 {
     private readonly RandomizedItemProvider _provider;
@@ -27,7 +28,13 @@ public class RandomizedItemProviderTest
         var randomizedAffixProvider = Substitute.For<IRandomizedAffixProvider>();
 
         randomizedAffixProvider
-            .GenerateAffixes(Arg.Any<ItemBase>(), Arg.Any<int>(), Arg.Any<ItemRarityType>(), Arg.Any<IEnumerable<Affix>>(), Arg.Any<ItemRandomizerSettings>())
+            .GenerateAffixes(
+                Arg.Any<ItemBase>(),
+                Arg.Any<int>(),
+                Arg.Any<ItemRarityType>(),
+                Arg.Any<IEnumerable<Affix>>(),
+                Arg.Any<int>(),
+                Arg.Any<ItemNumberOfAffixes>())
             .Returns((Array.Empty<string>(), Array.Empty<string>()));
 
         _provider = new RandomizedItemProvider(itemProvider, affixProvider, randomizedAffixProvider, NullLogger<RandomizedItemProvider>.Instance);

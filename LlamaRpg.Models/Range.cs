@@ -1,17 +1,5 @@
 ﻿namespace LlamaRpg.Models;
 
-public class RangeChangedEventArgs : EventArgs
-{
-    public int OldValue { get; }
-    public int NewValue { get; }
-
-    public RangeChangedEventArgs(int oldValue, int newValue)
-    {
-        OldValue = oldValue;
-        NewValue = newValue;
-    }
-}
-
 public sealed class Range
 {
     private int _min;
@@ -29,7 +17,7 @@ public sealed class Range
         set
         {
             _min = value;
-            OnStatusChanged(value, Max);
+            OnStatusChanged();
         }
     }
 
@@ -39,14 +27,14 @@ public sealed class Range
         set
         {
             _max = value;
-            OnStatusChanged(Min, value);
+            OnStatusChanged();
         }
     }
 
-    public event EventHandler<RangeChangedEventArgs>? RangeChanged;
+    public event EventHandler<EventArgs>? RangeChanged;
 
-    private void OnStatusChanged(int min, int max)
+    private void OnStatusChanged()
     {
-        RangeChanged?.Invoke(this, new RangeChangedEventArgs(min, max));
+        RangeChanged?.Invoke(this, EventArgs.Empty);
     }
 }
