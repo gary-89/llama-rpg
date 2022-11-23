@@ -9,79 +9,51 @@ internal sealed class NumberOfAffixesGenerator : INumberOfAffixesGenerator
 
     public (int NumberOfPrefixes, int NumberOfAffixes) Generate(Range numberOfPrefixes, Range numberOfSuffixes, int mandatoryAffixes)
     {
-        var safeCounter = 0;
-        var numberOfSuffixesToGenerateCounter = 0;
-        var numberOfPrefixesToGenerateCounter = 0;
+        var maximumPossibleAffixes = numberOfPrefixes.Max + numberOfSuffixes.Max;
+        var numberOfAffixesToGenerate = _random.Next(mandatoryAffixes, maximumPossibleAffixes + 1);
+        var numberOfEqualSplitOfAffixes = numberOfAffixesToGenerate / 2;
 
-        var prefixesToGenerate = _random.Next(numberOfPrefixes.Min, numberOfPrefixes.Max + 1);
-        var suffixesToGenerate = _random.Next(numberOfSuffixes.Min, numberOfSuffixes.Max + 1);
+        var prefixesToGenerate = numberOfPrefixes.Max >= numberOfEqualSplitOfAffixes ? numberOfEqualSplitOfAffixes : numberOfPrefixes.Max;
+        var suffixesToGenerate = numberOfSuffixes.Max >= numberOfEqualSplitOfAffixes ? numberOfEqualSplitOfAffixes : numberOfSuffixes.Max;
 
-        while (prefixesToGenerate + suffixesToGenerate < mandatoryAffixes)
+        if (suffixesToGenerate + prefixesToGenerate == numberOfAffixesToGenerate)
         {
-            if (_random.Next(0, 100) % 2 == 0)
-            {
-                prefixesToGenerate++;
-            }
-            else
-            {
-                suffixesToGenerate++;
-            }
+            return (prefixesToGenerate, suffixesToGenerate);
         }
 
-        while (true)
+        var affixType = (AffixAttributeType)_random.Next(0, 2); // 50% chance to use prefix or suffix
+
+        switch (affixType)
         {
-            var attribute = numberOfSuffixesToGenerateCounter < suffixesToGenerate && numberOfPrefixesToGenerateCounter < prefixesToGenerate
-                ? _random.Next(1, 101) % 2 == 0 ? AffixAttributeType.Suffix : AffixAttributeType.Prefix
-                : numberOfPrefixesToGenerateCounter >= prefixesToGenerate
-                    ? AffixAttributeType.Suffix
-                    : AffixAttributeType.Prefix;
+            case AffixAttributeType.Prefix:
+                prefixesToGenerate = Math.Min(numberOfPrefixes.Max, numberOfAffixesToGenerate - suffixesToGenerate);
 
-            switch (attribute)
-            {
-                case AffixAttributeType.Suffix:
-                    numberOfSuffixesToGenerateCounter++;
-                    break;
-
-                case AffixAttributeType.Prefix:
-                    numberOfPrefixesToGenerateCounter++;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            if (numberOfSuffixesToGenerateCounter + numberOfPrefixesToGenerateCounter >= mandatoryAffixes)
-            {
-                if (prefixesToGenerate == numberOfPrefixesToGenerateCounter &&
-                    suffixesToGenerate == numberOfSuffixesToGenerateCounter)
+                if (prefixesToGenerate + suffixesToGenerate == numberOfAffixesToGenerate)
                 {
-                    break;
+                    return (prefixesToGenerate, suffixesToGenerate);
                 }
 
-                var maxAffixes = numberOfPrefixes.Max + numberOfSuffixes.Max;
+                suffixesToGenerate = Math.Min(numberOfSuffixes.Max, numberOfAffixesToGenerate - prefixesToGenerate);
 
-                if (numberOfSuffixesToGenerateCounter + numberOfPrefixesToGenerateCounter >= maxAffixes)
+                break;
+
+            case AffixAttributeType.Suffix:
+                suffixesToGenerate = Math.Min(numberOfSuffixes.Max, numberOfAffixesToGenerate - prefixesToGenerate);
+
+                if (prefixesToGenerate + suffixesToGenerate == numberOfAffixesToGenerate)
                 {
-                    break;
+                    return (prefixesToGenerate, suffixesToGenerate);
                 }
 
-                var continueToReachMaxNumberOfAffixes = _random.Next(0, 100) > 40;
+                prefixesToGenerate = Math.Min(numberOfPrefixes.Max, numberOfAffixesToGenerate - suffixesToGenerate);
 
-                if (continueToReachMaxNumberOfAffixes == false)
-                {
-                    break;
-                }
-            }
+                break;
 
-            safeCounter++;
-
-            if (safeCounter > 1000)
-            {
-                throw new OverflowException("Risque of endless loop during the generation of prefixes and suffixes cardinality.");
-            }
+            default:
+                throw new ArgumentOutOfRangeException(nameof(affixType), "Invalid affix type");
         }
 
-        return (numberOfPrefixesToGenerateCounter, numberOfSuffixesToGenerateCounter);
+        return (prefixesToGenerate, suffixesToGenerate);
     }
 
     public (int NumberOfPrefixes, int NumberOfAffixes) GenerateForEliteItems(Range numberOfAffixesForEliteItems)
@@ -90,7 +62,7 @@ internal sealed class NumberOfAffixesGenerator : INumberOfAffixesGenerator
         var eliteAffixesToGeneratePart1 = _random.Next(0, eliteAffixesToGenerate + 1);
         var eliteAffixesToGeneratePart2 = numberOfAffixesForEliteItems.Max - eliteAffixesToGeneratePart1;
 
-        return _random.Next(0, 100) % 2 == 0 // 50% chance to use prefix or suffix
+        return _random.Next(0, 2) == 0 // 50% chance to use prefix or suffix
             ? Generate(
                 new Range(0, eliteAffixesToGeneratePart2),
                 new Range(0, eliteAffixesToGeneratePart1),

@@ -1,31 +1,29 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using LlamaRpg.Services.Randomization;
+﻿using LlamaRpg.Services.Randomization;
 
 namespace LlamaRpg.Tests.Randomizer;
 
-[SuppressMessage("Usage", "xUnit1006:Theory methods should have parameters", Justification = "Repeat does not provide any parameters.")]
 public class NumberOfAffixesRandomizerTest
 {
     private const bool OutputTests = false;
 
     [Theory]
-    [Repeat(1000)]
-    public void GenerateNumberOfAffixesForMagicItem_WorksCorrectly()
+    [Repeat(1000, 1, 1, 1)]
+    public void GenerateNumberOfAffixesForMagicItem_WorksCorrectly(int maxPrefixes, int maxSuffixes, int min)
     {
         // Arrange
         var generator = new NumberOfAffixesGenerator();
 
         // Act
         var (numberOfPrefixes, numberOfSuffixes) =
-            generator.Generate(new Models.Range(0, 1), new Models.Range(0, 1), 1);
+            generator.Generate(new Models.Range(0, maxPrefixes), new Models.Range(0, maxSuffixes), min);
 
         // Assert
-        Assert.True(numberOfPrefixes + numberOfSuffixes <= 2);
-        Assert.True(numberOfPrefixes + numberOfSuffixes >= 1);
+        Assert.True(numberOfPrefixes + numberOfSuffixes <= maxPrefixes + maxSuffixes);
+        Assert.True(numberOfPrefixes + numberOfSuffixes >= min);
         Assert.True(numberOfPrefixes >= 0);
-        Assert.True(numberOfPrefixes <= 1);
+        Assert.True(numberOfPrefixes <= maxPrefixes);
         Assert.True(numberOfSuffixes >= 0);
-        Assert.True(numberOfSuffixes <= 1);
+        Assert.True(numberOfSuffixes <= maxSuffixes);
 
         if (OutputTests)
         {
@@ -38,22 +36,23 @@ public class NumberOfAffixesRandomizerTest
     }
 
     [Theory]
-    [Repeat(1000)]
-    public void GenerateNumberOfAffixesForRareItem_WorksCorrectly()
+    [Repeat(1000, 2, 2, 3)]
+    [Repeat(1000, 2, 5, 3)]
+    public void GenerateNumberOfAffixesForRareItem_WorksCorrectly(int maxPrefixes, int maxSuffixes, int min)
     {
         // Arrange
         var generator = new NumberOfAffixesGenerator();
 
         // Act
-        var (numberOfPrefixes, numberOfSuffixes) = generator.Generate(new Models.Range(1, 2), new Models.Range(1, 2), 3);
+        var (numberOfPrefixes, numberOfSuffixes) = generator.Generate(new Models.Range(1, maxPrefixes), new Models.Range(1, maxSuffixes), min);
 
         // Assert
-        Assert.True(numberOfPrefixes + numberOfSuffixes <= 4);
-        Assert.True(numberOfPrefixes + numberOfSuffixes >= 3);
+        Assert.True(numberOfPrefixes + numberOfSuffixes <= maxPrefixes + maxSuffixes);
+        Assert.True(numberOfPrefixes + numberOfSuffixes >= min);
         Assert.True(numberOfPrefixes >= 1);
-        Assert.True(numberOfPrefixes <= 2);
+        Assert.True(numberOfPrefixes <= maxPrefixes);
         Assert.True(numberOfSuffixes >= 1);
-        Assert.True(numberOfSuffixes <= 2);
+        Assert.True(numberOfSuffixes <= maxSuffixes);
 
         if (OutputTests)
         {
@@ -66,22 +65,23 @@ public class NumberOfAffixesRandomizerTest
     }
 
     [Theory]
-    [Repeat(1000)]
-    public void GenerateNumberOfAffixesForEliteItem_WorksCorrectly()
+    [Repeat(1000, 2, 2, 3)]
+    public void GenerateNumberOfAffixesForEliteItem_WorksCorrectly(int maxPrefixes, int maxSuffixes, int min)
     {
         // Arrange
         var generator = new NumberOfAffixesGenerator();
 
         // Act
-        var (numberOfPrefixes, numberOfSuffixes) = generator.GenerateForEliteItems(new Models.Range(3, 4));
+        var (numberOfPrefixes, numberOfSuffixes) = generator.GenerateForEliteItems(new Models.Range(min, maxPrefixes + maxSuffixes));
 
         // Assert
-        Assert.True(numberOfPrefixes + numberOfSuffixes <= 4);
-        Assert.True(numberOfPrefixes + numberOfSuffixes >= 3);
+        Assert.True(numberOfPrefixes + numberOfSuffixes <= maxPrefixes + maxSuffixes);
+        Assert.True(numberOfPrefixes + numberOfSuffixes >= min);
+
         Assert.True(numberOfPrefixes >= 0);
-        Assert.True(numberOfPrefixes <= 4);
+        Assert.True(numberOfPrefixes <= maxPrefixes + maxSuffixes);
         Assert.True(numberOfSuffixes >= 0);
-        Assert.True(numberOfSuffixes <= 4);
+        Assert.True(numberOfSuffixes <= maxPrefixes + maxSuffixes);
 
         if (OutputTests)
         {
