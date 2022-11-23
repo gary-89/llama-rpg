@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Xunit.Sdk;
 
-namespace LlamaRpg.Tests.Randomizer;
+namespace LlamaRpg.Tests;
 
 public sealed class RepeatAttribute : DataAttribute
 {

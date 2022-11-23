@@ -11,6 +11,7 @@ public static class ServicesConfiguration
     {
         services.AddSingleton<AppServicesConfig>();
         services.AddSingleton<IRandomizerAffixValidator, RandomizerAffixValidator>();
+        services.AddSingleton<INumberOfAffixesGenerator, NumberOfAffixesGenerator>();
         services.AddSingleton<IAffixProvider, AffixProvider>();
         services.AddSingleton<IItemProvider, ItemProvider>();
         services.AddSingleton<IMonsterProvider, MonsterProvider>();

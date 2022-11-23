@@ -47,8 +47,8 @@ internal sealed class RandomizedMonsterProvider : IRandomizedMonsterProvider
             var itemSettings = new ItemRandomizerSettings(
                 NumberOfItemsToGenerate: 8,
                 monster.Level,
-                ItemDropRates.Default(),
-                ItemNumberOfAffixes.Default(),
+                DropRateSettings.Default(),
+                NumberOfAffixesSettings.Default(),
                 new[]
                 {
                     new ItemTypeWeightDrop(ItemType.MagicWeapon, 1),

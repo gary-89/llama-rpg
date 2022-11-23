@@ -13,5 +13,5 @@ public interface IRandomizedAffixProvider
         ItemRarityType rarity,
         IEnumerable<Affix> affixes,
         int monsterLevel,
-        ItemNumberOfAffixes itemNumberOfAffixes);
+        NumberOfAffixesSettings numberOfAffixesSettings);
 }

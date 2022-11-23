@@ -35,7 +35,6 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         var items = await _itemProvider.GetItemsAsync(cancellationToken).ConfigureAwait(false);
         var affixes = await _affixProvider.GetAffixesAsync(cancellationToken).ConfigureAwait(false);
 
-        // TODO: handle scenario when one item must be of a specific type (ex: only one weapon)
         var totalWeights = settings.ItemTypeWeights.Sum(x => x.Weight) + 1;
         var cumulativeWeights = new List<ItemTypeCumulativeWeight>(settings.ItemTypeWeights.Count);
         var cumulativeWeight = 0;
@@ -78,7 +77,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                     randomItem.ItemRarityType,
                     affixes,
                     settings.MonsterLevel,
-                    settings.ItemNumberOfAffixes);
+                    settings.NumberOfAffixesSettings);
 
                 randomItem.SetAffixes(baseAffixes, generatedAffixes);
             }
@@ -144,13 +143,13 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
 
     private ItemRarityType GenerateRarity(ItemRandomizerSettings settings, bool isJewelry)
     {
-        var rarity = _random.Next(0, settings.ItemDropRates.EliteItemDropRate * settings.ItemDropRates.RareItemDropRate * settings.ItemDropRates.MagicItemDropRate);
+        var rarity = _random.Next(0, settings.DropRateSettings.EliteItemDropRate * settings.DropRateSettings.RareItemDropRate * settings.DropRateSettings.MagicItemDropRate);
 
-        return rarity % settings.ItemDropRates.EliteItemDropRate == 0
+        return rarity % settings.DropRateSettings.EliteItemDropRate == 0
             ? ItemRarityType.Elite
-            : rarity % settings.ItemDropRates.RareItemDropRate == 0
+            : rarity % settings.DropRateSettings.RareItemDropRate == 0
                 ? ItemRarityType.Rare
-                : rarity % settings.ItemDropRates.MagicItemDropRate == 0
+                : rarity % settings.DropRateSettings.MagicItemDropRate == 0
                     ? ItemRarityType.Magic
                     : isJewelry
                         ? ItemRarityType.Magic

@@ -5,6 +5,6 @@ namespace LlamaRpg.Models.Randomizer;
 public sealed record ItemRandomizerSettings(
     int NumberOfItemsToGenerate,
     int MonsterLevel,
-    ItemDropRates ItemDropRates,
-    ItemNumberOfAffixes ItemNumberOfAffixes,
+    DropRateSettings DropRateSettings,
+    NumberOfAffixesSettings NumberOfAffixesSettings,
     IReadOnlyList<ItemTypeWeightDrop> ItemTypeWeights);

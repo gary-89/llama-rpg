@@ -34,7 +34,7 @@ public class RandomizedItemProviderTest
                 Arg.Any<ItemRarityType>(),
                 Arg.Any<IEnumerable<Affix>>(),
                 Arg.Any<int>(),
-                Arg.Any<ItemNumberOfAffixes>())
+                Arg.Any<NumberOfAffixesSettings>())
             .Returns((Array.Empty<string>(), Array.Empty<string>()));
 
         _provider = new RandomizedItemProvider(itemProvider, affixProvider, randomizedAffixProvider, NullLogger<RandomizedItemProvider>.Instance);
@@ -50,8 +50,8 @@ public class RandomizedItemProviderTest
         var settings = new ItemRandomizerSettings(
             1,
             10,
-            ItemDropRates.Default(),
-            ItemNumberOfAffixes.Default(),
+            DropRateSettings.Default(),
+            NumberOfAffixesSettings.Default(),
             new List<ItemTypeWeightDrop> { new(itemType, 1) });
 
         // Act

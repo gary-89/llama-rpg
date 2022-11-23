@@ -125,17 +125,19 @@ internal sealed class RandomizerPageViewModel : ObservableObject
 
     private static ItemRandomizerSettings CreateSettings(RandomizerSettingsViewModel settings)
     {
-        var numberOfAffixesPerItemRarity = new ItemNumberOfAffixes(
+        var numberOfAffixesPerItemRarity = new NumberOfAffixesSettings(
             settings.PrefixesForMagicItems,
             settings.SuffixesForMagicItems,
+            settings.MandatoryAffixesForMagicItems,
             settings.PrefixesForRareItems,
             settings.SuffixesForRareItems,
+            settings.MandatoryAffixesForRareItems,
             settings.TotalAffixesForEliteItems);
 
         return new ItemRandomizerSettings(
             settings.NumberOfItemsToGenerate,
             settings.MonsterLevel,
-            new ItemDropRates(settings.MagicItemDropRate, settings.RareItemDropRate, settings.EliteItemDropRate),
+            new DropRateSettings(settings.MagicItemDropRate, settings.RareItemDropRate, settings.EliteItemDropRate),
             numberOfAffixesPerItemRarity,
             settings.ItemTypeWeights);
     }
