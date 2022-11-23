@@ -187,6 +187,45 @@
                             Margin="7,0,0,0" />
                     </StackPanel>
 
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0,3,0,0">
+
+                        <TextBlock
+                            Text="minimum"
+                            TextAlignment="Right"
+                            Width="85"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.SettingsViewModel.MandatoryAffixesForMagicItems, Mode=TwoWay}"
+                            Maximum="{x:Bind ViewModel.SettingsViewModel.MaxTotalAffixesForMagicItems, Mode=OneWay}"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <Border
+                            Background="{StaticResource WinUiThemeLightColorBrush}"
+                            CornerRadius="18"
+                            Width="18"
+                            Height="18"
+                            Margin="7,0,0,0">
+                            <ToolTipService.ToolTip>
+                                <TextBlock
+                                    TextWrapping="Wrap"
+                                    MaxWidth="300">
+                                    <Run Text="Number of mandatory affixes for magic items." />
+                                </TextBlock>
+                            </ToolTipService.ToolTip>
+
+                            <FontIcon
+                                Glyph="{x:Bind glyphs:IconGlyphs.StatusCircleQuestionMark}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0,-2,0,0" />
+                        </Border>
+                    </StackPanel>
+
                     <TextBlock
                         Foreground="Gray"
                         TextAlignment="Center"
@@ -279,6 +318,44 @@
                             Minimum="{x:Bind MinSuffixesForRareItemsNumberBox.Value, Mode=OneWay}"
                             SpinButtonPlacementMode="Compact"
                             Margin="7,0,0,0" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="0,3,0,0">
+                        <TextBlock
+                            Text="minimum"
+                            TextAlignment="Right"
+                            Width="85"
+                            VerticalAlignment="Center" />
+
+                        <NumberBox
+                            Value="{x:Bind ViewModel.SettingsViewModel.MandatoryAffixesForRareItems, Mode=TwoWay}"
+                            Maximum="{x:Bind ViewModel.SettingsViewModel.MaxTotalAffixesForRareItems, Mode=OneWay}"
+                            Minimum="0"
+                            SpinButtonPlacementMode="Compact"
+                            Margin="7,0,0,0" />
+
+                        <Border
+                            Background="{StaticResource WinUiThemeLightColorBrush}"
+                            CornerRadius="18"
+                            Width="18"
+                            Height="18"
+                            Margin="7,0,0,0">
+                            <ToolTipService.ToolTip>
+                                <TextBlock
+                                    TextWrapping="Wrap"
+                                    MaxWidth="300">
+                                    <Run Text="Number of mandatory affixes for rare items." />
+                                </TextBlock>
+                            </ToolTipService.ToolTip>
+
+                            <FontIcon
+                                Glyph="{x:Bind glyphs:IconGlyphs.StatusCircleQuestionMark}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0,-2,0,0" />
+                        </Border>
                     </StackPanel>
 
                     <TextBlock

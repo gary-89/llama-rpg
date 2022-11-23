@@ -12,18 +12,14 @@ internal sealed class RandomizerSettingsViewModel : ObservableObject
     private int _eliteItemDropRate = 50;
     private int _numberOfItemsToGenerate = 1000;
     private int _monsterLevel = 50;
-    private int _minTotalAffixesForMagicItems = 0;
+
+    private int _minTotalAffixesForMagicItems = 1;
     private int _maxTotalAffixesForMagicItems = 2;
-    private int _minTotalAffixesForRareItems = 2;
+    private int _minTotalAffixesForRareItems = 3;
     private int _maxTotalAffixesForRareItems = 4;
 
-    public Range PrefixesForMagicItems { get; } = new(0, 1);
-    public Range SuffixesForMagicItems { get; } = new(0, 1);
-
-    public Range PrefixesForRareItems { get; } = new(1, 2);
-    public Range SuffixesForRareItems { get; } = new(1, 2);
-
-    public Range TotalAffixesForEliteItems { get; } = new(3, 4);
+    private int _mandatoryAffixesForMagicItems = 1;
+    private int _mandatoryAffixesForRareItems = 3;
 
     public RandomizerSettingsViewModel()
     {
@@ -33,6 +29,14 @@ internal sealed class RandomizerSettingsViewModel : ObservableObject
         PrefixesForRareItems.RangeChanged += AffixesForRareItemsOnRangeChanged;
         SuffixesForRareItems.RangeChanged += AffixesForRareItemsOnRangeChanged;
     }
+
+    public Range PrefixesForMagicItems { get; } = new(0, 1);
+    public Range SuffixesForMagicItems { get; } = new(0, 1);
+
+    public Range PrefixesForRareItems { get; } = new(1, 2);
+    public Range SuffixesForRareItems { get; } = new(1, 2);
+
+    public Range TotalAffixesForEliteItems { get; } = new(3, 4);
 
     public int MonsterLevel
     {
@@ -88,17 +92,60 @@ internal sealed class RandomizerSettingsViewModel : ObservableObject
         set => SetProperty(ref _maxTotalAffixesForRareItems, value);
     }
 
+    public int MandatoryAffixesForMagicItems
+    {
+        get => _mandatoryAffixesForMagicItems;
+        set
+        {
+            if (SetProperty(ref _mandatoryAffixesForMagicItems, value))
+            {
+                RefreshAffixesSettings(ItemRarityType.Magic);
+            }
+        }
+    }
+
+    public int MandatoryAffixesForRareItems
+    {
+        get => _mandatoryAffixesForRareItems;
+        set
+        {
+            if (SetProperty(ref _mandatoryAffixesForRareItems, value))
+            {
+                RefreshAffixesSettings(ItemRarityType.Rare);
+            }
+        }
+    }
+
     public ObservableCollection<ItemTypeWeightDrop> ItemTypeWeights { get; } = new();
 
     private void AffixesForMagicItemsOnRangeChanged(object? sender, EventArgs e)
     {
-        MinTotalAffixesForMagicItems = PrefixesForMagicItems.Min + SuffixesForMagicItems.Min;
-        MaxTotalAffixesForMagicItems = PrefixesForMagicItems.Max + SuffixesForMagicItems.Max;
+        RefreshAffixesSettings(ItemRarityType.Magic);
     }
 
     private void AffixesForRareItemsOnRangeChanged(object? sender, EventArgs e)
     {
-        MinTotalAffixesForRareItems = PrefixesForRareItems.Min + SuffixesForRareItems.Min;
-        MaxTotalAffixesForRareItems = PrefixesForRareItems.Max + SuffixesForRareItems.Max;
+        RefreshAffixesSettings(ItemRarityType.Rare);
+    }
+
+    private void RefreshAffixesSettings(ItemRarityType rarityType)
+    {
+        switch (rarityType)
+        {
+            case ItemRarityType.Magic:
+                MinTotalAffixesForMagicItems = Math.Max(PrefixesForMagicItems.Min + SuffixesForMagicItems.Min, MandatoryAffixesForMagicItems);
+                MaxTotalAffixesForMagicItems = PrefixesForMagicItems.Max + SuffixesForMagicItems.Max;
+                break;
+
+            case ItemRarityType.Rare:
+                MinTotalAffixesForRareItems = Math.Max(PrefixesForRareItems.Min + SuffixesForRareItems.Min, MandatoryAffixesForRareItems);
+                MaxTotalAffixesForRareItems = PrefixesForRareItems.Max + SuffixesForRareItems.Max;
+                break;
+
+            case ItemRarityType.Normal:
+            case ItemRarityType.Elite:
+            default:
+                throw new ArgumentOutOfRangeException(nameof(rarityType), rarityType, null);
+        }
     }
 }
