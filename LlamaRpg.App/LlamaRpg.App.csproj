@@ -15,12 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Assets\Datasets\Affixes.csv" />
-    <Content Remove="Assets\Datasets\Items.csv" />
-    <Content Remove="Assets\Datasets\Monsters.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -44,18 +38,6 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
     <Manifest Include="$(ApplicationManifest)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assets\Datasets\Affixes.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Datasets\Items.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Datasets\Monsters.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <!-- 

@@ -14,5 +14,15 @@ public sealed class ItemTypeWeightDrop
     }
 
     public ItemType ItemType { get; }
+
     public int Weight { get; set; }
+
+    public static IReadOnlyList<ItemTypeWeightDrop> Default()
+        => new List<ItemTypeWeightDrop>()
+        {
+            new(ItemType.Weapon, 2),
+            new(ItemType.Armor, 1),
+            new(ItemType.Offhand, 1),
+            new(ItemType.Jewelry, 1),
+        };
 }

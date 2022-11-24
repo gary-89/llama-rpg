@@ -81,14 +81,6 @@ internal sealed class AffixProvider : IAffixProvider
                     continue;
                 }
 
-                var affixAttributeTypeString = infos[6].Trim();
-
-                if (!Enum.TryParse<AffixAttributeType>(affixAttributeTypeString, true, out var affixAttributeType))
-                {
-                    _logger.LogError("Invalid attribute type: cannot define if affix is a prefix or suffix.");
-                    continue; // Invalid affix: skip
-                }
-
                 var itemTypeString = infos[21].Trim().Replace(EmptySpace, string.Empty);
                 var itemTypeString2 = infos[22].Trim().Replace(EmptySpace, string.Empty);
                 var itemTypeString3 = infos[23].Trim().Replace(EmptySpace, string.Empty);
@@ -100,6 +92,14 @@ internal sealed class AffixProvider : IAffixProvider
                     (!Enum.TryParse<ItemType>(itemTypeString, true, out _) && !Enum.TryParse<ItemSubtype>(itemTypeString, true, out _)) ||
                     !int.TryParse(infos[1], out var tier))
                 {
+                    continue; // Invalid affix: skip
+                }
+
+                var affixAttributeTypeString = infos[6].Trim();
+
+                if (!Enum.TryParse<AffixAttributeType>(affixAttributeTypeString, true, out var affixAttributeType))
+                {
+                    _logger.LogError("Invalid attribute type: cannot define if affix is a prefix or suffix.");
                     continue; // Invalid affix: skip
                 }
 

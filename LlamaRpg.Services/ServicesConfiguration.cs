@@ -7,7 +7,7 @@ namespace LlamaRpg.Services;
 
 public static class ServicesConfiguration
 {
-    public static ServiceCollection AddAppServices(this ServiceCollection services)
+    public static IServiceCollection AddLlamaRpgServices(this IServiceCollection services)
     {
         services.AddSingleton<AppServicesConfig>();
         services.AddSingleton<IRandomizerAffixValidator, RandomizerAffixValidator>();
