@@ -144,14 +144,26 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
 
         for (var i = 0; i < count; i++)
         {
-            Affix affix;
-            AffixRule affix1Rule;
-            bool invalidAffix;
+            Affix? affix = null;
+            AffixRule? affix1Rule = null;
+            var invalidAffix = true;
             var numberOfAttempts = 0;
-            do
+
+            while (invalidAffix)
             {
+                numberOfAttempts++;
+
                 affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
+                var rules = affix.Rules.Where(r => !generatedAffixNames.Contains(r.Group)
+                                                   && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel)).ToList();
+
+                if (rules.Count == 0)
+                {
+                    continue;
+                }
+
                 affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
+
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
                 invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
@@ -159,12 +171,16 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                                || (isBaseAffix && affix1Rule.PowerLevelRequired != itemPowerLevel)
                                || _affixValidator.ValidateRule(affix1Rule, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel) == false;
 
-                if (numberOfAttempts++ > maxNumberOfAttempts)
+                if (numberOfAttempts > maxNumberOfAttempts)
                 {
                     throw new InvalidOperationException($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
                 }
             }
-            while (invalidAffix || generatedAffixNames.Contains(affix1Rule.Group));
+
+            if (affix is null || affix1Rule is null)
+            {
+                throw new InvalidOperationException($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
+            }
 
             var mod = affix1Rule.Modifier1MinText;
             int min, max;
