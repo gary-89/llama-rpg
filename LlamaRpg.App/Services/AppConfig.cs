@@ -2,5 +2,5 @@
 
 internal sealed class AppConfig
 {
-    public Version CurrentVersion { get; } = new(0, 0, 9, 0);
+    public Version CurrentVersion { get; } = new(0, 0, 10, 0);
 }

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using LlamaRpg.Models.Affixes;
 using LlamaRpg.Models.Items;
+using LlamaRpg.Models.Items.PrimaryTypes;
 using LlamaRpg.Models.Randomizer;
 using LlamaRpg.Services.Readers;
 using Microsoft.Extensions.Logging;
@@ -46,10 +48,17 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         }
 
         var counter = 1;
+        var numberOfAttempt = 0;
+        var maxNumberOfAttempts = settings.NumberOfItemsToGenerate + 100;
 
         for (var i = 0; i < settings.NumberOfItemsToGenerate; i++)
         {
             cancellationToken.ThrowIfCancellationRequested();
+
+            if (numberOfAttempt++ > maxNumberOfAttempts)
+            {
+                throw new InvalidOperationException("Impossible to generate randomized items: too many failed attempts.");
+            }
 
             var randomType = _random.Next(1, totalWeights);
 
@@ -69,25 +78,46 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
                 continue;
             }
 
-            try
+            if (!TryGenerateRandomizedAffixes(settings, item, randomItem, affixes, out var baseAffixes, out var generatedAffixes))
             {
-                var (baseAffixes, generatedAffixes) = _randomAffixProvider.GenerateAffixes(
-                    item,
-                    randomItem.PowerLevel,
-                    randomItem.ItemRarityType,
-                    affixes,
-                    settings.MonsterLevel,
-                    settings.NumberOfAffixesSettings);
-
-                randomItem.SetAffixes(baseAffixes, generatedAffixes);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Something when wrong during the affix generation");
+                i--; // TODO: better to avoid to do this. The randomizer generated some numbers of prefixes/suffixes too high.
                 continue;
             }
 
+            randomItem.SetAffixes(baseAffixes, generatedAffixes);
+
             yield return randomItem;
+        }
+    }
+
+    private bool TryGenerateRandomizedAffixes(
+        ItemRandomizerSettings settings,
+        ItemBase item,
+        RandomizedItem randomItem,
+        IEnumerable<Affix> affixes,
+        out IReadOnlyList<string> generatedBaseAffixes,
+        out IReadOnlyList<string> generatedAffixes)
+    {
+        try
+        {
+            (generatedBaseAffixes, generatedAffixes) = _randomAffixProvider.GenerateAffixes(
+                item,
+                randomItem.PowerLevel,
+                randomItem.ItemRarityType,
+                affixes,
+                settings.MonsterLevel,
+                settings.NumberOfAffixesSettings);
+
+            return true;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Something when wrong during the affix generation");
+
+            generatedBaseAffixes = Array.Empty<string>();
+            generatedAffixes = Array.Empty<string>();
+
+            return false;
         }
     }
 
@@ -111,7 +141,7 @@ internal sealed class RandomizedItemProvider : IRandomizedItemProvider
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Failed to generate a random drop: {Message}", exception.Message);
+            _logger.LogError(exception, "Failed to generate a {ItemType} item: {Message}", itemType, exception.Message);
             result = default;
             return false;
         }

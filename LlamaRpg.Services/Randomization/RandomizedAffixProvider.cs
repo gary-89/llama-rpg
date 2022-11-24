@@ -48,40 +48,34 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         var primaryElement = (PrimaryElement)_random.Next(0, 4);
         var secondaryElement = (SecondaryElement)_random.Next(0, 8);
 
-        var baseAffixes = GenerateBaseAffixes(item, rarity, primaryElement, secondaryElement, itemPowerLevel, monsterLevel, matchingAffixes, out var affixGroupToExclude);
+        var baseAffixes = GenerateBaseAffixes(
+            item,
+            rarity,
+            primaryElement,
+            secondaryElement,
+            itemPowerLevel,
+            monsterLevel,
+            matchingAffixes,
+            out var affixGroupToExclude);
 
         if (rarity == ItemRarityType.Normal)
         {
             return (baseAffixes.AsReadOnly(), Array.Empty<string>());
         }
 
-        int numberOfPrefixes;
-        int numberOfSuffixes;
-
-        switch (rarity)
+        var (numberOfPrefixes, numberOfSuffixes) = rarity switch
         {
-            case ItemRarityType.Magic:
-                (numberOfPrefixes, numberOfSuffixes) = _numberOfAffixesGenerator.Generate(
-                    numberOfAffixesSettings.PrefixesForMagicItems,
-                    numberOfAffixesSettings.SuffixesForMagicItems,
-                    numberOfAffixesSettings.MinimumNumberOfAffixesForMagicItems);
-                break;
-
-            case ItemRarityType.Rare:
-                (numberOfPrefixes, numberOfSuffixes) = _numberOfAffixesGenerator.Generate(
-                    numberOfAffixesSettings.PrefixesForRareItems,
-                    numberOfAffixesSettings.SuffixesForRareItems,
-                    numberOfAffixesSettings.MinimumNumberOfAffixesForRareItems);
-                break;
-
-            case ItemRarityType.Elite:
-                (numberOfPrefixes, numberOfSuffixes) = _numberOfAffixesGenerator.GenerateForEliteItems(numberOfAffixesSettings.AffixesForEliteItems);
-                break;
-
-            default:
-                (numberOfPrefixes, numberOfSuffixes) = (0, 0);
-                break;
-        }
+            ItemRarityType.Magic => _numberOfAffixesGenerator.Generate(
+                numberOfAffixesSettings.PrefixesForMagicItems,
+                numberOfAffixesSettings.SuffixesForMagicItems,
+                numberOfAffixesSettings.MinimumNumberOfAffixesForMagicItems),
+            ItemRarityType.Rare => _numberOfAffixesGenerator.Generate(
+                numberOfAffixesSettings.PrefixesForRareItems,
+                numberOfAffixesSettings.SuffixesForRareItems,
+                numberOfAffixesSettings.MinimumNumberOfAffixesForRareItems),
+            ItemRarityType.Elite => _numberOfAffixesGenerator.GenerateForEliteItems(numberOfAffixesSettings.AffixesForEliteItems),
+            _ => (0, 0)
+        };
 
         var generatedPrefixes = InternalGenerateAffixes(
             numberOfPrefixes,
@@ -114,7 +108,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
 
     private IReadOnlyList<string> InternalGenerateAffixes(
         int count,
-        IReadOnlyCollection<Affix> matchingAffixes,
+        IReadOnlyList<Affix> matchingAffixes,
         bool isBaseAffix,
         ItemBase item,
         ItemRarityType itemRarity,
@@ -126,21 +120,17 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         out int? affixGroup)
     {
         const int maxNumberOfAttempts = 100;
-
-        List<(int Group, string AffixText)> generatedAffixesWithGroup = new();
         affixGroup = null;
 
-        if (matchingAffixes.Count == 0)
-        {
-            return Array.Empty<string>();
-        }
-
-        HashSet<int> generatedAffixNames = new();
+        var generatedAffixesWithGroup = new List<(int Group, string AffixText)>();
+        var generatedAffixNames = new HashSet<int>();
 
         if (affixGroupToExclude is not null)
         {
             generatedAffixNames.Add(affixGroupToExclude.Value);
         }
+
+        var overallNumberOfAttempts = 0;
 
         for (var i = 0; i < count; i++)
         {
@@ -152,8 +142,10 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
             while (invalidAffix)
             {
                 numberOfAttempts++;
+                overallNumberOfAttempts++;
 
-                affix = matchingAffixes.ElementAt(_random.Next(matchingAffixes.Count));
+                affix = matchingAffixes[_random.Next(matchingAffixes.Count)];
+
                 var rules = affix.Rules.Where(r => !generatedAffixNames.Contains(r.Group)
                                                    && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel)).ToList();
 
@@ -167,13 +159,13 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
                 invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
-                               || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
                                || (isBaseAffix && affix1Rule.PowerLevelRequired != itemPowerLevel)
+                               || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
                                || _affixValidator.ValidateRule(affix1Rule, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel) == false;
 
                 if (numberOfAttempts > maxNumberOfAttempts)
                 {
-                    throw new InvalidOperationException($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
+                    throw new InvalidOperationException($"Impossible to find affix for {itemRarity} item {item.Name} (plvl={itemLevelRequired})");
                 }
             }
 
@@ -254,9 +246,11 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                     break;
             }
 
-            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name} ({(affix.Attribute == AffixAttributeType.Prefix ? "p" : affix.Attribute == AffixAttributeType.Suffix ? "s" : "-")}): {mod}{(affix.HasPercentageModifier ? Percentage : string.Empty)}"));
+            generatedAffixesWithGroup.Add((affix1Rule.Group, $"{affix.Name}: {mod}{(affix.HasPercentageModifier ? Percentage : string.Empty)}"));
             generatedAffixNames.Add(affix1Rule.Group);
         }
+
+        _logger.LogDebug("Generated affixes after {Attempts} attempts", overallNumberOfAttempts);
 
         return generatedAffixesWithGroup.OrderBy(x => x.Group).Select(x => x.AffixText).ToList().AsReadOnly();
 
@@ -286,9 +280,11 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         IReadOnlyCollection<Affix> matchingAffixes,
         out int? affixGroupToExclude)
     {
-        var baseAffixes = new List<string>();
+        var baseAffixes = new List<string>(); // TODO: Yield return
 
-        IReadOnlyCollection<Affix> mandatoryAffixes = item.Type switch
+        affixGroupToExclude = default;
+
+        IReadOnlyList<Affix> mandatoryAffixes = item.Type switch
         {
             ItemType.Weapon =>
                 matchingAffixes
@@ -309,30 +305,27 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
                     .Where(x => x.Type == AffixType.Defense)
                     .ToList()
                     .AsReadOnly(),
-
-            ItemType.Jewelry => Enumerable.Empty<Affix>().ToList(),
-            ItemType.MeleeWeapon => Enumerable.Empty<Affix>().ToList(),
-            ItemType.MagicWeapon => Enumerable.Empty<Affix>().ToList(),
-            ItemType.RangeWeapon => Enumerable.Empty<Affix>().ToList(),
-            _ => Enumerable.Empty<Affix>().ToList()
+            ItemType.Jewelry or ItemType.MeleeWeapon or ItemType.MagicWeapon or ItemType.RangeWeapon or _ => Enumerable.Empty<Affix>().ToList()
         };
 
-        var generatedAffixes = InternalGenerateAffixes(
-            count: 1,
-            mandatoryAffixes,
-            isBaseAffix: true,
-            item,
-            rarity,
-            primaryElementOfItem: default,
-            secondaryElementOfItem: default,
-            itemPowerLevel,
-            itemLevelRequired,
-            default,
-            out affixGroupToExclude);
+        var generatedBaseAffixes = mandatoryAffixes.Count > 0
+            ? InternalGenerateAffixes(
+                count: 1,
+                mandatoryAffixes,
+                isBaseAffix: true,
+                item,
+                rarity,
+                primaryElementOfItem: default,
+                secondaryElementOfItem: default,
+                itemPowerLevel,
+                itemLevelRequired,
+                default,
+                out affixGroupToExclude)
+            : Array.Empty<string>();
 
-        if (generatedAffixes.Count > 0)
+        if (generatedBaseAffixes.Count > 0)
         {
-            baseAffixes.Add(generatedAffixes[0]);
+            baseAffixes.Add(generatedBaseAffixes[0]);
         }
 
         if (item.Subtype is not (ItemSubtype.Wand or ItemSubtype.Staff))
@@ -345,7 +338,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
             .ToList()
             .AsReadOnly();
 
-        var generateAffixes2 = InternalGenerateAffixes(
+        var additionalBaseAffixes = InternalGenerateAffixes(
             count: 1,
             mandatoryAffixes,
             isBaseAffix: false,
@@ -358,9 +351,9 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
             default,
             out _);
 
-        if (generateAffixes2.Count > 0)
+        if (additionalBaseAffixes.Count > 0)
         {
-            baseAffixes.Add(generateAffixes2[0]);
+            baseAffixes.Add(additionalBaseAffixes[0]);
         }
 
         return baseAffixes;
