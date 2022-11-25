@@ -36,7 +36,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
         NumberOfAffixesSettings numberOfAffixesSettings)
     {
         var matchingAffixes = affixes
-            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item.Type, item.Subtype, monsterLevel, itemPowerLevel)))
+            .Where(x => x.Rules.Any(r => _affixValidator.ValidateRule(r, item.Type, item.Subtype, monsterLevel, itemPowerLevel, rarity)))
             .ToList();
 
         if (matchingAffixes.Count == 0)
@@ -139,15 +139,30 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
             var invalidAffix = true;
             var numberOfAttempts = 0;
 
-            while (invalidAffix)
+            while (true)
             {
                 numberOfAttempts++;
                 overallNumberOfAttempts++;
 
-                affix = matchingAffixes[_random.Next(matchingAffixes.Count)];
+                if (numberOfAttempts > maxNumberOfAttempts)
+                {
+                    throw new InvalidOperationException($"Impossible to find affix for {itemRarity} item {item.Name} (plvl={itemLevelRequired})");
+                }
 
-                var rules = affix.Rules.Where(r => !generatedAffixNames.Contains(r.Group)
-                                                   && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel)).ToList();
+                var temp = matchingAffixes.Where(a =>
+                    _affixValidator.ValidateItemElements(a, primaryElementOfItem, secondaryElementOfItem)).ToList();
+
+                if (temp.Count == 0)
+                {
+                    continue;
+                }
+
+                affix = temp[_random.Next(temp.Count)];
+
+                var rules = affix.Rules
+                    .Where(r => !generatedAffixNames.Contains(r.Group)
+                                && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel, itemRarity))
+                    .ToList();
 
                 if (rules.Count == 0)
                 {
@@ -158,15 +173,7 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
 
                 affixGroup = count == 1 ? affix1Rule.Group : null;
 
-                invalidAffix = _affixValidator.ValidateItemElements(affix, primaryElementOfItem, secondaryElementOfItem) == false
-                               || (isBaseAffix && affix1Rule.PowerLevelRequired != itemPowerLevel)
-                               || _affixValidator.ValidateRarity(affix1Rule, itemRarity) == false
-                               || _affixValidator.ValidateRule(affix1Rule, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel) == false;
-
-                if (numberOfAttempts > maxNumberOfAttempts)
-                {
-                    throw new InvalidOperationException($"Impossible to find affix for {itemRarity} item {item.Name} (plvl={itemLevelRequired})");
-                }
+                break;
             }
 
             if (affix is null || affix1Rule is null)

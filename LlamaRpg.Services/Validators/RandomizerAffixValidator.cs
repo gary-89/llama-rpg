@@ -18,15 +18,16 @@ internal sealed class RandomizerAffixValidator : IRandomizerAffixValidator
         };
     }
 
-    public bool ValidateRule(AffixRule r, ItemType itemType, ItemSubtype itemSubtype, int itemLevelRequired, int itemPowerLevelRequired)
+    public bool ValidateRule(AffixRule rule, ItemType itemType, ItemSubtype itemSubtype, int itemLevelRequired, int itemPowerLevelRequired, ItemRarityType itemRarity)
     {
-        return r.ItemLevelRequired < itemLevelRequired
-               && r.PowerLevelRequired <= itemPowerLevelRequired
-               && (r.ItemTypes.Contains(itemType)
-                   || r.ItemSubtypes.Contains(itemSubtype)
-                   || (r.ItemTypes.Contains(ItemType.MeleeWeapon) && (itemSubtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
-                   || (r.ItemTypes.Contains(ItemType.RangeWeapon) && (itemSubtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
-                   || (r.ItemTypes.Contains(ItemType.MagicWeapon) && (itemSubtype is ItemSubtype.Wand or ItemSubtype.Staff)));
+        return rule.ItemLevelRequired <= itemLevelRequired
+               && rule.PowerLevelRequired <= itemPowerLevelRequired
+               && ValidateRarity(rule, itemRarity)
+               && (rule.ItemTypes.Contains(itemType)
+                   || rule.ItemSubtypes.Contains(itemSubtype)
+                   || (rule.ItemTypes.Contains(ItemType.MeleeWeapon) && (itemSubtype is ItemSubtype.Axe or ItemSubtype.Sword or ItemSubtype.Mace))
+                   || (rule.ItemTypes.Contains(ItemType.RangeWeapon) && (itemSubtype is ItemSubtype.Bow or ItemSubtype.Crossbow))
+                   || (rule.ItemTypes.Contains(ItemType.MagicWeapon) && (itemSubtype is ItemSubtype.Wand or ItemSubtype.Staff)));
     }
 
     public bool ValidateItemElements(Affix affix, PrimaryElement? primaryElementOfWeapon, SecondaryElement? secondaryElementOfWeapon)
