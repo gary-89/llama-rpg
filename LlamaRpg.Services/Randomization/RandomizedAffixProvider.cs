@@ -134,52 +134,47 @@ internal sealed class RandomizedAffixProvider : IRandomizedAffixProvider
 
         for (var i = 0; i < count; i++)
         {
-            Affix? affix = null;
-            AffixRule? affix1Rule = null;
-            var invalidAffix = true;
-            var numberOfAttempts = 0;
+            Affix affix;
+            AffixRule affix1Rule;
 
-            while (true)
+            overallNumberOfAttempts++;
+
+            var remainingPossibleAffixes = matchingAffixes
+                .Where(a => _affixValidator.ValidateItemElements(a, primaryElementOfItem, secondaryElementOfItem)
+                            && a.Rules.Any(r => !generatedAffixNames.Contains(r.Group)))
+                .ToList();
+
+            if (remainingPossibleAffixes.Count == 0)
             {
-                numberOfAttempts++;
-                overallNumberOfAttempts++;
+                throw new InvalidOperationException($"Impossible to find affix for {itemRarity} item {item.Name} (plvl={itemLevelRequired})" +
+                                                    $": generated {i}/{count}");
+            }
 
-                if (numberOfAttempts > maxNumberOfAttempts)
-                {
-                    throw new InvalidOperationException($"Impossible to find affix for {itemRarity} item {item.Name} (plvl={itemLevelRequired})");
-                }
-
-                var temp = matchingAffixes.Where(a =>
-                    _affixValidator.ValidateItemElements(a, primaryElementOfItem, secondaryElementOfItem)).ToList();
-
-                if (temp.Count == 0)
-                {
-                    continue;
-                }
-
-                affix = temp[_random.Next(temp.Count)];
-
-                var rules = affix.Rules
+            var remainingPossibleTiers = remainingPossibleAffixes
+                .SelectMany(x => x.Rules
                     .Where(r => !generatedAffixNames.Contains(r.Group)
-                                && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel, itemRarity))
-                    .ToList();
+                                && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel, itemRarity)))
+                .ToList();
 
-                if (rules.Count == 0)
-                {
-                    continue;
-                }
-
-                affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
-
-                affixGroup = count == 1 ? affix1Rule.Group : null;
-
-                break;
-            }
-
-            if (affix is null || affix1Rule is null)
+            if (remainingPossibleTiers.Count == 0)
             {
-                throw new InvalidOperationException($"Impossible to find affix for item {item.Name} (plvl={itemLevelRequired})");
+                throw new InvalidOperationException($"Impossible to find affix tiers for {itemRarity} item {item.Name} (plvl={itemLevelRequired})" +
+                                                    $": generated {i}/{count}");
             }
+
+            var affixTier = remainingPossibleTiers[_random.Next(remainingPossibleTiers.Count)];
+            var aff = remainingPossibleAffixes.FirstOrDefault(x => x.Rules.Any(r => affixTier == r));
+
+            affix = remainingPossibleAffixes[_random.Next(remainingPossibleAffixes.Count)];
+
+            var rules = affix.Rules
+                .Where(r => !generatedAffixNames.Contains(r.Group)
+                            && _affixValidator.ValidateRule(r, item.Type, item.Subtype, itemLevelRequired, itemPowerLevel, itemRarity))
+                .ToList();
+
+            affix1Rule = affix.Rules[_random.Next(affix.Rules.Count)];
+
+            affixGroup = count == 1 ? affix1Rule.Group : null;
 
             var mod = affix1Rule.Modifier1MinText;
             int min, max;
